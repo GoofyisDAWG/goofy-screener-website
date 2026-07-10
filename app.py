@@ -1755,6 +1755,9 @@ elif page == "🌏 Fundamental Rankings":
 
             stats_html = "".join(stats) if stats else ""
 
+            sector_html = ("<span style='color:#6b7280;font-size:11px'>" + row.get("sector","") + "</span>") if row.get("sector") else ""
+            mcap_html   = ("<span style='color:#6b7280;font-size:11px;margin-left:4px'>" + mcap_str + "</span>") if mcap_str else ""
+
             st.markdown(
                 f"<div class='fund-card {css_class}'>"
                 f"<div style='display:flex;align-items:flex-start;gap:14px'>"
@@ -1767,8 +1770,8 @@ elif page == "🌏 Fundamental Rankings":
                 f"<span style='font-size:17px;font-weight:800;color:#ffffff'>{row['ticker']}</span>"
                 f"<span style='color:#c9d1d9;font-size:13px'>{row['name']}</span>"
                 f"<span class='market-badge {badge_cls}'>{mkt}</span>"
-                f"{'<span style=\"color:#6b7280;font-size:11px\">' + row.get('sector','') + '</span>' if row.get('sector') else ''}"
-                f"{'<span style=\"color:#6b7280;font-size:11px;margin-left:4px\">' + mcap_str + '</span>' if mcap_str else ''}"
+                f"{sector_html}"
+                f"{mcap_html}"
                 f"</div>"
                 # score bar + label
                 f"<div style='margin-top:7px;display:flex;align-items:center;gap:6px'>"
