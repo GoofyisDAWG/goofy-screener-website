@@ -58,11 +58,26 @@ STRATEGY_PLAIN = {
 @st.cache_data(ttl=600)
 def load_screener_universe() -> tuple[pd.DataFrame, str, str]:
     """Load all stocks from the latest screener run (US + ASX + JPX sheets)."""
-    files = sorted([f for f in SCREENER_DIR.glob("Goofy_Phase8*.xlsx")
-                    if not f.name.startswith("~")])
+    files = [f for f in SCREENER_DIR.glob("Goofy_Phase8*.xlsx")
+             if not f.name.startswith("~")]
     if not files:
         return pd.DataFrame(), "", ""
-    latest = files[-1]
+
+    # Find the most recent date, then pick Run 1 from that date.
+    # All runs produce identical screener ranking data — only their paper
+    # trading tabs differ. Run 1 is the consistent, clean pick.
+    dated = []
+    for f in files:
+        m = re.search(r"(\d{4}-\d{2}-\d{2})_Run(\d+)", f.name)
+        if m:
+            dated.append((m.group(1), int(m.group(2)), f))
+    if not dated:
+        latest = sorted(files)[-1]
+    else:
+        most_recent_date = max(d for d, _, _ in dated)
+        same_day = [(n, f) for d, n, f in dated if d == most_recent_date]
+        same_day.sort(key=lambda x: x[0])  # lowest run number = Run 1
+        latest = same_day[0][1]
 
     frames = []
     for sheet_key in ["🇺🇸 US", "🇦🇺 ASX", "🇯🇵 JPX"]:
@@ -98,7 +113,7 @@ def load_trade_history() -> pd.DataFrame:
     """Load all closed trades across all runs for track record."""
     def fix_nan(s): return re.sub(r':\s*NaN', ': null', s)
     rows = []
-    for run in range(1, 12):
+    for run in range(1, 17):
         p = TRADES_DIR / f"run{run}_trades_log.json"
         if not p.exists():
             continue
@@ -137,6 +152,377 @@ def fetch_chart(ticker: str) -> pd.DataFrame:
         return df.dropna(subset=["Close"])
     except Exception:
         return pd.DataFrame()
+
+
+ETF_TICKERS = {"SPY","QQQ","GLD","TLT","IWM","STW.AX","IOZ.AX","VAS.AX","1321.T","1306.T"}
+
+# ── asset class classification ─────────────────────────────────────────────────
+ASSET_CLASS_MAP = {
+    # Gold & precious metals
+    "GLD":"Gold", "IAU":"Gold", "GOLD":"Gold", "GDX":"Gold",
+    "GOLD.AX":"Gold", "GDX.AX":"Gold",
+    "SLV":"Commodities", "SIVR":"Commodities",
+    # Broad commodities
+    "DJP":"Commodities", "GSG":"Commodities", "PDBC":"Commodities",
+    # US bonds
+    "TLT":"Bonds", "AGG":"Bonds", "BND":"Bonds", "IEF":"Bonds",
+    "SHY":"Bonds", "LQD":"Bonds", "GOVT":"Bonds", "VCIT":"Bonds",
+    "VCSH":"Bonds", "MUB":"Bonds", "HYG":"Bonds", "JNK":"Bonds",
+    "SGOV":"Cash Equivalent", "SHV":"Cash Equivalent", "BIL":"Cash Equivalent",
+    # ASX bonds
+    "VAF.AX":"Bonds", "IAF.AX":"Bonds", "BOND.AX":"Bonds",
+    "VGB.AX":"Bonds", "RGB.AX":"Bonds",
+    # Broad market ETFs
+    "SPY":"Broad Market ETF", "QQQ":"Broad Market ETF", "IWM":"Broad Market ETF",
+    "VTI":"Broad Market ETF", "SCHB":"Broad Market ETF", "IVV":"Broad Market ETF",
+    "STW.AX":"Broad Market ETF", "IOZ.AX":"Broad Market ETF",
+    "VAS.AX":"Broad Market ETF", "A200.AX":"Broad Market ETF",
+    "1321.T":"Broad Market ETF", "1306.T":"Broad Market ETF",
+    # Real estate
+    "VNQ":"Real Estate", "SCHH":"Real Estate",
+}
+
+ASSET_CLASS_ICONS = {
+    "Gold":             "🥇",
+    "Bonds":            "📜",
+    "Cash Equivalent":  "💵",
+    "Commodities":      "🛢️",
+    "Broad Market ETF": "🌐",
+    "Real Estate":      "🏠",
+    "Stock":            "📈",
+    "ETF":              "📦",
+}
+
+def classify_asset(ticker: str, info: dict) -> str:
+    """Return asset class label for a ticker."""
+    if ticker in ASSET_CLASS_MAP:
+        return ASSET_CLASS_MAP[ticker]
+    quote_type = info.get("quoteType", "")
+    if quote_type == "ETF":
+        name = (info.get("longName") or info.get("shortName") or "").lower()
+        cat  = (info.get("category") or "").lower()
+        if any(w in name + cat for w in ["bond","fixed income","treasury","credit","debt"]):
+            return "Bonds"
+        if any(w in name + cat for w in ["gold","silver","precious","metal","commodity","commodit"]):
+            return "Gold" if "gold" in name + cat else "Commodities"
+        if any(w in name + cat for w in ["real estate","reit","property"]):
+            return "Real Estate"
+        return "Broad Market ETF"
+    return "Stock"
+
+
+@st.cache_data(ttl=3600)
+def fetch_stock_health(ticker: str) -> dict:
+    """Fetch fundamental health metrics for the Portfolio Health Check page."""
+    ticker = ticker.strip().upper()
+    if ticker in ETF_TICKERS:
+        asset_class = classify_asset(ticker, {})
+        return {
+            "ticker": ticker, "is_etf": True, "error": False,
+            "name": ticker, "sector": "ETF / Index Fund",
+            "asset_class": asset_class,
+            "checks": [], "score": 6, "max": 6,
+        }
+    try:
+        info = yf.Ticker(ticker).info
+        if not isinstance(info, dict) or len(info) < 3:
+            return {"ticker": ticker, "error": True, "name": ticker}
+    except Exception:
+        return {"ticker": ticker, "error": True, "name": ticker}
+
+    checks = []
+
+    pe = info.get("trailingPE") or info.get("forwardPE")
+    if pe is not None:
+        try:
+            pe_f = float(pe)
+            ok = pe_f < 40
+            checks.append({
+                "label": "Valuation (P/E ratio)",
+                "pass": ok,
+                "detail": f"P/E = {pe_f:.1f} — {'reasonable' if ok else 'very high, may be overvalued'}",
+                "plain": "Is the stock priced reasonably compared to its earnings?",
+            })
+        except Exception:
+            pass
+
+    rg = info.get("revenueGrowth")
+    if rg is not None:
+        try:
+            rg_f = float(rg)
+            ok = rg_f > -0.10
+            checks.append({
+                "label": "Revenue growth",
+                "pass": ok,
+                "detail": f"{rg_f*100:+.1f}% year-on-year — {'growing' if rg_f > 0 else 'declining'}",
+                "plain": "Is the company's revenue growing over the past year?",
+            })
+        except Exception:
+            pass
+
+    dte = info.get("debtToEquity")
+    if dte is not None:
+        try:
+            dte_f = float(dte)
+            ok = dte_f < 300
+            checks.append({
+                "label": "Debt level",
+                "pass": ok,
+                "detail": f"Debt/Equity = {dte_f:.0f}% — {'manageable' if ok else 'high debt load'}",
+                "plain": "Does the company have manageable levels of debt?",
+            })
+        except Exception:
+            pass
+
+    fcf = info.get("freeCashflow")
+    if fcf is not None:
+        try:
+            fcf_f = float(fcf)
+            ok = fcf_f > 0
+            fcf_b = fcf_f / 1e9
+            checks.append({
+                "label": "Free cash flow",
+                "pass": ok,
+                "detail": f"${fcf_b:+.2f}B — {'generating cash' if ok else 'burning cash'}",
+                "plain": "Is the company actually generating real cash from its business?",
+            })
+        except Exception:
+            pass
+
+    pm = info.get("profitMargins")
+    if pm is not None:
+        try:
+            pm_f = float(pm)
+            ok = pm_f > -0.05
+            checks.append({
+                "label": "Profitability",
+                "pass": ok,
+                "detail": f"Profit margin = {pm_f*100:.1f}% — {'profitable' if pm_f > 0 else 'loss-making'}",
+                "plain": "Is the company profitable (making more than it spends)?",
+            })
+        except Exception:
+            pass
+
+    rec = info.get("recommendationMean")
+    rec_key = info.get("recommendationKey", "")
+    if rec is not None:
+        try:
+            rec_f = float(rec)
+            ok = rec_f < 4.0
+            checks.append({
+                "label": "Analyst view",
+                "pass": ok,
+                "detail": f"Consensus = {rec_key.replace('_',' ').title()} ({rec_f:.1f}/5) — {'positive' if ok else 'analysts lean sell'}",
+                "plain": "What do professional analysts think about this stock?",
+            })
+        except Exception:
+            pass
+
+    passed = sum(1 for c in checks if c["pass"])
+    total  = len(checks)
+
+    if total < 2:
+        overall = "limited_data"
+    elif passed >= total * 0.67:
+        overall = "healthy"
+    elif passed >= total * 0.40:
+        overall = "caution"
+    else:
+        overall = "concern"
+
+    return {
+        "ticker":      ticker,
+        "error":       False,
+        "is_etf":      False,
+        "asset_class": classify_asset(ticker, info),
+        "name":        info.get("longName", ticker),
+        "sector":      info.get("sector", ""),
+        "industry":    info.get("industry", ""),
+        "currency":    info.get("currency", ""),
+        "market_cap":  info.get("marketCap"),
+        "checks":      checks,
+        "score":       passed,
+        "max":         total,
+        "overall":     overall,
+    }
+
+
+# ── translations ──────────────────────────────────────────────────────────────
+
+_TR = {
+    "en": {
+        "fund_title":    "🌏 Fundamental Rankings",
+        "fund_sub":      "All {n} stocks ranked by financial health — no jargon, just the numbers that matter.",
+        "filter_market": "Filter by market",
+        "all_markets":   "🌍 All",
+        "sort_by":       "Sort by",
+        "sort_score":    "Health Score",
+        "sort_pe":       "P/E (lowest)",
+        "sort_roe":      "ROE (highest)",
+        "sort_div":      "Dividend Yield",
+        "strong":   "Strong",  "watch": "Watch",  "weak": "Weak",
+        "limited":  "Limited", "etf":   "ETF",
+        "n_stocks": "stocks",
+        "lbl_pe":   "P/E",   "lbl_roe": "ROE",    "lbl_div":     "Dividend",
+        "lbl_debt": "Debt",  "lbl_rev": "Revenue", "lbl_analyst": "Analysts",
+        "lbl_fcf":  "Cash Flow", "lbl_beta": "Beta", "lbl_cr": "Curr. Ratio",
+        "lbl_pb":   "P/Book", "lbl_gm": "Gross Margin", "lbl_om": "Op. Margin",
+        "pass_lbl": "✅ Strong", "watch_lbl": "⚠️ Watch",
+        "fail_lbl": "❌ Weak",  "etf_lbl":   "📦 ETF",  "na_lbl": "❓ Limited",
+        "no_cache": "No fundamental data yet — run the screener first.",
+        "last_upd": "Data from",
+        "tip_pe":   "Stock price ÷ earnings per share. Lower = cheaper. Under 20 is often good value.",
+        "tip_roe":  "Profit as % of shareholders' money. Over 10% is healthy. Warren Buffett's favourite metric.",
+        "tip_div":  "Annual dividend as % of stock price. Higher = more passive income.",
+        "tip_rev":  "Year-on-year revenue change. Positive = growing business.",
+        "tip_debt": "Total debt ÷ equity. Under 200% is generally safe.",
+        "tip_fcf":  "Real cash generated by the business after expenses. Positive = self-funding.",
+        "tip_anl":  "Average analyst rating. Ranges from Strong Buy (1) to Sell (5).",
+        "tip_beta": "How much the stock moves vs the market. Under 1.0 = less volatile.",
+        "tip_cr":   "Current assets ÷ current liabilities. Over 1.0 = can pay short-term bills.",
+        "guide_title": "❓ How to use this page",
+        "guide_body": (
+            "**The simplest way to find financially healthy stocks — no charts needed.**\n\n"
+            "All stocks are scored on **8 fundamental checks** and ranked highest to lowest. "
+            "Use the filters to focus on your market, sort by the metric that matters most to you, "
+            "and use this list to build a shortlist — then head to **Screener Rankings** to see which "
+            "of these also have a technical signal today.\n\n"
+            "**The 8 checks:** P/E ratio · Revenue growth · Debt level · Cash flow · "
+            "Profitability · Analyst view · Return on equity (ROE) · Short-term safety"
+        ),
+    },
+    "ja": {
+        "fund_title":    "🌏 ファンダメンタル ランキング",
+        "fund_sub":      "{n}銘柄を財務健全性でランク付け — 専門用語なし、重要な数字だけ。",
+        "filter_market": "市場でフィルター",
+        "all_markets":   "🌍 全市場",
+        "sort_by":       "並び替え",
+        "sort_score":    "健全性スコア",
+        "sort_pe":       "PER（低い順）",
+        "sort_roe":      "ROE（高い順）",
+        "sort_div":      "配当利回り",
+        "strong":   "良好",   "watch": "注意",   "weak": "懸念",
+        "limited":  "データ不足", "etf": "ETF",
+        "n_stocks": "銘柄",
+        "lbl_pe":   "PER",   "lbl_roe": "ROE",    "lbl_div":     "配当利回り",
+        "lbl_debt": "負債比率", "lbl_rev": "売上成長", "lbl_analyst": "アナリスト",
+        "lbl_fcf":  "キャッシュフロー", "lbl_beta": "ベータ", "lbl_cr": "流動比率",
+        "lbl_pb":   "PBR", "lbl_gm": "売上総利益率", "lbl_om": "営業利益率",
+        "pass_lbl": "✅ 良好", "watch_lbl": "⚠️ 注意",
+        "fail_lbl": "❌ 懸念", "etf_lbl":   "📦 ETF",  "na_lbl": "❓ データ不足",
+        "no_cache": "データなし — スクリーナーを実行してください。",
+        "last_upd": "データ更新日",
+        "tip_pe":   "株価 ÷ 1株当たり利益。低いほど割安。一般的に20以下が割安。",
+        "tip_roe":  "株主資本に対する利益の割合。10%超が健全。バフェットが重視する指標。",
+        "tip_div":  "株価に対する年間配当金の割合。高いほど配当収入が多い。",
+        "tip_rev":  "前年比の売上成長率。プラスは成長中の事業を意味する。",
+        "tip_debt": "総負債を自己資本で割った値。200%未満が一般的に安全。",
+        "tip_fcf":  "費用差引後に事業が実際に生み出す現金。プラスは自己資金で運営できることを示す。",
+        "tip_anl":  "アナリストの平均評価。1（強い買い）〜5（売り）の範囲。",
+        "tip_beta": "市場全体と比較した株価の変動幅。1.0未満は市場より変動が少ない。",
+        "tip_cr":   "流動資産 ÷ 流動負債。1.0超は短期債務を支払える状態。",
+        "guide_title": "❓ このページの使い方",
+        "guide_body": (
+            "**チャート不要 — 財務的に健全な銘柄を見つける最もシンプルな方法。**\n\n"
+            "全銘柄を**8項目のファンダメンタルチェック**で評価しランク付けしています。 "
+            "フィルターで市場を絞り込み、重視する指標で並べ替え、候補リストを作成してください。"
+            "その後、**スクリーナーランキング**で今日のシグナルを確認しましょう。\n\n"
+            "**8つのチェック:** PER · 売上成長率 · 負債水準 · キャッシュフロー · "
+            "収益性 · アナリスト評価 · ROE · 短期安全性（流動比率）"
+        ),
+    },
+}
+
+def T(key: str, lang: str = "en", **kwargs) -> str:
+    text = _TR.get(lang, _TR["en"]).get(key, _TR["en"].get(key, key))
+    return text.format(**kwargs) if kwargs else text
+
+
+# ── fundamental rankings loader ────────────────────────────────────────────────
+
+def _infer_market(ticker: str) -> str:
+    if ticker.endswith(".AX"): return "ASX"
+    if ticker.endswith(".T"):  return "JPX"
+    return "US"
+
+def _safe_float(val) -> float | None:
+    try:
+        f = float(val)
+        return None if (f != f) else f  # NaN check
+    except (TypeError, ValueError):
+        return None
+
+@st.cache_data(ttl=3600)
+def load_fundamental_rankings() -> list[dict]:
+    """Read the fundamentals cache and return all stocks ranked by health score."""
+    cache_paths = [
+        Path("screener_output/fundamentals_cache.json"),
+        Path(__file__).parent / "screener_output" / "fundamentals_cache.json",
+    ]
+    cache = {}
+    for p in cache_paths:
+        if p.exists():
+            try:
+                cache = json.loads(p.read_text())
+                break
+            except Exception:
+                pass
+    if not cache:
+        return []
+
+    rows = []
+    for ticker, r in cache.items():
+        if not isinstance(r, dict):
+            continue
+        bd = r.get("breakdown", {})
+        is_etf = r.get("is_etf", False)
+        score  = r.get("score", 0)
+        maxs   = r.get("max", 0)
+
+        if is_etf:
+            overall = "etf"
+        elif maxs < 2:
+            overall = "limited"
+        elif score / maxs >= 0.67:
+            overall = "strong"
+        elif score / maxs >= 0.40:
+            overall = "watch"
+        else:
+            overall = "weak"
+
+        rows.append({
+            "ticker":    ticker,
+            "market":    _infer_market(ticker),
+            "is_etf":    is_etf,
+            "overall":   overall,
+            "score":     score,
+            "max":       maxs,
+            "breakdown": bd,
+            "name":      r.get("company_name", ticker),
+            "sector":    r.get("sector", ""),
+            "currency":  r.get("currency", ""),
+            "market_cap":_safe_float(r.get("market_cap")),
+            # scored metrics (raw values for display)
+            "pe":        _safe_float(r.get("pe") or r.get("forward_pe")),
+            "revenue_growth": _safe_float(r.get("revenue_growth")),
+            "debt_equity":    _safe_float(r.get("debt_equity")),
+            "free_cashflow":  _safe_float(r.get("free_cashflow")),
+            "profit_margin":  _safe_float(r.get("profit_margin")),
+            "analyst_rating": _safe_float(r.get("analyst_rating")),
+            "analyst_label":  r.get("analyst_label", ""),
+            "roe":            _safe_float(r.get("return_on_equity")),
+            "current_ratio":  _safe_float(r.get("current_ratio")),
+            # display-only
+            "dividend_yield": _safe_float(r.get("dividend_yield")),
+            "beta":           _safe_float(r.get("beta")),
+            "price_to_book":  _safe_float(r.get("price_to_book")),
+            "earnings_growth":_safe_float(r.get("earnings_growth")),
+            "gross_margins":  _safe_float(r.get("gross_margins")),
+            "fetched_at": r.get("fetched_at", ""),
+        })
+
+    rows.sort(key=lambda x: (-(x["score"] or 0), x["ticker"]))
+    return rows
 
 
 # ── helpers ───────────────────────────────────────────────────────────────────
@@ -678,12 +1064,56 @@ body, [data-testid="stAppViewContainer"] { background: #0d1117; }
     background: #161b22; border: 1px solid #30363d; border-radius: 8px;
     padding: 12px 16px; margin: 6px 0;
 }
+.health-card {
+    background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+    padding: 16px 20px; margin: 8px 0;
+}
+.health-check {
+    display: flex; align-items: center; gap: 10px;
+    padding: 6px 0; border-bottom: 1px solid #21262d; font-size: 14px;
+}
 .section-header { color: #e6edf3; font-size: 20px; font-weight: 700; margin: 24px 0 12px; }
 .disclaimer-box {
     background: #3d2600; border: 1px solid #d29922; border-radius: 8px;
     padding: 12px 16px; font-size: 12px; color: #d29922; margin-top: 8px;
 }
+.guide-box {
+    background: #0f2027; border: 1px solid #1f6feb; border-radius: 8px;
+    padding: 14px 18px; margin-bottom: 16px; font-size: 13px; color: #c9d1d9;
+}
+.level-badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 11px; font-weight: 700; margin-left: 8px;
+}
 a { color: #58a6ff !important; }
+
+/* ── Fundamental Rankings bright palette ──────────────── */
+.fund-card {
+    background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+    padding: 14px 18px; margin: 5px 0; transition: border-color 0.15s;
+}
+.fund-card:hover { border-color: #58a6ff; }
+.fund-strong  { border-left: 4px solid #23d18b !important; }
+.fund-watch   { border-left: 4px solid #ffca28 !important; }
+.fund-weak    { border-left: 4px solid #ff4757 !important; }
+.fund-etf     { border-left: 4px solid #a78bfa !important; }
+.fund-limited { border-left: 4px solid #6b7280 !important; }
+.bright-green  { color: #23d18b !important; font-weight: 700; }
+.bright-amber  { color: #ffca28 !important; font-weight: 700; }
+.bright-red    { color: #ff4757 !important; font-weight: 700; }
+.bright-blue   { color: #4fc3f7 !important; font-weight: 700; }
+.bright-purple { color: #a78bfa !important; font-weight: 700; }
+.fund-summary-pill {
+    display: inline-block; padding: 6px 16px; border-radius: 20px;
+    font-size: 14px; font-weight: 700; margin: 4px 6px;
+}
+.market-badge {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    padding: 2px 8px; border-radius: 4px; margin-left: 6px; vertical-align: middle;
+}
+.mbadge-us  { background: #1e3a5f; color: #4fc3f7; }
+.mbadge-asx { background: #1a3a1a; color: #23d18b; }
+.mbadge-jpx { background: #3a1a1a; color: #ff8c69; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -692,20 +1122,64 @@ with st.sidebar:
     st.markdown("## 📈 Goofy Screener")
     st.caption("Free quantitative stock screener\nUS · ASX · JPX")
     st.markdown("---")
+
     page = st.radio(
         "Navigate",
-        ["Home", "Screener Rankings", "Stock Chart", "Track Record", "About & Disclaimer"],
+        ["🏠 Home", "🔍 Portfolio Health Check", "🌏 Fundamental Rankings",
+         "📊 Screener Rankings", "📈 Stock Chart", "🏆 Track Record",
+         "ℹ️ About & Disclaimer"],
         label_visibility="collapsed",
     )
     st.markdown("---")
 
-    # simple/advanced toggle (shown on rankings pages)
-    simple_mode = st.toggle("Simple mode", value=True,
-                             help="ON = plain English. OFF = full quant data.")
-    st.caption("Simple mode hides quant jargon.")
+    # language selector
+    st.markdown("**Language / 言語**")
+    lang_choice = st.radio(
+        "lang",
+        ["🇬🇧 English", "🇯🇵 日本語"],
+        label_visibility="collapsed",
+        horizontal=True,
+    )
+    lang = "ja" if "日本語" in lang_choice else "en"
     st.markdown("---")
-    st.caption("Data: yfinance · Methodology: walk-forward backtested strategies")
-    st.caption("Not financial advice.")
+
+    # experience level selector
+    st.markdown("**Your experience level**")
+    level = st.radio(
+        "level",
+        ["🟢 Beginner", "🟡 Intermediate", "🔴 Advanced"],
+        label_visibility="collapsed",
+        help="Changes how much detail is shown across the site.",
+    )
+    simple_mode = level == "🟢 Beginner"
+    is_advanced  = level == "🔴 Advanced"
+
+    st.markdown("---")
+    if level == "🟢 Beginner":
+        st.markdown(
+            "<div style='background:#0f2a1a;border:1px solid #3fb950;border-radius:6px;"
+            "padding:10px 12px;font-size:12px;color:#c9d1d9'>"
+            "💡 <b>New here?</b> Start with <b>Fundamental Rankings</b> — "
+            "see all stocks ranked by financial health, no jargon. "
+            "Then use <b>Portfolio Health Check</b> to analyse stocks you already own."
+            "</div>", unsafe_allow_html=True)
+    elif level == "🟡 Intermediate":
+        st.markdown(
+            "<div style='background:#1a1a0f;border:1px solid #d29922;border-radius:6px;"
+            "padding:10px 12px;font-size:12px;color:#c9d1d9'>"
+            "💡 <b>Tip:</b> Check <b>Screener Rankings</b> for today's signals, then "
+            "use <b>Stock Chart</b> to see the strategy driving each signal."
+            "</div>", unsafe_allow_html=True)
+    else:
+        st.markdown(
+            "<div style='background:#1a0f0f;border:1px solid #f85149;border-radius:6px;"
+            "padding:10px 12px;font-size:12px;color:#c9d1d9'>"
+            "💡 <b>Tip:</b> <b>Track Record</b> shows all 14 live paper trade runs. "
+            "Compare win rates across runs to see which config is outperforming."
+            "</div>", unsafe_allow_html=True)
+
+    st.markdown("---")
+    st.caption("Data: yfinance · Not financial advice.")
 
 # ── load data ─────────────────────────────────────────────────────────────────
 df_universe, run_date, hours_ago = load_screener_universe()
@@ -715,7 +1189,7 @@ df_history = load_trade_history()
 # ══════════════════════════════════════════════════════════════════════════════
 #  HOME
 # ══════════════════════════════════════════════════════════════════════════════
-if page == "Home":
+if page == "🏠 Home":
     st.markdown("""
 <div style='padding: 32px 0 16px'>
   <div style='font-size:36px;font-weight:800;color:#e6edf3'>Goofy Screener</div>
@@ -724,6 +1198,39 @@ if page == "Home":
   </div>
 </div>
 """, unsafe_allow_html=True)
+
+    # ── new visitor guide ──────────────────────────────────────────────────────
+    with st.expander("👋 New here? Start here — what is this and how do I use it?", expanded=False):
+        st.markdown("""
+**Goofy Screener is a free tool that helps you find stocks worth looking at — across the US, Australian, and Japanese markets.**
+
+It runs 15 different analysis strategies on 113 stocks every week and ranks them by quality.
+It does NOT tell you what to buy. It tells you which stocks are showing interesting patterns and are worth further research.
+
+---
+
+### Which page should I go to?
+
+| Your situation | Go to |
+|---|---|
+| I want to check if my existing stocks are healthy | 🔍 **Portfolio Health Check** |
+| I want to see what stocks look interesting today | 📊 **Screener Rankings** |
+| I want to understand a specific stock's chart | 📈 **Stock Chart** |
+| I want to see how the system has performed | 🏆 **Track Record** |
+
+---
+
+### The three levels in the sidebar
+
+- **🟢 Beginner** — plain English only. No jargon. Good if you're just starting out.
+- **🟡 Intermediate** — adds strategy details, confidence scores, and position sizing.
+- **🔴 Advanced** — full technical data for people who understand quantitative analysis.
+
+---
+
+⚠️ **Important:** This is an educational tool, not financial advice. Always do your own research before investing.
+""")
+    st.markdown("")
 
     # last updated badge
     if run_date:
@@ -816,13 +1323,539 @@ Signals are labelled **BUY**, **WATCH**, or **PASS**.
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+#  PORTFOLIO HEALTH CHECK
+# ══════════════════════════════════════════════════════════════════════════════
+elif page == "🔍 Portfolio Health Check":
+    st.markdown("## 🔍 Portfolio Health Check")
+    st.markdown(
+        "<div class='guide-box'>"
+        "Enter the tickers of stocks you own or are interested in, separated by commas. "
+        "We'll check each one against 6 fundamental health indicators and give you a plain-English summary. "
+        "<br><br>"
+        "<b>Examples:</b> &nbsp; US stocks: <code>AAPL, MSFT, JPM</code> &nbsp;·&nbsp; "
+        "ASX stocks: <code>CBA.AX, BHP.AX, WBC.AX</code> &nbsp;·&nbsp; "
+        "Japanese stocks: <code>7203.T, 6758.T</code>"
+        "</div>",
+        unsafe_allow_html=True,
+    )
+
+    ticker_input = st.text_input(
+        "Enter stock tickers",
+        placeholder="e.g. AAPL, CBA.AX, 7203.T",
+        label_visibility="collapsed",
+    )
+
+    if ticker_input.strip():
+        raw_tickers = [t.strip().upper() for t in ticker_input.split(",") if t.strip()]
+        if len(raw_tickers) > 10:
+            st.warning("Maximum 10 stocks at once to keep loading fast.")
+            raw_tickers = raw_tickers[:10]
+
+        st.markdown(f"Checking **{len(raw_tickers)} stock(s)**...")
+        results = []
+        prog = st.progress(0)
+        for i, t in enumerate(raw_tickers):
+            results.append(fetch_stock_health(t))
+            prog.progress((i + 1) / len(raw_tickers))
+        prog.empty()
+
+        # ── render each result ─────────────────────────────────────────────────
+        for r in results:
+            ticker = r["ticker"]
+
+            if r.get("error"):
+                st.markdown(
+                    f"<div class='health-card'>"
+                    f"<b style='color:#f85149'>{ticker}</b> — could not load data. "
+                    f"Check the ticker is correct (e.g. <code>CBA.AX</code> not <code>CBA</code> for ASX)."
+                    f"</div>",
+                    unsafe_allow_html=True,
+                )
+                continue
+
+            if r.get("is_etf"):
+                st.markdown(
+                    f"<div class='health-card'>"
+                    f"<b style='color:#58a6ff'>{ticker}</b> &nbsp; ETF / Index Fund<br>"
+                    f"<span style='color:#8b949e;font-size:13px'>"
+                    f"ETFs don't have individual company fundamentals — they track a basket of stocks. "
+                    f"Generally a safer, diversified option for beginners.</span>"
+                    f"</div>",
+                    unsafe_allow_html=True,
+                )
+                continue
+
+            overall = r.get("overall", "limited_data")
+            score   = r["score"]
+            maxs    = r["max"]
+            name    = r["name"]
+            sector  = r.get("sector", "")
+            industry= r.get("industry", "")
+            mcap    = r.get("market_cap")
+
+            overall_cfg = {
+                "healthy":      ("#3fb950", "✅ Looks Healthy",  "This company passes most of our fundamental checks."),
+                "caution":      ("#d29922", "⚠️  Worth Watching", "Mixed results — some strengths, some concerns. Research further."),
+                "concern":      ("#f85149", "❌ Has Concerns",   "This company fails several fundamental checks. Proceed with caution."),
+                "limited_data": ("#8b949e", "❓ Limited Data",   "Not enough data to give a reliable score (common for some international stocks)."),
+            }
+            clr, label, summary = overall_cfg.get(overall, overall_cfg["limited_data"])
+
+            mcap_str = ""
+            if mcap:
+                try:
+                    mcap_b = float(mcap) / 1e9
+                    mcap_str = f" &nbsp;·&nbsp; Market cap: ${mcap_b:.1f}B"
+                except Exception:
+                    pass
+
+            st.markdown(
+                f"<div class='health-card' style='border-left: 4px solid {clr}'>"
+                f"<div style='display:flex;justify-content:space-between;align-items:flex-start'>"
+                f"<div>"
+                f"<span style='font-size:18px;font-weight:700;color:#e6edf3'>{ticker}</span> &nbsp;"
+                f"<span style='color:#8b949e;font-size:13px'>{name}</span><br>"
+                f"<span style='font-size:12px;color:#8b949e'>{sector}{' — ' + industry if industry else ''}{mcap_str}</span>"
+                f"</div>"
+                f"<div style='text-align:right'>"
+                f"<div style='font-size:16px;font-weight:700;color:{clr}'>{label}</div>"
+                f"<div style='font-size:12px;color:#8b949e'>{score}/{maxs} checks passed</div>"
+                f"</div></div>",
+                unsafe_allow_html=True,
+            )
+
+            # score bar
+            bar_filled = int((score / maxs * 10)) if maxs else 0
+            bar_html = "".join(
+                f"<span style='display:inline-block;width:24px;height:10px;border-radius:2px;margin:1px;"
+                f"background:{'#3fb950' if i < bar_filled else '#21262d'}'></span>"
+                for i in range(10)
+            )
+            st.markdown(
+                f"<div style='padding:8px 0 4px'>{bar_html} &nbsp;"
+                f"<span style='font-size:12px;color:#8b949e'>{score}/{maxs} fundamentals</span></div>"
+                f"<div style='font-size:13px;color:#8b949e;margin-bottom:10px'>{summary}</div>",
+                unsafe_allow_html=True,
+            )
+
+            # individual checks
+            for check in r["checks"]:
+                icon  = "✅" if check["pass"] else "❌"
+                color = "#3fb950" if check["pass"] else "#f85149"
+                if not simple_mode:
+                    detail_text = check["detail"]
+                else:
+                    detail_text = check["plain"]
+                st.markdown(
+                    f"<div style='display:flex;gap:10px;align-items:flex-start;"
+                    f"padding:5px 0;border-bottom:1px solid #21262d;font-size:13px'>"
+                    f"<span>{icon}</span>"
+                    f"<div><b style='color:{color}'>{check['label']}</b>"
+                    f"<span style='color:#8b949e'> — {detail_text}</span></div>"
+                    f"</div>",
+                    unsafe_allow_html=True,
+                )
+
+            st.markdown("</div>", unsafe_allow_html=True)
+            st.markdown("")
+
+    else:
+        # placeholder when nothing entered yet
+        st.markdown(
+            "<div style='background:#161b22;border:1px solid #30363d;border-radius:10px;"
+            "padding:40px;text-align:center;color:#8b949e;margin-top:16px'>"
+            "<div style='font-size:40px'>🔍</div>"
+            "<div style='font-size:16px;margin-top:12px'>Type your stock tickers above to get started</div>"
+            "<div style='font-size:13px;margin-top:8px'>e.g. <code>CBA.AX, AAPL, BHP.AX</code></div>"
+            "</div>",
+            unsafe_allow_html=True,
+        )
+
+    # ── portfolio breakdown (only shown after analysis) ────────────────────────
+    if ticker_input.strip() and results:
+        valid = [r for r in results if not r.get("error")]
+        if valid:
+            by_class: dict[str, list[str]] = {}
+            for r in valid:
+                ac = r.get("asset_class", "Stock")
+                by_class.setdefault(ac, []).append(r["ticker"])
+
+            total_holdings = len(valid)
+            stocks_count   = len(by_class.get("Stock", []))
+            defensive_count= total_holdings - stocks_count
+
+            st.markdown("---")
+            st.markdown("### 📊 Your portfolio snapshot")
+
+            breakdown_rows = []
+            for ac, tickers_in_class in sorted(by_class.items()):
+                icon = ASSET_CLASS_ICONS.get(ac, "📦")
+                pct  = len(tickers_in_class) / total_holdings * 100
+                breakdown_rows.append(
+                    f"<div style='display:flex;justify-content:space-between;align-items:center;"
+                    f"padding:8px 12px;border-bottom:1px solid #21262d;font-size:14px'>"
+                    f"<div>{icon} <b style='color:#e6edf3'>{ac}</b> &nbsp;"
+                    f"<span style='color:#8b949e;font-size:12px'>{', '.join(tickers_in_class)}</span></div>"
+                    f"<div style='color:#58a6ff;font-weight:700'>{pct:.0f}%</div>"
+                    f"</div>"
+                )
+
+            st.markdown(
+                "<div style='background:#161b22;border:1px solid #30363d;border-radius:10px;"
+                "overflow:hidden;margin-bottom:16px'>" +
+                "".join(breakdown_rows) +
+                "</div>",
+                unsafe_allow_html=True,
+            )
+
+            # diversification nudge
+            if stocks_count == total_holdings and total_holdings >= 2:
+                nudge_color, nudge_icon, nudge_msg = "#d29922", "⚠️", (
+                    "Your entire portfolio appears to be in individual stocks. "
+                    "Consider whether you also hold bonds, gold, or cash as a buffer against market downturns. "
+                    "Most financial advisers suggest keeping at least some exposure to defensive assets."
+                )
+            elif defensive_count == 0:
+                nudge_color, nudge_icon, nudge_msg = "#d29922", "💡", (
+                    "You've entered mostly stocks. "
+                    "You can also run this health check on bond or gold ETFs "
+                    "(e.g. <code>TLT</code> for US bonds, <code>GLD</code> for gold, "
+                    "<code>VAF.AX</code> for Australian bonds)."
+                )
+            else:
+                nudge_color, nudge_icon, nudge_msg = "#3fb950", "✅", (
+                    f"Good — your entered holdings span {len(by_class)} asset class(es). "
+                    f"Diversification across different types of assets helps smooth out volatility."
+                )
+
+            st.markdown(
+                f"<div style='background:#161b22;border:1px solid {nudge_color};"
+                f"border-radius:8px;padding:14px 16px;font-size:13px;color:#c9d1d9;margin-bottom:8px'>"
+                f"{nudge_icon} {nudge_msg}"
+                f"</div>",
+                unsafe_allow_html=True,
+            )
+
+            # what the tool can't check
+            st.markdown(
+                "<div class='guide-box'>"
+                "<b>What this tool can't check (and what to do instead):</b><br><br>"
+                "🏦 <b>Savings accounts &amp; term deposits</b> — These are bank products with no ticker. "
+                "Factor them in manually when thinking about your total allocation. "
+                "If your deposit is paying 4–5%, that's already a solid risk-free return to compare against.<br><br>"
+                "🏠 <b>Property</b> — No price feed we can pull. If you own real estate, you likely already have "
+                "significant assets outside the stock market.<br><br>"
+                "🦺 <b>Superannuation</b> — Your super fund's website will show your current investment mix "
+                "(e.g. balanced, growth, conservative). Check that it matches your risk tolerance and age."
+                "</div>",
+                unsafe_allow_html=True,
+            )
+
+    st.markdown("---")
+    st.markdown(
+        "<div class='guide-box'>"
+        "<b>How to read the health check:</b><br><br>"
+        "🟢 <b>Healthy</b> — The company passes most of our 6 checks. This means it appears to be profitable, "
+        "not over-indebted, and growing. It does NOT mean the stock will go up.<br><br>"
+        "🟡 <b>Worth Watching</b> — Mixed results. Look into which checks it failed and why before deciding anything.<br><br>"
+        "🔴 <b>Has Concerns</b> — The company shows signs of financial stress. Higher risk. Not necessarily a bad investment "
+        "(turnaround stories exist), but you need to understand what you're getting into.<br><br>"
+        "<b>The 6 checks:</b> Valuation (P/E ratio) · Revenue growth · Debt level · Free cash flow · Profitability · Analyst consensus"
+        "</div>",
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        "<div class='disclaimer-box'>"
+        "This health check uses publicly available financial data from Yahoo Finance. "
+        "Data may be delayed, incomplete, or inaccurate. This is not financial advice. "
+        "Always conduct your own research before investing."
+        "</div>",
+        unsafe_allow_html=True,
+    )
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  FUNDAMENTAL RANKINGS
+# ══════════════════════════════════════════════════════════════════════════════
+elif page == "🌏 Fundamental Rankings":
+    all_rows = load_fundamental_rankings()
+    most_recent = max((r["fetched_at"] for r in all_rows if r.get("fetched_at")), default="")
+
+    st.markdown(f"## {T('fund_title', lang)}")
+    st.markdown(
+        f"<div style='color:#c9d1d9;font-size:14px;margin-bottom:4px'>"
+        f"{T('fund_sub', lang, n=len(all_rows))}</div>",
+        unsafe_allow_html=True,
+    )
+    if most_recent:
+        st.caption(f"{T('last_upd', lang)}: {most_recent[:10]}")
+
+    with st.expander(T("guide_title", lang), expanded=False):
+        st.markdown(T("guide_body", lang))
+
+    if not all_rows:
+        st.warning(T("no_cache", lang))
+    else:
+        # ── summary pills ──────────────────────────────────────────────────
+        counts = {"strong": 0, "watch": 0, "weak": 0, "limited": 0, "etf": 0}
+        for r in all_rows:
+            counts[r["overall"]] = counts.get(r["overall"], 0) + 1
+
+        pill_cfg = [
+            ("strong",  "#23d18b", "#0f2a1a"),
+            ("watch",   "#ffca28", "#2a1f00"),
+            ("weak",    "#ff4757", "#2a0f0f"),
+            ("limited", "#6b7280", "#1a1a1a"),
+            ("etf",     "#a78bfa", "#1a0f2e"),
+        ]
+        pills_html = "<div style='margin:12px 0 16px'>"
+        for key, fg, bg in pill_cfg:
+            n = counts.get(key, 0)
+            if n:
+                label = T(key, lang)
+                pills_html += (
+                    f"<span style='background:{bg};color:{fg};border:1px solid {fg};"
+                    f"display:inline-block;padding:5px 14px;border-radius:20px;"
+                    f"font-size:13px;font-weight:700;margin:3px 4px'>"
+                    f"{n} {label}</span>"
+                )
+        pills_html += "</div>"
+        st.markdown(pills_html, unsafe_allow_html=True)
+
+        # ── filters & sort ─────────────────────────────────────────────────
+        col_f, col_s, col_q = st.columns([2, 2, 3])
+        with col_f:
+            mkt_opts = [T("all_markets", lang), "🇺🇸 US", "🇦🇺 ASX", "🇯🇵 JPX"]
+            mkt_sel  = st.selectbox(T("filter_market", lang), mkt_opts, label_visibility="visible")
+        with col_s:
+            sort_opts = [T("sort_score", lang), T("sort_pe", lang), T("sort_roe", lang), T("sort_div", lang)]
+            sort_sel  = st.selectbox(T("sort_by", lang), sort_opts, label_visibility="visible")
+        with col_q:
+            health_filter = st.multiselect(
+                "Show" if lang == "en" else "表示",
+                options=["strong","watch","weak","etf","limited"],
+                default=["strong","watch","weak","etf","limited"],
+                format_func=lambda x: T(x, lang),
+            )
+
+        # apply market filter
+        mkt_map = {"🇺🇸 US": "US", "🇦🇺 ASX": "ASX", "🇯🇵 JPX": "JPX"}
+        filtered = all_rows
+        if mkt_sel in mkt_map:
+            filtered = [r for r in filtered if r["market"] == mkt_map[mkt_sel]]
+        if health_filter:
+            filtered = [r for r in filtered if r["overall"] in health_filter]
+
+        # apply sort
+        if sort_sel == T("sort_pe", lang):
+            filtered = sorted(filtered, key=lambda x: (x["pe"] is None, x["pe"] or 999))
+        elif sort_sel == T("sort_roe", lang):
+            filtered = sorted(filtered, key=lambda x: (x["roe"] is None, -(x["roe"] or 0)))
+        elif sort_sel == T("sort_div", lang):
+            filtered = sorted(filtered, key=lambda x: (x["dividend_yield"] is None, -(x["dividend_yield"] or 0)))
+        # default: already sorted by score
+
+        st.caption(f"{len(filtered)} {T('n_stocks', lang)}")
+        st.markdown("")
+
+        # ── render cards ───────────────────────────────────────────────────
+        overall_cfg = {
+            "strong":  ("#23d18b", "fund-strong",  T("pass_lbl",  lang)),
+            "watch":   ("#ffca28", "fund-watch",   T("watch_lbl", lang)),
+            "weak":    ("#ff4757", "fund-weak",    T("fail_lbl",  lang)),
+            "etf":     ("#a78bfa", "fund-etf",     T("etf_lbl",   lang)),
+            "limited": ("#6b7280", "fund-limited", T("na_lbl",    lang)),
+        }
+        mbadge = {"US": "mbadge-us", "ASX": "mbadge-asx", "JPX": "mbadge-jpx"}
+
+        CHECK_ORDER = ["pe","revenue_growth","debt_equity","free_cashflow",
+                       "profit_margin","analyst","roe","current_ratio"]
+        CHECK_LABELS_EN = ["P/E","Rev","Debt","FCF","Profit","Analysts","ROE","Liq"]
+        CHECK_LABELS_JA = ["PER","売上","負債","FCF","利益","評価","ROE","流動"]
+        check_labels = CHECK_LABELS_JA if lang == "ja" else CHECK_LABELS_EN
+
+        def fmt_val(val, mode):
+            if val is None: return "—"
+            if mode == "pct":   return f"{val*100:+.1f}%"
+            if mode == "pct0":  return f"{val*100:.0f}%"
+            if mode == "x1":    return f"{val:.1f}x"
+            if mode == "x2":    return f"{val:.2f}"
+            if mode == "b":     return ("+" if val > 0 else "") + f"${val/1e9:.1f}B"
+            return f"{val:.1f}"
+
+        def val_color(val, positive_is_good=True, neutral_zone=None):
+            if val is None: return "#8b949e"
+            if neutral_zone and abs(val) <= neutral_zone: return "#c9d1d9"
+            good = val > 0 if positive_is_good else val < 0
+            return "#23d18b" if good else "#ff4757"
+
+        for rank, row in enumerate(filtered, 1):
+            clr, css_class, health_lbl = overall_cfg.get(row["overall"], overall_cfg["limited"])
+            mkt = row["market"]
+            badge_cls = mbadge.get(mkt, "mbadge-us")
+            mcap_str = ""
+            mc = row.get("market_cap")
+            if mc:
+                mcap_str = f"${mc/1e9:.0f}B" if mc >= 1e9 else f"${mc/1e6:.0f}M"
+
+            # score segment bar
+            bd = row["breakdown"]
+            segs = ""
+            for ck in CHECK_ORDER:
+                v = bd.get(ck)
+                seg_clr = "#23d18b" if v == 1 else "#ff4757" if v == 0 else "#2d333b"
+                segs += (
+                    f"<span style='display:inline-block;width:18px;height:8px;"
+                    f"border-radius:2px;margin:1px;background:{seg_clr}'></span>"
+                )
+
+            # stat pills
+            stats = []
+            pe_v    = row.get("pe")
+            roe_v   = row.get("roe")
+            rev_v   = row.get("revenue_growth")
+            div_v   = row.get("dividend_yield")
+            debt_v  = row.get("debt_equity")
+            anl_v   = row.get("analyst_label", "")
+            cr_v    = row.get("current_ratio")
+            beta_v  = row.get("beta")
+            pb_v    = row.get("price_to_book")
+
+            def stat_pill(label, val_str, color):
+                return (
+                    f"<span style='background:#21262d;border-radius:6px;padding:3px 8px;"
+                    f"font-size:12px;margin:2px;display:inline-block'>"
+                    f"<span style='color:#8b949e'>{label}: </span>"
+                    f"<span style='color:{color};font-weight:700'>{val_str}</span></span>"
+                )
+
+            if pe_v is not None:
+                pc = "#23d18b" if pe_v < 20 else "#ffca28" if pe_v < 40 else "#ff4757"
+                stats.append(stat_pill(T("lbl_pe",lang), f"{pe_v:.1f}", pc))
+            if roe_v is not None:
+                stats.append(stat_pill(T("lbl_roe",lang), f"{roe_v*100:.0f}%", val_color(roe_v)))
+            if rev_v is not None:
+                stats.append(stat_pill(T("lbl_rev",lang), f"{rev_v*100:+.0f}%", val_color(rev_v)))
+            if div_v is not None and div_v > 0:
+                # yfinance dividendYield is already in percentage points (2.94 = 2.94%)
+                stats.append(stat_pill(T("lbl_div",lang), f"{div_v:.1f}%", "#4fc3f7"))
+            if debt_v is not None:
+                dc = "#23d18b" if debt_v < 100 else "#ffca28" if debt_v < 300 else "#ff4757"
+                stats.append(stat_pill(T("lbl_debt",lang), f"{debt_v:.0f}%", dc))
+            if cr_v is not None:
+                stats.append(stat_pill(T("lbl_cr",lang), f"{cr_v:.1f}", val_color(cr_v - 1)))
+            if beta_v is not None:
+                bc = "#23d18b" if beta_v < 1 else "#ffca28" if beta_v < 1.5 else "#ff4757"
+                stats.append(stat_pill(T("lbl_beta",lang), f"{beta_v:.2f}", bc))
+            if anl_v:
+                al_colors = {"strongbuy":"#23d18b","buy":"#3fb950","hold":"#ffca28",
+                             "underperform":"#ff8c69","sell":"#ff4757"}
+                ac = al_colors.get(anl_v.replace(" ","").lower(), "#8b949e")
+                stats.append(stat_pill(T("lbl_analyst",lang), anl_v.replace("_"," ").title(), ac))
+
+            stats_html = "".join(stats) if stats else ""
+
+            st.markdown(
+                f"<div class='fund-card {css_class}'>"
+                f"<div style='display:flex;align-items:flex-start;gap:14px'>"
+                # rank
+                f"<div style='font-size:17px;font-weight:800;color:#4fc3f7;"
+                f"min-width:30px;padding-top:2px'>#{rank}</div>"
+                # main block
+                f"<div style='flex:1;min-width:0'>"
+                f"<div style='display:flex;align-items:center;flex-wrap:wrap;gap:4px'>"
+                f"<span style='font-size:17px;font-weight:800;color:#ffffff'>{row['ticker']}</span>"
+                f"<span style='color:#c9d1d9;font-size:13px'>{row['name']}</span>"
+                f"<span class='market-badge {badge_cls}'>{mkt}</span>"
+                f"{'<span style=\"color:#6b7280;font-size:11px\">' + row.get('sector','') + '</span>' if row.get('sector') else ''}"
+                f"{'<span style=\"color:#6b7280;font-size:11px;margin-left:4px\">' + mcap_str + '</span>' if mcap_str else ''}"
+                f"</div>"
+                # score bar + label
+                f"<div style='margin-top:7px;display:flex;align-items:center;gap:6px'>"
+                f"{segs}"
+                f"<span style='color:#ffffff;font-weight:700;font-size:13px'>"
+                f"{row['score']}/{row['max']}</span>"
+                f"<span style='color:{clr};font-weight:700;font-size:13px'>{health_lbl}</span>"
+                f"</div>"
+                # stat pills
+                f"<div style='margin-top:7px'>{stats_html}</div>"
+                f"</div>"
+                f"</div></div>",
+                unsafe_allow_html=True,
+            )
+
+        # ── metric legend ──────────────────────────────────────────────────
+        st.markdown("---")
+        st.markdown(
+            "<div class='guide-box'>"
+            + ("<b>Score bar key</b>" if lang == "en" else "<b>スコアバーの見方</b>")
+            + " &nbsp;—&nbsp; "
+            + "<span style='display:inline-block;width:18px;height:8px;border-radius:2px;"
+            "background:#23d18b;vertical-align:middle'></span> "
+            + ("Pass &nbsp;" if lang == "en" else "合格 &nbsp;")
+            + "<span style='display:inline-block;width:18px;height:8px;border-radius:2px;"
+            "background:#ff4757;vertical-align:middle'></span> "
+            + ("Fail &nbsp;" if lang == "en" else "不合格 &nbsp;")
+            + "<span style='display:inline-block;width:18px;height:8px;border-radius:2px;"
+            "background:#2d333b;vertical-align:middle'></span> "
+            + ("No data" if lang == "en" else "データなし")
+            + "<br><br>"
+            + (
+                "Each of the 8 segments = one check: "
+                "<b>P/E · Revenue · Debt · Cash Flow · Profit · Analysts · ROE · Liquidity</b>. "
+                "More green = more financially healthy. "
+                "Dividend yield shown in <b style='color:#4fc3f7'>blue</b> — it's informational, not scored."
+                if lang == "en" else
+                "8つのセグメントはそれぞれ1つのチェック項目: "
+                "<b>PER · 売上 · 負債 · CF · 利益 · アナリスト · ROE · 流動性</b>。 "
+                "緑が多いほど財務健全性が高い。"
+                "配当利回りは<b style='color:#4fc3f7'>青</b>で表示 — 参考情報（スコア対象外）。"
+            )
+            + "</div>",
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            "<div class='disclaimer-box'>"
+            + (
+                "Fundamental data sourced from Yahoo Finance. May be delayed or incomplete. "
+                "Not financial advice. Always do your own research."
+                if lang == "en" else
+                "ファンダメンタルデータはYahoo Financeより取得。遅延または不完全な場合があります。"
+                "投資助言ではありません。投資の際は必ずご自身でご確認ください。"
+            )
+            + "</div>",
+            unsafe_allow_html=True,
+        )
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 #  SCREENER RANKINGS
 # ══════════════════════════════════════════════════════════════════════════════
-elif page == "Screener Rankings":
-    st.markdown("### Screener Rankings")
+elif page == "📊 Screener Rankings":
+    st.markdown("### 📊 Screener Rankings")
     if run_date:
         st.caption(f"Data from {run_date} ({hours_ago})  |  "
                    f"{'Simple mode — BUY/WATCH/PASS' if simple_mode else 'Advanced mode — full quant data'}")
+
+    with st.expander("❓ How to read this page", expanded=False):
+        st.markdown("""
+**What you're looking at:** Every stock in our universe, ranked by signal strength today.
+
+| Signal | What it means |
+|--------|--------------|
+| 🟢 **BUY** | The system sees a positive technical pattern AND the ML model has high confidence. Worth researching further. |
+| 🟡 **WATCH** | Some positive signals but not enough confidence to trigger a full signal. Keep an eye on it. |
+| 🔴 **PASS** | No actionable signal today. The stock may be a great company but it's just not showing a setup right now. |
+
+**Important things to understand:**
+- A BUY signal does **not** mean the stock will go up. It means the system detected a pattern that has historically had a positive edge.
+- Signals are based on **price patterns and statistics** — not company news, earnings, or economic events.
+- The **confidence score** (ML %) shows how confident the model is. Higher is better, but even 90% confidence is wrong 10% of the time.
+- **Suggested size %** is a mathematical recommendation for what portion of a portfolio to consider. It assumes diversification across many positions.
+
+**Tip:** Use the filters to focus on specific markets, and toggle **Simple/Advanced** in the sidebar to control how much detail you see.
+""")
+    st.markdown("")
 
     if df_universe.empty:
         st.warning("No screener data found. Run the screener first.")
@@ -877,9 +1910,32 @@ elif page == "Screener Rankings":
 # ══════════════════════════════════════════════════════════════════════════════
 #  TRACK RECORD
 # ══════════════════════════════════════════════════════════════════════════════
-elif page == "Track Record":
-    st.markdown("### Track Record")
+elif page == "🏆 Track Record":
+    st.markdown("### 🏆 Track Record")
     st.caption("Real paper trading results — all trades shown including losses. No cherry-picking.")
+
+    with st.expander("❓ How to read this page", expanded=False):
+        st.markdown("""
+**What is paper trading?** Paper trading means we simulate trades using real market prices, but no real money is involved.
+Every time the screener generates a BUY signal, we record it as a "paper trade" — tracking what would have happened if someone actually bought and sold at those prices.
+
+**Why does this matter?** It's the most honest way to show you how the system actually performs. Many screeners only show their backtested results (testing on historical data the system already "saw"). We show live, forward-looking results from the day each signal was generated.
+
+**Key terms explained:**
+- **Win rate** — the percentage of trades that made money. 50% means half made money, half lost.
+- **Avg P&L** — the average profit or loss per trade, as a percentage.
+- **Stop-loss** — we automatically close a trade if it falls too far, to limit losses.
+- **Hold Complete** — the trade ran its full 20-day course and was then closed.
+- **Signal Reversal** — the screener changed its view on the stock, so we exited early.
+
+**The 14 runs explained:** We run the screener with different rule sets simultaneously to test which approach works best.
+Runs 1–3 are our baseline. Runs 4–11 test different improvements. Runs 12–14 add fundamental analysis as an extra filter.
+The goal is to find which combination of rules produces the best real-world results.
+
+**Honest caveat:** We currently have fewer than 300 closed trades across all runs combined. This is not yet a statistically
+large enough sample to draw firm conclusions. Treat the track record as an early indicator, not proof.
+""")
+    st.markdown("")
 
     if df_history.empty:
         st.info("No closed trades yet.")
@@ -1076,11 +2132,35 @@ elif page == "Track Record":
 # ══════════════════════════════════════════════════════════════════════════════
 #  ABOUT & DISCLAIMER
 # ══════════════════════════════════════════════════════════════════════════════
-elif page == "Stock Chart":
+elif page == "📈 Stock Chart":
     # ══════════════════════════════════════════════════════════════════════════
     #  STOCK CHART
     # ══════════════════════════════════════════════════════════════════════════
-    st.markdown("## 📊 Stock Chart")
+    st.markdown("## 📈 Stock Chart")
+
+    with st.expander("❓ How to read this page", expanded=False):
+        st.markdown("""
+**What you're looking at:** A 6-month price chart for any stock in our universe, with the specific indicators
+that drove today's signal overlaid on top.
+
+**The coloured lines and bands** are the technical indicators the screener uses. Each strategy has different indicators —
+the "What to look for" box below the signal card explains exactly what to focus on for each strategy.
+
+**Candlesticks** (the green/red bars) show each day's price range:
+- The top of the bar = the day's highest price
+- The bottom of the bar = the day's lowest price
+- Green = price closed higher than it opened
+- Red = price closed lower than it opened
+
+**The dashed yellow line** marks today's date — the point where the signal was generated.
+
+**Quick stats below the chart:** RSI below 30 = oversold (potentially a buy opportunity). RSI above 70 = overbought (potentially overextended).
+
+**Tip:** Use the "What to look for" box to understand exactly what the system saw that triggered the signal.
+It's written in plain English regardless of your experience level.
+""")
+    st.markdown("")
+
     st.markdown("Pick any stock from today's screener universe and see its price chart "
                 "with the strategy indicators that drove the signal.")
 
@@ -1272,7 +2352,7 @@ elif page == "Stock Chart":
                    "Not financial advice — always do your own research.")
 
 
-elif page == "About & Disclaimer":
+elif page == "ℹ️ About & Disclaimer":
     col_l, col_r = st.columns([3, 2])
 
     with col_l:

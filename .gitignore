@@ -2,3 +2,10 @@ __pycache__/
 *.pyc
 .DS_Store
 *.egg-info/
+
+# Excel output files — large, not needed for the web app
+screener_output/*.xlsx
+screener_output/~$*.xlsx
+
+# Old single-file trade log
+paper_trades/trades_log.json
