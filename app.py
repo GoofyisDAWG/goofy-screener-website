@@ -52,6 +52,25 @@ STRATEGY_PLAIN = {
     "Gap Momentum":      "Gap + volume — buys stocks that gap up on high volume",
 }
 
+RUN_CONFIGS = {
+    1:  "Base momentum",
+    2:  "Vol filter",
+    3:  "ML gate",
+    4:  "RSI tweak",
+    5:  "MACD tweak",
+    6:  "BB tweak",
+    7:  "Multi-signal",
+    8:  "Trend only",
+    9:  "Mean rev only",
+    10: "Breakout only",
+    11: "Mixed",
+    12: "Fund gate (loose)",
+    13: "Fund gate (mid)",
+    14: "Fund gate ≥3",
+    15: "Fund gate ≥6",
+    16: "Fund + β≤1.0",
+}
+
 
 # ── data loaders ──────────────────────────────────────────────────────────────
 
@@ -439,6 +458,11 @@ _TR = {
         "tr_col_wr":   "Win rate %", "tr_col_pnl": "Avg P&L %", "tr_col_res": "Result",
         "tr_trades":   "trades",   "tr_avg": "avg",  "tr_wr": "win rate",
         "tr_disclaimer": "Past performance does not guarantee future results. These are paper trading results — no real money was used. This is not financial advice.",
+        "tr_run_filter": "Filter by run",
+        "tr_run_all":    "All runs combined",
+        "tr_per_run":    "#### Per-run performance",
+        "tr_per_run_sub":"Each row is one run config. Click a run to see what makes it different.",
+        "tr_col_run":    "Run", "tr_col_cfg": "Config", "tr_col_pf": "Profit factor",
         # ── stock chart ──
         "sc_title":    "## 📈 Stock Chart",
         "sc_expander": "❓ How to read this page",
@@ -543,6 +567,11 @@ _TR = {
         "tr_col_wr":   "勝率%", "tr_col_pnl": "平均損益%", "tr_col_res": "結果",
         "tr_trades":   "件",   "tr_avg": "平均",  "tr_wr": "勝率",
         "tr_disclaimer": "過去の実績は将来の成果を保証するものではありません。これらはペーパートレード結果です — 実際の資金は使用していません。投資アドバイスではありません。",
+        "tr_run_filter": "ランでフィルター",
+        "tr_run_all":    "全ラン（合計）",
+        "tr_per_run":    "#### ラン別パフォーマンス",
+        "tr_per_run_sub":"各行は1つのランの設定です。",
+        "tr_col_run":    "ラン", "tr_col_cfg": "設定", "tr_col_pf": "プロフィットファクター",
         # ── stock chart ──
         "sc_title":    "## 📈 株価チャート",
         "sc_expander": "❓ このページの使い方",
@@ -2147,6 +2176,15 @@ large enough sample to draw firm conclusions. Treat the track record as an early
         st.info(T("tr_no_trades", lang))
     else:
         dc = df_history.copy()
+
+        # ── run filter ──────────────────────────────────────────────────────────
+        all_runs = sorted(dc["run"].unique().tolist())
+        run_labels = [T("tr_run_all", lang)] + [f"Run {r} — {RUN_CONFIGS.get(r, '')}" for r in all_runs]
+        selected_label = st.selectbox(T("tr_run_filter", lang), run_labels, index=0)
+        if selected_label != T("tr_run_all", lang):
+            selected_run = int(selected_label.split()[1])
+            dc = dc[dc["run"] == selected_run].copy()
+
         n_total  = len(dc)
         n_wins   = int(dc["win"].sum())
         win_rate = n_wins / n_total * 100
@@ -2307,6 +2345,44 @@ large enough sample to draw firm conclusions. Treat the track record as an early
                     f"</div>",
                     unsafe_allow_html=True,
                 )
+
+        # ── advanced: per-run comparison table ─────────────────────────────────
+        if is_advanced and selected_label == T("tr_run_all", lang):
+            st.markdown("---")
+            st.markdown(T("tr_per_run", lang))
+            st.caption(T("tr_per_run_sub", lang))
+            run_rows = []
+            full_dc = df_history.copy()
+            for r in sorted(full_dc["run"].unique()):
+                rdf = full_dc[full_dc["run"] == r]
+                rt  = len(rdf)
+                rw  = int(rdf["win"].sum())
+                rp  = rdf["pnl_pct"].mean()
+                rwin = rdf[rdf["win"]]["pnl_pct"].mean() if rw > 0 else 0
+                rloss = rdf[~rdf["win"]]["pnl_pct"].mean() if rt - rw > 0 else 0
+                rpf  = abs(rwin / rloss) if rloss != 0 else float("inf")
+                run_rows.append({
+                    T("tr_col_run", lang): f"R{r}",
+                    T("tr_col_cfg", lang): RUN_CONFIGS.get(r, ""),
+                    T("tr_col_trades", lang): rt,
+                    T("tr_col_wr", lang): round(rw / rt * 100, 1) if rt > 0 else 0,
+                    T("tr_col_pnl", lang): round(rp, 2),
+                    T("tr_col_pf", lang): round(rpf, 2) if rpf != float("inf") else "∞",
+                })
+            run_df = pd.DataFrame(run_rows)
+            pnl_c = T("tr_col_pnl", lang)
+            wr_c  = T("tr_col_wr",  lang)
+
+            def _rcolor(v):
+                if pd.isna(v) or not isinstance(v, (int, float)): return ""
+                return "color:#3fb950;font-weight:bold" if v > 0 else "color:#f85149;font-weight:bold"
+
+            st.dataframe(
+                run_df.style
+                    .map(_rcolor, subset=[pnl_c])
+                    .format({pnl_c: "{:+.2f}%", wr_c: "{:.1f}%"}),
+                use_container_width=True, hide_index=True,
+            )
 
     st.markdown("---")
     st.markdown(
