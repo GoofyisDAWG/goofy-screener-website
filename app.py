@@ -143,6 +143,7 @@ def load_trade_history() -> pd.DataFrame:
 
 
 @st.cache_data(ttl=3600)
+@st.cache_data(ttl=3600)
 def fetch_chart(ticker: str) -> pd.DataFrame:
     try:
         df = yf.download(ticker, period="6mo", interval="1d",
