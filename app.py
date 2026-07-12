@@ -2193,39 +2193,19 @@ large enough sample to draw firm conclusions. Treat the track record as an early
             dc_sorted["cumulative"] = dc_sorted["pnl_pct"].cumsum()
             dc_sorted["trade_num"]  = range(1, len(dc_sorted) + 1)
 
+            dot_colors = ["#3fb950" if p > 0 else "#f85149" for p in dc_sorted["pnl_pct"]]
+            hover_text = [f"{a} | {s} | {p:+.1f}% | {d}"
+                          for a, s, p, d in zip(dc_sorted["asset"], dc_sorted["strategy"],
+                                                dc_sorted["pnl_pct"],
+                                                dc_sorted["exit_date"].dt.strftime("%b %d"))]
             fig_eq = go.Figure()
-            # colour line segments by direction
-            for i in range(1, len(dc_sorted)):
-                x0 = dc_sorted["exit_date"].iloc[i-1]
-                x1 = dc_sorted["exit_date"].iloc[i]
-                y0 = dc_sorted["cumulative"].iloc[i-1]
-                y1 = dc_sorted["cumulative"].iloc[i]
-                color = "#3fb950" if y1 >= y0 else "#f85149"
-                fig_eq.add_trace(go.Scatter(
-                    x=[x0, x1], y=[y0, y1],
-                    mode="lines",
-                    line=dict(color=color, width=2),
-                    showlegend=False,
-                    hoverinfo="skip",
-                ))
-
-            # hover dots
             fig_eq.add_trace(go.Scatter(
-                x=dc_sorted["exit_date"],
-                y=dc_sorted["cumulative"],
-                mode="markers",
-                marker=dict(
-                    size=7,
-                    color=dc_sorted["pnl_pct"],
-                    colorscale=[[0,"#f85149"],[0.5,"#8b949e"],[1,"#3fb950"]],
-                ),
-                text=[f"{a} | {s} | {p:+.1f}% | {d}"
-                      for a, s, p, d in zip(dc_sorted["asset"], dc_sorted["strategy"],
-                                            dc_sorted["pnl_pct"], dc_sorted["exit_date"].dt.strftime("%b %d"))],
-                hoverinfo="text",
-                showlegend=False,
+                x=dc_sorted["exit_date"], y=dc_sorted["cumulative"],
+                mode="lines+markers",
+                line=dict(color="#58a6ff", width=2),
+                marker=dict(size=6, color=dot_colors),
+                text=hover_text, hoverinfo="text", showlegend=False,
             ))
-
             fig_eq.add_hline(y=0, line_dash="dash", line_color="#8b949e", opacity=0.5)
             fig_eq.update_layout(
                 height=320, plot_bgcolor="#0d1117", paper_bgcolor="#0d1117",
