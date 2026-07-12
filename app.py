@@ -143,7 +143,6 @@ def load_trade_history() -> pd.DataFrame:
 
 
 @st.cache_data(ttl=3600)
-@st.cache_data(ttl=3600)
 def fetch_chart(ticker: str) -> pd.DataFrame:
     try:
         df = yf.download(ticker, period="6mo", interval="1d",
@@ -2227,18 +2226,17 @@ large enough sample to draw firm conclusions. Treat the track record as an early
             ss["Signal"] = ss["avg_pnl"].apply(
                 lambda v: T("tr_positive", lang) if v > 0 else T("tr_negative", lang)
             )
+            pnl_col = T("tr_col_pnl", lang)
+            wr_col  = T("tr_col_wr",  lang)
             ss_display = ss[["strategy","trades","win_rate","avg_pnl","Signal"]].copy()
             ss_display.columns = [T("tr_col_strat",lang), T("tr_col_trades",lang),
-                                  T("tr_col_wr",lang), T("tr_col_pnl",lang), T("tr_col_res",lang)]
-            ss_display["Win rate %"] = ss_display["Win rate %"].round(1)
-            ss_display["Avg P&L %"]  = ss_display["Avg P&L %"].round(2)
+                                  wr_col, pnl_col, T("tr_col_res",lang)]
+            ss_display[wr_col]  = ss_display[wr_col].round(1)
+            ss_display[pnl_col] = ss_display[pnl_col].round(2)
 
             def _color_pnl(v):
                 if pd.isna(v): return ""
                 return "color:#3fb950;font-weight:bold" if v > 0 else "color:#f85149;font-weight:bold"
-
-            pnl_col = T("tr_col_pnl", lang)
-            wr_col  = T("tr_col_wr",  lang)
             st.dataframe(
                 ss_display.style
                     .map(_color_pnl, subset=[pnl_col])
@@ -2258,7 +2256,7 @@ large enough sample to draw firm conclusions. Treat the track record as an early
             }
             fig_pie = go.Figure(go.Pie(
                 labels=[l.replace("_"," ").title() for l in exit_counts.index],
-                values=exit_counts.values,
+                values=exit_counts.values.tolist(),
                 hole=0.45,
                 marker_colors=[exit_colors.get(l,"#8b949e") for l in exit_counts.index],
                 textfont_size=11,
