@@ -2806,8 +2806,15 @@ the "What to look for" box below the signal card explains exactly what to focus 
             st.info("No stocks match those filters.")
             st.stop()
 
+        # build ticker → company name lookup from fundamentals cache (no API call)
+        _fund_rows = load_fundamental_rankings()
+        _name_map  = {r["ticker"]: r["name"] for r in _fund_rows if r.get("name") and r["name"] != r["ticker"]}
+
         selected_asset = st.selectbox(
-            "Select a stock", asset_options, key="chart_asset"
+            "Select a stock",
+            asset_options,
+            format_func=lambda t: f"{t}  —  {_name_map[t]}" if t in _name_map else t,
+            key="chart_asset",
         )
 
         # ── get that row's metadata ────────────────────────────────────────────
