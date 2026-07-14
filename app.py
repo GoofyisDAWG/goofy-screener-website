@@ -1784,8 +1784,7 @@ elif page == "🔍 Portfolio Health Check":
             if r.get("error"):
                 st.markdown(
                     f"<div class='health-card'>"
-                    f"<b style='color:#f85149'>{ticker}</b> — could not load data. "
-                    f"Check the ticker is correct (e.g. <code>CBA.AX</code> not <code>CBA</code> for ASX)."
+                    f"<b style='color:#f85149'>{ticker}</b> — {T('phc_error', lang)}"
                     f"</div>",
                     unsafe_allow_html=True,
                 )
@@ -1795,9 +1794,7 @@ elif page == "🔍 Portfolio Health Check":
                 st.markdown(
                     f"<div class='health-card'>"
                     f"<b style='color:#58a6ff'>{ticker}</b> &nbsp; ETF / Index Fund<br>"
-                    f"<span style='color:#8b949e;font-size:13px'>"
-                    f"ETFs don't have individual company fundamentals — they track a basket of stocks. "
-                    f"Generally a safer, diversified option for beginners.</span>"
+                    f"<span style='color:#8b949e;font-size:13px'>{T('phc_etf_msg', lang)}</span>"
                     f"</div>",
                     unsafe_allow_html=True,
                 )
@@ -1812,10 +1809,10 @@ elif page == "🔍 Portfolio Health Check":
             mcap    = r.get("market_cap")
 
             overall_cfg = {
-                "healthy":      ("#3fb950", "✅ Looks Healthy",  "This company passes most of our fundamental checks."),
-                "caution":      ("#d29922", "⚠️  Worth Watching", "Mixed results — some strengths, some concerns. Research further."),
-                "concern":      ("#f85149", "❌ Has Concerns",   "This company fails several fundamental checks. Proceed with caution."),
-                "limited_data": ("#8b949e", "❓ Limited Data",   "Not enough data to give a reliable score (common for some international stocks)."),
+                "healthy":      ("#3fb950", T("phc_healthy_label", lang), T("phc_healthy_sum", lang)),
+                "caution":      ("#d29922", T("phc_caution_label", lang), T("phc_caution_sum", lang)),
+                "concern":      ("#f85149", T("phc_concern_label", lang), T("phc_concern_sum", lang)),
+                "limited_data": ("#8b949e", T("phc_limited_label", lang), T("phc_limited_sum", lang)),
             }
             clr, label, summary = overall_cfg.get(overall, overall_cfg["limited_data"])
 
@@ -1823,7 +1820,7 @@ elif page == "🔍 Portfolio Health Check":
             if mcap:
                 try:
                     mcap_b = float(mcap) / 1e9
-                    mcap_str = f" &nbsp;·&nbsp; ${mcap_b:.1f}B"
+                    mcap_str = f" &nbsp;·&nbsp; {T('phc_mcap', lang, n=f'{mcap_b:.1f}')}"
                 except Exception:
                     pass
 
@@ -1837,7 +1834,7 @@ elif page == "🔍 Portfolio Health Check":
                 f"</div>"
                 f"<div style='text-align:right'>"
                 f"<div style='font-size:16px;font-weight:700;color:{clr}'>{label}</div>"
-                f"<div style='font-size:12px;color:#8b949e'>{score}/{maxs} checks passed</div>"
+                f"<div style='font-size:12px;color:#8b949e'>{T('phc_checks_passed', lang, score=score, maxs=maxs)}</div>"
                 f"</div></div>",
                 unsafe_allow_html=True,
             )
@@ -1907,7 +1904,7 @@ elif page == "🔍 Portfolio Health Check":
             )
             st.markdown(
                 f"<div style='padding:8px 0 4px'>{bar_html} &nbsp;"
-                f"<span style='font-size:12px;color:#8b949e'>{score}/{maxs} fundamentals</span></div>"
+                f"<span style='font-size:12px;color:#8b949e'>{T('phc_fundamentals', lang, score=score, maxs=maxs)}</span></div>"
                 f"<div style='font-size:13px;color:#8b949e;margin-bottom:10px'>{summary}</div>",
                 unsafe_allow_html=True,
             )
@@ -1916,12 +1913,14 @@ elif page == "🔍 Portfolio Health Check":
             for check in r["checks"]:
                 icon  = "✅" if check["pass"] else "❌"
                 color = "#3fb950" if check["pass"] else "#f85149"
-                detail_text = check["plain"] if simple_mode else check["detail"]
+                _check_label = _phc_label_map.get(check["label"], check["label"])
+                detail_text  = (_phc_plain_map.get(check["plain"], check["plain"])
+                                if simple_mode else check["detail"])
                 st.markdown(
                     f"<div style='display:flex;gap:10px;align-items:flex-start;"
                     f"padding:5px 0;border-bottom:1px solid #21262d;font-size:13px'>"
                     f"<span>{icon}</span>"
-                    f"<div><b style='color:{color}'>{check['label']}</b>"
+                    f"<div><b style='color:{color}'>{_check_label}</b>"
                     f"<span style='color:#8b949e'> — {detail_text}</span></div>"
                     f"</div>",
                     unsafe_allow_html=True,
@@ -1936,8 +1935,8 @@ elif page == "🔍 Portfolio Health Check":
             "<div style='background:#161b22;border:1px solid #30363d;border-radius:10px;"
             "padding:40px;text-align:center;color:#8b949e;margin-top:16px'>"
             "<div style='font-size:40px'>🔍</div>"
-            "<div style='font-size:16px;margin-top:12px'>Type your stock tickers above to get started</div>"
-            "<div style='font-size:13px;margin-top:8px'>e.g. <code>CBA.AX, AAPL, BHP.AX</code></div>"
+            f"<div style='font-size:16px;margin-top:12px'>{T('phc_empty', lang)}</div>"
+            f"<div style='font-size:13px;margin-top:8px'>{T('phc_empty_sub', lang)}</div>"
             "</div>",
             unsafe_allow_html=True,
         )
@@ -1956,7 +1955,7 @@ elif page == "🔍 Portfolio Health Check":
             defensive_count= total_holdings - stocks_count
 
             st.markdown("---")
-            st.markdown("### 📊 Your portfolio snapshot")
+            st.markdown(T("phc_snapshot", lang))
 
             breakdown_rows = []
             for ac, tickers_in_class in sorted(by_class.items()):
@@ -1981,23 +1980,11 @@ elif page == "🔍 Portfolio Health Check":
 
             # diversification nudge
             if stocks_count == total_holdings and total_holdings >= 2:
-                nudge_color, nudge_icon, nudge_msg = "#d29922", "⚠️", (
-                    "Your entire portfolio appears to be in individual stocks. "
-                    "Consider whether you also hold bonds, gold, or cash as a buffer against market downturns. "
-                    "Most financial advisers suggest keeping at least some exposure to defensive assets."
-                )
+                nudge_color, nudge_icon, nudge_msg = "#d29922", "⚠️", T("phc_nudge_stocks", lang)
             elif defensive_count == 0:
-                nudge_color, nudge_icon, nudge_msg = "#d29922", "💡", (
-                    "You've entered mostly stocks. "
-                    "You can also run this health check on bond or gold ETFs "
-                    "(e.g. <code>TLT</code> for US bonds, <code>GLD</code> for gold, "
-                    "<code>VAF.AX</code> for Australian bonds)."
-                )
+                nudge_color, nudge_icon, nudge_msg = "#d29922", "💡", T("phc_nudge_mostly", lang)
             else:
-                nudge_color, nudge_icon, nudge_msg = "#3fb950", "✅", (
-                    f"Good — your entered holdings span {len(by_class)} asset class(es). "
-                    f"Diversification across different types of assets helps smooth out volatility."
-                )
+                nudge_color, nudge_icon, nudge_msg = "#3fb950", "✅", T("phc_nudge_diverse", lang, n=len(by_class))
 
             st.markdown(
                 f"<div style='background:#161b22;border:1px solid {nudge_color};"
@@ -2009,38 +1996,17 @@ elif page == "🔍 Portfolio Health Check":
 
             # what the tool can't check
             st.markdown(
-                "<div class='guide-box'>"
-                "<b>What this tool can't check (and what to do instead):</b><br><br>"
-                "🏦 <b>Savings accounts &amp; term deposits</b> — These are bank products with no ticker. "
-                "Factor them in manually when thinking about your total allocation. "
-                "If your deposit is paying 4–5%, that's already a solid risk-free return to compare against.<br><br>"
-                "🏠 <b>Property</b> — No price feed we can pull. If you own real estate, you likely already have "
-                "significant assets outside the stock market.<br><br>"
-                "🦺 <b>Superannuation</b> — Your super fund's website will show your current investment mix "
-                "(e.g. balanced, growth, conservative). Check that it matches your risk tolerance and age."
-                "</div>",
+                f"<div class='guide-box'>{T('phc_cant_check', lang)}</div>",
                 unsafe_allow_html=True,
             )
 
     st.markdown("---")
     st.markdown(
-        "<div class='guide-box'>"
-        "<b>How to read the health check:</b><br><br>"
-        "🟢 <b>Healthy</b> — The company passes most of our 6 checks. This means it appears to be profitable, "
-        "not over-indebted, and growing. It does NOT mean the stock will go up.<br><br>"
-        "🟡 <b>Worth Watching</b> — Mixed results. Look into which checks it failed and why before deciding anything.<br><br>"
-        "🔴 <b>Has Concerns</b> — The company shows signs of financial stress. Higher risk. Not necessarily a bad investment "
-        "(turnaround stories exist), but you need to understand what you're getting into.<br><br>"
-        "<b>The 7 checks:</b> Valuation (P/E ratio) · Revenue growth · Debt level · Free cash flow · Profitability · Analyst consensus · Return on equity (ROE)"
-        "</div>",
+        f"<div class='guide-box'>{T('phc_how_to_read', lang)}</div>",
         unsafe_allow_html=True,
     )
     st.markdown(
-        "<div class='disclaimer-box'>"
-        "This health check uses publicly available financial data from Yahoo Finance. "
-        "Data may be delayed, incomplete, or inaccurate. This is not financial advice. "
-        "Always conduct your own research before investing."
-        "</div>",
+        f"<div class='disclaimer-box'>{T('phc_disclaimer', lang)}</div>",
         unsafe_allow_html=True,
     )
 
