@@ -166,6 +166,26 @@ def load_trade_history() -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def load_open_positions() -> pd.DataFrame:
+    """Load all open trades with current unrealised P&L."""
+    def fix_nan(s): return re.sub(r':\s*NaN', ': null', s)
+    rows = []
+    for run in range(1, 22):
+        p = TRADES_DIR / f"run{run}_trades_log.json"
+        if not p.exists():
+            continue
+        try:
+            data = json.loads(fix_nan(p.read_text()))
+        except Exception:
+            continue
+        for t in data.get("open", []):
+            pnl = t.get("unrealised_pnl_pct")
+            if pnl is None:
+                continue
+            rows.append({"run": run, "asset": t.get("asset", "?"), "pnl_pct": float(pnl)})
+    return pd.DataFrame(rows)
+
+
 @st.cache_data(ttl=3600)
 def fetch_chart(ticker: str) -> pd.DataFrame:
     try:
@@ -468,6 +488,10 @@ _TR = {
         "tr_per_run":    "#### Per-run performance",
         "tr_per_run_sub":"Each row is one run config. Click a run to see what makes it different.",
         "tr_col_run":    "Run", "tr_col_cfg": "Config", "tr_col_pf": "Profit factor",
+        "tr_snap":       "#### 📸 If all positions closed right now",
+        "tr_snap_sub":   "Simulation combining closed trade history with current unrealised P&L on open positions. Not a real return — just a snapshot of where we stand today.",
+        "tr_col_closed": "Closed", "tr_col_open_n": "Open",
+        "tr_col_combo_wr": "Win rate", "tr_col_combo_avg": "Avg P&L", "tr_col_total": "Total P&L",
         # ── stock chart ──
         "sc_title":    "## 📈 Stock Chart",
         "sc_expander": "❓ How to read this page",
@@ -577,6 +601,10 @@ _TR = {
         "tr_per_run":    "#### ラン別パフォーマンス",
         "tr_per_run_sub":"各行は1つのランの設定です。",
         "tr_col_run":    "ラン", "tr_col_cfg": "設定", "tr_col_pf": "プロフィットファクター",
+        "tr_snap":       "#### 📸 今すぐ全決済した場合",
+        "tr_snap_sub":   "クローズ済み取引実績と現在の含み益を合算したシミュレーションです。実際のリターンではなく、現時点でのスナップショットです。",
+        "tr_col_closed": "決済済", "tr_col_open_n": "保有中",
+        "tr_col_combo_wr": "勝率", "tr_col_combo_avg": "平均損益", "tr_col_total": "合計損益",
         # ── stock chart ──
         "sc_title":    "## 📈 株価チャート",
         "sc_expander": "❓ このページの使い方",
@@ -1339,6 +1367,7 @@ with st.sidebar:
 # ── load data ─────────────────────────────────────────────────────────────────
 df_universe, run_date, hours_ago = load_screener_universe()
 df_history = load_trade_history()
+df_open    = load_open_positions()
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -2350,6 +2379,58 @@ The goal is to find which combination of rules produces the best real-world resu
                     f"<span style='color:#8b949e'> · {r['exit_date']}</span>"
                     f"</div>",
                     unsafe_allow_html=True,
+                )
+
+        # ── snapshot: if all closed now ─────────────────────────────────────────
+        st.markdown("---")
+        with st.expander(T("tr_snap", lang), expanded=False):
+            st.caption(T("tr_snap_sub", lang))
+            snap_rows = []
+            all_runs_for_snap = sorted(df_history["run"].unique()) if not df_history.empty else []
+            for r in all_runs_for_snap:
+                rdf_c = df_history[df_history["run"] == r]
+                n_c   = len(rdf_c)
+                rdf_o = df_open[df_open["run"] == r] if not df_open.empty else pd.DataFrame()
+                n_o   = len(rdf_o)
+                all_pnls = list(rdf_c["pnl_pct"]) + (list(rdf_o["pnl_pct"]) if n_o > 0 else [])
+                n_all    = len(all_pnls)
+                if n_all == 0:
+                    continue
+                wr_all  = sum(1 for p in all_pnls if p > 0) / n_all * 100
+                avg_all = sum(all_pnls) / n_all
+                tot_all = sum(all_pnls)
+                snap_rows.append({
+                    T("tr_col_run",       lang): f"R{r}",
+                    T("tr_col_cfg",       lang): RUN_CONFIGS.get(r, ""),
+                    T("tr_col_closed",    lang): n_c,
+                    T("tr_col_open_n",    lang): n_o,
+                    T("tr_col_combo_wr",  lang): round(wr_all,  1),
+                    T("tr_col_combo_avg", lang): round(avg_all, 2),
+                    T("tr_col_total",     lang): round(tot_all, 1),
+                })
+            if snap_rows:
+                snap_df    = pd.DataFrame(snap_rows)
+                avg_col    = T("tr_col_combo_avg", lang)
+                total_col  = T("tr_col_total",     lang)
+                wr_col_s   = T("tr_col_combo_wr",  lang)
+
+                def _snap_color(v):
+                    if not isinstance(v, (int, float)): return ""
+                    return "color:#3fb950;font-weight:bold" if v > 0 else "color:#f85149;font-weight:bold"
+
+                st.dataframe(
+                    snap_df.style
+                        .map(_snap_color, subset=[avg_col, total_col])
+                        .format({wr_col_s: "{:.1f}%", avg_col: "{:+.2f}%", total_col: "{:+.1f}%"}),
+                    use_container_width=True, hide_index=True,
+                )
+                best = max(snap_rows, key=lambda x: x[total_col])
+                st.caption(
+                    f"Best run: **{best[T('tr_col_run', lang)]}** ({best[T('tr_col_cfg', lang)]}) "
+                    f"at **{best[total_col]:+.1f}%** total · {best[wr_col_s]:.1f}% win rate"
+                    if lang == "en" else
+                    f"最良ラン: **{best[T('tr_col_run', lang)]}** ({best[T('tr_col_cfg', lang)]}) "
+                    f"合計 **{best[total_col]:+.1f}%** · 勝率 {best[wr_col_s]:.1f}%"
                 )
 
         # ── advanced: per-run comparison table ─────────────────────────────────
