@@ -56,19 +56,24 @@ RUN_CONFIGS = {
     1:  "Base momentum",
     2:  "Vol filter",
     3:  "ML gate",
-    4:  "RSI tweak",
-    5:  "MACD tweak",
-    6:  "BB tweak",
-    7:  "Multi-signal",
-    8:  "Trend only",
-    9:  "Mean rev only",
-    10: "Breakout only",
-    11: "Mixed",
-    12: "Fund gate (loose)",
-    13: "Fund gate (mid)",
-    14: "Fund gate ≥3",
-    15: "Fund gate ≥6",
-    16: "Fund + β≤1.0",
+    4:  "Wide stop + no MACD",
+    5:  "All ideas + day-10 cut",
+    6:  "Tiered floor",
+    7:  "All ideas + tiered floor",
+    8:  "New strategies baseline",
+    9:  "Wide stop + no MACD + tiered floor",
+    10: "All ideas + tiered floor (new)",
+    11: "Block MACD+BB, ML≥80, tiered floor",
+    12: "Fund gate: tight quant + fundamentals",
+    13: "Fund gate: medium quant + fundamentals",
+    14: "Fund gate only (baseline quant)",
+    15: "Fund gate ≥6/8 checks",
+    16: "Fund gate + β≤1.0",
+    17: "Block MACD+RSI-Div+RS, wide stop, tiered floor",
+    18: "Block all 4 losers + ML≥80 + tiered floor",
+    19: "Vol confirmation: R17 + vol ≥ 20d avg",
+    20: "Winners only: block 4 losers, ML≥75, tiered floor",
+    21: "Hold test: baseline R1 config, 10-day max hold",
 }
 
 
@@ -132,7 +137,7 @@ def load_trade_history() -> pd.DataFrame:
     """Load all closed trades across all runs for track record."""
     def fix_nan(s): return re.sub(r':\s*NaN', ': null', s)
     rows = []
-    for run in range(1, 17):
+    for run in range(1, 22):
         p = TRADES_DIR / f"run{run}_trades_log.json"
         if not p.exists():
             continue
@@ -424,7 +429,7 @@ _TR = {
         "exp_level":      "**Your experience level**",
         "tip_beginner":   "💡 <b>New here?</b> Start with <b>Fundamental Rankings</b> — see all stocks ranked by financial health, no jargon. Then use <b>Portfolio Health Check</b> to analyse stocks you already own.",
         "tip_inter":      "💡 <b>Tip:</b> Check <b>Screener Rankings</b> for today's signals, then use <b>Stock Chart</b> to see the strategy driving each signal.",
-        "tip_advanced":   "💡 <b>Tip:</b> <b>Track Record</b> shows all 16 live paper trade runs. Compare win rates across runs to see which config is outperforming.",
+        "tip_advanced":   "💡 <b>Tip:</b> <b>Track Record</b> shows all 21 live paper trade runs. Compare win rates across runs to see which config is outperforming.",
         "footer_note":    "Data: yfinance · Not financial advice.",
         # ── screener rankings ──
         "sr_title":       "### 📊 Screener Rankings",
@@ -2144,10 +2149,11 @@ elif page == "🏆 Track Record":
 - **保有完了** — 20日間の保有期間を満了してクローズ。
 - **シグナル反転** — スクリーナーが銘柄の見方を変えたため早期退出。
 
-**16ランの説明:** 異なるルールセットで同時にスクリーナーを実行し、最良のアプローチを検証しています。
+**21ランの説明:** 異なるルールセットで同時にスクリーナーを実行し、最良のアプローチを検証しています。
 ラン1〜3はベースライン。ラン4〜11は様々な改善を検証。ラン12〜16はファンダメンタル分析を追加フィルターとして使用。
+ラン17〜19は確認された負け戦略をブロック。ラン20は勝ち戦略のみ許可。ラン21は10日間の保有期間を検証します。
 
-**正直な注意:** 現在全ランのクローズドトレードは300件未満です。統計的に十分なサンプルとは言えません。トラックレコードは早期指標として扱ってください。
+**正直な注意:** ベースランでは約300件のクローズドトレードがあります。新しいランはまだデータ蓄積中です。統計的に十分なサンプルとは言えません。トラックレコードは早期指標として扱ってください。
 """)
         else:
             st.markdown("""
@@ -2163,12 +2169,12 @@ Every time the screener generates a BUY signal, we record it as a "paper trade" 
 - **Hold Complete** — the trade ran its full 20-day course and was then closed.
 - **Signal Reversal** — the screener changed its view on the stock, so we exited early.
 
-**The 16 runs explained:** We run the screener with different rule sets simultaneously to test which approach works best.
+**The 21 runs explained:** We run the screener with different rule sets simultaneously to test which approach works best.
 Runs 1–3 are our baseline. Runs 4–11 test different improvements. Runs 12–16 add fundamental analysis as an extra filter.
+Runs 17–19 block confirmed losing strategies (RSI Divergence, Relative Strength). Run 20 is "winners only" — only the 3 strategies that have proven profitable are allowed. Run 21 tests a 10-day max hold to see if shorter holds improve results.
 The goal is to find which combination of rules produces the best real-world results.
 
-**Honest caveat:** We currently have fewer than 300 closed trades across all runs combined. This is not yet a statistically
-large enough sample to draw firm conclusions. Treat the track record as an early indicator, not proof.
+**Honest caveat:** We currently have around 300 closed trades in the baseline runs, with newer runs still accumulating data. This is not yet a statistically large enough sample to draw firm conclusions. Treat the track record as an early indicator, not proof.
 """)
     st.markdown("")
 
