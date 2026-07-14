@@ -267,12 +267,28 @@ def fetch_stock_health(ticker: str) -> dict:
             "asset_class": asset_class,
             "checks": [], "score": 6, "max": 6,
         }
+
+    # fast_info is reliable on cloud; use it to verify ticker + get price data
+    current_price = year_high = year_low = year_chg = None
     try:
-        info = yf.Ticker(ticker).info
-        if not isinstance(info, dict) or len(info) < 3:
+        fi = yf.Ticker(ticker).fast_info
+        current_price = fi.last_price
+        year_high     = fi.year_high
+        year_low      = fi.year_low
+        year_chg      = fi.year_change   # decimal, e.g. 0.12 = +12%
+        if not current_price:
             return {"ticker": ticker, "error": True, "name": ticker}
     except Exception:
         return {"ticker": ticker, "error": True, "name": ticker}
+
+    # .info has richer fundamentals but can fail on cloud — graceful degradation
+    info = {}
+    try:
+        raw = yf.Ticker(ticker).info
+        if isinstance(raw, dict) and len(raw) > 5:
+            info = raw
+    except Exception:
+        pass
 
     checks = []
 
@@ -362,6 +378,20 @@ def fetch_stock_health(ticker: str) -> dict:
         except Exception:
             pass
 
+    roe = info.get("returnOnEquity")
+    if roe is not None:
+        try:
+            roe_f = float(roe)
+            ok = roe_f > 0.08
+            checks.append({
+                "label": "Return on equity (ROE)",
+                "pass": ok,
+                "detail": f"ROE = {roe_f*100:.1f}% — {'strong' if roe_f > 0.15 else 'acceptable' if ok else 'below average'}",
+                "plain": "Is the company generating good returns from shareholders' money?",
+            })
+        except Exception:
+            pass
+
     passed = sum(1 for c in checks if c["pass"])
     total  = len(checks)
 
@@ -375,19 +405,24 @@ def fetch_stock_health(ticker: str) -> dict:
         overall = "concern"
 
     return {
-        "ticker":      ticker,
-        "error":       False,
-        "is_etf":      False,
-        "asset_class": classify_asset(ticker, info),
-        "name":        info.get("longName", ticker),
-        "sector":      info.get("sector", ""),
-        "industry":    info.get("industry", ""),
-        "currency":    info.get("currency", ""),
-        "market_cap":  info.get("marketCap"),
-        "checks":      checks,
-        "score":       passed,
-        "max":         total,
-        "overall":     overall,
+        "ticker":        ticker,
+        "error":         False,
+        "is_etf":        False,
+        "asset_class":   classify_asset(ticker, info),
+        "name":          info.get("longName", ticker),
+        "sector":        info.get("sector", ""),
+        "industry":      info.get("industry", ""),
+        "currency":      info.get("currency", ""),
+        "market_cap":    info.get("marketCap"),
+        "current_price": current_price,
+        "year_high":     year_high,
+        "year_low":      year_low,
+        "year_chg":      year_chg,
+        "dividend_yield":info.get("dividendYield"),
+        "checks":        checks,
+        "score":         passed,
+        "max":           total,
+        "overall":       overall,
     }
 
 
@@ -503,8 +538,81 @@ _TR = {
         "ab_limits":   "### Limitations",
         "ab_legal":    "### Legal Disclaimer",
         # ── portfolio health check ──
-        "phc_title":   "## 🔍 Portfolio Health Check",
-        "phc_expander":"❓ How to use this page",
+        "phc_title":         "## 🔍 Portfolio Health Check",
+        "phc_expander":      "❓ How to use this page",
+        "phc_guide": (
+            "Enter the tickers of stocks you own or are interested in, separated by commas. "
+            "We'll check each one against 6 fundamental health indicators and give you a plain-English summary.<br><br>"
+            "<b>Examples:</b> &nbsp; US stocks: <code>AAPL, MSFT, JPM</code> &nbsp;·&nbsp; "
+            "ASX stocks: <code>CBA.AX, BHP.AX, WBC.AX</code> &nbsp;·&nbsp; "
+            "Japanese stocks: <code>7203.T, 6758.T</code>"
+        ),
+        "phc_placeholder":   "e.g. AAPL, CBA.AX, 7203.T",
+        "phc_max_warning":   "Maximum 10 stocks at once to keep loading fast.",
+        "phc_checking":      "Checking **{n} stock(s)**...",
+        "phc_error":         "could not load data. Check the ticker is correct (e.g. <code>CBA.AX</code> not <code>CBA</code> for ASX).",
+        "phc_etf_msg":       "ETFs don't have individual company fundamentals — they track a basket of stocks. Generally a safer, diversified option for beginners.",
+        "phc_healthy_label": "✅ Looks Healthy",
+        "phc_healthy_sum":   "This company passes most of our fundamental checks.",
+        "phc_caution_label": "⚠️  Worth Watching",
+        "phc_caution_sum":   "Mixed results — some strengths, some concerns. Research further.",
+        "phc_concern_label": "❌ Has Concerns",
+        "phc_concern_sum":   "This company fails several fundamental checks. Proceed with caution.",
+        "phc_limited_label": "❓ Limited Data",
+        "phc_limited_sum":   "Not enough data to give a reliable score (common for some international stocks).",
+        "phc_mcap":          "Market cap: ${n}B",
+        "phc_checks_passed": "{score}/{maxs} checks passed",
+        "phc_fundamentals":  "{score}/{maxs} fundamentals",
+        "phc_check_pe":      "Valuation (P/E ratio)",
+        "phc_check_rev":     "Revenue growth",
+        "phc_check_debt":    "Debt level",
+        "phc_check_fcf":     "Free cash flow",
+        "phc_check_prof":    "Profitability",
+        "phc_check_analyst": "Analyst view",
+        "phc_plain_pe":      "Is the stock priced reasonably compared to its earnings?",
+        "phc_plain_rev":     "Is the company's revenue growing over the past year?",
+        "phc_plain_debt":    "Does the company have manageable levels of debt?",
+        "phc_plain_fcf":     "Is the company actually generating real cash from its business?",
+        "phc_plain_prof":    "Is the company profitable (making more than it spends)?",
+        "phc_plain_analyst": "What do professional analysts think about this stock?",
+        "phc_empty":         "Type your stock tickers above to get started",
+        "phc_empty_sub":     "e.g. <code>CBA.AX, AAPL, BHP.AX</code>",
+        "phc_snapshot":      "### 📊 Your portfolio snapshot",
+        "phc_nudge_stocks":  (
+            "Your entire portfolio appears to be in individual stocks. "
+            "Consider whether you also hold bonds, gold, or cash as a buffer against market downturns. "
+            "Most financial advisers suggest keeping at least some exposure to defensive assets."
+        ),
+        "phc_nudge_mostly":  (
+            "You've entered mostly stocks. You can also run this health check on bond or gold ETFs "
+            "(e.g. <code>TLT</code> for US bonds, <code>GLD</code> for gold, "
+            "<code>VAF.AX</code> for Australian bonds)."
+        ),
+        "phc_nudge_diverse": "Good — your entered holdings span {n} asset class(es). Diversification across different types of assets helps smooth out volatility.",
+        "phc_cant_check": (
+            "<b>What this tool can't check (and what to do instead):</b><br><br>"
+            "🏦 <b>Savings accounts &amp; term deposits</b> — These are bank products with no ticker. "
+            "Factor them in manually when thinking about your total allocation. "
+            "If your deposit is paying 4–5%, that's already a solid risk-free return to compare against.<br><br>"
+            "🏠 <b>Property</b> — No price feed we can pull. If you own real estate, you likely already have "
+            "significant assets outside the stock market.<br><br>"
+            "🦺 <b>Superannuation</b> — Your super fund's website will show your current investment mix "
+            "(e.g. balanced, growth, conservative). Check that it matches your risk tolerance and age."
+        ),
+        "phc_how_to_read": (
+            "<b>How to read the health check:</b><br><br>"
+            "🟢 <b>Healthy</b> — The company passes most of our 6 checks. This means it appears to be profitable, "
+            "not over-indebted, and growing. It does NOT mean the stock will go up.<br><br>"
+            "🟡 <b>Worth Watching</b> — Mixed results. Look into which checks it failed and why before deciding anything.<br><br>"
+            "🔴 <b>Has Concerns</b> — The company shows signs of financial stress. Higher risk. Not necessarily a bad investment "
+            "(turnaround stories exist), but you need to understand what you're getting into.<br><br>"
+            "<b>The 7 checks:</b> Valuation (P/E ratio) · Revenue growth · Debt level · Free cash flow · Profitability · Analyst consensus · Return on equity (ROE)"
+        ),
+        "phc_disclaimer": (
+            "This health check uses publicly available financial data from Yahoo Finance. "
+            "Data may be delayed, incomplete, or inaccurate. This is not financial advice. "
+            "Always conduct your own research before investing."
+        ),
         # ── home disclaimer ──
         "disclaimer":  "This website is for educational purposes only and does not constitute financial advice. Past performance does not guarantee future results. Always do your own research before investing.",
     },
@@ -616,8 +724,81 @@ _TR = {
         "ab_limits":   "### 制限事項",
         "ab_legal":    "### 免責事項",
         # ── portfolio health check ──
-        "phc_title":   "## 🔍 ポートフォリオ 健全性チェック",
-        "phc_expander":"❓ このページの使い方",
+        "phc_title":         "## 🔍 ポートフォリオ 健全性チェック",
+        "phc_expander":      "❓ このページの使い方",
+        "phc_guide": (
+            "保有中または気になっている銘柄のティッカーをカンマ区切りで入力してください。"
+            "6つのファンダメンタル指標をもとに各銘柄の財務健全性を評価します。<br><br>"
+            "<b>例：</b> &nbsp; 米国株: <code>AAPL, MSFT, JPM</code> &nbsp;·&nbsp; "
+            "ASX株: <code>CBA.AX, BHP.AX, WBC.AX</code> &nbsp;·&nbsp; "
+            "日本株: <code>7203.T, 6758.T</code>"
+        ),
+        "phc_placeholder":   "例: AAPL, CBA.AX, 7203.T",
+        "phc_max_warning":   "読み込みを高速に保つため、一度に最大10銘柄までです。",
+        "phc_checking":      "**{n}銘柄**をチェック中...",
+        "phc_error":         "データを読み込めませんでした。ティッカーが正しいか確認してください（例: ASX株は <code>CBA</code> ではなく <code>CBA.AX</code>）。",
+        "phc_etf_msg":       "ETFには個別企業のファンダメンタルズはありません — 複数銘柄のバスケットを追跡する商品です。初心者には安全で分散された選択肢です。",
+        "phc_healthy_label": "✅ 財務健全",
+        "phc_healthy_sum":   "ほとんどのファンダメンタルチェックに合格しています。",
+        "phc_caution_label": "⚠️ 要注意",
+        "phc_caution_sum":   "結果は混在 — 強みと懸念点が共存しています。さらにリサーチしてください。",
+        "phc_concern_label": "❌ 問題あり",
+        "phc_concern_sum":   "複数のファンダメンタルチェックで不合格。慎重に判断してください。",
+        "phc_limited_label": "❓ データ不足",
+        "phc_limited_sum":   "信頼性の高いスコアを出すにはデータが不足しています（一部の海外株で一般的）。",
+        "phc_mcap":          "時価総額: ${n}B",
+        "phc_checks_passed": "{score}/{maxs}項目合格",
+        "phc_fundamentals":  "{score}/{maxs}ファンダメンタル",
+        "phc_check_pe":      "バリュエーション（PER）",
+        "phc_check_rev":     "売上成長率",
+        "phc_check_debt":    "負債水準",
+        "phc_check_fcf":     "フリーキャッシュフロー",
+        "phc_check_prof":    "収益性",
+        "phc_check_analyst": "アナリスト評価",
+        "phc_plain_pe":      "業績に対して株価は妥当な水準か？",
+        "phc_plain_rev":     "過去1年で売上は成長しているか？",
+        "phc_plain_debt":    "負債水準は管理可能か？",
+        "phc_plain_fcf":     "事業から実際に現金を生み出しているか？",
+        "phc_plain_prof":    "収益性はあるか（支出より収入が多いか）？",
+        "phc_plain_analyst": "アナリストはこの銘柄をどう見ているか？",
+        "phc_empty":         "上にティッカーを入力してスタート",
+        "phc_empty_sub":     "例: <code>CBA.AX, AAPL, BHP.AX</code>",
+        "phc_snapshot":      "### 📊 ポートフォリオのスナップショット",
+        "phc_nudge_stocks":  (
+            "入力銘柄はすべて個別株のようです。"
+            "市場下落への備えとして、債券・金・現金なども検討してください。"
+            "多くのファイナンシャルアドバイザーは守りの資産への一定のエクスポージャーを推奨しています。"
+        ),
+        "phc_nudge_mostly":  (
+            "ほとんどが株式です。"
+            "債券ETF（例: <code>TLT</code>：米国債、<code>GLD</code>：金、"
+            "<code>VAF.AX</code>：オーストラリア債券）でもヘルスチェックを試してみてください。"
+        ),
+        "phc_nudge_diverse": "{n}種類のアセットクラスにまたがっています。✅ 異なる資産への分散はボラティリティの平滑化に役立ちます。",
+        "phc_cant_check": (
+            "<b>このツールで確認できないもの（別途確認方法）：</b><br><br>"
+            "🏦 <b>普通預金・定期預金</b> — ティッカーのない銀行商品です。"
+            "総資産配分を考える際に手動で組み込んでください。"
+            "4〜5%の金利であれば、十分なリスクフリーリターンの基準として比較できます。<br><br>"
+            "🏠 <b>不動産</b> — 価格データを取得できません。"
+            "不動産を所有している場合、株式市場外に大きな資産があることになります。<br><br>"
+            "🦺 <b>スーパーアニュエーション</b> — スーパーファンドのウェブサイトで現在の運用ミックス"
+            "（バランス型・グロース型・コンサバティブ型など）を確認してください。"
+            "リスク許容度と年齢に合っているか確認しましょう。"
+        ),
+        "phc_how_to_read": (
+            "<b>ヘルスチェックの見方：</b><br><br>"
+            "🟢 <b>健全</b> — 6項目のほとんどに合格。収益性があり、過剰債務なく、成長中です。株価が上がるとは限りません。<br><br>"
+            "🟡 <b>要注意</b> — 結果は混在。何に不合格で、なぜかを調べてから判断してください。<br><br>"
+            "🔴 <b>問題あり</b> — 財務的ストレスの兆候あり。リスクは高め。必ずしも悪い投資ではありませんが、"
+            "何に投資しているかを理解することが重要です。<br><br>"
+            "<b>6つのチェック：</b> バリュエーション（PER）· 売上成長率 · 負債水準 · フリーキャッシュフロー · 収益性 · アナリスト評価"
+        ),
+        "phc_disclaimer": (
+            "このヘルスチェックはYahoo Financeから公開されている財務データを使用しています。"
+            "データは遅延・不完全・不正確な場合があります。投資アドバイスではありません。"
+            "投資前に必ずご自身でリサーチを行ってください。"
+        ),
         # ── disclaimer ──
         "disclaimer":  "このウェブサイトは教育目的のみであり、投資アドバイスを構成するものではありません。過去の実績は将来の成果を保証するものではありません。投資前に必ずご自身でリサーチを行ってください。",
     },
@@ -1552,32 +1733,43 @@ Signals are labelled **BUY**, **WATCH**, or **PASS**.
 #  PORTFOLIO HEALTH CHECK
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "🔍 Portfolio Health Check":
+    # check label + plain-description lookup (built once per render)
+    _phc_label_map = {
+        "Valuation (P/E ratio)": T("phc_check_pe", lang),
+        "Revenue growth":        T("phc_check_rev", lang),
+        "Debt level":            T("phc_check_debt", lang),
+        "Free cash flow":        T("phc_check_fcf", lang),
+        "Profitability":         T("phc_check_prof", lang),
+        "Analyst view":          T("phc_check_analyst", lang),
+    }
+    _phc_plain_map = {
+        "Is the stock priced reasonably compared to its earnings?":       T("phc_plain_pe", lang),
+        "Is the company's revenue growing over the past year?":           T("phc_plain_rev", lang),
+        "Does the company have manageable levels of debt?":               T("phc_plain_debt", lang),
+        "Is the company actually generating real cash from its business?":T("phc_plain_fcf", lang),
+        "Is the company profitable (making more than it spends)?":        T("phc_plain_prof", lang),
+        "What do professional analysts think about this stock?":          T("phc_plain_analyst", lang),
+    }
+
     st.markdown(T("phc_title", lang))
     st.markdown(
-        "<div class='guide-box'>"
-        "Enter the tickers of stocks you own or are interested in, separated by commas. "
-        "We'll check each one against 6 fundamental health indicators and give you a plain-English summary. "
-        "<br><br>"
-        "<b>Examples:</b> &nbsp; US stocks: <code>AAPL, MSFT, JPM</code> &nbsp;·&nbsp; "
-        "ASX stocks: <code>CBA.AX, BHP.AX, WBC.AX</code> &nbsp;·&nbsp; "
-        "Japanese stocks: <code>7203.T, 6758.T</code>"
-        "</div>",
+        f"<div class='guide-box'>{T('phc_guide', lang)}</div>",
         unsafe_allow_html=True,
     )
 
     ticker_input = st.text_input(
-        "Enter stock tickers",
-        placeholder="e.g. AAPL, CBA.AX, 7203.T",
+        "phc_ticker_input",
+        placeholder=T("phc_placeholder", lang),
         label_visibility="collapsed",
     )
 
     if ticker_input.strip():
         raw_tickers = [t.strip().upper() for t in ticker_input.split(",") if t.strip()]
         if len(raw_tickers) > 10:
-            st.warning("Maximum 10 stocks at once to keep loading fast.")
+            st.warning(T("phc_max_warning", lang))
             raw_tickers = raw_tickers[:10]
 
-        st.markdown(f"Checking **{len(raw_tickers)} stock(s)**...")
+        st.markdown(T("phc_checking", lang, n=len(raw_tickers)))
         results = []
         prog = st.progress(0)
         for i, t in enumerate(raw_tickers):
@@ -1631,7 +1823,7 @@ elif page == "🔍 Portfolio Health Check":
             if mcap:
                 try:
                     mcap_b = float(mcap) / 1e9
-                    mcap_str = f" &nbsp;·&nbsp; Market cap: ${mcap_b:.1f}B"
+                    mcap_str = f" &nbsp;·&nbsp; ${mcap_b:.1f}B"
                 except Exception:
                     pass
 
@@ -1650,7 +1842,63 @@ elif page == "🔍 Portfolio Health Check":
                 unsafe_allow_html=True,
             )
 
-            # score bar
+            # ── price snapshot row ──────────────────────────────────────────────
+            curr_p = r.get("current_price")
+            yh     = r.get("year_high")
+            yl     = r.get("year_low")
+            yc     = r.get("year_chg")
+            div    = r.get("dividend_yield")
+            if curr_p is not None:
+                yc_str   = f"{yc*100:+.1f}%" if yc is not None else "—"
+                yc_color = "#3fb950" if yc and yc > 0 else ("#f85149" if yc and yc < 0 else "#8b949e")
+                div_str  = f"{div:.1f}%" if div and div > 0 else "—"
+                range_bar_html = ""
+                if yh and yl and yh > yl:
+                    pct = max(0, min(100, (curr_p - yl) / (yh - yl) * 100))
+                    range_bar_html = (
+                        f"<div style='margin:10px 0 4px'>"
+                        f"<div style='font-size:11px;color:#8b949e;margin-bottom:4px'>52-week range</div>"
+                        f"<div style='display:flex;align-items:center;gap:8px;font-size:11px;color:#8b949e'>"
+                        f"<span>{yl:.2f}</span>"
+                        f"<div style='flex:1;height:5px;background:#21262d;border-radius:3px;position:relative'>"
+                        f"<div style='position:absolute;left:{pct:.0f}%;top:-3px;width:11px;height:11px;"
+                        f"background:#58a6ff;border-radius:50%;transform:translateX(-50%)'></div></div>"
+                        f"<span>{yh:.2f}</span></div></div>"
+                    )
+                st.markdown(
+                    f"<div style='display:flex;gap:24px;margin:10px 0 4px;flex-wrap:wrap'>"
+                    f"<div><div style='font-size:11px;color:#8b949e'>Current price</div>"
+                    f"<div style='font-size:17px;font-weight:700;color:#e6edf3'>{curr_p:.2f}</div></div>"
+                    f"<div><div style='font-size:11px;color:#8b949e'>1-year return</div>"
+                    f"<div style='font-size:17px;font-weight:700;color:{yc_color}'>{yc_str}</div></div>"
+                    f"<div><div style='font-size:11px;color:#8b949e'>Dividend yield</div>"
+                    f"<div style='font-size:17px;font-weight:700;color:#e6edf3'>{div_str}</div></div>"
+                    f"</div>" + range_bar_html,
+                    unsafe_allow_html=True,
+                )
+
+            # ── Goofy screener view on this stock ──────────────────────────────
+            if not df_universe.empty:
+                asset_col = next((c for c in df_universe.columns if c.lower() in ("asset","ticker","symbol")), None)
+                if asset_col:
+                    match = df_universe[df_universe[asset_col] == ticker]
+                    if not match.empty:
+                        sc = match.iloc[0]
+                        ml  = sc.get("ml_score", sc.get("ML Score", sc.get("score", "")))
+                        sig = sc.get("signal",   sc.get("Signal", ""))
+                        sig_color = "#3fb950" if str(sig).upper() == "BUY" else ("#d29922" if str(sig).upper() == "WATCH" else "#8b949e")
+                        ml_str = f"{float(ml):.0f}/100" if ml != "" else "—"
+                        st.markdown(
+                            f"<div style='background:#1c2128;border:1px solid #3fb95050;"
+                            f"border-radius:6px;padding:8px 12px;margin:8px 0;font-size:12px'>"
+                            f"🤖 <b style='color:#3fb950'>In Goofy's screener</b> &nbsp;·&nbsp; "
+                            f"ML confidence: <b style='color:#58a6ff'>{ml_str}</b> &nbsp;·&nbsp; "
+                            f"Signal: <b style='color:{sig_color}'>{sig}</b>"
+                            f"</div>",
+                            unsafe_allow_html=True,
+                        )
+
+            # ── score bar ──────────────────────────────────────────────────────
             bar_filled = int((score / maxs * 10)) if maxs else 0
             bar_html = "".join(
                 f"<span style='display:inline-block;width:24px;height:10px;border-radius:2px;margin:1px;"
@@ -1664,14 +1912,11 @@ elif page == "🔍 Portfolio Health Check":
                 unsafe_allow_html=True,
             )
 
-            # individual checks
+            # ── individual checks ──────────────────────────────────────────────
             for check in r["checks"]:
                 icon  = "✅" if check["pass"] else "❌"
                 color = "#3fb950" if check["pass"] else "#f85149"
-                if not simple_mode:
-                    detail_text = check["detail"]
-                else:
-                    detail_text = check["plain"]
+                detail_text = check["plain"] if simple_mode else check["detail"]
                 st.markdown(
                     f"<div style='display:flex;gap:10px;align-items:flex-start;"
                     f"padding:5px 0;border-bottom:1px solid #21262d;font-size:13px'>"
@@ -1786,7 +2031,7 @@ elif page == "🔍 Portfolio Health Check":
         "🟡 <b>Worth Watching</b> — Mixed results. Look into which checks it failed and why before deciding anything.<br><br>"
         "🔴 <b>Has Concerns</b> — The company shows signs of financial stress. Higher risk. Not necessarily a bad investment "
         "(turnaround stories exist), but you need to understand what you're getting into.<br><br>"
-        "<b>The 6 checks:</b> Valuation (P/E ratio) · Revenue growth · Debt level · Free cash flow · Profitability · Analyst consensus"
+        "<b>The 7 checks:</b> Valuation (P/E ratio) · Revenue growth · Debt level · Free cash flow · Profitability · Analyst consensus · Return on equity (ROE)"
         "</div>",
         unsafe_allow_html=True,
     )
