@@ -52,6 +52,24 @@ STRATEGY_PLAIN = {
     "Gap Momentum":      "Gap + volume — buys stocks that gap up on high volume",
 }
 
+STRATEGY_PLAIN_JA = {
+    "MA Crossover":      "トレンドフォロー — 短期平均が長期平均を上抜けた時に買い",
+    "RSI":               "平均回帰 — RSIが売られすぎ（30未満）の時に買い",
+    "RSI Divergence":    "モメンタム — 価格は下落してもRSIが高水準を維持している時に買い",
+    "MACD":              "トレンドモメンタム — 速い移動平均が遅い移動平均を上抜けた時に買い",
+    "Bollinger Bands":   "平均回帰 — 価格がボリンジャーバンドの下限に触れた時に買い",
+    "Mean Reversion":    "統計的 — 価格が平均から大きく下方乖離した時に買い",
+    "Stochastic":        "モメンタム — ストキャスティクスが売られすぎを示した時に買い",
+    "Donchian":          "ブレイクアウト — 価格が直近高値レンジを上抜けた時に買い",
+    "ADX":               "トレンド強度 — トレンドが強く明確な時のみトレード",
+    "Supertrend":        "トレンドフォロー — ボラティリティを使ってトレンド方向を定義",
+    "Ichimoku":          "複合シグナル — 価格・時間・モメンタムを組み合わせた日本発のシステム",
+    "Volume Breakout":   "出来高確認ブレイクアウト — 価格と出来高が同時に急増",
+    "Relative Strength": "相対モメンタム — 市場指数を上回っているアウトパフォーム銘柄",
+    "BB Squeeze":        "ボラティリティ拡大 — 低ボラ収縮後のブレイクアウトを狙う",
+    "Gap Momentum":      "ギャップ + 出来高 — 高出来高を伴うギャップアップ銘柄を買い",
+}
+
 RUN_CONFIGS = {
     1:  "Base momentum",
     2:  "Vol filter",
@@ -532,6 +550,36 @@ _TR = {
         "sc_expander": "❓ How to read this page",
         "sc_desc":     "Pick any stock from today's screener universe and see its price chart with the strategy indicators that drove the signal.",
         "sc_market":   "Market",
+        # stock chart filters & selection
+        "sc_select_stock":   "Select a stock",
+        "sc_show":           "Show",
+        "sc_show_all_opt":   "All",
+        "sc_show_buy":       "BUY signals only",
+        "sc_show_watch":     "WATCH only",
+        # stock chart errors
+        "sc_no_data_loaded": "No screener data loaded yet. Run the screener first.",
+        "sc_no_asset_col":   "Could not find an Asset/Ticker column in screener data.",
+        "sc_no_match":       "No stocks match those filters.",
+        # signal card labels
+        "sc_sig_signal":     "Signal",
+        "sc_sig_strategy":   "Strategy",
+        "sc_sig_ml":         "ML Score",
+        "sc_sig_size":       "Suggested Size",
+        # chart description + stats
+        "sc_what_to_look":   "What to look for on the chart:",
+        "sc_strat_unknown":  "Quantitative signal based on price history.",
+        "sc_price_err":      "Could not load price data for **{ticker}**. Try a different ticker or check your connection.",
+        "sc_chart_disc":     "Chart data: yfinance (6 months daily). Indicators are illustrative. Not financial advice — always do your own research.",
+        "sc_stat_last":      "Last Price",
+        "sc_stat_ma20":      "MA 20",
+        "sc_stat_rsi14":     "RSI 14",
+        "sc_stat_6mhigh":    "6M High",
+        "sc_stat_pct_high":  "% From High",
+        # screener rankings card labels
+        "sr_card_strategy":  "Strategy",
+        "sr_card_confidence":"Confidence",
+        "sr_card_trend":     "Trend",
+        "sr_card_size":      "Suggested size",
         # ── about ──
         "ab_title":    "### About Goofy Screener",
         "ab_method":   "### Methodology",
@@ -718,6 +766,36 @@ _TR = {
         "sc_expander": "❓ このページの使い方",
         "sc_desc":     "スクリーナーの任意の銘柄を選択し、シグナルを生成した戦略インジケーターを重ねた株価チャートを確認できます。",
         "sc_market":   "市場",
+        # stock chart filters & selection
+        "sc_select_stock":   "銘柄を選択",
+        "sc_show":           "表示",
+        "sc_show_all_opt":   "すべて",
+        "sc_show_buy":       "買いシグナルのみ",
+        "sc_show_watch":     "ウォッチのみ",
+        # stock chart errors
+        "sc_no_data_loaded": "スクリーナーデータがありません。先にスクリーナーを実行してください。",
+        "sc_no_asset_col":   "スクリーナーデータにAsset/Ticker列が見つかりません。",
+        "sc_no_match":       "そのフィルターに一致する銘柄がありません。",
+        # signal card labels
+        "sc_sig_signal":     "シグナル",
+        "sc_sig_strategy":   "戦略",
+        "sc_sig_ml":         "ML スコア",
+        "sc_sig_size":       "推奨サイズ",
+        # chart description + stats
+        "sc_what_to_look":   "チャートで確認すべきポイント：",
+        "sc_strat_unknown":  "価格履歴に基づくクオンツシグナル。",
+        "sc_price_err":      "**{ticker}**の価格データを読み込めませんでした。別のティッカーを試すか、接続を確認してください。",
+        "sc_chart_disc":     "チャートデータ: yfinance（6ヶ月日足）。インジケーターは参考表示です。投資アドバイスではありません。",
+        "sc_stat_last":      "直近終値",
+        "sc_stat_ma20":      "MA 20",
+        "sc_stat_rsi14":     "RSI 14",
+        "sc_stat_6mhigh":    "6ヶ月高値",
+        "sc_stat_pct_high":  "高値からの乖離率",
+        # screener rankings card labels
+        "sr_card_strategy":  "戦略",
+        "sr_card_confidence":"信頼度",
+        "sr_card_trend":     "トレンド",
+        "sr_card_size":      "推奨サイズ",
         # ── about ──
         "ab_title":    "### Goofy Screenerについて",
         "ab_method":   "### 方法論",
@@ -1328,7 +1406,7 @@ def build_strategy_chart(price_df: pd.DataFrame, strategy: str,
 
 # ── rankings table renderer ───────────────────────────────────────────────────
 
-def _render_table(df: pd.DataFrame, verdict_col: str, simple: bool):
+def _render_table(df: pd.DataFrame, verdict_col: str, simple: bool, lang: str = "en"):
     """Render a stock rankings table in simple or advanced mode."""
     if simple:
         for _, row in df.iterrows():
@@ -1364,13 +1442,13 @@ def _render_table(df: pd.DataFrame, verdict_col: str, simple: bool):
                 f"<div style='font-size:18px;font-weight:bold'>{badge}</div>"
                 f"</div>"
                 f"<div style='margin-top:6px;font-size:13px;color:#8b949e'>"
-                f"Strategy: <span style='color:#e6edf3'>{strat}</span> &nbsp;·&nbsp; "
-                f"Confidence: <span style='color:{ml_color};font-weight:bold'>{ml_str}</span> &nbsp;·&nbsp; "
-                f"Trend: {trend_str} &nbsp;·&nbsp; "
-                f"Suggested size: <b>{size_str}</b>"
+                f"{T('sr_card_strategy', lang)}: <span style='color:#e6edf3'>{strat}</span> &nbsp;·&nbsp; "
+                f"{T('sr_card_confidence', lang)}: <span style='color:{ml_color};font-weight:bold'>{ml_str}</span> &nbsp;·&nbsp; "
+                f"{T('sr_card_trend', lang)}: {trend_str} &nbsp;·&nbsp; "
+                f"{T('sr_card_size', lang)}: <b>{size_str}</b>"
                 f"</div>"
                 f"<div style='margin-top:4px;font-size:12px;color:#6e7681'>"
-                f"{STRATEGY_PLAIN.get(strat, '')}"
+                f"{(STRATEGY_PLAIN_JA if lang == 'ja' else STRATEGY_PLAIN).get(strat, '')}"
                 f"</div>"
                 f"</div>",
                 unsafe_allow_html=True,
@@ -1491,7 +1569,7 @@ a { color: #58a6ff !important; }
 # ── sidebar nav ───────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown("## 📈 Goofy Screener")
-    st.caption("Free quantitative stock screener\nUS · ASX · JPX")
+    st.caption("Free quantitative stock screener · 無料クオンツ株スクリーナー\nUS · ASX · JPX")
     st.markdown("---")
 
     page = st.radio(
@@ -2353,11 +2431,11 @@ elif page == "📊 Screener Rankings":
 
             if not df_trade.empty:
                 st.markdown(f"#### {T('sr_buy', lang, n=len(df_trade))}")
-                _render_table(df_trade, verdict_col, simple_mode)
+                _render_table(df_trade, verdict_col, simple_mode, lang)
 
             if not df_rest.empty and show_all:
                 st.markdown(f"#### {T('sr_watch', lang, n=len(df_rest))}")
-                _render_table(df_rest, verdict_col, simple_mode)
+                _render_table(df_rest, verdict_col, simple_mode, lang)
             elif not df_rest.empty:
                 st.caption(T("sr_hidden", lang, n=len(df_rest)))
 
@@ -2737,7 +2815,7 @@ the "What to look for" box below the signal card explains exactly what to focus 
     st.markdown(T("sc_desc", lang))
 
     if df_universe.empty:
-        st.info("No screener data loaded yet. Run the screener first.")
+        st.info(T("sc_no_data_loaded", lang))
     else:
         # ── stock picker ──────────────────────────────────────────────────────
         # Collect unique assets with their strategy + market info
@@ -2757,7 +2835,7 @@ the "What to look for" box below the signal card explains exactly what to focus 
                              if "size" in c.lower() or "adj" in c.lower()), None)
 
         if not asset_col:
-            st.error("Could not find an Asset/Ticker column in screener data.")
+            st.error(T("sc_no_asset_col", lang))
             st.stop()
 
         # Build a display list: BUY signals first, then rest
@@ -2780,30 +2858,35 @@ the "What to look for" box below the signal card explains exactly what to focus 
         col_f1, col_f2, _ = st.columns([1, 1, 2])
         with col_f1:
             market_filter = st.selectbox(
-                "Market", ["All"] + (
+                T("sc_market", lang),
+                [T("sc_show_all_opt", lang)] + (
                     sorted(df_pick[market_col].dropna().unique().tolist())
                     if market_col else []
                 ), key="chart_market"
             )
         with col_f2:
             verdict_filter = st.selectbox(
-                "Show", ["All", "BUY signals only", "WATCH only"],
+                T("sc_show", lang),
+                [T("sc_show_all_opt", lang), T("sc_show_buy", lang), T("sc_show_watch", lang)],
                 key="chart_verdict"
             )
 
         filtered = df_pick.copy()
-        if market_filter != "All" and market_col:
+        _all_opt = T("sc_show_all_opt", lang)
+        _buy_opt = T("sc_show_buy", lang)
+        _watch_opt = T("sc_show_watch", lang)
+        if market_filter != _all_opt and market_col:
             filtered = filtered[filtered[market_col] == market_filter]
-        if verdict_filter == "BUY signals only" and verdict_col:
+        if verdict_filter == _buy_opt and verdict_col:
             filtered = filtered[filtered[verdict_col].astype(str).str.upper()
                                 .str.contains("TRADE|BUY")]
-        elif verdict_filter == "WATCH only" and verdict_col:
+        elif verdict_filter == _watch_opt and verdict_col:
             filtered = filtered[filtered[verdict_col].astype(str).str.upper()
                                 .str.contains("WATCH|HOLD")]
 
         asset_options = filtered[asset_col].dropna().unique().tolist()
         if not asset_options:
-            st.info("No stocks match those filters.")
+            st.info(T("sc_no_match", lang))
             st.stop()
 
         # build ticker → company name lookup from fundamentals cache (no API call)
@@ -2811,7 +2894,7 @@ the "What to look for" box below the signal card explains exactly what to focus 
         _name_map  = {r["ticker"]: r["name"] for r in _fund_rows if r.get("name") and r["name"] != r["ticker"]}
 
         selected_asset = st.selectbox(
-            "Select a stock",
+            T("sc_select_stock", lang),
             asset_options,
             format_func=lambda t: f"{t}  —  {_name_map[t]}" if t in _name_map else t,
             key="chart_asset",
@@ -2835,20 +2918,21 @@ the "What to look for" box below the signal card explains exactly what to focus 
         else:
             badge_clr, badge_lbl = "#8b949e", "⚪ PASS"
 
-        strat_desc = STRATEGY_PLAIN.get(strategy, "Quantitative signal based on price history.")
+        _plain_dict = STRATEGY_PLAIN_JA if lang == "ja" else STRATEGY_PLAIN
+        strat_desc = _plain_dict.get(strategy, T("sc_strat_unknown", lang))
         what_desc  = STRATEGY_WHAT_TO_LOOK_FOR.get(strategy, "")
 
         card_cols = st.columns([1, 1, 1, 1])
         with card_cols[0]:
             st.markdown(
                 f"<div style='background:#161b22;border-radius:8px;padding:14px;text-align:center'>"
-                f"<div style='font-size:11px;color:#8b949e;text-transform:uppercase'>Signal</div>"
+                f"<div style='font-size:11px;color:#8b949e;text-transform:uppercase'>{T('sc_sig_signal', lang)}</div>"
                 f"<div style='font-size:20px;font-weight:700;color:{badge_clr}'>{badge_lbl}</div>"
                 f"</div>", unsafe_allow_html=True)
         with card_cols[1]:
             st.markdown(
                 f"<div style='background:#161b22;border-radius:8px;padding:14px;text-align:center'>"
-                f"<div style='font-size:11px;color:#8b949e;text-transform:uppercase'>Strategy</div>"
+                f"<div style='font-size:11px;color:#8b949e;text-transform:uppercase'>{T('sc_sig_strategy', lang)}</div>"
                 f"<div style='font-size:15px;font-weight:600;color:#e6edf3'>{strategy}</div>"
                 f"</div>", unsafe_allow_html=True)
         with card_cols[2]:
@@ -2856,14 +2940,14 @@ the "What to look for" box below the signal card explains exactly what to focus 
             ml_clr  = "#3fb950" if ml_score is not None and float(ml_score) >= 70 else "#d29922"
             st.markdown(
                 f"<div style='background:#161b22;border-radius:8px;padding:14px;text-align:center'>"
-                f"<div style='font-size:11px;color:#8b949e;text-transform:uppercase'>ML Score</div>"
+                f"<div style='font-size:11px;color:#8b949e;text-transform:uppercase'>{T('sc_sig_ml', lang)}</div>"
                 f"<div style='font-size:20px;font-weight:700;color:{ml_clr}'>{ml_text}</div>"
                 f"</div>", unsafe_allow_html=True)
         with card_cols[3]:
             size_text = f"{float(size_pct):.1f}%" if size_pct is not None else "—"
             st.markdown(
                 f"<div style='background:#161b22;border-radius:8px;padding:14px;text-align:center'>"
-                f"<div style='font-size:11px;color:#8b949e;text-transform:uppercase'>Suggested Size</div>"
+                f"<div style='font-size:11px;color:#8b949e;text-transform:uppercase'>{T('sc_sig_size', lang)}</div>"
                 f"<div style='font-size:20px;font-weight:700;color:#58a6ff'>{size_text}</div>"
                 f"</div>", unsafe_allow_html=True)
 
@@ -2883,7 +2967,7 @@ the "What to look for" box below the signal card explains exactly what to focus 
             st.markdown(
                 f"<div style='background:#0d1117;border:1px solid #30363d;"
                 f"padding:12px 16px;border-radius:6px;margin-bottom:16px'>"
-                f"<b style='color:#d29922'>What to look for on the chart:</b> "
+                f"<b style='color:#d29922'>{T('sc_what_to_look', lang)}</b> "
                 f"<span style='color:#c9d1d9'>{what_desc}</span>"
                 f"</div>",
                 unsafe_allow_html=True,
@@ -2894,8 +2978,7 @@ the "What to look for" box below the signal card explains exactly what to focus 
             price_df = fetch_chart(selected_asset)
 
         if price_df.empty:
-            st.warning(f"Could not load price data for **{selected_asset}**. "
-                       "Try a different ticker or check your connection.")
+            st.warning(T("sc_price_err", lang, ticker=selected_asset))
         else:
             fig = build_strategy_chart(price_df, strategy, selected_asset, market)
             st.plotly_chart(fig, use_container_width=True)
@@ -2916,19 +2999,18 @@ the "What to look for" box below the signal card explains exactly what to focus 
                             f"<div style='font-size:16px;font-weight:700;color:{colour}'>{val}</div>"
                             f"</div>")
                 rsi_clr = "#3fb950" if rsi14 < 30 else ("#f85149" if rsi14 > 70 else "#e6edf3")
-                s_cols[0].markdown(_stat("Last Price", f"{last:.2f}"), unsafe_allow_html=True)
-                s_cols[1].markdown(_stat("MA 20", f"{ma20:.2f}",
+                s_cols[0].markdown(_stat(T("sc_stat_last", lang), f"{last:.2f}"), unsafe_allow_html=True)
+                s_cols[1].markdown(_stat(T("sc_stat_ma20", lang), f"{ma20:.2f}",
                     "#3fb950" if last > ma20 else "#f85149"), unsafe_allow_html=True)
-                s_cols[2].markdown(_stat("RSI 14", f"{rsi14:.1f}", rsi_clr), unsafe_allow_html=True)
-                s_cols[3].markdown(_stat("6M High", f"{hi52:.2f}"), unsafe_allow_html=True)
-                s_cols[4].markdown(_stat("% From High",
+                s_cols[2].markdown(_stat(T("sc_stat_rsi14", lang), f"{rsi14:.1f}", rsi_clr), unsafe_allow_html=True)
+                s_cols[3].markdown(_stat(T("sc_stat_6mhigh", lang), f"{hi52:.2f}"), unsafe_allow_html=True)
+                s_cols[4].markdown(_stat(T("sc_stat_pct_high", lang),
                     f"{pct_hi:.1f}%", "#3fb950" if pct_hi > -5 else "#d29922"),
                     unsafe_allow_html=True)
 
         # disclaimer at the bottom
         st.markdown("---")
-        st.caption("Chart data: yfinance (6 months daily). Indicators are illustrative. "
-                   "Not financial advice — always do your own research.")
+        st.caption(T("sc_chart_disc", lang))
 
 
 elif page == "ℹ️ About & Disclaimer":
@@ -2936,7 +3018,26 @@ elif page == "ℹ️ About & Disclaimer":
 
     with col_l:
         st.markdown(T("ab_title", lang))
-        st.markdown("""
+        if lang == "ja":
+            st.markdown("""
+Goofy Screenerは、ブルームバーグやクオンツファンドに費用をかけずに、体系的かつデータドリブンな市場分析を求める個人投資家向けの無料クオンツ株スクリーナーです。
+
+**誰が作ったの？**
+クオンツトレーディングをゼロから道具を作りながら学んでいるクイーンズランド大学（UQ）のファイナンス学生。すべての戦略・フィルター・コードがカスタムビルドされています。
+
+**なぜ無料なの？**
+本物を作ることが最良の学習方法であり、損失も含めて結果を透明に公開することが最良の検証方法だからです。
+
+---
+
+### 方法論
+
+**対象銘柄:** 米国（39銘柄）・ASX（28銘柄）・JPX（46銘柄）の計113銘柄。
+
+**15の取引戦略**、それぞれ独立してテスト：
+""")
+        else:
+            st.markdown("""
 Goofy Screener is a free quantitative stock screener built for retail investors who want
 a systematic, data-driven view of the market — without paying for Bloomberg or a quant fund.
 
@@ -2956,10 +3057,28 @@ to be transparent about the results — including the losses.
 
 **15 trading strategies**, each tested independently:
 """)
-        for name, desc in STRATEGY_PLAIN.items():
+        _ab_plain = STRATEGY_PLAIN_JA if lang == "ja" else STRATEGY_PLAIN
+        for name, desc in _ab_plain.items():
             st.markdown(f"- **{name}** — {desc}")
 
-        st.markdown("""
+        if lang == "ja":
+            st.markdown("""
+---
+
+**ウォークフォワードバックテスト:** 戦略は2016〜2021年データで学習し、学習に使用していない2021年〜現在のデータでテストしています。これにより最も一般的なバックテストの落とし穴（過学習）を回避します。
+
+**戦略選択:** 各銘柄には最も優れた戦略を割り当て。評価基準はサンプル外シャープレシオ（40%）・一貫性（20%）・勝率（10%）・ドローダウン管理（10%）・直近6ヶ月のパフォーマンス（20%）。
+
+**レジームフィルター:** 現在の市場レジーム（強気/弱気/横ばい）が各戦略の過去のパフォーマンスが良かったレジームと一致する場合のみシグナルを発行。
+
+**MLゲート:** モメンタム・ボラティリティ・レジーム・戦略スコアなどの特徴量で学習したXGBoostモデルが信頼度スコアを付与。閾値未満のシグナルは保留。
+
+**ポジションサイジング:** ボラティリティと他の保有ポジションとの相関を調整したケリー基準を採用。
+
+**保有期間:** 20営業日（約4週間）。ストップロス・利確・シグナル反転で早期決済。
+""")
+        else:
+            st.markdown("""
 ---
 
 **Walk-forward backtesting:** Strategies are trained on 2016-2021 data and tested on
@@ -2985,7 +3104,21 @@ take-profit, or signal reversal.
 
     with col_r:
         st.markdown(T("ab_limits", lang))
-        st.markdown("""
+        if lang == "ja":
+            st.markdown("""
+このスクリーナーはプロの取引システムではなく、**学習プロジェクト**です。
+以下の制限事項をご理解ください：
+
+- **サンプルサイズが小さい** — 全ランで約100件のクローズドトレードのみ。統計的に確定的な結論を出すには不十分。
+- **無料データ** — yfinance（Yahoo Finance）を使用。データにはギャップ、誤り、遅延が生じる場合があります。
+- **ファンダメンタルデータなし** — 純粋にテクニカル/統計シグナル。業績・バリュエーション・ニュースは考慮しない。
+- **ペーパートレード** — 結果はシミュレーション。スリッページ・手数料・税金は含まない。
+- **個別株フォーカス** — ETFやポートフォリオレベルのリスク管理なし。
+- **過学習リスク** — ウォークフォワードテストを実施しているが、戦略が将来市場に適用できない可能性がある。
+- **ASX/JPXデータ品質** — yfinanceの国際データは米国データより信頼性が低い場合がある。
+""")
+        else:
+            st.markdown("""
 This screener is a **learning project**, not a professional trading system.
 Be aware of its limitations:
 
@@ -3000,29 +3133,56 @@ Be aware of its limitations:
 
         st.markdown("---")
         st.markdown(T("ab_legal", lang))
-        legal_title = "重要：このウェブサイトは教育・情報提供のみを目的としています。" if lang == "ja" else "IMPORTANT: This website is for educational and informational purposes only."
+        if lang == "ja":
+            legal_title = "重要：このウェブサイトは教育・情報提供のみを目的としています。"
+            legal_body = (
+                "このウェブサイトのいかなる内容も、財務・投資・取引その他のアドバイスを構成するものではありません。"
+                "本サイトのコンテンツをそのように解釈しないでください。<br><br>"
+                "本サイトに表示されるスクリーナーシグナル・ランキング・トラックレコードはアルゴリズムモデルによって生成されており、"
+                "情報提供のみを目的としています。いかなる有価証券の売買または保有を推奨するものではありません。<br><br>"
+                "いかなる戦略またはシグナルの過去の実績も、将来の結果を保証するものではありません。"
+                "投資にはリスクが伴い、元本を失う可能性があります。<br><br>"
+                "投資判断を行う前に、必ずご自身で独立したリサーチを実施し、"
+                "ライセンスを持つ金融専門家への相談を検討してください。<br><br>"
+                "本ウェブサイトの著者はライセンスを持つ財務アドバイザーではなく、"
+                "本サイトに含まれる情報の正確性・完全性・適合性について一切の表明を行いません。"
+            )
+        else:
+            legal_title = "IMPORTANT: This website is for educational and informational purposes only."
+            legal_body = (
+                "Nothing on this website constitutes financial advice, investment advice, trading advice, "
+                "or any other sort of advice. You should not treat any of the website's content as such.<br><br>"
+                "The screener signals, rankings, and track record shown on this site are generated by "
+                "algorithmic models and are provided for informational purposes only. They do not "
+                "represent recommendations to buy, sell, or hold any security.<br><br>"
+                "Past performance of any strategy or signal does not guarantee future results. "
+                "Investing involves risk, including the possible loss of principal.<br><br>"
+                "Always conduct your own independent research and consider seeking advice from a "
+                "licensed financial professional before making any investment decisions.<br><br>"
+                "The author of this website is not a licensed financial advisor and makes no "
+                "representations as to the accuracy, completeness, or suitability of the information "
+                "contained herein."
+            )
         st.markdown(
             "<div class='disclaimer-box' style='color:#d29922;font-size:13px;line-height:1.6'>"
             f"<b>{legal_title}</b><br><br>"
-            "Nothing on this website constitutes financial advice, investment advice, trading advice, "
-            "or any other sort of advice. You should not treat any of the website's content as such.<br><br>"
-            "The screener signals, rankings, and track record shown on this site are generated by "
-            "algorithmic models and are provided for informational purposes only. They do not "
-            "represent recommendations to buy, sell, or hold any security.<br><br>"
-            "Past performance of any strategy or signal does not guarantee future results. "
-            "Investing involves risk, including the possible loss of principal.<br><br>"
-            "Always conduct your own independent research and consider seeking advice from a "
-            "licensed financial professional before making any investment decisions.<br><br>"
-            "The author of this website is not a licensed financial advisor and makes no "
-            "representations as to the accuracy, completeness, or suitability of the information "
-            "contained herein."
+            f"{legal_body}"
             "</div>",
             unsafe_allow_html=True,
         )
 
         st.markdown("---")
-        st.markdown("### Contact")
-        st.markdown("""
+        if lang == "ja":
+            st.markdown("### お問い合わせ")
+            st.markdown("""
+クオンツトレーディングを学ぶUQの学生が制作しました。
+
+- GitHub: [GoofyisDAWG](https://github.com/GoofyisDAWG)
+- ご質問・フィードバック: GitHubでIssueを開いてください
+""")
+        else:
+            st.markdown("### Contact")
+            st.markdown("""
 Built by a UQ student learning quant trading.
 
 - GitHub: [GoofyisDAWG](https://github.com/GoofyisDAWG)
