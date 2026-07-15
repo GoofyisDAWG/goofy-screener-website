@@ -596,8 +596,10 @@ _TR = {
             "Japanese stocks: <code>7203.T, 6758.T</code>"
         ),
         "phc_placeholder":   "e.g. AAPL, CBA.AX, 7203.T",
-        "phc_max_warning":   "Maximum 10 stocks at once to keep loading fast.",
+        "phc_max_warning":   "Maximum 15 stocks at once to keep loading fast.",
         "phc_checking":      "Checking **{n} stock(s)**...",
+        "phc_pick_label":    "Pick stocks from our universe",
+        "phc_or_custom":     "Or add any ticker not in the list above (comma-separated)",
         "phc_error":         "could not load data. Check the ticker is correct (e.g. <code>CBA.AX</code> not <code>CBA</code> for ASX).",
         "phc_etf_msg":       "ETFs don't have individual company fundamentals — they track a basket of stocks. Generally a safer, diversified option for beginners.",
         "phc_healthy_label": "✅ Looks Healthy",
@@ -812,8 +814,10 @@ _TR = {
             "日本株: <code>7203.T, 6758.T</code>"
         ),
         "phc_placeholder":   "例: AAPL, CBA.AX, 7203.T",
-        "phc_max_warning":   "読み込みを高速に保つため、一度に最大10銘柄までです。",
+        "phc_max_warning":   "読み込みを高速に保つため、一度に最大15銘柄までです。",
         "phc_checking":      "**{n}銘柄**をチェック中...",
+        "phc_pick_label":    "スクリーナー銘柄から選ぶ",
+        "phc_or_custom":     "リストにない銘柄を追加（カンマ区切り）",
         "phc_error":         "データを読み込めませんでした。ティッカーが正しいか確認してください（例: ASX株は <code>CBA</code> ではなく <code>CBA.AX</code>）。",
         "phc_etf_msg":       "ETFには個別企業のファンダメンタルズはありません — 複数銘柄のバスケットを追跡する商品です。初心者には安全で分散された選択肢です。",
         "phc_healthy_label": "✅ 財務健全",
@@ -1835,17 +1839,46 @@ elif page == "🔍 Portfolio Health Check":
         unsafe_allow_html=True,
     )
 
-    ticker_input = st.text_input(
-        "phc_ticker_input",
+    # ── build multiselect options from fundamentals cache ─────────────────────
+    _fund_cache_path = SCREENER_DIR / "fundamentals_cache.json"
+    _universe_tickers: list[str] = []
+    if _fund_cache_path.exists():
+        try:
+            _fc = json.loads(_fund_cache_path.read_text())
+            _us  = sorted(t for t in _fc if not t.endswith(".AX") and not t.endswith(".T"))
+            _asx = sorted(t for t in _fc if t.endswith(".AX"))
+            _jpx = sorted(t for t in _fc if t.endswith(".T"))
+            _universe_tickers = (
+                [f"{t}  ·  US"  for t in _us] +
+                [f"{t}  ·  ASX" for t in _asx] +
+                [f"{t}  ·  JPX" for t in _jpx]
+            )
+        except Exception:
+            pass
+
+    selected_from_list = st.multiselect(
+        T("phc_pick_label", lang),
+        options=_universe_tickers,
+        default=[],
+        placeholder="Search by ticker…",
+    )
+    custom_input = st.text_input(
+        T("phc_or_custom", lang),
         placeholder=T("phc_placeholder", lang),
-        label_visibility="collapsed",
     )
 
-    if ticker_input.strip():
-        raw_tickers = [t.strip().upper() for t in ticker_input.split(",") if t.strip()]
-        if len(raw_tickers) > 10:
+    # combine: strip the "  ·  MARKET" suffix from multiselect labels
+    picked = [opt.split("  ·  ")[0].strip() for opt in selected_from_list]
+    if custom_input.strip():
+        picked += [t.strip().upper() for t in custom_input.split(",") if t.strip()]
+    raw_tickers = list(dict.fromkeys(picked))  # dedupe, preserve order
+
+    ticker_input = ",".join(raw_tickers)  # keep downstream logic unchanged
+
+    if raw_tickers:
+        if len(raw_tickers) > 15:
             st.warning(T("phc_max_warning", lang))
-            raw_tickers = raw_tickers[:10]
+            raw_tickers = raw_tickers[:15]
 
         st.markdown(T("phc_checking", lang, n=len(raw_tickers)))
         results = []
