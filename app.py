@@ -786,6 +786,16 @@ _TR = {
             "Data may be delayed, incomplete, or inaccurate. This is not financial advice. "
             "Always conduct your own research before investing."
         ),
+        # ── portfolio save/load ──
+        "phc_save_header":       "💾 Save & load portfolios",
+        "phc_save_placeholder":  "Portfolio name (e.g. 'My ASX picks')",
+        "phc_save_btn":          "Save",
+        "phc_saved_ok":          "Saved as **{name}**",
+        "phc_load_header":       "Saved portfolios",
+        "phc_load_none":         "No saved portfolios yet",
+        "phc_load_btn":          "Load",
+        "phc_delete_btn":        "Delete",
+        "phc_share_tip":         "💡 Bookmark this URL to return to the same portfolio.",
         # ── home disclaimer ──
         "disclaimer":  "This website is for educational purposes only and does not constitute financial advice. Past performance does not guarantee future results. Always do your own research before investing.",
     },
@@ -1004,6 +1014,16 @@ _TR = {
             "データは遅延・不完全・不正確な場合があります。投資アドバイスではありません。"
             "投資前に必ずご自身でリサーチを行ってください。"
         ),
+        # ── portfolio save/load ──
+        "phc_save_header":       "💾 保存と読み込み",
+        "phc_save_placeholder":  "ポートフォリオ名（例: 'ASXお気に入り'）",
+        "phc_save_btn":          "保存",
+        "phc_saved_ok":          "**{name}** として保存しました",
+        "phc_load_header":       "保存済みポートフォリオ",
+        "phc_load_none":         "保存済みポートフォリオはありません",
+        "phc_load_btn":          "読み込む",
+        "phc_delete_btn":        "削除",
+        "phc_share_tip":         "💡 このURLをブックマークすると同じポートフォリオに戻れます。",
         # ── disclaimer ──
         "disclaimer":  "このウェブサイトは教育目的のみであり、投資アドバイスを構成するものではありません。過去の実績は将来の成果を保証するものではありません。投資前に必ずご自身でリサーチを行ってください。",
     },
@@ -1979,15 +1999,27 @@ elif page == "🔍 Portfolio Health Check":
         except Exception:
             pass
 
+    # ── seed custom input from URL query param on first visit ─────────────────
+    if "phc_custom_input" not in st.session_state:
+        _url_p = st.query_params.get("p", "")
+        if _url_p:
+            st.session_state["phc_custom_input"] = _url_p
+
+    # ── initialise in-session saved portfolios store ───────────────────────────
+    if "phc_saved_portfolios" not in st.session_state:
+        st.session_state["phc_saved_portfolios"] = {}
+
     selected_from_list = st.multiselect(
         T("phc_pick_label", lang),
         options=_universe_tickers,
         default=[],
         placeholder="Search by ticker…",
+        key="phc_multiselect",
     )
     custom_input = st.text_input(
         T("phc_or_custom", lang),
         placeholder=T("phc_placeholder", lang),
+        key="phc_custom_input",
     )
 
     # combine: strip the "  ·  MARKET" suffix from multiselect labels
@@ -1997,6 +2029,47 @@ elif page == "🔍 Portfolio Health Check":
     raw_tickers = list(dict.fromkeys(picked))  # dedupe, preserve order
 
     ticker_input = ",".join(raw_tickers)  # keep downstream logic unchanged
+
+    # ── sync tickers to URL so the portfolio is bookmarkable ──────────────────
+    if raw_tickers:
+        st.query_params["p"] = ",".join(raw_tickers)
+    elif "p" in st.query_params:
+        del st.query_params["p"]
+
+    # ── save / load named portfolios (in-session) ──────────────────────────────
+    _saved = st.session_state["phc_saved_portfolios"]
+    with st.expander(T("phc_save_header", lang), expanded=False):
+        # Save row
+        _sc1, _sc2 = st.columns([4, 1])
+        with _sc1:
+            _save_name = st.text_input(
+                "name", label_visibility="collapsed",
+                placeholder=T("phc_save_placeholder", lang),
+                key="phc_save_name",
+            )
+        with _sc2:
+            if st.button(T("phc_save_btn", lang), key="phc_save_btn", disabled=not raw_tickers):
+                if _save_name.strip():
+                    _saved[_save_name.strip()] = ",".join(raw_tickers)
+                    st.success(T("phc_saved_ok", lang, name=_save_name.strip()))
+
+        # Load / delete saved portfolios
+        if _saved:
+            st.markdown(f"**{T('phc_load_header', lang)}**")
+            for _pname, _ptickers in list(_saved.items()):
+                _lc1, _lc2, _lc3 = st.columns([4, 1, 1])
+                _lc1.markdown(f"**{_pname}** — `{_ptickers}`")
+                if _lc2.button(T("phc_load_btn", lang), key=f"phc_load_{_pname}"):
+                    st.session_state["phc_custom_input"] = _ptickers
+                    st.rerun()
+                if _lc3.button(T("phc_delete_btn", lang), key=f"phc_del_{_pname}"):
+                    del _saved[_pname]
+                    st.rerun()
+        else:
+            st.caption(T("phc_load_none", lang))
+
+        if raw_tickers:
+            st.caption(T("phc_share_tip", lang))
 
     if raw_tickers:
         if len(raw_tickers) > 15:
