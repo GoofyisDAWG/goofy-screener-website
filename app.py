@@ -357,6 +357,21 @@ def classify_asset(ticker: str, info: dict) -> str:
     return "Stock"
 
 
+@st.cache_data(ttl=600)
+def _load_fund_cache_raw() -> dict:
+    """Return the raw fundamentals_cache.json as {ticker: dict}."""
+    for p in [
+        Path("screener_output/fundamentals_cache.json"),
+        Path(__file__).parent / "screener_output" / "fundamentals_cache.json",
+    ]:
+        if p.exists():
+            try:
+                return json.loads(p.read_text())
+            except Exception:
+                pass
+    return {}
+
+
 @st.cache_data(ttl=3600)
 def fetch_stock_health(ticker: str) -> dict:
     """Fetch fundamental health metrics for the Portfolio Health Check page."""
@@ -377,20 +392,44 @@ def fetch_stock_health(ticker: str) -> dict:
         current_price = fi.last_price
         year_high     = fi.year_high
         year_low      = fi.year_low
-        year_chg      = fi.year_change   # decimal, e.g. 0.12 = +12%
+        _yc           = fi.year_change
+        # guard against NaN (some tickers return nan for year_change)
+        year_chg = _yc if (_yc is not None and _yc == _yc) else None
         if not current_price:
             return {"ticker": ticker, "error": True, "name": ticker}
     except Exception:
         return {"ticker": ticker, "error": True, "name": ticker}
 
-    # .info has richer fundamentals but can fail on cloud — graceful degradation
+    # ── prefer screener's fundamentals_cache.json over live yfinance .info ──
+    # The cache is populated by the screener and is more reliable on cloud.
     info = {}
-    try:
-        raw = yf.Ticker(ticker).info
-        if isinstance(raw, dict) and len(raw) > 5:
-            info = raw
-    except Exception:
-        pass
+    cached = _load_fund_cache_raw().get(ticker, {})
+    if cached and not cached.get("error") and not cached.get("is_etf"):
+        # Map cache field names → yfinance .info key names used below
+        info = {
+            "trailingPE":         cached.get("pe") or cached.get("forward_pe"),
+            "revenueGrowth":      cached.get("revenue_growth"),   # decimal
+            "debtToEquity":       cached.get("debt_equity"),      # percentage pts
+            "freeCashflow":       cached.get("free_cashflow"),    # absolute $
+            "profitMargins":      cached.get("profit_margin"),    # decimal
+            "recommendationMean": cached.get("analyst_rating"),   # 1–5
+            "recommendationKey":  cached.get("analyst_label", ""),
+            "returnOnEquity":     cached.get("return_on_equity"), # decimal
+            "longName":           cached.get("company_name", ticker),
+            "sector":             cached.get("sector", ""),
+            "marketCap":          cached.get("market_cap"),
+            "dividendYield":      cached.get("dividend_yield"),
+        }
+        info = {k: v for k, v in info.items() if v is not None}
+
+    if not info:
+        # Fall back to live yfinance .info (slower, less reliable on cloud)
+        try:
+            raw = yf.Ticker(ticker).info
+            if isinstance(raw, dict) and len(raw) > 5:
+                info = raw
+        except Exception:
+            pass
 
     checks = []
 
@@ -2041,8 +2080,9 @@ elif page == "🔍 Portfolio Health Check":
             yc     = r.get("year_chg")
             div    = r.get("dividend_yield")
             if curr_p is not None:
-                yc_str   = f"{yc*100:+.1f}%" if yc is not None else "—"
-                yc_color = "#3fb950" if yc and yc > 0 else ("#f85149" if yc and yc < 0 else "#8b949e")
+                _yc_valid = yc is not None and yc == yc  # excludes NaN
+                yc_str   = f"{yc*100:+.1f}%" if _yc_valid else "—"
+                yc_color = "#3fb950" if _yc_valid and yc > 0 else ("#f85149" if _yc_valid and yc < 0 else "#8b949e")
                 div_str  = f"{div:.1f}%" if div and div > 0 else "—"
                 range_bar_html = ""
                 if yh and yl and yh > yl:
