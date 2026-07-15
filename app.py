@@ -216,6 +216,90 @@ def fetch_chart(ticker: str) -> pd.DataFrame:
         return pd.DataFrame()
 
 
+@st.cache_data(ttl=3600)
+def _fetch_fund_chart(ticker: str) -> pd.DataFrame:
+    """2-year daily price data for the Fundamental Rankings detail panel."""
+    try:
+        df = yf.download(ticker, period="2y", interval="1d",
+                         auto_adjust=True, progress=False)
+        if isinstance(df.columns, pd.MultiIndex):
+            df.columns = df.columns.droplevel(1)
+        return df.dropna(subset=["Close"])
+    except Exception:
+        return pd.DataFrame()
+
+
+def _build_fund_chart(df: pd.DataFrame, ticker: str) -> "go.Figure":
+    from plotly.subplots import make_subplots
+    close  = df["Close"].squeeze()
+    open_  = df["Open"].squeeze()
+    high   = df["High"].squeeze()
+    low    = df["Low"].squeeze()
+    vol    = df["Volume"].squeeze() if "Volume" in df.columns else None
+
+    n_rows = 2 if vol is not None else 1
+    heights = [0.72, 0.28] if n_rows == 2 else [1.0]
+    fig = make_subplots(rows=n_rows, cols=1, shared_xaxes=True,
+                        row_heights=heights, vertical_spacing=0.04)
+
+    # Candlestick
+    fig.add_trace(go.Candlestick(
+        x=df.index, open=open_, high=high, low=low, close=close,
+        increasing_line_color="#3fb950", decreasing_line_color="#f85149",
+        name="Price", showlegend=True,
+    ), row=1, col=1)
+
+    # MA 20 + MA 50
+    ma20 = close.rolling(20).mean()
+    ma50 = close.rolling(50).mean()
+    fig.add_trace(go.Scatter(x=df.index, y=ma20, line=dict(color="#58a6ff", width=1.5),
+                             name="MA 20"), row=1, col=1)
+    fig.add_trace(go.Scatter(x=df.index, y=ma50, line=dict(color="#d29922", width=1.5),
+                             name="MA 50"), row=1, col=1)
+
+    # Volume bars
+    if vol is not None:
+        vol_clrs = ["#3fb950" if c >= o else "#f85149"
+                    for c, o in zip(close, open_)]
+        fig.add_trace(go.Bar(x=df.index, y=vol, marker_color=vol_clrs,
+                             opacity=0.55, name="Volume"), row=2, col=1)
+
+    last    = float(close.iloc[-1])
+    prev    = float(close.iloc[-2]) if len(close) > 1 else last
+    chg     = last - prev
+    chgp    = chg / prev * 100 if prev else 0
+    clr     = "#3fb950" if chg >= 0 else "#f85149"
+    hi2y    = float(high.max())
+    lo2y    = float(low.min())
+    pct_hi  = (last / hi2y - 1) * 100
+    pct_clr = "#3fb950" if pct_hi > -10 else "#d29922"
+
+    fig.update_layout(
+        height=400,
+        plot_bgcolor="#0d1117", paper_bgcolor="#0d1117",
+        font_color="#e6edf3",
+        xaxis_rangeslider_visible=False,
+        legend=dict(orientation="h", y=1.02, x=0, font_size=10),
+        margin=dict(l=55, r=15, t=50, b=30),
+        title=dict(
+            text=(f"<b>{ticker}</b>  "
+                  f"<span style='color:{clr}'>{last:.2f}  {chg:+.2f}  ({chgp:+.2f}%)</span>"
+                  f"  <span style='color:#8b949e;font-size:12px'>"
+                  f"2Y High: {hi2y:.2f}  ·  2Y Low: {lo2y:.2f}"
+                  f"  ·  From High: <span style='color:{pct_clr}'>"
+                  f"{pct_hi:.1f}%</span></span>"),
+            font_size=14,
+        ),
+    )
+    for r in range(1, n_rows + 1):
+        fig.update_xaxes(gridcolor="#21262d", row=r, col=1)
+        fig.update_yaxes(gridcolor="#21262d", row=r, col=1)
+    if n_rows == 2:
+        fig.update_yaxes(title_text="Vol", title_font_size=9, row=2, col=1)
+
+    return fig
+
+
 ETF_TICKERS = {"SPY","QQQ","GLD","TLT","IWM","STW.AX","IOZ.AX","VAS.AX","1321.T","1306.T"}
 
 # ── asset class classification ─────────────────────────────────────────────────
@@ -2316,36 +2400,83 @@ elif page == "🌏 Fundamental Rankings":
             sector_html = ("<span style='color:#6b7280;font-size:11px'>" + row.get("sector","") + "</span>") if row.get("sector") else ""
             mcap_html   = ("<span style='color:#6b7280;font-size:11px;margin-left:4px'>" + mcap_str + "</span>") if mcap_str else ""
 
-            st.markdown(
-                f"<div class='fund-card {css_class}'>"
-                f"<div style='display:flex;align-items:flex-start;gap:14px'>"
-                # rank
-                f"<div style='font-size:17px;font-weight:800;color:#4fc3f7;"
-                f"min-width:30px;padding-top:2px'>#{rank}</div>"
-                # main block
-                f"<div style='flex:1;min-width:0'>"
-                f"<div style='display:flex;align-items:center;flex-wrap:wrap;gap:4px'>"
-                f"<span style='font-size:17px;font-weight:800;color:#ffffff'>{row['ticker']}</span>"
-                f"<span style='color:#c9d1d9;font-size:13px'>{row['name']}</span>"
-                f"<span class='market-badge {badge_cls}'>{mkt}</span>"
-                f"{sector_html}"
-                f"{mcap_html}"
-                f"</div>"
-                # score bar + label (ETFs: show note instead of score bar)
-                f"<div style='margin-top:7px;display:flex;align-items:center;gap:6px'>"
-                f"{segs}"
-                + (f"<span style='color:{clr};font-weight:700;font-size:13px'>{health_lbl}</span>"
-                   if is_etf_row else
-                   f"<span style='color:#ffffff;font-weight:700;font-size:13px'>"
-                   f"{row['score']}/{row['max']}</span>"
-                   f"<span style='color:{clr};font-weight:700;font-size:13px'>{health_lbl}</span>")
-                + f"</div>"
-                # stat pills
-                f"<div style='margin-top:7px'>{stats_html}</div>"
-                f"</div>"
-                f"</div></div>",
-                unsafe_allow_html=True,
-            )
+            _ticker = row["ticker"]
+            _exp_label = f"#{rank}  {_ticker}  ·  {row['name']}  —  {health_lbl}"
+            with st.expander(_exp_label, expanded=False):
+                # ── card summary ──────────────────────────────────────────────
+                st.markdown(
+                    f"<div class='fund-card {css_class}'>"
+                    f"<div style='display:flex;align-items:flex-start;gap:14px'>"
+                    f"<div style='font-size:17px;font-weight:800;color:#4fc3f7;"
+                    f"min-width:30px;padding-top:2px'>#{rank}</div>"
+                    f"<div style='flex:1;min-width:0'>"
+                    f"<div style='display:flex;align-items:center;flex-wrap:wrap;gap:4px'>"
+                    f"<span style='font-size:17px;font-weight:800;color:#ffffff'>{_ticker}</span>"
+                    f"<span style='color:#c9d1d9;font-size:13px'>{row['name']}</span>"
+                    f"<span class='market-badge {badge_cls}'>{mkt}</span>"
+                    f"{sector_html}"
+                    f"{mcap_html}"
+                    f"</div>"
+                    f"<div style='margin-top:7px;display:flex;align-items:center;gap:6px'>"
+                    f"{segs}"
+                    + (f"<span style='color:{clr};font-weight:700;font-size:13px'>{health_lbl}</span>"
+                       if is_etf_row else
+                       f"<span style='color:#ffffff;font-weight:700;font-size:13px'>"
+                       f"{row['score']}/{row['max']}</span>"
+                       f"<span style='color:{clr};font-weight:700;font-size:13px'>{health_lbl}</span>")
+                    + f"</div>"
+                    f"<div style='margin-top:7px'>{stats_html}</div>"
+                    f"</div>"
+                    f"</div></div>",
+                    unsafe_allow_html=True,
+                )
+
+                # ── extra metrics ─────────────────────────────────────────────
+                if not is_etf_row:
+                    eg_v  = row.get("earnings_growth")
+                    gm_v  = row.get("gross_margins")
+                    _em_cols = [c for c in [
+                        (T("lbl_pb",  lang), f"{pb_v:.2f}"             if pb_v  is not None else None, "#e6edf3"),
+                        (T("lbl_gm",  lang), f"{gm_v*100:.1f}%"        if gm_v  is not None else None, val_color(gm_v)),
+                        (("EPS Growth" if lang == "en" else "EPS成長率"),
+                                             f"{eg_v*100:+.1f}%"        if eg_v  is not None else None, val_color(eg_v)),
+                        (T("lbl_fcf", lang), fmt_val(row.get("free_cashflow"), "b")
+                                             if row.get("free_cashflow") is not None else None, "#e6edf3"),
+                    ] if c[1] is not None]
+
+                    if _em_cols:
+                        _ec = st.columns(len(_em_cols))
+                        for i, (lbl, val, col) in enumerate(_em_cols):
+                            _ec[i].markdown(
+                                f"<div style='background:#161b22;border-radius:6px;padding:8px 10px;"
+                                f"text-align:center'>"
+                                f"<div style='font-size:10px;color:#8b949e;text-transform:uppercase'>{lbl}</div>"
+                                f"<div style='font-size:15px;font-weight:700;color:{col}'>{val}</div>"
+                                f"</div>",
+                                unsafe_allow_html=True,
+                            )
+                        st.markdown("")
+
+                # ── price chart ───────────────────────────────────────────────
+                _chart_key = f"fchart_{_ticker}"
+                _btn_lbl   = "📈 Show 2-year price chart" if lang == "en" else "📈 2年間の株価チャートを表示"
+                _hide_lbl  = "▲ Hide chart" if lang == "en" else "▲ チャートを非表示"
+                if st.session_state.get(_chart_key):
+                    if st.button(_hide_lbl, key=f"fhide_{_ticker}"):
+                        st.session_state[_chart_key] = False
+                        st.rerun()
+                    with st.spinner(f"Loading {_ticker}…"):
+                        _pdf = _fetch_fund_chart(_ticker)
+                    if _pdf.empty:
+                        st.warning("Could not load chart data." if lang == "en"
+                                   else "チャートデータを読み込めませんでした。")
+                    else:
+                        st.plotly_chart(_build_fund_chart(_pdf, _ticker),
+                                        use_container_width=True)
+                else:
+                    if st.button(_btn_lbl, key=f"fshow_{_ticker}"):
+                        st.session_state[_chart_key] = True
+                        st.rerun()
 
         # ── metric legend ──────────────────────────────────────────────────
         st.markdown("---")
