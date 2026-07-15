@@ -46,9 +46,9 @@
       "score": 30,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 22.88,
-      "unrealised_pnl_pct": -0.0,
-      "days_held": 0,
+      "current_price": 22.69,
+      "unrealised_pnl_pct": -0.83,
+      "days_held": 1,
       "peak_pnl_pct": 0.0
     },
     {
@@ -65,9 +65,9 @@
       "score": 40,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 7050.0,
-      "unrealised_pnl_pct": 0.0,
-      "days_held": 0,
+      "current_price": 7014.0,
+      "unrealised_pnl_pct": -0.511,
+      "days_held": 1,
       "peak_pnl_pct": 0.0
     }
   ],
