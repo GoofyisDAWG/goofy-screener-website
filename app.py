@@ -99,15 +99,37 @@ RUN_CONFIGS = {
 
 @st.cache_data(ttl=600)
 def load_screener_universe() -> tuple[pd.DataFrame, str, str]:
-    """Load all stocks from the latest screener run (US + ASX + JPX sheets)."""
+    """Load all stocks from the latest screener run (US + ASX + JPX sheets).
+
+    Prefers screener_latest.json (written by sync_to_website.py) over xlsx files.
+    Falls back to xlsx if JSON doesn't exist (local dev without sync).
+    """
+    # ── fast path: read pre-exported JSON ─────────────────────────────────────
+    json_path = SCREENER_DIR / "screener_latest.json"
+    date_path = SCREENER_DIR / "screener_latest_date.txt"
+    if json_path.exists():
+        try:
+            df = pd.read_json(json_path, orient="records")
+            df = df.dropna(how="all")
+            run_date = date_path.read_text().strip() if date_path.exists() else ""
+            if not df.empty:
+                now = datetime.now()
+                try:
+                    rd = datetime.strptime(run_date, "%Y-%m-%d")
+                    delta_h = (now - rd).total_seconds() / 3600
+                    hours_ago = f"{delta_h:.0f}h ago" if delta_h < 48 else f"{int(delta_h/24)}d ago"
+                except Exception:
+                    hours_ago = ""
+                return df, run_date, hours_ago
+        except Exception:
+            pass
+
+    # ── fallback: read from xlsx (local dev) ──────────────────────────────────
     files = [f for f in SCREENER_DIR.glob("Goofy_Phase8*.xlsx")
              if not f.name.startswith("~")]
     if not files:
         return pd.DataFrame(), "", ""
 
-    # Find the most recent date, then pick Run 1 from that date.
-    # All runs produce identical screener ranking data — only their paper
-    # trading tabs differ. Run 1 is the consistent, clean pick.
     dated = []
     for f in files:
         m = re.search(r"(\d{4}-\d{2}-\d{2})_Run(\d+)", f.name)
@@ -118,7 +140,7 @@ def load_screener_universe() -> tuple[pd.DataFrame, str, str]:
     else:
         most_recent_date = max(d for d, _, _ in dated)
         same_day = [(n, f) for d, n, f in dated if d == most_recent_date]
-        same_day.sort(key=lambda x: x[0])  # lowest run number = Run 1
+        same_day.sort(key=lambda x: x[0])
         latest = same_day[0][1]
 
     frames = []
