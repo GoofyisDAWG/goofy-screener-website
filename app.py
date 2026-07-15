@@ -2148,8 +2148,8 @@ elif page == "🌏 Fundamental Rankings":
         with col_q:
             health_filter = st.multiselect(
                 "Show" if lang == "en" else "表示",
-                options=["strong","watch","weak","etf","limited"],
-                default=["strong","watch","weak","etf","limited"],
+                options=["strong","watch","weak","limited","etf"],
+                default=["strong","watch","weak","limited"],
                 format_func=lambda x: T(x, lang),
             )
 
@@ -2213,16 +2213,26 @@ elif page == "🌏 Fundamental Rankings":
             if mc:
                 mcap_str = f"${mc/1e9:.0f}B" if mc >= 1e9 else f"${mc/1e6:.0f}M"
 
-            # score segment bar
+            # score segment bar (ETFs have no individual fundamentals — skip bar)
+            is_etf_row = row.get("is_etf", False)
             bd = row["breakdown"]
-            segs = ""
-            for ck in CHECK_ORDER:
-                v = bd.get(ck)
-                seg_clr = "#23d18b" if v == 1 else "#ff4757" if v == 0 else "#2d333b"
-                segs += (
-                    f"<span style='display:inline-block;width:18px;height:8px;"
-                    f"border-radius:2px;margin:1px;background:{seg_clr}'></span>"
+            if is_etf_row:
+                segs = (
+                    f"<span style='color:#8b949e;font-size:12px'>"
+                    + ("ETFs track a basket of stocks — individual P/E, ROE etc. don't apply."
+                       if lang == "en" else
+                       "ETFは複数銘柄を追跡するため個別の財務指標（PER・ROE等）は適用されません。")
+                    + "</span>"
                 )
+            else:
+                segs = ""
+                for ck in CHECK_ORDER:
+                    v = bd.get(ck)
+                    seg_clr = "#23d18b" if v == 1 else "#ff4757" if v == 0 else "#2d333b"
+                    segs += (
+                        f"<span style='display:inline-block;width:18px;height:8px;"
+                        f"border-radius:2px;margin:1px;background:{seg_clr}'></span>"
+                    )
 
             # stat pills
             stats = []
@@ -2288,13 +2298,15 @@ elif page == "🌏 Fundamental Rankings":
                 f"{sector_html}"
                 f"{mcap_html}"
                 f"</div>"
-                # score bar + label
+                # score bar + label (ETFs: show note instead of score bar)
                 f"<div style='margin-top:7px;display:flex;align-items:center;gap:6px'>"
                 f"{segs}"
-                f"<span style='color:#ffffff;font-weight:700;font-size:13px'>"
-                f"{row['score']}/{row['max']}</span>"
-                f"<span style='color:{clr};font-weight:700;font-size:13px'>{health_lbl}</span>"
-                f"</div>"
+                + (f"<span style='color:{clr};font-weight:700;font-size:13px'>{health_lbl}</span>"
+                   if is_etf_row else
+                   f"<span style='color:#ffffff;font-weight:700;font-size:13px'>"
+                   f"{row['score']}/{row['max']}</span>"
+                   f"<span style='color:{clr};font-weight:700;font-size:13px'>{health_lbl}</span>")
+                + f"</div>"
                 # stat pills
                 f"<div style='margin-top:7px'>{stats_html}</div>"
                 f"</div>"
