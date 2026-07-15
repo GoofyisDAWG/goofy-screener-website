@@ -175,7 +175,10 @@ def load_screener_universe() -> tuple[pd.DataFrame, str, str]:
 @st.cache_data(ttl=600)
 def load_trade_history() -> pd.DataFrame:
     """Load all closed trades across all runs for track record."""
-    def fix_nan(s): return re.sub(r':\s*NaN', ': null', s)
+    def fix_nan(s):
+        s = re.sub(r'\bNaN\b', 'null', s)
+        s = re.sub(r'\bInfinity\b', 'null', s)
+        return s
     rows = []
     for run in range(1, 22):
         p = TRADES_DIR / f"run{run}_trades_log.json"
@@ -208,7 +211,10 @@ def load_trade_history() -> pd.DataFrame:
 
 def load_open_positions() -> pd.DataFrame:
     """Load all open trades with current unrealised P&L."""
-    def fix_nan(s): return re.sub(r':\s*NaN', ': null', s)
+    def fix_nan(s):
+        s = re.sub(r'\bNaN\b', 'null', s)
+        s = re.sub(r'\bInfinity\b', 'null', s)
+        return s
     rows = []
     for run in range(1, 22):
         p = TRADES_DIR / f"run{run}_trades_log.json"
@@ -2812,24 +2818,55 @@ The goal is to find which combination of rules produces the best real-world resu
     else:
         dc = df_history.copy()
 
-        # ── run filter ──────────────────────────────────────────────────────────
-        all_runs = sorted(dc["run"].unique().tolist())
-        run_labels = [T("tr_run_all", lang)] + [f"Run {r} — {RUN_CONFIGS.get(r, '')}" for r in all_runs]
+        # ── run filter — show ALL configured runs, not just ones with closed trades ─
+        _runs_with_data = set(dc["run"].unique().tolist())
+        _open_by_run    = (df_open.groupby("run").size().to_dict()
+                           if not df_open.empty and "run" in df_open.columns else {})
+        all_runs = sorted(RUN_CONFIGS.keys())
+
+        def _run_label(r):
+            cfg = RUN_CONFIGS.get(r, "")
+            if r not in _runs_with_data:
+                n_open = _open_by_run.get(r, 0)
+                suffix = (f" — {n_open} open, no closed trades yet"
+                          if lang == "en" else
+                          f" — {n_open}件保有中・決済済みなし")
+                return f"Run {r}{suffix}"
+            return f"Run {r} — {cfg}"
+
+        run_labels = [T("tr_run_all", lang)] + [_run_label(r) for r in all_runs]
         selected_label = st.selectbox(T("tr_run_filter", lang), run_labels, index=0)
+
+        selected_run = None
         if selected_label != T("tr_run_all", lang):
             selected_run = int(selected_label.split()[1])
             dc = dc[dc["run"] == selected_run].copy()
 
-        n_total  = len(dc)
-        n_wins   = int(dc["win"].sum())
-        win_rate = n_wins / n_total * 100
-        avg_pnl  = dc["pnl_pct"].mean()
-        avg_win  = dc[dc["win"]]["pnl_pct"].mean() if n_wins > 0 else 0
-        avg_loss = dc[~dc["win"]]["pnl_pct"].mean() if n_total - n_wins > 0 else 0
-        pf       = abs(avg_win / avg_loss) if avg_loss != 0 else float("inf")
-        n_stops  = int((dc["exit_reason"] == "STOP_LOSS").sum())
-        wl_str   = f"{n_wins}W / {n_total-n_wins}L" if lang == "en" else f"{n_wins}勝 / {n_total-n_wins}敗"
-        stops_sub = f"{n_stops/n_total*100:.0f}% of trades" if lang == "en" else f"全体の{n_stops/n_total*100:.0f}%"
+        # handle runs with no closed trades yet
+        if dc.empty and selected_run is not None:
+            n_open = _open_by_run.get(selected_run, 0)
+            _msg = (f"Run {selected_run} has **{n_open} open position(s)** but no closed trades yet — "
+                    "check back once some trades exit."
+                    if lang == "en" else
+                    f"Run {selected_run}は**{n_open}件の保有ポジション**がありますが、まだ決済済みトレードはありません。")
+            st.info(_msg)
+
+        if dc.empty:
+            n_total = n_wins = n_stops = 0
+            win_rate = avg_pnl = avg_win = avg_loss = pf = 0.0
+            wl_str = "0W / 0L" if lang == "en" else "0勝 / 0敗"
+            stops_sub = "—"
+        else:
+            n_total  = len(dc)
+            n_wins   = int(dc["win"].sum())
+            win_rate = n_wins / n_total * 100
+            avg_pnl  = dc["pnl_pct"].mean()
+            avg_win  = dc[dc["win"]]["pnl_pct"].mean() if n_wins > 0 else 0
+            avg_loss = dc[~dc["win"]]["pnl_pct"].mean() if n_total - n_wins > 0 else 0
+            pf       = abs(avg_win / avg_loss) if avg_loss != 0 else float("inf")
+            n_stops  = int((dc["exit_reason"] == "STOP_LOSS").sum())
+            wl_str   = f"{n_wins}W / {n_total-n_wins}L" if lang == "en" else f"{n_wins}勝 / {n_total-n_wins}敗"
+            stops_sub = f"{n_stops/n_total*100:.0f}% of trades" if lang == "en" else f"全体の{n_stops/n_total*100:.0f}%"
 
         # ── summary metrics ──
         cols = st.columns(6)
