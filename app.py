@@ -305,11 +305,12 @@ def _build_fund_chart(df: pd.DataFrame, ticker: str) -> "go.Figure":
 
     fig.update_layout(
         height=400,
+        autosize=True,
         plot_bgcolor="#0d1117", paper_bgcolor="#0d1117",
         font_color="#e6edf3",
         xaxis_rangeslider_visible=False,
         legend=dict(orientation="h", y=1.02, x=0, font_size=10),
-        margin=dict(l=55, r=15, t=50, b=30),
+        margin=dict(l=45, r=8, t=55, b=15),
         title=dict(
             text=(f"<b>{ticker}</b>  "
                   f"<span style='color:{clr}'>{last:.2f}  {chg:+.2f}  ({chgp:+.2f}%)</span>"
@@ -1559,11 +1560,12 @@ def build_strategy_chart(price_df: pd.DataFrame, strategy: str,
 
     fig.update_layout(
         height=160 + 200 * n_rows,
+        autosize=True,
         plot_bgcolor="#0d1117", paper_bgcolor="#0d1117",
         font_color="#e6edf3",
         xaxis_rangeslider_visible=False,
         legend=dict(orientation="h", y=1.02, x=0, font_size=10),
-        margin=dict(l=60, r=20, t=60, b=40),
+        margin=dict(l=45, r=8, t=60, b=30),
         title=dict(
             text=(f"<b>{asset}</b> &nbsp; "
                   f"<span style='color:{clr}'>{last_close:.2f} "
@@ -2020,10 +2022,13 @@ elif page == "🔍 Portfolio Health Check":
             _us  = sorted(t for t in _fc if not t.endswith(".AX") and not t.endswith(".T"))
             _asx = sorted(t for t in _fc if t.endswith(".AX"))
             _jpx = sorted(t for t in _fc if t.endswith(".T"))
+            def _opt_label(t, mkt):
+                name = _fc.get(t, {}).get("company_name", "")
+                return f"{t} — {name}  ·  {mkt}" if name else f"{t}  ·  {mkt}"
             _universe_tickers = (
-                [f"{t}  ·  US"  for t in _us] +
-                [f"{t}  ·  ASX" for t in _asx] +
-                [f"{t}  ·  JPX" for t in _jpx]
+                [_opt_label(t, "US")  for t in _us] +
+                [_opt_label(t, "ASX") for t in _asx] +
+                [_opt_label(t, "JPX") for t in _jpx]
             )
         except Exception:
             pass
@@ -2051,8 +2056,8 @@ elif page == "🔍 Portfolio Health Check":
         key="phc_custom_input",
     )
 
-    # combine: strip the "  ·  MARKET" suffix from multiselect labels
-    picked = [opt.split("  ·  ")[0].strip() for opt in selected_from_list]
+    # combine: strip the "  ·  MARKET" suffix and optional "TICKER — Company" format
+    picked = [opt.split("  ·  ")[0].split(" — ")[0].strip() for opt in selected_from_list]
     if custom_input.strip():
         picked += [t.strip().upper() for t in custom_input.split(",") if t.strip()]
     raw_tickers = list(dict.fromkeys(picked))  # dedupe, preserve order
