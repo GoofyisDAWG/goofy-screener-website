@@ -703,6 +703,10 @@ _TR = {
         "tr_snap_sub":   "Simulation combining closed trade history with current unrealised P&L on open positions. Not a real return — just a snapshot of where we stand today.",
         "tr_col_closed": "Closed", "tr_col_open_n": "Open",
         "tr_col_combo_wr": "Win rate", "tr_col_combo_avg": "Avg P&L", "tr_col_total": "Total P&L",
+        "tr_sim_header":  "💰 Investment Simulator",
+        "tr_sim_label":   "If I had invested…",
+        "tr_sim_becomes": "would have become",
+        "tr_sim_disc":    "Sequential compounding — each signal reinvests the previous result. Trades overlap in reality so this overstates a bit, but the direction is right.",
         # ── stock chart ──
         "sc_title":    "## 📈 Stock Chart",
         "sc_expander": "❓ How to read this page",
@@ -931,6 +935,10 @@ _TR = {
         "tr_snap_sub":   "クローズ済み取引実績と現在の含み益を合算したシミュレーションです。実際のリターンではなく、現時点でのスナップショットです。",
         "tr_col_closed": "決済済", "tr_col_open_n": "保有中",
         "tr_col_combo_wr": "勝率", "tr_col_combo_avg": "平均損益", "tr_col_total": "合計損益",
+        "tr_sim_header":  "💰 投資シミュレーター",
+        "tr_sim_label":   "もし投資していたら…",
+        "tr_sim_becomes": "の最終価値",
+        "tr_sim_disc":    "順次複利モデル — 各シグナルが前の結果を再投資。実際にはトレードが同時進行するため若干過大評価ですが、方向性は正確です。",
         # ── stock chart ──
         "sc_title":    "## 📈 株価チャート",
         "sc_expander": "❓ このページの使い方",
@@ -2341,6 +2349,156 @@ elif page == "🔍 Portfolio Health Check":
                 unsafe_allow_html=True,
             )
 
+            # ── portfolio advisor ──────────────────────────────────────────────
+            _adv_valid = [r for r in results if not r.get("error") and not r.get("is_etf")]
+            if _adv_valid:
+                _adv_healthy = [r for r in _adv_valid if r.get("overall") == "healthy"]
+                _adv_caution = [r for r in _adv_valid if r.get("overall") == "caution"]
+                _adv_concern = [r for r in _adv_valid if r.get("overall") == "concern"]
+
+                # map screener signals for each ticker
+                _adv_sigs: dict[str, dict] = {}
+                if not df_universe.empty:
+                    _a_col = next((c for c in df_universe.columns if c.lower() in ("asset","ticker","symbol")), None)
+                    _s_col = next((c for c in df_universe.columns if c.lower() == "signal"), None)
+                    _m_col = next((c for c in df_universe.columns if "ml" in c.lower() and "score" in c.lower()), None)
+                    if _a_col and _s_col:
+                        for _, _row in df_universe.iterrows():
+                            _adv_sigs[_row[_a_col]] = {
+                                "signal": str(_row.get(_s_col, "")).upper(),
+                                "ml": _row.get(_m_col, "") if _m_col else "",
+                            }
+
+                # build action items
+                _action_items = []
+
+                # sector concentration
+                _adv_sectors: dict[str, list] = {}
+                for r in _adv_valid:
+                    sec = r.get("sector", "")
+                    if sec:
+                        _adv_sectors.setdefault(sec, []).append(r["ticker"])
+                if _adv_sectors:
+                    _top_sec = max(_adv_sectors, key=lambda s: len(_adv_sectors[s]))
+                    _top_n   = len(_adv_sectors[_top_sec])
+                    if _top_n / len(_adv_valid) >= 0.5 and len(_adv_valid) >= 3:
+                        _tickers_in_sec = ", ".join(_adv_sectors[_top_sec])
+                        _action_items.append(("⚠️", _top_sec,
+                            f"{_top_n}/{len(_adv_valid)} holdings — heavy concentration. Consider adding stocks from other sectors."
+                            if lang == "en" else
+                            f"{_top_n}/{len(_adv_valid)}銘柄が同セクター — 分散を検討してください。",
+                            _tickers_in_sec))
+
+                # concern stocks
+                for r in _adv_concern:
+                    _sig = _adv_sigs.get(r["ticker"], {}).get("signal", "")
+                    if _sig == "BUY":
+                        _action_items.append(("⚠️", r["ticker"],
+                            "Screener says BUY but fundamentals look weak — do extra due diligence before acting."
+                            if lang == "en" else
+                            "スクリーナーはBUYですがファンダメンタルズが弱い — 追加調査を推奨。",
+                            r.get("name", "")))
+                    else:
+                        _action_items.append(("🔴", r["ticker"],
+                            f"Weak fundamentals ({r['score']}/{r['max']} checks passed). Review or reduce position."
+                            if lang == "en" else
+                            f"ファンダメンタルズが弱い（{r['score']}/{r['max']}通過）。見直しを検討。",
+                            r.get("name", "")))
+
+                # healthy stocks with no buy signal (hold-only)
+                for r in _adv_healthy:
+                    _sig = _adv_sigs.get(r["ticker"], {}).get("signal", "")
+                    if _sig and _sig != "BUY":
+                        _action_items.append(("💡", r["ticker"],
+                            "Good fundamentals — no fresh BUY signal right now, but solid long-term hold."
+                            if lang == "en" else
+                            "ファンダメンタルズは良好 — 現在新規BUYシグナルなし。長期保有には適切。",
+                            r.get("name", "")))
+
+                # dividend income estimate
+                _div_stocks = [(r["ticker"], r.get("name",""), r.get("dividend_yield",0))
+                               for r in _adv_valid if r.get("dividend_yield") and r["dividend_yield"] > 0.01]
+
+                # best picks: healthy or caution + BUY signal
+                _best = []
+                for r in _adv_healthy + _adv_caution:
+                    _sig_info = _adv_sigs.get(r["ticker"], {})
+                    if _sig_info.get("signal") == "BUY":
+                        _ml = _sig_info.get("ml", "")
+                        _ml_str = f" · ML {float(_ml):.0f}/100" if _ml != "" else ""
+                        _best.append((r["ticker"], r.get("name",""), r.get("overall",""), _ml_str))
+
+                _adv_title = "🧠 Portfolio Advisor" if lang == "en" else "🧠 ポートフォリオアドバイザー"
+                st.markdown(f"### {_adv_title}")
+
+                # summary line
+                _summ_parts = []
+                if _adv_healthy: _summ_parts.append(f"<span style='color:#3fb950;font-weight:700'>{len(_adv_healthy)} {'healthy' if lang == 'en' else '健全'}</span>")
+                if _adv_caution: _summ_parts.append(f"<span style='color:#d29922;font-weight:700'>{len(_adv_caution)} {'caution' if lang == 'en' else '注意'}</span>")
+                if _adv_concern: _summ_parts.append(f"<span style='color:#f85149;font-weight:700'>{len(_adv_concern)} {'concern' if lang == 'en' else '懸念'}</span>")
+                st.markdown(
+                    f"<div style='font-size:14px;color:#8b949e;margin-bottom:12px'>"
+                    f"{'Your ' + str(len(_adv_valid)) + ' stocks:' if lang == 'en' else str(len(_adv_valid)) + '銘柄の内訳:'} {' · '.join(_summ_parts)}"
+                    f"</div>",
+                    unsafe_allow_html=True,
+                )
+
+                if _best:
+                    st.markdown(f"**{'⭐ Best picks in your portfolio' if lang == 'en' else '⭐ おすすめ保有銘柄'}**")
+                    for _t, _n, _health, _ml_str in _best:
+                        _hclr = "#3fb950" if _health == "healthy" else "#d29922"
+                        _hlbl = ("Healthy" if _health == "healthy" else "Caution") if lang == "en" else ("健全" if _health == "healthy" else "注意")
+                        st.markdown(
+                            f"<div style='background:#1c2128;border:1px solid #3fb95040;"
+                            f"border-left:4px solid #3fb950;border-radius:6px;"
+                            f"padding:10px 14px;margin:4px 0;font-size:13px'>"
+                            f"🤖 <b style='color:#e6edf3'>{_t}</b> &nbsp;"
+                            f"<span style='color:#8b949e'>{_n}</span> &nbsp;"
+                            f"<span style='background:#3fb95020;color:#3fb950;padding:2px 8px;"
+                            f"border-radius:4px;font-size:12px'>BUY</span> &nbsp;"
+                            f"<span style='color:{_hclr};font-size:12px'>{_hlbl} fundamentals</span>"
+                            f"<span style='color:#8b949e;font-size:12px'>{_ml_str}</span>"
+                            f"</div>",
+                            unsafe_allow_html=True,
+                        )
+
+                if _action_items:
+                    st.markdown(f"**{'📋 Action items' if lang == 'en' else '📋 アクション項目'}**")
+                    for _icon, _subject, _msg, _sub in _action_items:
+                        st.markdown(
+                            f"<div style='background:#161b22;border:1px solid #30363d;"
+                            f"border-radius:6px;padding:10px 14px;margin:4px 0;font-size:13px'>"
+                            f"{_icon} <b style='color:#e6edf3'>{_subject}</b>"
+                            f"{'  <span style=\"color:#8b949e;font-size:12px\">(' + _sub + ')</span>' if _sub else ''}"
+                            f"<br><span style='color:#8b949e'>{_msg}</span>"
+                            f"</div>",
+                            unsafe_allow_html=True,
+                        )
+
+                if _div_stocks:
+                    st.markdown(f"**{'💸 Dividend payers in your portfolio' if lang == 'en' else '💸 配当銘柄'}**")
+                    for _t, _n, _dy in sorted(_div_stocks, key=lambda x: -x[2]):
+                        st.markdown(
+                            f"<div style='background:#161b22;border:1px solid #30363d;"
+                            f"border-radius:6px;padding:8px 14px;margin:3px 0;font-size:13px;"
+                            f"display:flex;align-items:center'>"
+                            f"💰 <b style='color:#e6edf3;margin-left:6px'>{_t}</b> &nbsp;"
+                            f"<span style='color:#8b949e'>{_n}</span> &nbsp;"
+                            f"<span style='color:#3fb950;font-weight:700'>{_dy:.1f}% yield</span>"
+                            f"</div>",
+                            unsafe_allow_html=True,
+                        )
+
+                if not _best and not _action_items:
+                    st.markdown(
+                        f"<div style='color:#8b949e;font-size:13px;padding:8px 0'>"
+                        f"{'✅ No urgent action items. Portfolio looks balanced.' if lang == 'en' else '✅ 緊急アクション不要。ポートフォリオはバランスが取れています。'}"
+                        f"</div>",
+                        unsafe_allow_html=True,
+                    )
+
+                st.markdown("---")
+
             # what the tool can't check
             st.markdown(
                 f"<div class='guide-box'>{T('phc_cant_check', lang)}</div>",
@@ -2898,6 +3056,75 @@ The goal is to find which combination of rules produces the best real-world resu
                 f"</div>",
                 unsafe_allow_html=True,
             )
+
+        # ── investment simulator ─────────────────────────────────────────────────
+        st.markdown(f"### {T('tr_sim_header', lang)}")
+        _sim_c1, _sim_c2 = st.columns([1, 3])
+        with _sim_c1:
+            _sim_amt = st.number_input(
+                T("tr_sim_label", lang),
+                min_value=100, max_value=10_000_000,
+                value=1000, step=100, key="tr_sim_amt",
+            )
+        if not dc.empty:
+            _sim_sorted = dc.dropna(subset=["exit_date"]).copy()
+            _sim_sorted["exit_date"] = pd.to_datetime(_sim_sorted["exit_date"], errors="coerce")
+            _sim_sorted = _sim_sorted.dropna(subset=["exit_date"]).sort_values("exit_date")
+
+            _sim_val = float(_sim_amt)
+            _sim_curve = [_sim_val]
+            for _p in _sim_sorted["pnl_pct"]:
+                _sim_val *= (1 + _p / 100)
+                _sim_curve.append(_sim_val)
+
+            _sim_ret  = (_sim_val / _sim_amt - 1) * 100
+            _sim_clr  = "#3fb950" if _sim_val >= _sim_amt else "#f85149"
+            _sim_icon = "📈" if _sim_val >= _sim_amt else "📉"
+            _sim_arrow = "▲" if _sim_val >= _sim_amt else "▼"
+
+            _card_c, _chart_c = st.columns([1, 2])
+            with _card_c:
+                st.markdown(
+                    f"<div style='background:#161b22;border:2px solid {_sim_clr};"
+                    f"border-radius:12px;padding:22px 20px;text-align:center;margin-top:8px'>"
+                    f"<div style='font-size:30px'>{_sim_icon}</div>"
+                    f"<div style='font-size:13px;color:#8b949e;margin-top:6px'>"
+                    f"${_sim_amt:,.0f} {T('tr_sim_becomes', lang)}</div>"
+                    f"<div style='font-size:32px;font-weight:800;color:{_sim_clr};line-height:1.1'>"
+                    f"${_sim_val:,.2f}</div>"
+                    f"<div style='font-size:17px;color:{_sim_clr};font-weight:600;margin-top:2px'>"
+                    f"{_sim_arrow} {_sim_ret:+.2f}%</div>"
+                    f"<div style='font-size:11px;color:#8b949e;margin-top:6px'>"
+                    f"{len(_sim_sorted)} {'closed trades' if lang == 'en' else '決済済み取引'}</div>"
+                    f"</div>",
+                    unsafe_allow_html=True,
+                )
+            with _chart_c:
+                _start_dt = _sim_sorted["exit_date"].iloc[0] - pd.Timedelta(days=20)
+                _x_dates  = [_start_dt] + list(_sim_sorted["exit_date"])
+                _fill_clr = "rgba(63,185,80,0.08)" if _sim_val >= _sim_amt else "rgba(248,81,73,0.08)"
+                _fig_sim  = go.Figure()
+                _fig_sim.add_trace(go.Scatter(
+                    x=_x_dates, y=_sim_curve,
+                    mode="lines", line=dict(color=_sim_clr, width=2),
+                    fill="tozeroy", fillcolor=_fill_clr, showlegend=False,
+                    hovertemplate="$%{y:,.2f}<extra></extra>",
+                ))
+                _fig_sim.add_hline(y=float(_sim_amt), line_dash="dash",
+                                   line_color="#8b949e", opacity=0.5)
+                _fig_sim.update_layout(
+                    height=220, autosize=True,
+                    plot_bgcolor="#0d1117", paper_bgcolor="#0d1117",
+                    font_color="#e6edf3",
+                    margin=dict(l=45, r=8, t=10, b=30),
+                    xaxis=dict(gridcolor="#21262d"),
+                    yaxis=dict(gridcolor="#21262d", tickprefix="$"),
+                )
+                st.plotly_chart(_fig_sim, use_container_width=True)
+            st.caption(T("tr_sim_disc", lang))
+        else:
+            st.info("No closed trades yet — simulator will activate once trades close." if lang == "en"
+                    else "まだ決済済み取引がありません。取引が決済されると有効になります。")
 
         st.markdown("---")
 
