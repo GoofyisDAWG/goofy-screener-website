@@ -2465,11 +2465,12 @@ elif page == "🔍 Portfolio Health Check":
                 if _action_items:
                     st.markdown(f"**{'📋 Action items' if lang == 'en' else '📋 アクション項目'}**")
                     for _icon, _subject, _msg, _sub in _action_items:
+                        _sub_html = (f"  <span style='color:#8b949e;font-size:12px'>({_sub})</span>"
+                                     if _sub else "")
                         st.markdown(
                             f"<div style='background:#161b22;border:1px solid #30363d;"
                             f"border-radius:6px;padding:10px 14px;margin:4px 0;font-size:13px'>"
-                            f"{_icon} <b style='color:#e6edf3'>{_subject}</b>"
-                            f"{'  <span style=\"color:#8b949e;font-size:12px\">(' + _sub + ')</span>' if _sub else ''}"
+                            f"{_icon} <b style='color:#e6edf3'>{_subject}</b>{_sub_html}"
                             f"<br><span style='color:#8b949e'>{_msg}</span>"
                             f"</div>",
                             unsafe_allow_html=True,
