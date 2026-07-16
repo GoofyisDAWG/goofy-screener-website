@@ -3,7 +3,7 @@
     "run": 18,
     "label": "Full Quality Block: No MACD/BB/RSI-Div/RS, ML\u226580, Tiered Floor (Run 18)",
     "created": "2026-07-12",
-    "total_logged": 5,
+    "total_logged": 7,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
@@ -45,8 +45,8 @@
       "tier": "B",
       "score": 40,
       "p7_verdict": "TRADE",
-      "current_price": 7080.0,
-      "unrealised_pnl_pct": 0.711,
+      "current_price": 7068.0,
+      "unrealised_pnl_pct": 0.541,
       "days_held": 3,
       "peak_pnl_pct": 1.181,
       "checkpoints": {}
@@ -122,10 +122,38 @@
       "score": 54,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 158.71,
-      "unrealised_pnl_pct": 3.671,
+      "current_price": 159.48,
+      "unrealised_pnl_pct": 4.174,
       "days_held": 0,
-      "peak_pnl_pct": 3.671
+      "peak_pnl_pct": 4.174
+    },
+    {
+      "asset": "AMC.AX",
+      "market": "ASX",
+      "entry_date": "2026-07-16",
+      "entry_price": 62.19,
+      "hold_days_target": 20,
+      "size_pct": 14.0,
+      "ml_score": 94.8,
+      "val_auc": 0.49,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 54,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "6702.T",
+      "market": "JPX",
+      "entry_date": "2026-07-16",
+      "entry_price": 3274.0,
+      "hold_days_target": 20,
+      "size_pct": 4.7,
+      "ml_score": 95.4,
+      "val_auc": 0.483,
+      "strategy": "RSI(2)",
+      "tier": "B",
+      "score": 31,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": []
