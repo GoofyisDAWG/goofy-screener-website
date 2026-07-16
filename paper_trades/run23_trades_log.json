@@ -53,10 +53,10 @@
       "score": 30,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 22.56,
-      "unrealised_pnl_pct": 0.089,
+      "current_price": 22.69,
+      "unrealised_pnl_pct": 0.665,
       "days_held": 0,
-      "peak_pnl_pct": 0.089
+      "peak_pnl_pct": 0.665
     },
     {
       "asset": "AMC.AX",
@@ -72,8 +72,8 @@
       "score": 54,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 62.19,
-      "unrealised_pnl_pct": 0.064,
+      "current_price": 61.38,
+      "unrealised_pnl_pct": -1.239,
       "days_held": 0,
       "peak_pnl_pct": 0.064
     }
