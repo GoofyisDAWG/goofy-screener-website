@@ -1366,7 +1366,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T10:12:27.687677"
+    "fetched_at": "2026-07-16T10:42:52.565557"
   },
   "QQQ": {
     "ticker": "QQQ",
@@ -1375,7 +1375,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T10:12:27.687791"
+    "fetched_at": "2026-07-16T10:42:52.565569"
   },
   "GLD": {
     "ticker": "GLD",
@@ -1384,7 +1384,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T10:12:27.687808"
+    "fetched_at": "2026-07-16T10:42:52.565572"
   },
   "TLT": {
     "ticker": "TLT",
@@ -1393,7 +1393,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T10:12:27.687820"
+    "fetched_at": "2026-07-16T10:42:52.565574"
   },
   "IWM": {
     "ticker": "IWM",
@@ -1402,7 +1402,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T10:12:27.687831"
+    "fetched_at": "2026-07-16T10:42:52.565576"
   },
   "CBA.AX": {
     "ticker": "CBA.AX",
@@ -2451,7 +2451,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T10:12:48.730392"
+    "fetched_at": "2026-07-16T10:42:52.565666"
   },
   "STW.AX": {
     "ticker": "STW.AX",
@@ -2460,7 +2460,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T10:12:48.730451"
+    "fetched_at": "2026-07-16T10:42:52.565669"
   },
   "VAS.AX": {
     "ticker": "VAS.AX",
@@ -2469,7 +2469,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T10:12:48.730465"
+    "fetched_at": "2026-07-16T10:42:52.565671"
   },
   "7203.T": {
     "ticker": "7203.T",
@@ -4238,7 +4238,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T10:13:23.991685"
+    "fetched_at": "2026-07-16T10:42:54.271998"
   },
   "1306.T": {
     "ticker": "1306.T",
@@ -4247,6 +4247,126 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T10:13:23.991757"
+    "fetched_at": "2026-07-16T10:42:54.272015"
+  },
+  "UNH": {
+    "ticker": "UNH",
+    "pass": true,
+    "score": 7,
+    "max": 8,
+    "breakdown": {
+      "pe": 1,
+      "revenue_growth": 1,
+      "debt_equity": 1,
+      "free_cashflow": 1,
+      "profit_margin": 1,
+      "analyst": 1,
+      "roe": 1,
+      "current_ratio": 0
+    },
+    "is_etf": false,
+    "fetched_at": "2026-07-16T10:42:52.260409",
+    "pe": 32.04594,
+    "forward_pe": 19.892883,
+    "revenue_growth": 0.02,
+    "debt_equity": 73.982,
+    "free_cashflow": 17687500800,
+    "profit_margin": 0.02678,
+    "analyst_rating": 1.66667,
+    "analyst_label": "buy",
+    "return_on_equity": 0.121759996,
+    "current_ratio": 0.798,
+    "dividend_yield": 2.18,
+    "beta": 0.633,
+    "price_to_book": 3.8824468,
+    "earnings_growth": 0.007,
+    "trailing_eps": 13.06,
+    "gross_margins": 0.18801,
+    "operating_margins": 0.080469996,
+    "company_name": "UnitedHealth Group Incorporated",
+    "sector": "Healthcare",
+    "industry": "Healthcare Plans",
+    "market_cap": 380076589056,
+    "currency": "USD"
+  },
+  "6857.T": {
+    "ticker": "6857.T",
+    "pass": true,
+    "score": 7,
+    "max": 8,
+    "breakdown": {
+      "pe": 0,
+      "revenue_growth": 1,
+      "debt_equity": 1,
+      "free_cashflow": 1,
+      "profit_margin": 1,
+      "analyst": 1,
+      "roe": 1,
+      "current_ratio": 1
+    },
+    "is_etf": false,
+    "fetched_at": "2026-07-16T10:42:53.110110",
+    "pe": 57.436577,
+    "forward_pe": 124.090355,
+    "revenue_growth": 0.412,
+    "debt_equity": 2.538,
+    "free_cashflow": 239672623104,
+    "profit_margin": 0.33258,
+    "analyst_rating": 1.75,
+    "analyst_label": "buy",
+    "return_on_equity": 0.57646,
+    "current_ratio": 2.532,
+    "dividend_yield": 0.19,
+    "beta": 1.186,
+    "price_to_book": 26.897089,
+    "earnings_growth": 2.206,
+    "trailing_eps": 513.61,
+    "gross_margins": 0.64335996,
+    "operating_margins": 0.45907003,
+    "company_name": "Advantest Corporation",
+    "sector": "Technology",
+    "industry": "Semiconductor Equipment & Materials",
+    "market_cap": 21382003949568,
+    "currency": "JPY"
+  },
+  "8750.T": {
+    "ticker": "8750.T",
+    "pass": true,
+    "score": 7,
+    "max": 7,
+    "breakdown": {
+      "pe": 1,
+      "revenue_growth": 1,
+      "debt_equity": 1,
+      "free_cashflow": 1,
+      "profit_margin": 1,
+      "analyst": null,
+      "roe": 1,
+      "current_ratio": 1
+    },
+    "is_etf": false,
+    "fetched_at": "2026-07-16T10:42:53.966838",
+    "pe": 15.412541,
+    "forward_pe": 5.0502863,
+    "revenue_growth": 0.258,
+    "debt_equity": 52.573,
+    "free_cashflow": 1576166359040,
+    "profit_margin": 0.04019,
+    "analyst_rating": null,
+    "analyst_label": "none",
+    "return_on_equity": 0.11305001,
+    "current_ratio": 1.438,
+    "dividend_yield": 3.82,
+    "beta": 0.276,
+    "price_to_book": 1.5811576,
+    "earnings_growth": -0.355,
+    "trailing_eps": 121.2,
+    "gross_margins": 0.22931999,
+    "operating_margins": 0.2289,
+    "company_name": "Daiichi Life Group, Inc.",
+    "sector": "Financial Services",
+    "industry": "Insurance - Life",
+    "market_cap": 6727964033024,
+    "currency": "JPY"
   }
 }
