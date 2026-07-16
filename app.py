@@ -93,6 +93,11 @@ RUN_CONFIGS = {
     20: "Winners only: block 4 losers, ML≥75, tiered floor",
     21: "Hold test: baseline R1 config, 10-day max hold",
     22: "RSI(2) + Proven Only: Wide Stop, ML≥70, No Underperformers",
+    23: "Pure Proven Trio: RSI + MA-Cross + Mean Reversion Only, ML≥70",
+    24: "Proven Trio + Fund Gate: 3 Winners + Fundamentals, ML≥70",
+    25: "High Conviction ML: All Strategies, ML≥85, Wide Stop",
+    26: "Volume Surge + Proven Winners: Block 4 Losers + Vol≥1.5×, ML≥75",
+    27: "All-In Premium: Proven Trio + Fund Gate + Vol≥1.0× + ML≥80",
 }
 
 
@@ -181,7 +186,7 @@ def load_trade_history() -> pd.DataFrame:
         s = re.sub(r'\bInfinity\b', 'null', s)
         return s
     rows = []
-    for run in range(1, 23):
+    for run in range(1, 28):
         p = TRADES_DIR / f"run{run}_trades_log.json"
         if not p.exists():
             continue
@@ -217,7 +222,7 @@ def load_open_positions() -> pd.DataFrame:
         s = re.sub(r'\bInfinity\b', 'null', s)
         return s
     rows = []
-    for run in range(1, 23):
+    for run in range(1, 28):
         p = TRADES_DIR / f"run{run}_trades_log.json"
         if not p.exists():
             continue
