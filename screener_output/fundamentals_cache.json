@@ -1366,7 +1366,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T16:28:25.462540"
+    "fetched_at": "2026-07-16T16:45:37.706149"
   },
   "QQQ": {
     "ticker": "QQQ",
@@ -1375,7 +1375,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T16:28:25.462545"
+    "fetched_at": "2026-07-16T16:45:37.706155"
   },
   "GLD": {
     "ticker": "GLD",
@@ -1384,7 +1384,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T16:28:25.462548"
+    "fetched_at": "2026-07-16T16:45:37.706157"
   },
   "TLT": {
     "ticker": "TLT",
@@ -1393,7 +1393,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T16:28:25.462550"
+    "fetched_at": "2026-07-16T16:45:37.706159"
   },
   "IWM": {
     "ticker": "IWM",
@@ -1402,7 +1402,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T16:28:25.462551"
+    "fetched_at": "2026-07-16T16:45:37.706161"
   },
   "CBA.AX": {
     "ticker": "CBA.AX",
@@ -2451,7 +2451,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T16:28:25.462717"
+    "fetched_at": "2026-07-16T16:45:37.706334"
   },
   "STW.AX": {
     "ticker": "STW.AX",
@@ -2460,7 +2460,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T16:28:25.462720"
+    "fetched_at": "2026-07-16T16:45:37.706336"
   },
   "VAS.AX": {
     "ticker": "VAS.AX",
@@ -2469,7 +2469,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T16:28:25.462721"
+    "fetched_at": "2026-07-16T16:45:37.706338"
   },
   "7203.T": {
     "ticker": "7203.T",
@@ -4238,7 +4238,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T16:28:25.462926"
+    "fetched_at": "2026-07-16T16:45:37.706545"
   },
   "1306.T": {
     "ticker": "1306.T",
@@ -4247,7 +4247,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-16T16:28:25.462929"
+    "fetched_at": "2026-07-16T16:45:37.706548"
   },
   "UNH": {
     "ticker": "UNH",

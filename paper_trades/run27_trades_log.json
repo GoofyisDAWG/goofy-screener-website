@@ -1,0 +1,43 @@
+{
+  "metadata": {
+    "run": 27,
+    "label": "All-In Premium: Proven Trio + Fund Gate + Vol\u22651.0\u00d7 + ML\u226580 (Run 27)",
+    "created": "2026-07-16",
+    "total_logged": 0,
+    "config": {
+      "stop_loss_pct": 8.0,
+      "take_profit_pct": 15.0,
+      "trail_trigger_pct": 12.0,
+      "trail_floor_pct": 6.0,
+      "blocked_strategies": [
+        "Bollinger Bands",
+        "MACD",
+        "Donchian",
+        "Institutional Momentum",
+        "BB Squeeze",
+        "ADX",
+        "Relative Strength",
+        "Volume Breakout",
+        "Gap Momentum",
+        "RSI Divergence",
+        "RSI(2)"
+      ],
+      "mid_term_checkpoint_days": null,
+      "mid_term_max_loss_pct": null,
+      "trend_filter_ma": null,
+      "ml_thresh_override": null,
+      "tiered_floors": [
+        [
+          5.0,
+          0.0
+        ],
+        [
+          10.0,
+          4.0
+        ]
+      ]
+    }
+  },
+  "open": [],
+  "closed": []
+}
