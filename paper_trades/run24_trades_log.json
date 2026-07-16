@@ -1,0 +1,72 @@
+{
+  "metadata": {
+    "run": 24,
+    "label": "Proven Trio + Fund Gate: 3 Winners + Fundamentals, ML\u226570 (Run 24)",
+    "created": "2026-07-16",
+    "total_logged": 2,
+    "config": {
+      "stop_loss_pct": 8.0,
+      "take_profit_pct": 15.0,
+      "trail_trigger_pct": 12.0,
+      "trail_floor_pct": 6.0,
+      "blocked_strategies": [
+        "RSI(2)",
+        "Volume Breakout",
+        "BB Squeeze",
+        "ADX",
+        "Bollinger Bands",
+        "Donchian",
+        "Gap Momentum",
+        "Institutional Momentum",
+        "MACD",
+        "RSI Divergence",
+        "Relative Strength"
+      ],
+      "mid_term_checkpoint_days": null,
+      "mid_term_max_loss_pct": null,
+      "trend_filter_ma": null,
+      "ml_thresh_override": null,
+      "tiered_floors": [
+        [
+          5.0,
+          0.0
+        ],
+        [
+          10.0,
+          4.0
+        ]
+      ]
+    }
+  },
+  "open": [
+    {
+      "asset": "COL.AX",
+      "market": "ASX",
+      "entry_date": "2026-07-16",
+      "entry_price": 22.555,
+      "hold_days_target": 20,
+      "size_pct": 4.1,
+      "ml_score": 88.6,
+      "val_auc": 0.612,
+      "strategy": "Mean Reversion",
+      "tier": "B",
+      "score": 30,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "AMC.AX",
+      "market": "ASX",
+      "entry_date": "2026-07-16",
+      "entry_price": 62.12,
+      "hold_days_target": 20,
+      "size_pct": 14.0,
+      "ml_score": 94.4,
+      "val_auc": 0.489,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 54,
+      "p7_verdict": "TRADE"
+    }
+  ],
+  "closed": []
+}
