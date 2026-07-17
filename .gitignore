@@ -9,3 +9,10 @@ screener_output/~$*.xlsx
 
 # Old single-file trade log
 paper_trades/trades_log.json
+
+# Secrets — NEVER commit these
+.env
+*.json.key
+gcp_service_account.json
+subscribers.csv
+secrets.toml
