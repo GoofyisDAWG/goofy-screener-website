@@ -664,7 +664,7 @@ _TR = {
         "exp_level":      "**Your experience level**",
         "tip_beginner":   "💡 <b>New here?</b> Start with <b>Fundamental Rankings</b> — see all stocks ranked by financial health, no jargon. Then use <b>Portfolio Health Check</b> to analyse stocks you already own.",
         "tip_inter":      "💡 <b>Tip:</b> Check <b>Screener Rankings</b> for today's signals, then use <b>Stock Chart</b> to see the strategy driving each signal.",
-        "tip_advanced":   "💡 <b>Tip:</b> <b>Track Record</b> shows all 21 live paper trade runs. Compare win rates across runs to see which config is outperforming.",
+        "tip_advanced":   "💡 <b>Tip:</b> <b>Track Record</b> shows all 27 live paper trade runs. Compare win rates across runs to see which config is outperforming.",
         "footer_note":    "Data: yfinance · Not financial advice.",
         # ── screener rankings ──
         "sr_title":       "### 📊 Screener Rankings",
@@ -1843,7 +1843,7 @@ if page == "🏠 Home":
             st.markdown("""
 **Goofy Screenerは、米国・オーストラリア・日本市場の注目銘柄を見つけるための無料ツールです。**
 
-毎週113銘柄に対して15種類の分析戦略を実行し、品質でランク付けします。
+毎日278銘柄に対して15種類の分析戦略を実行し、品質でランク付けします。
 何を買うべきかを教えるものではありません。興味深いパターンを示している銘柄を特定し、さらに調査する価値があるものを示します。
 
 ---
@@ -1873,7 +1873,7 @@ if page == "🏠 Home":
             st.markdown("""
 **Goofy Screener is a free tool that helps you find stocks worth looking at — across the US, Australian, and Japanese markets.**
 
-It runs 15 different analysis strategies on 113 stocks every week and ranks them by quality.
+It runs 15 different analysis strategies on 278 stocks every day and ranks them by quality.
 It does NOT tell you what to buy. It tells you which stocks are showing interesting patterns and are worth further research.
 
 ---
@@ -1945,7 +1945,7 @@ It does NOT tell you what to buy. It tells you which stocks are showing interest
         st.markdown(T("how_it_works", lang))
         if lang == "ja":
             st.markdown("""
-Goofy Screenerは毎日113銘柄に対して15種類のクオンツ取引戦略を実行します。
+Goofy Screenerは毎日278銘柄に対して15種類のクオンツ取引戦略を実行します。
 各銘柄について、モデルが学習で見たことのないデータでテストした、最も強い過去パフォーマンスを持つ戦略を選びます。
 
 **パイプライン:**
@@ -1958,7 +1958,7 @@ Goofy Screenerは毎日113銘柄に対して15種類のクオンツ取引戦略�
 """)
         else:
             st.markdown("""
-The Goofy Screener runs 15 quantitative trading strategies across 113 stocks every day.
+The Goofy Screener runs 15 quantitative trading strategies across 278 stocks every day.
 For each stock, it finds the strategy with the strongest historical performance — tested on
 data the model never saw during training.
 
@@ -2958,9 +2958,10 @@ elif page == "🏆 Track Record":
 - **保有完了** — 20日間の保有期間を満了してクローズ。
 - **シグナル反転** — スクリーナーが銘柄の見方を変えたため早期退出。
 
-**21ランの説明:** 異なるルールセットで同時にスクリーナーを実行し、最良のアプローチを検証しています。
+**27ランの説明:** 異なるルールセットで同時にスクリーナーを実行し、最良のアプローチを検証しています。
 ラン1〜3はベースライン。ラン4〜11は様々な改善を検証。ラン12〜16はファンダメンタル分析を追加フィルターとして使用。
 ラン17〜19は確認された負け戦略をブロック。ラン20は勝ち戦略のみ許可。ラン21は10日間の保有期間を検証します。
+ラン22はMLスコア高閾値（75以上）のみ許可。ラン23〜27は実績ある3戦略（RSI・MA Crossover・Mean Reversion）を軸に、ファンダメンタルゲート・出来高サージ・高ML閾値を組み合わせた実験的構成です。
 
 **正直な注意:** ベースランでは約300件のクローズドトレードがあります。新しいランはまだデータ蓄積中です。統計的に十分なサンプルとは言えません。トラックレコードは早期指標として扱ってください。
 """)
@@ -2978,9 +2979,10 @@ Every time the screener generates a BUY signal, we record it as a "paper trade" 
 - **Hold Complete** — the trade ran its full 20-day course and was then closed.
 - **Signal Reversal** — the screener changed its view on the stock, so we exited early.
 
-**The 21 runs explained:** We run the screener with different rule sets simultaneously to test which approach works best.
+**The 27 runs explained:** We run the screener with different rule sets simultaneously to test which approach works best.
 Runs 1–3 are our baseline. Runs 4–11 test different improvements. Runs 12–16 add fundamental analysis as an extra filter.
-Runs 17–19 block confirmed losing strategies (RSI Divergence, Relative Strength). Run 20 is "winners only" — only the 3 strategies that have proven profitable are allowed. Run 21 tests a 10-day max hold to see if shorter holds improve results.
+Runs 17–19 block confirmed losing strategies (RSI Divergence, Relative Strength). Run 20 is "winners only" — only the 3 strategies that have proven profitable are allowed. Run 21 tests a 10-day max hold. Run 22 requires ML score ≥75.
+Runs 23–27 are experimental: they focus on the proven trio (RSI, MA Crossover, Mean Reversion) with combinations of fundamental gates, volume surge filters, and high ML thresholds.
 The goal is to find which combination of rules produces the best real-world results.
 
 **Honest caveat:** We currently have around 300 closed trades in the baseline runs, with newer runs still accumulating data. This is not yet a statistically large enough sample to draw firm conclusions. Treat the track record as an early indicator, not proof.
@@ -2992,11 +2994,13 @@ The goal is to find which combination of rules produces the best real-world resu
     else:
         dc = df_history.copy()
 
-        # ── run filter — show ALL configured runs, not just ones with closed trades ─
+        # ── run filter — only show runs that have actual data (open or closed trades) ─
         _runs_with_data = set(dc["run"].unique().tolist())
         _open_by_run    = (df_open.groupby("run").size().to_dict()
                            if not df_open.empty and "run" in df_open.columns else {})
-        all_runs = sorted(RUN_CONFIGS.keys())
+        _runs_active    = sorted(r for r in RUN_CONFIGS.keys()
+                                 if r in _runs_with_data or _open_by_run.get(r, 0) > 0)
+        all_runs = _runs_active if _runs_active else sorted(RUN_CONFIGS.keys())
 
         def _run_label(r):
             cfg = RUN_CONFIGS.get(r, "")
@@ -3623,7 +3627,7 @@ Goofy Screenerは、ブルームバーグやクオンツファンドに費用を
 
 ### 方法論
 
-**対象銘柄:** 米国（39銘柄）・ASX（28銘柄）・JPX（46銘柄）の計113銘柄。
+**対象銘柄:** 米国（155銘柄）・ASX（56銘柄）・JPX（67銘柄）の計278銘柄。
 
 **15の取引戦略**、それぞれ独立してテスト：
 """)
@@ -3644,7 +3648,7 @@ to be transparent about the results — including the losses.
 
 ### Methodology
 
-**Universe:** 113 stocks across US (39), ASX (28), and JPX (46) markets.
+**Universe:** 278 stocks across US (155), ASX (56), and JPX (67) markets.
 
 **15 trading strategies**, each tested independently:
 """)
