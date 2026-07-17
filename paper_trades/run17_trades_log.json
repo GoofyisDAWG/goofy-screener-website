@@ -3,7 +3,7 @@
     "run": 17,
     "label": "Strategy Block 2: No MACD/RSI-Div/Rel-Strength, Wide Stop, Tiered Floor (Run 17)",
     "created": "2026-07-12",
-    "total_logged": 12,
+    "total_logged": 13,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
@@ -44,11 +44,13 @@
       "tier": "B",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 2875.5,
-      "unrealised_pnl_pct": 1.86,
-      "days_held": 3,
+      "current_price": 2909.0,
+      "unrealised_pnl_pct": 3.046,
+      "days_held": 4,
       "peak_pnl_pct": 3.312,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": 3.046
+      }
     },
     {
       "asset": "7974.T",
@@ -63,11 +65,13 @@
       "tier": "B",
       "score": 40,
       "p7_verdict": "TRADE",
-      "current_price": 7014.0,
-      "unrealised_pnl_pct": -0.228,
-      "days_held": 3,
+      "current_price": 7080.0,
+      "unrealised_pnl_pct": 0.711,
+      "days_held": 4,
       "peak_pnl_pct": 1.181,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": 0.711
+      }
     },
     {
       "asset": "COL.AX",
@@ -82,11 +86,13 @@
       "tier": "B",
       "score": 30,
       "p7_verdict": "TRADE",
-      "current_price": 22.69,
-      "unrealised_pnl_pct": -1.86,
-      "days_held": 3,
+      "current_price": 22.56,
+      "unrealised_pnl_pct": -2.422,
+      "days_held": 4,
       "peak_pnl_pct": 0.0,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": -2.422
+      }
     },
     {
       "asset": "7261.T",
@@ -102,9 +108,9 @@
       "score": 35,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 1112.5,
-      "unrealised_pnl_pct": 1.831,
-      "days_held": 2,
+      "current_price": 1136.0,
+      "unrealised_pnl_pct": 3.982,
+      "days_held": 3,
       "peak_pnl_pct": 3.982
     },
     {
@@ -121,9 +127,9 @@
       "score": 55,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 74240.0,
-      "unrealised_pnl_pct": 4.372,
-      "days_held": 2,
+      "current_price": 70890.0,
+      "unrealised_pnl_pct": -0.337,
+      "days_held": 3,
       "peak_pnl_pct": 4.372
     },
     {
@@ -140,9 +146,9 @@
       "score": 59,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 485.38,
-      "unrealised_pnl_pct": 0.0,
-      "days_held": 0,
+      "current_price": 476.08,
+      "unrealised_pnl_pct": -1.916,
+      "days_held": 1,
       "peak_pnl_pct": 0.0
     },
     {
@@ -159,9 +165,9 @@
       "score": 30,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 34.63,
-      "unrealised_pnl_pct": 0.0,
-      "days_held": 0,
+      "current_price": 34.2,
+      "unrealised_pnl_pct": -1.242,
+      "days_held": 1,
       "peak_pnl_pct": 0.0
     },
     {
@@ -178,10 +184,10 @@
       "score": 62,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 4.64,
-      "unrealised_pnl_pct": 2.541,
-      "days_held": 0,
-      "peak_pnl_pct": 2.541
+      "current_price": 4.47,
+      "unrealised_pnl_pct": -1.215,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0
     },
     {
       "asset": "REA.AX",
@@ -197,9 +203,9 @@
       "score": 54,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 148.87,
-      "unrealised_pnl_pct": -2.757,
-      "days_held": 0,
+      "current_price": 158.71,
+      "unrealised_pnl_pct": 3.671,
+      "days_held": 1,
       "peak_pnl_pct": 4.174
     },
     {
@@ -216,9 +222,9 @@
       "score": 54,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 61.38,
-      "unrealised_pnl_pct": -1.302,
-      "days_held": 0,
+      "current_price": 62.01,
+      "unrealised_pnl_pct": -0.289,
+      "days_held": 1,
       "peak_pnl_pct": 0.0
     },
     {
@@ -235,23 +241,37 @@
       "score": 31,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 3218.0,
-      "unrealised_pnl_pct": -1.71,
-      "days_held": 0,
+      "current_price": 3257.0,
+      "unrealised_pnl_pct": -0.519,
+      "days_held": 1,
       "peak_pnl_pct": 0.0
     },
     {
       "asset": "OXY",
       "market": "US",
-      "entry_date": "2026-07-16",
-      "entry_price": 53.77,
+      "entry_date": "2026-07-17",
+      "entry_price": 53.65,
       "hold_days_target": 20,
       "size_pct": 1.5,
-      "ml_score": 88.1,
+      "ml_score": 88.4,
       "val_auc": 0.483,
       "strategy": "Institutional Momentum",
-      "tier": "A",
+      "tier": "B",
       "score": 50,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "GLD",
+      "market": "US",
+      "entry_date": "2026-07-17",
+      "entry_price": 364.96,
+      "hold_days_target": 20,
+      "size_pct": 22.9,
+      "ml_score": 73.5,
+      "val_auc": 0.398,
+      "strategy": "Mean Reversion",
+      "tier": "A",
+      "score": 44,
       "p7_verdict": "TRADE"
     }
   ],
