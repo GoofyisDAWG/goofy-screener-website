@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "run": 26,
-    "label": "Volume Surge + Proven Winners: Block 4 Losers + Vol\u22651.5\u00d7, ML\u226575 (Run 26)",
-    "created": "2026-07-16",
+    "run": 31,
+    "label": "Phase 10D: Premium + Phase 10 \u2014 R27 + Strict Entry Quality (Run 31)",
+    "created": "2026-07-18",
     "total_logged": 0,
     "config": {
       "stop_loss_pct": 8.0,
@@ -10,10 +10,17 @@
       "trail_trigger_pct": 12.0,
       "trail_floor_pct": 6.0,
       "blocked_strategies": [
-        "Bollinger Bands",
+        "Relative Strength",
         "MACD",
+        "BB Squeeze",
+        "Bollinger Bands",
         "RSI Divergence",
-        "Relative Strength"
+        "Institutional Momentum",
+        "ADX",
+        "Volume Breakout",
+        "RSI(2)",
+        "Gap Momentum",
+        "Donchian"
       ],
       "mid_term_checkpoint_days": null,
       "mid_term_max_loss_pct": null,
