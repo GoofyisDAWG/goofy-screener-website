@@ -98,6 +98,10 @@ RUN_CONFIGS = {
     25: "High Conviction ML: All Strategies, ML≥85, Wide Stop",
     26: "Volume Surge + Proven Winners: Block 4 Losers + Vol≥1.5×, ML≥75",
     27: "All-In Premium: Proven Trio + Fund Gate + Vol≥1.0× + ML≥80",
+    28: "Phase 10A: Proven Trio + Tight Pullback 5% + RSI-65 Gate + 15d Cooldown",
+    29: "Phase 10B: All Strategies ML≥70 + Breakout MA20 Confirmation",
+    30: "Phase 10C: Full Combo — Proven Trio + All Phase 10 Filters",
+    31: "Phase 10D: Premium + Phase 10 — R27 + Strict Entry Quality",
 }
 
 
@@ -186,7 +190,7 @@ def load_trade_history() -> pd.DataFrame:
         s = re.sub(r'\bInfinity\b', 'null', s)
         return s
     rows = []
-    for run in range(1, 28):
+    for run in range(1, 32):
         p = TRADES_DIR / f"run{run}_trades_log.json"
         if not p.exists():
             continue
@@ -222,7 +226,7 @@ def load_open_positions() -> pd.DataFrame:
         s = re.sub(r'\bInfinity\b', 'null', s)
         return s
     rows = []
-    for run in range(1, 28):
+    for run in range(1, 32):
         p = TRADES_DIR / f"run{run}_trades_log.json"
         if not p.exists():
             continue
