@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "run": 27,
-    "label": "All-In Premium: Proven Trio + Fund Gate + Vol\u22651.0\u00d7 + ML\u226580 (Run 27)",
-    "created": "2026-07-16",
+    "run": 28,
+    "label": "Phase 10A: Proven Trio + Tight Pullback 5% + RSI-65 Gate + 15d Cooldown (Run 28)",
+    "created": "2026-07-17",
     "total_logged": 1,
     "config": {
       "stop_loss_pct": 8.0,
@@ -10,16 +10,16 @@
       "trail_trigger_pct": 12.0,
       "trail_floor_pct": 6.0,
       "blocked_strategies": [
-        "Bollinger Bands",
-        "MACD",
-        "Donchian",
-        "Institutional Momentum",
         "BB Squeeze",
-        "ADX",
-        "Relative Strength",
+        "Institutional Momentum",
+        "Bollinger Bands",
         "Volume Breakout",
         "Gap Momentum",
         "RSI Divergence",
+        "MACD",
+        "ADX",
+        "Donchian",
+        "Relative Strength",
         "RSI(2)"
       ],
       "mid_term_checkpoint_days": null,
@@ -40,17 +40,17 @@
   },
   "open": [
     {
-      "asset": "COL.AX",
-      "market": "ASX",
+      "asset": "GLD",
+      "market": "US",
       "entry_date": "2026-07-17",
-      "entry_price": 23.21,
+      "entry_price": 364.96,
       "hold_days_target": 20,
-      "size_pct": 3.7,
-      "ml_score": 87.3,
-      "val_auc": 0.61,
+      "size_pct": 22.9,
+      "ml_score": 73.5,
+      "val_auc": 0.398,
       "strategy": "Mean Reversion",
-      "tier": "B",
-      "score": 30,
+      "tier": "A",
+      "score": 44,
       "p7_verdict": "TRADE"
     }
   ],
