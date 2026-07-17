@@ -102,6 +102,11 @@ RUN_CONFIGS = {
     29: "Phase 10B: All Strategies ML≥70 + Breakout MA20 Confirmation",
     30: "Phase 10C: Full Combo — Proven Trio + All Phase 10 Filters",
     31: "Phase 10D: Premium + Phase 10 — R27 + Strict Entry Quality",
+    32: "Phase 11A: Tight Trailing — Trigger +8%, Floor +3%",
+    33: "Phase 11B: Aggressive TP Only — Lock In at +10%, No Trailing",
+    34: "Phase 11C: Signal-Reversal Only — No TP, No Trailing",
+    35: "Phase 11D: Best-of-Both — +10% TP + Tight Trailing 8%/3%",
+    36: "Phase 11E: ATR Trailing — Floor = Peak − 2×ATR%, Trigger +5%",
 }
 
 
@@ -664,7 +669,7 @@ _TR = {
         "exp_level":      "**Your experience level**",
         "tip_beginner":   "💡 <b>New here?</b> Start with <b>Fundamental Rankings</b> — see all stocks ranked by financial health, no jargon. Then use <b>Portfolio Health Check</b> to analyse stocks you already own.",
         "tip_inter":      "💡 <b>Tip:</b> Check <b>Screener Rankings</b> for today's signals, then use <b>Stock Chart</b> to see the strategy driving each signal.",
-        "tip_advanced":   "💡 <b>Tip:</b> <b>Track Record</b> shows all 27 live paper trade runs. Compare win rates across runs to see which config is outperforming.",
+        "tip_advanced":   "💡 <b>Tip:</b> <b>Track Record</b> shows all 36 live paper trade runs. Compare win rates across runs to see which config is outperforming.",
         "footer_note":    "Data: yfinance · Not financial advice.",
         # ── screener rankings ──
         "sr_title":       "### 📊 Screener Rankings",
@@ -2962,6 +2967,7 @@ elif page == "🏆 Track Record":
 ラン1〜3はベースライン。ラン4〜11は様々な改善を検証。ラン12〜16はファンダメンタル分析を追加フィルターとして使用。
 ラン17〜19は確認された負け戦略をブロック。ラン20は勝ち戦略のみ許可。ラン21は10日間の保有期間を検証します。
 ラン22はMLスコア高閾値（75以上）のみ許可。ラン23〜27は実績ある3戦略（RSI・MA Crossover・Mean Reversion）を軸に、ファンダメンタルゲート・出来高サージ・高ML閾値を組み合わせた実験的構成です。
+ラン28〜31はPhase 10（エントリータイミング改善）：プルバックフィルター・RSIゲート・クールダウンルール。ラン32〜36はPhase 11（動的エグジット）：利確タイミング・トレーリングストップ・ATRベースのフロアを検証。
 
 **正直な注意:** ベースランでは約300件のクローズドトレードがあります。新しいランはまだデータ蓄積中です。統計的に十分なサンプルとは言えません。トラックレコードは早期指標として扱ってください。
 """)
@@ -2983,6 +2989,7 @@ Every time the screener generates a BUY signal, we record it as a "paper trade" 
 Runs 1–3 are our baseline. Runs 4–11 test different improvements. Runs 12–16 add fundamental analysis as an extra filter.
 Runs 17–19 block confirmed losing strategies (RSI Divergence, Relative Strength). Run 20 is "winners only" — only the 3 strategies that have proven profitable are allowed. Run 21 tests a 10-day max hold. Run 22 requires ML score ≥75.
 Runs 23–27 are experimental: they focus on the proven trio (RSI, MA Crossover, Mean Reversion) with combinations of fundamental gates, volume surge filters, and high ML thresholds.
+Runs 28–31 are Phase 10 (entry quality): pullback filter, RSI entry gate, cooldown after stop-loss. Runs 32–36 are Phase 11 (dynamic exits): each tests a different exit strategy — tight trailing, aggressive take-profit, signal-reversal-only, and ATR-based adaptive floors.
 The goal is to find which combination of rules produces the best real-world results.
 
 **Honest caveat:** We currently have around 300 closed trades in the baseline runs, with newer runs still accumulating data. This is not yet a statistically large enough sample to draw firm conclusions. Treat the track record as an early indicator, not proof.
