@@ -2,7 +2,7 @@
   "metadata": {
     "run": 28,
     "label": "Phase 10A: Proven Trio + Tight Pullback 5% + RSI-65 Gate + 15d Cooldown (Run 28)",
-    "created": "2026-07-17",
+    "created": "2026-07-18",
     "total_logged": 0,
     "config": {
       "stop_loss_pct": 8.0,
@@ -10,17 +10,17 @@
       "trail_trigger_pct": 12.0,
       "trail_floor_pct": 6.0,
       "blocked_strategies": [
-        "RSI Divergence",
-        "Volume Breakout",
+        "ADX",
         "Institutional Momentum",
+        "RSI Divergence",
+        "Relative Strength",
+        "Donchian",
+        "Gap Momentum",
+        "MACD",
         "Bollinger Bands",
         "BB Squeeze",
-        "RSI(2)",
-        "Donchian",
-        "ADX",
-        "Gap Momentum",
-        "Relative Strength",
-        "MACD"
+        "Volume Breakout",
+        "RSI(2)"
       ],
       "mid_term_checkpoint_days": null,
       "mid_term_max_loss_pct": null,
