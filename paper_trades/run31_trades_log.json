@@ -2,7 +2,7 @@
   "metadata": {
     "run": 31,
     "label": "Phase 10D: Premium + Phase 10 \u2014 R27 + Strict Entry Quality (Run 31)",
-    "created": "2026-07-18",
+    "created": "2026-07-17",
     "total_logged": 0,
     "config": {
       "stop_loss_pct": 8.0,
@@ -10,17 +10,17 @@
       "trail_trigger_pct": 12.0,
       "trail_floor_pct": 6.0,
       "blocked_strategies": [
-        "Relative Strength",
-        "MACD",
-        "BB Squeeze",
-        "Bollinger Bands",
         "RSI Divergence",
-        "Institutional Momentum",
-        "ADX",
         "Volume Breakout",
+        "Institutional Momentum",
+        "Bollinger Bands",
+        "BB Squeeze",
         "RSI(2)",
+        "Donchian",
+        "ADX",
         "Gap Momentum",
-        "Donchian"
+        "Relative Strength",
+        "MACD"
       ],
       "mid_term_checkpoint_days": null,
       "mid_term_max_loss_pct": null,
