@@ -250,7 +250,7 @@ def load_open_positions() -> pd.DataFrame:
 @st.cache_data(ttl=3600)
 def fetch_chart(ticker: str) -> pd.DataFrame:
     try:
-        df = yf.download(ticker, period="6mo", interval="1d",
+        df = yf.download(ticker, period="2y", interval="1d",
                          auto_adjust=True, progress=False)
         if isinstance(df.columns, pd.MultiIndex):
             df.columns = df.columns.droplevel(1)
@@ -740,7 +740,8 @@ _TR = {
         "sc_what_to_look":   "What to look for on the chart:",
         "sc_strat_unknown":  "Quantitative signal based on price history.",
         "sc_price_err":      "Could not load price data for **{ticker}**. Try a different ticker or check your connection.",
-        "sc_chart_disc":     "Chart data: yfinance (6 months daily). Indicators are illustrative. Not financial advice — always do your own research.",
+        "sc_chart_disc":     "Chart data: yfinance (up to 2 years daily). Indicators are illustrative. Not financial advice — always do your own research.",
+        "sc_period_label":   "Chart period",
         "sc_stat_last":      "Last Price",
         "sc_stat_ma20":      "MA 20",
         "sc_stat_rsi14":     "RSI 14",
@@ -972,7 +973,8 @@ _TR = {
         "sc_what_to_look":   "チャートで確認すべきポイント：",
         "sc_strat_unknown":  "価格履歴に基づくクオンツシグナル。",
         "sc_price_err":      "**{ticker}**の価格データを読み込めませんでした。別のティッカーを試すか、接続を確認してください。",
-        "sc_chart_disc":     "チャートデータ: yfinance（6ヶ月日足）。インジケーターは参考表示です。投資アドバイスではありません。",
+        "sc_chart_disc":     "チャートデータ: yfinance（最大2年日足）。インジケーターは参考表示です。投資アドバイスではありません。",
+        "sc_period_label":   "チャート期間",
         "sc_stat_last":      "直近終値",
         "sc_stat_ma20":      "MA 20",
         "sc_stat_rsi14":     "RSI 14",
@@ -3381,7 +3383,7 @@ elif page == "📈 Stock Chart":
     with st.expander(T("sc_expander", lang), expanded=False):
         if lang == "ja":
             st.markdown("""
-**このページの内容:** スクリーナーの任意の銘柄の6ヶ月チャートに、本日のシグナルを生成した具体的なインジケーターを重ねて表示します。
+**このページの内容:** スクリーナーの任意の銘柄のチャート（3ヶ月〜2年）に、本日のシグナルを生成した具体的なインジケーターを重ねて表示します。
 
 **色付きのラインとバンド**はスクリーナーが使用するテクニカル指標です。戦略ごとに異なるインジケーターを使用します。
 
@@ -3397,7 +3399,7 @@ elif page == "📈 Stock Chart":
 """)
         else:
             st.markdown("""
-**What you're looking at:** A 6-month price chart for any stock in our universe, with the specific indicators
+**What you're looking at:** A price chart (3 months to 2 years) for any stock in our universe, with the specific indicators
 that drove today's signal overlaid on top.
 
 **The coloured lines and bands** are the technical indicators the screener uses. Each strategy has different indicators —
@@ -3582,19 +3584,44 @@ the "What to look for" box below the signal card explains exactly what to focus 
         if price_df.empty:
             st.warning(T("sc_price_err", lang, ticker=selected_asset))
         else:
-            fig = build_strategy_chart(price_df, strategy, selected_asset, market)
+            # period selector
+            _period_opts  = ["3M", "6M", "1Y", "2Y"]
+            _period_labels = {"3M": "3 months" if lang == "en" else "3ヶ月",
+                              "6M": "6 months" if lang == "en" else "6ヶ月",
+                              "1Y": "1 year"   if lang == "en" else "1年",
+                              "2Y": "2 years"  if lang == "en" else "2年"}
+            _period_days  = {"3M": 90, "6M": 180, "1Y": 365, "2Y": 730}
+            _p_col, _ = st.columns([2, 5])
+            with _p_col:
+                _sel_period = st.radio(
+                    T("sc_period_label", lang),
+                    _period_opts,
+                    index=1,           # default: 6M
+                    horizontal=True,
+                    key="sc_period",
+                    format_func=lambda x: _period_labels[x],
+                )
+            # slice to selected window
+            _cutoff = pd.Timestamp.today() - pd.Timedelta(days=_period_days[_sel_period])
+            price_df_view = price_df[price_df.index >= _cutoff]
+            if price_df_view.empty:
+                price_df_view = price_df  # fallback if not enough history
+
+            fig = build_strategy_chart(price_df_view, strategy, selected_asset, market)
             st.plotly_chart(fig, use_container_width=True)
 
-            # quick stats row below the chart
-            close = price_df["Close"].squeeze().dropna()
+            # quick stats row below the chart (based on selected period)
+            close = price_df_view["Close"].squeeze().dropna()
             if len(close) >= 20:
                 s_cols = st.columns(5)
                 last   = float(close.iloc[-1])
-                hi52   = float(price_df["High"].squeeze().max()) if "High" in price_df.columns else last
-                lo52   = float(price_df["Low"].squeeze().min())  if "Low"  in price_df.columns else last
-                ma20   = float(close.rolling(20).mean().iloc[-1])
-                rsi14  = float(_rsi(close).iloc[-1]) if not np.isnan(_rsi(close).iloc[-1]) else 0
-                pct_hi = (last / hi52 - 1) * 100
+                _view_high = price_df_view["High"].squeeze() if "High" in price_df_view.columns else close
+                _view_low  = price_df_view["Low"].squeeze()  if "Low"  in price_df_view.columns else close
+                hi_period  = float(_view_high.max())
+                ma20       = float(close.rolling(20).mean().iloc[-1])
+                rsi14      = float(_rsi(close).iloc[-1]) if not np.isnan(_rsi(close).iloc[-1]) else 0
+                pct_hi     = (last / hi_period - 1) * 100
+                _hi_label  = (_sel_period + (" High" if lang == "en" else " 高値"))
                 def _stat(label, val, colour="#e6edf3"):
                     return (f"<div style='background:#161b22;border-radius:8px;padding:10px;text-align:center'>"
                             f"<div style='font-size:10px;color:#8b949e;text-transform:uppercase'>{label}</div>"
@@ -3605,7 +3632,7 @@ the "What to look for" box below the signal card explains exactly what to focus 
                 s_cols[1].markdown(_stat(T("sc_stat_ma20", lang), f"{ma20:.2f}",
                     "#3fb950" if last > ma20 else "#f85149"), unsafe_allow_html=True)
                 s_cols[2].markdown(_stat(T("sc_stat_rsi14", lang), f"{rsi14:.1f}", rsi_clr), unsafe_allow_html=True)
-                s_cols[3].markdown(_stat(T("sc_stat_6mhigh", lang), f"{hi52:.2f}"), unsafe_allow_html=True)
+                s_cols[3].markdown(_stat(_hi_label, f"{hi_period:.2f}"), unsafe_allow_html=True)
                 s_cols[4].markdown(_stat(T("sc_stat_pct_high", lang),
                     f"{pct_hi:.1f}%", "#3fb950" if pct_hi > -5 else "#d29922"),
                     unsafe_allow_html=True)
