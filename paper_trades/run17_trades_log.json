@@ -230,7 +230,7 @@
     {
       "asset": "OXY",
       "market": "US",
-      "entry_date": "2026-07-18",
+      "entry_date": "2026-07-19",
       "entry_price": 54.86,
       "hold_days_target": 20,
       "size_pct": 1.7,
@@ -244,7 +244,7 @@
     {
       "asset": "GLD",
       "market": "US",
-      "entry_date": "2026-07-18",
+      "entry_date": "2026-07-19",
       "entry_price": 368.41,
       "hold_days_target": 20,
       "size_pct": 22.6,
@@ -258,7 +258,7 @@
     {
       "asset": "5020.T",
       "market": "JPX",
-      "entry_date": "2026-07-18",
+      "entry_date": "2026-07-19",
       "entry_price": 1243.5,
       "hold_days_target": 20,
       "size_pct": 7.7,
@@ -285,7 +285,7 @@
       "score": 55,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "exit_date": "2026-07-18",
+      "exit_date": "2026-07-19",
       "exit_price": 65100.0,
       "days_held": 3,
       "pnl_pct": -8.477,
