@@ -107,7 +107,14 @@ RUN_CONFIGS = {
     34: "Phase 11C: Signal-Reversal Only — No TP, No Trailing",
     35: "Phase 11D: Best-of-Both — +10% TP + Tight Trailing 8%/3%",
     36: "Phase 11E: ATR Trailing — Floor = Peak − 2×ATR%, Trigger +5%",
+    37: "⚡ Speculative Momentum — Quantum/Space/AI/Nuclear, RSI+MA, Wide Stop 20%",
 }
+
+# Speculative / high-risk tickers — mirrored from paper_trader.py
+SPECULATIVE_TICKERS = frozenset({
+    "IONQ", "RGTI", "QBTS", "JOBY", "ACHR", "RKLB",
+    "AI", "SOUN", "OKLO", "SMR", "LUNR",
+})
 
 
 # ── data loaders ──────────────────────────────────────────────────────────────
@@ -669,7 +676,7 @@ _TR = {
         "exp_level":      "**Your experience level**",
         "tip_beginner":   "💡 <b>New here?</b> Start with <b>Fundamental Rankings</b> — see all stocks ranked by financial health, no jargon. Then use <b>Portfolio Health Check</b> to analyse stocks you already own.",
         "tip_inter":      "💡 <b>Tip:</b> Check <b>Screener Rankings</b> for today's signals, then use <b>Stock Chart</b> to see the strategy driving each signal.",
-        "tip_advanced":   "💡 <b>Tip:</b> <b>Track Record</b> shows all 36 live paper trade runs. Compare win rates across runs to see which config is outperforming.",
+        "tip_advanced":   "💡 <b>Tip:</b> <b>Track Record</b> shows all 37 live paper trade runs. Compare win rates across runs to see which config is outperforming.",
         "footer_note":    "Data: yfinance · Not financial advice.",
         # ── screener rankings ──
         "sr_title":       "### 📊 Screener Rankings",
@@ -752,6 +759,8 @@ _TR = {
         "sr_card_confidence":"Confidence",
         "sr_card_trend":     "Trend",
         "sr_card_size":      "Suggested size",
+        "sr_spec_badge":     "⚡ High Risk",
+        "sr_spec_tooltip":   "Speculative — pre-profitable, high volatility. Not traded by main runs.",
         # ── about ──
         "ab_title":    "### About Goofy Screener",
         "ab_method":   "### Methodology",
@@ -985,6 +994,8 @@ _TR = {
         "sr_card_confidence":"信頼度",
         "sr_card_trend":     "トレンド",
         "sr_card_size":      "推奨サイズ",
+        "sr_spec_badge":     "⚡ 高リスク",
+        "sr_spec_tooltip":   "投機的銘柄 — 無収益・高ボラティリティ。メインランでは取引されません。",
         # ── about ──
         "ab_title":    "### Goofy Screenerについて",
         "ab_method":   "### 方法論",
@@ -1622,6 +1633,12 @@ def _render_table(df: pd.DataFrame, verdict_col: str, simple: bool, lang: str = 
             verdict = str(row.get(verdict_col, ""))
 
             badge = signal_badge(verdict, simple=True)
+            is_spec    = asset in SPECULATIVE_TICKERS
+            spec_badge = (f"<span title='{T('sr_spec_tooltip', lang)}' "
+                          f"style='background:#2d1a00;color:#ff9500;border:1px solid #ff9500;"
+                          f"padding:1px 6px;border-radius:4px;font-size:10px;font-weight:bold;"
+                          f"margin-left:4px'>{T('sr_spec_badge', lang)}</span>"
+                          if is_spec else "")
             ml_str = f"{float(ml):.0f}%" if pd.notna(ml) and ml not in ("—", None, "") else "—"
             try:
                 ml_num = float(ml_str.replace("%",""))
@@ -1640,6 +1657,7 @@ def _render_table(df: pd.DataFrame, verdict_col: str, simple: bool, lang: str = 
                 f"<span style='color:#8b949e;font-size:12px'>{market}</span> &nbsp; "
                 f"<span style='background:{tier_color}20;color:{tier_color};"
                 f"padding:1px 7px;border-radius:4px;font-size:11px;font-weight:bold'>Tier {tier}</span>"
+                f"{spec_badge}"
                 f"</div>"
                 f"<div style='font-size:18px;font-weight:bold'>{badge}</div>"
                 f"</div>"
@@ -1774,16 +1792,7 @@ with st.sidebar:
     st.caption("Free quantitative stock screener · 無料クオンツ株スクリーナー\nUS · ASX · JPX")
     st.markdown("---")
 
-    page = st.radio(
-        "Navigate",
-        ["🏠 Home", "🔍 Portfolio Health Check", "🌏 Fundamental Rankings",
-         "📊 Screener Rankings", "📈 Stock Chart", "🏆 Track Record",
-         "ℹ️ About & Disclaimer"],
-        label_visibility="collapsed",
-    )
-    st.markdown("---")
-
-    # language selector
+    # language selector — top of sidebar so it affects everything below
     st.markdown("**Language / 言語**")
     lang_choice = st.radio(
         "lang",
@@ -1794,14 +1803,39 @@ with st.sidebar:
     lang = "ja" if "日本語" in lang_choice else "en"
     st.markdown("---")
 
-    # experience level selector
-    st.markdown(T("exp_level", lang))
-    level = st.radio(
-        "level",
-        ["🟢 Beginner", "🟡 Intermediate", "🔴 Advanced"],
-        label_visibility="collapsed",
-        help="Changes how much detail is shown across the site.",
+    _nav_opts = (
+        ["🏠 ホーム", "🔍 ポートフォリオ健全性チェック", "🌏 ファンダメンタルランキング",
+         "📊 スクリーナーランキング", "📈 株価チャート", "🏆 トラックレコード",
+         "ℹ️ 概要と免責事項"]
+        if lang == "ja" else
+        ["🏠 Home", "🔍 Portfolio Health Check", "🌏 Fundamental Rankings",
+         "📊 Screener Rankings", "📈 Stock Chart", "🏆 Track Record",
+         "ℹ️ About & Disclaimer"]
     )
+    _nav_en = ["🏠 Home", "🔍 Portfolio Health Check", "🌏 Fundamental Rankings",
+               "📊 Screener Rankings", "📈 Stock Chart", "🏆 Track Record",
+               "ℹ️ About & Disclaimer"]
+    _nav_sel = st.radio("nav", _nav_opts, label_visibility="collapsed")
+    # always resolve to English key for page routing
+    page = _nav_en[_nav_opts.index(_nav_sel)]
+    st.markdown("---")
+
+    # experience level selector
+    _level_opts = (
+        ["🟢 初心者", "🟡 中級者", "🔴 上級者"] if lang == "ja"
+        else ["🟢 Beginner", "🟡 Intermediate", "🔴 Advanced"]
+    )
+    _level_en = ["🟢 Beginner", "🟡 Intermediate", "🔴 Advanced"]
+    _level_help = ("表示する詳細レベルを変更します。" if lang == "ja"
+                   else "Changes how much detail is shown across the site.")
+    st.markdown(T("exp_level", lang))
+    _level_sel = st.radio(
+        "level",
+        _level_opts,
+        label_visibility="collapsed",
+        help=_level_help,
+    )
+    level = _level_en[_level_opts.index(_level_sel)]
     simple_mode = level == "🟢 Beginner"
     is_advanced  = level == "🔴 Advanced"
 
