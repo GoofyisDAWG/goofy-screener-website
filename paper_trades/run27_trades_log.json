@@ -42,11 +42,11 @@
     {
       "asset": "COL.AX",
       "market": "ASX",
-      "entry_date": "2026-07-17",
+      "entry_date": "2026-07-18",
       "entry_price": 23.21,
       "hold_days_target": 20,
       "size_pct": 3.7,
-      "ml_score": 87.5,
+      "ml_score": 87.3,
       "val_auc": 0.609,
       "strategy": "Mean Reversion",
       "tier": "B",
