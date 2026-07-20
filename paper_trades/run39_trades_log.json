@@ -1,0 +1,115 @@
+{
+  "metadata": {
+    "run": 39,
+    "label": "Family B: Momentum/Breakout Only \u2014 MACD, Donchian, Vol Break, BB Squeeze, Gap Mom (Run 39)",
+    "created": "2026-07-20",
+    "total_logged": 5,
+    "config": {
+      "stop_loss_pct": 8.0,
+      "take_profit_pct": 15.0,
+      "trail_trigger_pct": 12.0,
+      "trail_floor_pct": 6.0,
+      "blocked_strategies": [
+        "ADX",
+        "Ichimoku",
+        "RSI Divergence",
+        "Bollinger Bands",
+        "Relative Strength",
+        "Institutional Momentum",
+        "RSI",
+        "Stochastic",
+        "Supertrend",
+        "MA Crossover",
+        "RSI(2)",
+        "Mean Reversion"
+      ],
+      "mid_term_checkpoint_days": null,
+      "mid_term_max_loss_pct": null,
+      "trend_filter_ma": null,
+      "ml_thresh_override": null,
+      "tiered_floors": [
+        [
+          5.0,
+          0.0
+        ],
+        [
+          10.0,
+          4.0
+        ]
+      ]
+    }
+  },
+  "open": [
+    {
+      "asset": "AAPL",
+      "market": "US",
+      "entry_date": "2026-07-20",
+      "entry_price": 333.74,
+      "hold_days_target": 20,
+      "size_pct": 1.5,
+      "ml_score": 56.4,
+      "val_auc": 0.529,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 68,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "AVGO",
+      "market": "US",
+      "entry_date": "2026-07-20",
+      "entry_price": 370.83,
+      "hold_days_target": 20,
+      "size_pct": 2.5,
+      "ml_score": 76.2,
+      "val_auc": 0.441,
+      "strategy": "MACD",
+      "tier": "B",
+      "score": 44,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "BAC",
+      "market": "US",
+      "entry_date": "2026-07-20",
+      "entry_price": 61.27,
+      "hold_days_target": 20,
+      "size_pct": 2.4,
+      "ml_score": 67.4,
+      "val_auc": 0.549,
+      "strategy": "MACD",
+      "tier": "B",
+      "score": 68,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "SPY",
+      "market": "US",
+      "entry_date": "2026-07-20",
+      "entry_price": 743.29,
+      "hold_days_target": 20,
+      "size_pct": 4.3,
+      "ml_score": 93.1,
+      "val_auc": 0.438,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 45,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "ANZ.AX",
+      "market": "ASX",
+      "entry_date": "2026-07-20",
+      "entry_price": 36.19,
+      "hold_days_target": 20,
+      "size_pct": 1.6,
+      "ml_score": 63.2,
+      "val_auc": 0.497,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 49,
+      "p7_verdict": "TRADE"
+    }
+  ],
+  "closed": []
+}

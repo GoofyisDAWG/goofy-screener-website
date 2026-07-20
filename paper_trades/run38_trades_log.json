@@ -1,0 +1,45 @@
+{
+  "metadata": {
+    "run": 38,
+    "label": "Family A: Trend Following Only \u2014 MA Crossover, ADX, Supertrend, Ichimoku (Run 38)",
+    "created": "2026-07-20",
+    "total_logged": 0,
+    "config": {
+      "stop_loss_pct": 8.0,
+      "take_profit_pct": 15.0,
+      "trail_trigger_pct": 12.0,
+      "trail_floor_pct": 6.0,
+      "blocked_strategies": [
+        "Donchian",
+        "RSI Divergence",
+        "Bollinger Bands",
+        "Relative Strength",
+        "Institutional Momentum",
+        "Gap Momentum",
+        "RSI",
+        "Stochastic",
+        "MACD",
+        "Volume Breakout",
+        "BB Squeeze",
+        "RSI(2)",
+        "Mean Reversion"
+      ],
+      "mid_term_checkpoint_days": null,
+      "mid_term_max_loss_pct": null,
+      "trend_filter_ma": null,
+      "ml_thresh_override": null,
+      "tiered_floors": [
+        [
+          5.0,
+          0.0
+        ],
+        [
+          10.0,
+          4.0
+        ]
+      ]
+    }
+  },
+  "open": [],
+  "closed": []
+}
