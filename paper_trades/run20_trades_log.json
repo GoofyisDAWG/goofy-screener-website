@@ -88,10 +88,10 @@
       "score": 59,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 478.14,
-      "unrealised_pnl_pct": -1.492,
+      "current_price": 492.32,
+      "unrealised_pnl_pct": 1.43,
       "days_held": 2,
-      "peak_pnl_pct": 0.0
+      "peak_pnl_pct": 1.43
     },
     {
       "asset": "CMG",
@@ -107,8 +107,8 @@
       "score": 30,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 34.44,
-      "unrealised_pnl_pct": -0.549,
+      "current_price": 33.13,
+      "unrealised_pnl_pct": -4.332,
       "days_held": 2,
       "peak_pnl_pct": 0.0
     },
@@ -183,10 +183,10 @@
       "score": 44,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 368.41,
-      "unrealised_pnl_pct": 0.945,
+      "current_price": 367.6,
+      "unrealised_pnl_pct": 0.723,
       "days_held": 1,
-      "peak_pnl_pct": 0.945
+      "peak_pnl_pct": 0.723
     },
     {
       "asset": "8035.T",
