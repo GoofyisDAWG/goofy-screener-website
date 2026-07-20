@@ -214,7 +214,7 @@ def load_trade_history() -> pd.DataFrame:
         s = re.sub(r'\bInfinity\b', 'null', s)
         return s
     rows = []
-    for run in range(1, 32):
+    for run in range(1, 48):
         p = TRADES_DIR / f"run{run}_trades_log.json"
         if not p.exists():
             continue
@@ -250,7 +250,7 @@ def load_open_positions() -> pd.DataFrame:
         s = re.sub(r'\bInfinity\b', 'null', s)
         return s
     rows = []
-    for run in range(1, 32):
+    for run in range(1, 48):
         p = TRADES_DIR / f"run{run}_trades_log.json"
         if not p.exists():
             continue
@@ -287,6 +287,32 @@ def _fetch_fund_chart(ticker: str) -> pd.DataFrame:
         return df.dropna(subset=["Close"])
     except Exception:
         return pd.DataFrame()
+
+
+@st.cache_data(ttl=3600)
+def fetch_market_regime() -> dict:
+    """Fetch VIX and SPY to determine overall market regime. Cached 1 hour."""
+    try:
+        vix = yf.Ticker("^VIX").history(period="2d", interval="1d", auto_adjust=True)
+        spy = yf.Ticker("SPY").history(period="1y",  interval="1d", auto_adjust=True)
+        if vix.empty or spy.empty:
+            return {"status": "unknown"}
+        vix_now  = float(vix["Close"].dropna().iloc[-1])
+        spy_close = spy["Close"].dropna()
+        spy_now  = float(spy_close.iloc[-1])
+        spy_ma200 = float(spy_close.rolling(200).mean().dropna().iloc[-1])
+        above_ma  = spy_now >= spy_ma200
+        if vix_now < 20 and above_ma:
+            status = "calm"
+        elif vix_now > 25 or not above_ma:
+            status = "risk_off"
+        else:
+            status = "caution"
+        return {"status": status, "vix": round(vix_now, 1),
+                "spy": round(spy_now, 2), "spy_ma200": round(spy_ma200, 2),
+                "above_ma": above_ma}
+    except Exception:
+        return {"status": "unknown"}
 
 
 def _build_fund_chart(df: pd.DataFrame, ticker: str, period_label: str = "2Y") -> "go.Figure":
@@ -1867,6 +1893,39 @@ with st.sidebar:
             "</div>", unsafe_allow_html=True)
 
     st.markdown("---")
+    # Market regime indicator — VIX + SPY vs 200d MA
+    _regime = fetch_market_regime()
+    _rs = _regime.get("status", "unknown")
+    if _rs == "calm":
+        _r_color, _r_icon = "#3fb950", "🟢"
+        _r_txt = ("Market: Calm" if lang == "en" else "市場: 安定")
+        _r_sub = (f"VIX {_regime['vix']} · SPY above 200d MA"
+                  if lang == "en" else
+                  f"VIX {_regime['vix']} · SPY 200日MA上回り")
+    elif _rs == "risk_off":
+        _r_color, _r_icon = "#f85149", "🔴"
+        _r_txt = ("Market: Risk-Off" if lang == "en" else "市場: リスクオフ")
+        _r_sub = (f"VIX {_regime['vix']} · {'SPY below 200d MA' if not _regime.get('above_ma') else 'elevated vol'}"
+                  if lang == "en" else
+                  f"VIX {_regime['vix']} · {'SPY 200日MA割れ' if not _regime.get('above_ma') else '高ボラティリティ'}")
+    elif _rs == "caution":
+        _r_color, _r_icon = "#d29922", "🟡"
+        _r_txt = ("Market: Caution" if lang == "en" else "市場: 注意")
+        _r_sub = (f"VIX {_regime['vix']} · watch closely"
+                  if lang == "en" else
+                  f"VIX {_regime['vix']} · 注意が必要")
+    else:
+        _r_color, _r_icon = "#8b949e", "⚪"
+        _r_txt = ("Market: —" if lang == "en" else "市場: —")
+        _r_sub = ("data unavailable" if lang == "en" else "データ取得不可")
+    st.markdown(
+        f"<div style='background:#0d1117;border:1px solid {_r_color};border-radius:6px;"
+        f"padding:8px 10px;font-size:12px'>"
+        f"<span style='color:{_r_color};font-weight:bold'>{_r_icon} {_r_txt}</span><br>"
+        f"<span style='color:#8b949e'>{_r_sub}</span></div>",
+        unsafe_allow_html=True,
+    )
+    st.markdown("---")
     st.caption(T("footer_note", lang))
 
 # ── load data ─────────────────────────────────────────────────────────────────
@@ -3054,16 +3113,112 @@ Every time the screener generates a BUY signal, we record it as a "paper trade" 
 - **Hold Complete** — the trade ran its full 20-day course and was then closed.
 - **Signal Reversal** — the screener changed its view on the stock, so we exited early.
 
-**The 27 runs explained:** We run the screener with different rule sets simultaneously to test which approach works best.
+**The 47 runs explained:** We run the screener with different rule sets simultaneously to test which approach works best.
 Runs 1–3 are our baseline. Runs 4–11 test different improvements. Runs 12–16 add fundamental analysis as an extra filter.
-Runs 17–19 block confirmed losing strategies (RSI Divergence, Relative Strength). Run 20 is "winners only" — only the 3 strategies that have proven profitable are allowed. Run 21 tests a 10-day max hold. Run 22 requires ML score ≥75.
-Runs 23–27 are experimental: they focus on the proven trio (RSI, MA Crossover, Mean Reversion) with combinations of fundamental gates, volume surge filters, and high ML thresholds.
-Runs 28–31 are Phase 10 (entry quality): pullback filter, RSI entry gate, cooldown after stop-loss. Runs 32–36 are Phase 11 (dynamic exits): each tests a different exit strategy — tight trailing, aggressive take-profit, signal-reversal-only, and ATR-based adaptive floors.
-The goal is to find which combination of rules produces the best real-world results.
+Runs 17–19 block confirmed losing strategies. Run 20 is "winners only". Run 21 tests a 10-day hold. Runs 22–27 focus on the proven trio (RSI, MA Crossover, Mean Reversion) with fundamental and volume gates.
+Runs 28–31 are Phase 10 (entry quality): pullback filter, RSI gate, cooldown. Runs 32–36 are Phase 11 (dynamic exits): trailing stops, take-profit variants, ATR-based floors.
+Run 37 is speculative-only: quantum computing, space, AI, and nuclear stocks with wide 20% stop.
+Runs 38–42 isolate strategy families: R38 trend-following only, R39 momentum only, R40 mean reversion only. This tells us which *type* of strategy works best in current conditions.
+Runs 43–47 test earnings blackout (skipping entry within 5 days of earnings) and extreme ML conviction (ML≥90).
+The leaderboard above updates automatically — the top 3 are the runs producing the best real results right now.
 
 **Honest caveat:** We currently have around 300 closed trades in the baseline runs, with newer runs still accumulating data. This is not yet a statistically large enough sample to draw firm conclusions. Treat the track record as an early indicator, not proof.
 """)
     st.markdown("")
+
+    # ── run leaderboard — always visible, shows which runs stand out ─────────
+    if not df_history.empty:
+        _lb_rows = []
+        for _r in sorted(df_history["run"].unique()):
+            _rdf = df_history[df_history["run"] == _r]
+            _n   = len(_rdf)
+            if _n < 3:
+                continue   # skip runs with almost no data
+            _w   = int(_rdf["win"].sum())
+            _wr  = _w / _n * 100
+            _avg = _rdf["pnl_pct"].mean()
+            _win_avg  = _rdf[_rdf["win"]]["pnl_pct"].mean() if _w > 0 else 0
+            _loss_avg = _rdf[~_rdf["win"]]["pnl_pct"].mean() if _n - _w > 0 else 0
+            _pf  = abs(_win_avg / _loss_avg) if _loss_avg != 0 else float("inf")
+            # Sortino
+            if _n >= 5:
+                _rets = _rdf["pnl_pct"].values / 100
+                _hold = _rdf["days_held"].mean() if "days_held" in _rdf.columns else 20
+                _af   = 252 / max(float(_hold), 1)
+                _neg  = _rets[_rets < 0]
+                _ds   = _neg.std() * np.sqrt(_af) if len(_neg) > 1 else np.nan
+                _so   = (_rets.mean() * _af) / _ds if _ds and not np.isnan(_ds) else np.nan
+            else:
+                _so = np.nan
+            _lb_rows.append({
+                "run": _r,
+                "label": RUN_CONFIGS.get(_r, f"Run {_r}"),
+                "trades": _n,
+                "win_rate": _wr,
+                "avg_pnl": _avg,
+                "profit_factor": _pf,
+                "sortino": _so,
+            })
+
+        if _lb_rows:
+            _lb_df = pd.DataFrame(_lb_rows).sort_values("avg_pnl", ascending=False).reset_index(drop=True)
+
+            # podium — top 3
+            _medals = ["🥇", "🥈", "🥉"]
+            _top3   = _lb_df.head(3)
+            _pod_cols = st.columns(3)
+            for _i, (_col, (_, _row)) in enumerate(zip(_pod_cols, _top3.iterrows())):
+                _c = "#3fb950" if _row["avg_pnl"] > 0 else "#f85149"
+                _pf_s = f"{_row['profit_factor']:.2f}" if not np.isinf(_row["profit_factor"]) else "∞"
+                _so_s = f"{_row['sortino']:.2f}" if not np.isnan(_row["sortino"]) else "—"
+                _col.markdown(
+                    f"<div style='background:#161b22;border:1px solid {_c};"
+                    f"border-radius:10px;padding:14px 12px;text-align:center'>"
+                    f"<div style='font-size:22px'>{_medals[_i]}</div>"
+                    f"<div style='font-size:16px;font-weight:bold;color:{_c}'>"
+                    f"R{int(_row['run'])}</div>"
+                    f"<div style='font-size:11px;color:#8b949e;margin:4px 0 8px'>"
+                    f"{str(_row['label'])[:40]}{'…' if len(str(_row['label'])) > 40 else ''}</div>"
+                    f"<div style='font-size:18px;font-weight:800;color:{_c}'>"
+                    f"{_row['avg_pnl']:+.2f}%</div>"
+                    f"<div style='font-size:11px;color:#8b949e'>avg P&L · {_row['trades']} trades</div>"
+                    f"<div style='font-size:11px;color:#8b949e;margin-top:4px'>"
+                    f"WR {_row['win_rate']:.0f}% · PF {_pf_s} · Sortino {_so_s}</div>"
+                    f"</div>",
+                    unsafe_allow_html=True,
+                )
+            st.markdown("")
+
+            # full leaderboard table
+            _lb_label = "All Runs — sorted by Avg P&L" if lang == "en" else "全ラン — 平均損益順"
+            with st.expander(_lb_label, expanded=False):
+                _display_rows = []
+                for _, _row in _lb_df.iterrows():
+                    _pf_s = f"{_row['profit_factor']:.2f}" if not np.isinf(_row["profit_factor"]) else "∞"
+                    _so_s = f"{_row['sortino']:.2f}" if not np.isnan(_row["sortino"]) else "—"
+                    _display_rows.append({
+                        ("Run" if lang == "en" else "ラン"): f"R{int(_row['run'])}",
+                        ("Config" if lang == "en" else "設定"): str(_row["label"])[:55],
+                        ("Trades" if lang == "en" else "取引数"): int(_row["trades"]),
+                        ("Win %" if lang == "en" else "勝率"): f"{_row['win_rate']:.1f}%",
+                        ("Avg P&L" if lang == "en" else "平均損益"): f"{_row['avg_pnl']:+.2f}%",
+                        ("Profit Factor" if lang == "en" else "PF"): _pf_s,
+                        ("Sortino" if lang == "en" else "ソルティノ"): _so_s,
+                    })
+                _disp_df = pd.DataFrame(_display_rows)
+                _avg_col = "Avg P&L" if lang == "en" else "平均損益"
+
+                def _lb_color(v):
+                    if not isinstance(v, str): return ""
+                    if v.startswith("+"):  return "color:#3fb950;font-weight:bold"
+                    if v.startswith("-"):  return "color:#f85149;font-weight:bold"
+                    return ""
+
+                st.dataframe(
+                    _disp_df.style.map(_lb_color, subset=[_avg_col]),
+                    use_container_width=True, hide_index=True,
+                )
+        st.markdown("---")
 
     if df_history.empty:
         st.info(T("tr_no_trades", lang))
