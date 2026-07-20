@@ -108,6 +108,18 @@ RUN_CONFIGS = {
     35: "Phase 11D: Best-of-Both — +10% TP + Tight Trailing 8%/3%",
     36: "Phase 11E: ATR Trailing — Floor = Peak − 2×ATR%, Trigger +5%",
     37: "⚡ Speculative Momentum — Quantum/Space/AI/Nuclear, RSI+MA, Wide Stop 20%",
+    # Phase 12: Strategy Family Isolation
+    38: "Family A: Trend Following Only — MA Crossover, ADX, Supertrend, Ichimoku",
+    39: "Family B: Momentum/Breakout Only — MACD, Donchian, Vol Break, BB Squeeze, Gap Mom",
+    40: "Family C: Mean Reversion Only — RSI, BB, Mean Rev, Stochastic, RSI(2)",
+    41: "Family D: Cross-Family — MA Crossover + RSI + Mean Rev + Vol Breakout, ML≥70",
+    42: "US Only: Proven Trio, US Market Filter, ML≥70",
+    # Phase 12: Earnings Blackout & Quality Gates
+    43: "Earnings Blackout: Baseline R1 + Skip 5d Before Earnings",
+    44: "Earnings Blackout: Proven Trio + Blackout, ML≥70",
+    45: "Earnings Blackout: All-In Premium R27 + Blackout",
+    46: "Extreme Conviction: All Strategies, ML≥90, Wide Stop",
+    47: "Full Stack: Proven Trio + Blackout + Volume 1.5×, ML≥70",
 }
 
 # Speculative / high-risk tickers — mirrored from paper_trader.py
@@ -3098,6 +3110,7 @@ The goal is to find which combination of rules produces the best real-world resu
             win_rate = avg_pnl = avg_win = avg_loss = pf = 0.0
             wl_str = "0W / 0L" if lang == "en" else "0勝 / 0敗"
             stops_sub = "—"
+            sortino_str = pf_str = "—"
         else:
             n_total  = len(dc)
             n_wins   = int(dc["win"].sum())
@@ -3109,8 +3122,22 @@ The goal is to find which combination of rules produces the best real-world resu
             n_stops  = int((dc["exit_reason"] == "STOP_LOSS").sum())
             wl_str   = f"{n_wins}W / {n_total-n_wins}L" if lang == "en" else f"{n_wins}勝 / {n_total-n_wins}敗"
             stops_sub = f"{n_stops/n_total*100:.0f}% of trades" if lang == "en" else f"全体の{n_stops/n_total*100:.0f}%"
+            pf_str   = f"{pf:.2f}" if not np.isinf(pf) else "∞"
+            # Sortino ratio: annualised return / downside deviation (only negative returns)
+            # Uses avg hold period to annualise; needs ≥5 closed trades to be meaningful.
+            if n_total >= 5:
+                _rets = dc["pnl_pct"].values / 100
+                _avg_hold = dc["days_held"].mean() if "days_held" in dc.columns else 20
+                _ann_factor = 252 / max(float(_avg_hold), 1)
+                _ann_ret    = _rets.mean() * _ann_factor
+                _neg_rets   = _rets[_rets < 0]
+                _ds_std     = _neg_rets.std() * np.sqrt(_ann_factor) if len(_neg_rets) > 1 else np.nan
+                _sortino    = _ann_ret / _ds_std if _ds_std and not np.isnan(_ds_std) else np.nan
+                sortino_str = f"{_sortino:.2f}" if not np.isnan(_sortino) else "—"
+            else:
+                sortino_str = "—"
 
-        # ── summary metrics ──
+        # ── summary metrics row 1 ──
         cols = st.columns(6)
         for col, label, val, sub in [
             (cols[0], T("tr_m1", lang), str(n_total),        T("tr_m1s", lang)),
@@ -3129,6 +3156,30 @@ The goal is to find which combination of rules produces the best real-world resu
                 f"</div>",
                 unsafe_allow_html=True,
             )
+
+        # ── summary metrics row 2: risk-adjusted metrics ──
+        _pf_label = "Profit Factor" if lang == "en" else "プロフィットファクター"
+        _pf_sub   = "gross wins ÷ gross losses" if lang == "en" else "総利益 ÷ 総損失"
+        _so_label = "Sortino Ratio" if lang == "en" else "ソルティノレシオ"
+        _so_sub   = "ann. return ÷ downside vol" if lang == "en" else "年率リターン ÷ 下方ボラ"
+        _so_note  = "vs Sharpe (penalises all vol)" if lang == "en" else "シャープ比は全変動を評価"
+        _r2c1, _r2c2, _r2c3 = st.columns([1, 1, 4])
+        _pf_color = "#3fb950" if pf_str not in ("—", "0.00") and pf != 0 and (pf == float("inf") or pf >= 1.0) else "#f85149"
+        _so_color = "#3fb950" if sortino_str not in ("—",) and float(sortino_str) > 0 else "#f85149" if sortino_str != "—" else "#e6edf3"
+        _r2c1.markdown(
+            f"<div class='metric-card'>"
+            f"<div class='label'>{_pf_label}</div>"
+            f"<div class='value' style='color:{_pf_color}'>{pf_str}</div>"
+            f"<div class='sub'>{_pf_sub}</div>"
+            f"</div>", unsafe_allow_html=True,
+        )
+        _r2c2.markdown(
+            f"<div class='metric-card'>"
+            f"<div class='label'>{_so_label}</div>"
+            f"<div class='value' style='color:{_so_color}'>{sortino_str}</div>"
+            f"<div class='sub'>{_so_note}</div>"
+            f"</div>", unsafe_allow_html=True,
+        )
 
         # ── investment simulator ─────────────────────────────────────────────────
         st.markdown(f"### {T('tr_sim_header', lang)}")
