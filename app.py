@@ -267,9 +267,9 @@ def fetch_chart(ticker: str) -> pd.DataFrame:
 
 @st.cache_data(ttl=3600)
 def _fetch_fund_chart(ticker: str) -> pd.DataFrame:
-    """2-year daily price data for the Fundamental Rankings detail panel."""
+    """Up to 10-year daily price data for the Fundamental Rankings detail panel."""
     try:
-        df = yf.Ticker(ticker).history(period="2y", interval="1d", auto_adjust=True)
+        df = yf.Ticker(ticker).history(period="10y", interval="1d", auto_adjust=True)
         if df.empty:
             raise ValueError("empty")
         return df.dropna(subset=["Close"])
@@ -2822,11 +2822,13 @@ elif page == "🌏 Fundamental Rankings":
                             st.session_state[_chart_key] = False
                             st.rerun()
                     with _fc_col2:
-                        _fp_opts = {"3M": 90, "6M": 180, "1Y": 365, "2Y": 730}
+                        _fp_opts = {"3M": 90, "6M": 180, "1Y": 365, "2Y": 730, "3Y": 1095, "5Y": 1825}
                         _fp_labels = {"3M": "3 months" if lang == "en" else "3ヶ月",
                                       "6M": "6 months" if lang == "en" else "6ヶ月",
                                       "1Y": "1 year"   if lang == "en" else "1年",
-                                      "2Y": "2 years"  if lang == "en" else "2年"}
+                                      "2Y": "2 years"  if lang == "en" else "2年",
+                                      "3Y": "3 years"  if lang == "en" else "3年",
+                                      "5Y": "5 years"  if lang == "en" else "5年"}
                         _fp_sel = st.radio(
                             "Period" if lang == "en" else "期間",
                             list(_fp_opts.keys()),
