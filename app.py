@@ -3999,7 +3999,7 @@ take-profit, or signal reversal.
 このスクリーナーはプロの取引システムではなく、**学習プロジェクト**です。
 以下の制限事項をご理解ください：
 
-- **サンプルサイズが小さい** — 全ランで約100件のクローズドトレードのみ。統計的に確定的な結論を出すには不十分。
+- **サンプル蓄積中** — 全ランで600件超のクローズドトレード。古いランほどデータが多く、新しいランは初期指標として扱ってください。
 - **無料データ** — yfinance（Yahoo Finance）を使用。データにはギャップ、誤り、遅延が生じる場合があります。
 - **ファンダメンタルデータなし** — 純粋にテクニカル/統計シグナル。業績・バリュエーション・ニュースは考慮しない。
 - **ペーパートレード** — 結果はシミュレーション。スリッページ・手数料・税金は含まない。
@@ -4012,7 +4012,7 @@ take-profit, or signal reversal.
 This screener is a **learning project**, not a professional trading system.
 Be aware of its limitations:
 
-- **Small sample size** — only ~100 closed trades across all runs. Not enough to be statistically definitive.
+- **Growing sample size** — 600+ closed trades across all runs, with newer runs still accumulating data. Early runs have the most data; treat newer runs as indicators only.
 - **Free data** — uses yfinance (Yahoo Finance). Data can have gaps, errors, and delays.
 - **No fundamental data** — purely technical/statistical signals. Ignores earnings, valuation, news.
 - **Paper trading** — results are simulated, not real. Slippage, brokerage, and taxes are not modelled.
