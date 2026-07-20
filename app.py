@@ -277,7 +277,7 @@ def _fetch_fund_chart(ticker: str) -> pd.DataFrame:
         return pd.DataFrame()
 
 
-def _build_fund_chart(df: pd.DataFrame, ticker: str) -> "go.Figure":
+def _build_fund_chart(df: pd.DataFrame, ticker: str, period_label: str = "2Y") -> "go.Figure":
     from plotly.subplots import make_subplots
     close  = df["Close"].squeeze()
     open_  = df["Open"].squeeze()
@@ -334,7 +334,7 @@ def _build_fund_chart(df: pd.DataFrame, ticker: str) -> "go.Figure":
             text=(f"<b>{ticker}</b>  "
                   f"<span style='color:{clr}'>{last:.2f}  {chg:+.2f}  ({chgp:+.2f}%)</span>"
                   f"  <span style='color:#8b949e;font-size:12px'>"
-                  f"2Y High: {hi2y:.2f}  ·  2Y Low: {lo2y:.2f}"
+                  f"{period_label} High: {hi2y:.2f}  ·  {period_label} Low: {lo2y:.2f}"
                   f"  ·  From High: <span style='color:{pct_clr}'>"
                   f"{pct_hi:.1f}%</span></span>"),
             font_size=14,
@@ -2813,19 +2813,39 @@ elif page == "🌏 Fundamental Rankings":
 
                 # ── price chart ───────────────────────────────────────────────
                 _chart_key = f"fchart_{_ticker}"
-                _btn_lbl   = "📈 Show 2-year price chart" if lang == "en" else "📈 2年間の株価チャートを表示"
+                _btn_lbl   = "📈 Show price chart" if lang == "en" else "📈 株価チャートを表示"
                 _hide_lbl  = "▲ Hide chart" if lang == "en" else "▲ チャートを非表示"
                 if st.session_state.get(_chart_key):
-                    if st.button(_hide_lbl, key=f"fhide_{_ticker}"):
-                        st.session_state[_chart_key] = False
-                        st.rerun()
+                    _fc_col1, _fc_col2 = st.columns([1, 3])
+                    with _fc_col1:
+                        if st.button(_hide_lbl, key=f"fhide_{_ticker}"):
+                            st.session_state[_chart_key] = False
+                            st.rerun()
+                    with _fc_col2:
+                        _fp_opts = {"3M": 90, "6M": 180, "1Y": 365, "2Y": 730}
+                        _fp_labels = {"3M": "3 months" if lang == "en" else "3ヶ月",
+                                      "6M": "6 months" if lang == "en" else "6ヶ月",
+                                      "1Y": "1 year"   if lang == "en" else "1年",
+                                      "2Y": "2 years"  if lang == "en" else "2年"}
+                        _fp_sel = st.radio(
+                            "Period" if lang == "en" else "期間",
+                            list(_fp_opts.keys()),
+                            index=2,
+                            horizontal=True,
+                            key=f"fp_{_ticker}",
+                            format_func=lambda x: _fp_labels[x],
+                        )
                     with st.spinner(f"Loading {_ticker}…"):
                         _pdf = _fetch_fund_chart(_ticker)
                     if _pdf.empty:
                         st.warning("Could not load chart data." if lang == "en"
                                    else "チャートデータを読み込めませんでした。")
                     else:
-                        st.plotly_chart(_build_fund_chart(_pdf, _ticker),
+                        _cutoff = pd.Timestamp.today() - pd.Timedelta(days=_fp_opts[_fp_sel])
+                        _pdf_view = _pdf[_pdf.index >= _cutoff]
+                        if _pdf_view.empty:
+                            _pdf_view = _pdf
+                        st.plotly_chart(_build_fund_chart(_pdf_view, _ticker, _fp_sel),
                                         use_container_width=True)
                 else:
                     if st.button(_btn_lbl, key=f"fshow_{_ticker}"):
