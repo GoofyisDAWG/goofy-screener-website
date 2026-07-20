@@ -257,10 +257,9 @@ def load_open_positions() -> pd.DataFrame:
 @st.cache_data(ttl=3600)
 def fetch_chart(ticker: str) -> pd.DataFrame:
     try:
-        df = yf.download(ticker, period="2y", interval="1d",
-                         auto_adjust=True, progress=False)
-        if isinstance(df.columns, pd.MultiIndex):
-            df.columns = df.columns.droplevel(1)
+        df = yf.Ticker(ticker).history(period="2y", interval="1d", auto_adjust=True)
+        if df.empty:
+            raise ValueError("empty")
         return df.dropna(subset=["Close"])
     except Exception:
         return pd.DataFrame()
@@ -270,10 +269,9 @@ def fetch_chart(ticker: str) -> pd.DataFrame:
 def _fetch_fund_chart(ticker: str) -> pd.DataFrame:
     """2-year daily price data for the Fundamental Rankings detail panel."""
     try:
-        df = yf.download(ticker, period="2y", interval="1d",
-                         auto_adjust=True, progress=False)
-        if isinstance(df.columns, pd.MultiIndex):
-            df.columns = df.columns.droplevel(1)
+        df = yf.Ticker(ticker).history(period="2y", interval="1d", auto_adjust=True)
+        if df.empty:
+            raise ValueError("empty")
         return df.dropna(subset=["Close"])
     except Exception:
         return pd.DataFrame()
