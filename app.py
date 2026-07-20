@@ -2841,7 +2841,8 @@ elif page == "🌏 Fundamental Rankings":
                         st.warning("Could not load chart data." if lang == "en"
                                    else "チャートデータを読み込めませんでした。")
                     else:
-                        _cutoff = pd.Timestamp.today() - pd.Timedelta(days=_fp_opts[_fp_sel])
+                        _tz = _pdf.index.tz
+                        _cutoff = (pd.Timestamp.today(tz=_tz) - pd.Timedelta(days=_fp_opts[_fp_sel]))
                         _pdf_view = _pdf[_pdf.index >= _cutoff]
                         if _pdf_view.empty:
                             _pdf_view = _pdf
