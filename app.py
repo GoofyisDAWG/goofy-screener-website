@@ -3863,7 +3863,7 @@ the "What to look for" box below the signal card explains exactly what to focus 
                     format_func=lambda x: _period_labels[x],
                 )
             # slice to selected window
-            _cutoff = pd.Timestamp.today() - pd.Timedelta(days=_period_days[_sel_period])
+            _cutoff = pd.Timestamp.today(tz="UTC") - pd.Timedelta(days=_period_days[_sel_period])
             price_df_view = price_df[price_df.index >= _cutoff]
             if price_df_view.empty:
                 price_df_view = price_df  # fallback if not enough history
