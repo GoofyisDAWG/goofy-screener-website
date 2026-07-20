@@ -33,7 +33,12 @@
       "strategy": "MACD",
       "tier": "A",
       "score": 68,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 333.74,
+      "unrealised_pnl_pct": -0.0,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0
     },
     {
       "asset": "AVGO",
@@ -47,7 +52,12 @@
       "strategy": "MACD",
       "tier": "B",
       "score": 44,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 370.83,
+      "unrealised_pnl_pct": -0.0,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0
     },
     {
       "asset": "BAC",
@@ -61,7 +71,12 @@
       "strategy": "MACD",
       "tier": "B",
       "score": 68,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 61.27,
+      "unrealised_pnl_pct": 0.0,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0
     },
     {
       "asset": "CMG",
@@ -75,7 +90,12 @@
       "strategy": "RSI(2)",
       "tier": "B",
       "score": 30,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 34.44,
+      "unrealised_pnl_pct": -0.0,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0
     },
     {
       "asset": "SPY",
@@ -89,7 +109,12 @@
       "strategy": "MACD",
       "tier": "A",
       "score": 45,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 743.29,
+      "unrealised_pnl_pct": -0.0,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0
     },
     {
       "asset": "GLD",
@@ -103,7 +128,12 @@
       "strategy": "Mean Reversion",
       "tier": "A",
       "score": 45,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 368.41,
+      "unrealised_pnl_pct": 0.0,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0
     },
     {
       "asset": "VTI",
@@ -117,7 +147,12 @@
       "strategy": "Relative Strength",
       "tier": "A",
       "score": 53,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 367.01,
+      "unrealised_pnl_pct": 0.0,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0
     },
     {
       "asset": "ANZ.AX",
@@ -131,7 +166,12 @@
       "strategy": "MACD",
       "tier": "A",
       "score": 49,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 36.21,
+      "unrealised_pnl_pct": 0.055,
+      "days_held": 0,
+      "peak_pnl_pct": 0.055
     },
     {
       "asset": "NHF.AX",
@@ -145,7 +185,12 @@
       "strategy": "Relative Strength",
       "tier": "B",
       "score": 35,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 7.41,
+      "unrealised_pnl_pct": 0.407,
+      "days_held": 0,
+      "peak_pnl_pct": 0.407
     },
     {
       "asset": "WHC.AX",
@@ -159,7 +204,12 @@
       "strategy": "Relative Strength",
       "tier": "B",
       "score": 60,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 7.65,
+      "unrealised_pnl_pct": 0.131,
+      "days_held": 0,
+      "peak_pnl_pct": 0.131
     },
     {
       "asset": "WES.AX",
@@ -173,7 +223,12 @@
       "strategy": "Relative Strength",
       "tier": "B",
       "score": 33,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 93.03,
+      "unrealised_pnl_pct": -0.107,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0
     },
     {
       "asset": "COL.AX",
@@ -187,7 +242,12 @@
       "strategy": "Mean Reversion",
       "tier": "B",
       "score": 30,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 23.42,
+      "unrealised_pnl_pct": 0.171,
+      "days_held": 0,
+      "peak_pnl_pct": 0.171
     },
     {
       "asset": "JBH.AX",
@@ -201,7 +261,12 @@
       "strategy": "Relative Strength",
       "tier": "B",
       "score": 36,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 79.66,
+      "unrealised_pnl_pct": -0.188,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0
     },
     {
       "asset": "ALL.AX",
@@ -215,7 +280,12 @@
       "strategy": "Relative Strength",
       "tier": "A",
       "score": 61,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 62.08,
+      "unrealised_pnl_pct": 0.129,
+      "days_held": 0,
+      "peak_pnl_pct": 0.129
     },
     {
       "asset": "XRO.AX",
@@ -229,7 +299,12 @@
       "strategy": "Relative Strength",
       "tier": "B",
       "score": 27,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 68.45,
+      "unrealised_pnl_pct": -0.073,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0
     },
     {
       "asset": "GPT.AX",
@@ -243,7 +318,12 @@
       "strategy": "Relative Strength",
       "tier": "A",
       "score": 49,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 4.97,
+      "unrealised_pnl_pct": 0.202,
+      "days_held": 0,
+      "peak_pnl_pct": 0.202
     },
     {
       "asset": "5020.T",
@@ -257,7 +337,12 @@
       "strategy": "RSI(2)",
       "tier": "B",
       "score": 28,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 1243.5,
+      "unrealised_pnl_pct": 0.0,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0
     }
   ],
   "closed": []
