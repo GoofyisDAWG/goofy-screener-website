@@ -3,7 +3,7 @@
     "run": 10,
     "label": "New: All Ideas + Tiered Floor (Run 10)",
     "created": "2026-06-17",
-    "total_logged": 76,
+    "total_logged": 75,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
@@ -176,27 +176,6 @@
       }
     },
     {
-      "asset": "RTX",
-      "market": "US",
-      "entry_date": "2026-07-10",
-      "entry_price": 195.2,
-      "hold_days_target": 20,
-      "size_pct": 14.1,
-      "ml_score": 66.1,
-      "val_auc": 0.502,
-      "strategy": "RSI Divergence",
-      "tier": "A",
-      "score": 45,
-      "p7_verdict": "TRADE",
-      "current_price": 194.44,
-      "unrealised_pnl_pct": -0.389,
-      "days_held": 7,
-      "peak_pnl_pct": 0.61,
-      "checkpoints": {
-        "4": 0.353
-      }
-    },
-    {
       "asset": "WDS.AX",
       "market": "ASX",
       "entry_date": "2026-07-14",
@@ -349,10 +328,10 @@
       "score": 42,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 292.31,
-      "unrealised_pnl_pct": -1.17,
+      "current_price": 296.54,
+      "unrealised_pnl_pct": 0.26,
       "days_held": 3,
-      "peak_pnl_pct": 0.0
+      "peak_pnl_pct": 0.26
     },
     {
       "asset": "8035.T",
@@ -387,8 +366,8 @@
       "score": 52,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 323.36,
-      "unrealised_pnl_pct": -2.907,
+      "current_price": 307.65,
+      "unrealised_pnl_pct": -7.624,
       "days_held": 3,
       "peak_pnl_pct": 0.0
     },
@@ -406,10 +385,10 @@
       "score": 59,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 492.32,
-      "unrealised_pnl_pct": 1.43,
+      "current_price": 493.23,
+      "unrealised_pnl_pct": 1.617,
       "days_held": 3,
-      "peak_pnl_pct": 1.43
+      "peak_pnl_pct": 1.617
     },
     {
       "asset": "C",
@@ -425,8 +404,8 @@
       "score": 63,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 128.72,
-      "unrealised_pnl_pct": -4.574,
+      "current_price": 132.84,
+      "unrealised_pnl_pct": -1.52,
       "days_held": 3,
       "peak_pnl_pct": 0.0
     },
@@ -444,8 +423,8 @@
       "score": 52,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 351.93,
-      "unrealised_pnl_pct": -1.816,
+      "current_price": 350.79,
+      "unrealised_pnl_pct": -2.134,
       "days_held": 3,
       "peak_pnl_pct": 0.873
     },
@@ -463,8 +442,8 @@
       "score": 54,
       "p7_verdict": "ML HOLD",
       "checkpoints": {},
-      "current_price": 364.17,
-      "unrealised_pnl_pct": 1.633,
+      "current_price": 366.24,
+      "unrealised_pnl_pct": 2.21,
       "days_held": 3,
       "peak_pnl_pct": 3.701
     },
@@ -482,8 +461,8 @@
       "score": 30,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 33.13,
-      "unrealised_pnl_pct": -4.332,
+      "current_price": 33.32,
+      "unrealised_pnl_pct": -3.783,
       "days_held": 3,
       "peak_pnl_pct": 0.0
     },
@@ -501,10 +480,10 @@
       "score": 51,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 13.99,
-      "unrealised_pnl_pct": -1.34,
+      "current_price": 14.27,
+      "unrealised_pnl_pct": 0.635,
       "days_held": 3,
-      "peak_pnl_pct": 0.353
+      "peak_pnl_pct": 0.635
     },
     {
       "asset": "CSX",
@@ -520,8 +499,8 @@
       "score": 40,
       "p7_verdict": "ML HOLD",
       "checkpoints": {},
-      "current_price": 50.11,
-      "unrealised_pnl_pct": 1.376,
+      "current_price": 49.89,
+      "unrealised_pnl_pct": 0.931,
       "days_held": 3,
       "peak_pnl_pct": 2.954
     },
@@ -539,8 +518,8 @@
       "score": 51,
       "p7_verdict": "ML HOLD",
       "checkpoints": {},
-      "current_price": 271.69,
-      "unrealised_pnl_pct": 0.103,
+      "current_price": 271.99,
+      "unrealised_pnl_pct": 0.214,
       "days_held": 3,
       "peak_pnl_pct": 4.259
     },
@@ -558,10 +537,10 @@
       "score": 62,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 950.79,
-      "unrealised_pnl_pct": -0.227,
+      "current_price": 959.58,
+      "unrealised_pnl_pct": 0.696,
       "days_held": 3,
-      "peak_pnl_pct": 0.566
+      "peak_pnl_pct": 0.696
     },
     {
       "asset": "NEE",
@@ -577,8 +556,8 @@
       "score": 61,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 88.0,
-      "unrealised_pnl_pct": -1.235,
+      "current_price": 87.93,
+      "unrealised_pnl_pct": -1.313,
       "days_held": 3,
       "peak_pnl_pct": 0.281
     },
@@ -596,8 +575,8 @@
       "score": 54,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 366.25,
-      "unrealised_pnl_pct": -1.657,
+      "current_price": 369.45,
+      "unrealised_pnl_pct": -0.797,
       "days_held": 3,
       "peak_pnl_pct": 0.0
     },
@@ -748,8 +727,8 @@
       "score": 35,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 24.22,
-      "unrealised_pnl_pct": 0.331,
+      "current_price": 24.81,
+      "unrealised_pnl_pct": 2.775,
       "days_held": 2,
       "peak_pnl_pct": 2.9
     },
@@ -830,28 +809,14 @@
       "peak_pnl_pct": 0.027
     },
     {
-      "asset": "V",
-      "market": "US",
-      "entry_date": "2026-07-21",
-      "entry_price": 360.57,
-      "hold_days_target": 20,
-      "size_pct": 1.5,
-      "ml_score": 59.7,
-      "val_auc": 0.502,
-      "strategy": "Relative Strength",
-      "tier": "B",
-      "score": 33,
-      "p7_verdict": "TRADE"
-    },
-    {
       "asset": "GE",
       "market": "US",
       "entry_date": "2026-07-21",
-      "entry_price": 341.3,
+      "entry_price": 340.7,
       "hold_days_target": 20,
-      "size_pct": 8.4,
-      "ml_score": 83.2,
-      "val_auc": 0.543,
+      "size_pct": 8.5,
+      "ml_score": 86.4,
+      "val_auc": 0.539,
       "strategy": "Relative Strength",
       "tier": "A",
       "score": 73,
@@ -863,9 +828,9 @@
       "entry_date": "2026-07-21",
       "entry_price": 1992.5,
       "hold_days_target": 20,
-      "size_pct": 1.4,
-      "ml_score": 59.3,
-      "val_auc": 0.593,
+      "size_pct": 1.3,
+      "ml_score": 57.6,
+      "val_auc": 0.597,
       "strategy": "Relative Strength",
       "tier": "B",
       "score": 33,
@@ -878,7 +843,7 @@
       "entry_price": 1193.0,
       "hold_days_target": 20,
       "size_pct": 3.5,
-      "ml_score": 79.3,
+      "ml_score": 78.6,
       "val_auc": 0.57,
       "strategy": "Relative Strength",
       "tier": "A",
@@ -1580,6 +1545,31 @@
       "days_held": 8,
       "pnl_pct": -6.611,
       "peak_pnl_pct": 0.494,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "RTX",
+      "market": "US",
+      "entry_date": "2026-07-10",
+      "entry_price": 195.2,
+      "hold_days_target": 20,
+      "size_pct": 14.1,
+      "ml_score": 66.1,
+      "val_auc": 0.502,
+      "strategy": "RSI Divergence",
+      "tier": "A",
+      "score": 45,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 0.353
+      },
+      "exit_date": "2026-07-21",
+      "exit_price": 193.67,
+      "days_held": 7,
+      "pnl_pct": -0.784,
+      "peak_pnl_pct": 0.61,
       "win": false,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
