@@ -1624,10 +1624,10 @@ def build_strategy_chart(price_df: pd.DataFrame, strategy: str,
         bench_map = {"US": "SPY", "ASX": "STW.AX", "JPX": "1321.T"}
         bench_t   = bench_map.get(market, benchmark_ticker)
         try:
-            bench_df = yf.download(bench_t, start=price_df.index[0],
-                                   auto_adjust=True, progress=False)
-            if isinstance(bench_df.columns, pd.MultiIndex):
-                bench_df.columns = bench_df.columns.droplevel(1)
+            # use pre-computed price cache — no live API call from public server
+            bench_df = load_price_data(bench_t)
+            if bench_df.empty:
+                raise ValueError("not in cache")
             bench_close = bench_df["Close"].squeeze().reindex(price_df.index, method="ffill")
             rs = (close / close.iloc[0]) / (bench_close / bench_close.iloc[0])
             fig.add_trace(go.Scatter(x=price_df.index, y=rs, name=f"RS vs {bench_t}",
