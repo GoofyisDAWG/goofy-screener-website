@@ -5566,7 +5566,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-20T16:55:06.837005"
+    "fetched_at": "2026-07-21T14:21:58.171473"
   },
   "QQQ": {
     "ticker": "QQQ",
@@ -5575,7 +5575,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-20T16:55:06.837019"
+    "fetched_at": "2026-07-21T14:21:58.171479"
   },
   "GLD": {
     "ticker": "GLD",
@@ -5584,7 +5584,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-20T16:55:06.837024"
+    "fetched_at": "2026-07-21T14:21:58.171482"
   },
   "TLT": {
     "ticker": "TLT",
@@ -5593,7 +5593,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-20T16:55:06.837028"
+    "fetched_at": "2026-07-21T14:21:58.171484"
   },
   "IWM": {
     "ticker": "IWM",
@@ -5602,7 +5602,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-20T16:55:06.837031"
+    "fetched_at": "2026-07-21T14:21:58.171485"
   },
   "VTI": {
     "ticker": "VTI",
@@ -7891,7 +7891,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-20T16:55:06.837401"
+    "fetched_at": "2026-07-21T14:21:58.171657"
   },
   "STW.AX": {
     "ticker": "STW.AX",
@@ -7900,7 +7900,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-20T16:55:06.837406"
+    "fetched_at": "2026-07-21T14:21:58.171659"
   },
   "VAS.AX": {
     "ticker": "VAS.AX",
@@ -7909,7 +7909,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-20T16:55:06.837409"
+    "fetched_at": "2026-07-21T14:21:58.171661"
   },
   "VGS.AX": {
     "ticker": "VGS.AX",
@@ -10558,7 +10558,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-20T16:55:06.837881"
+    "fetched_at": "2026-07-21T14:22:00.960658"
   },
   "1306.T": {
     "ticker": "1306.T",
@@ -10567,6 +10567,86 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-20T16:55:06.837886"
+    "fetched_at": "2026-07-21T14:22:00.960733"
+  },
+  "7201.T": {
+    "ticker": "7201.T",
+    "pass": true,
+    "score": 6,
+    "max": 8,
+    "breakdown": {
+      "pe": 1,
+      "revenue_growth": 1,
+      "debt_equity": 1,
+      "free_cashflow": 0,
+      "profit_margin": 1,
+      "analyst": 1,
+      "roe": 0,
+      "current_ratio": 1
+    },
+    "is_etf": false,
+    "fetched_at": "2026-07-21T14:21:59.886555",
+    "pe": null,
+    "forward_pe": -22.71302,
+    "revenue_growth": -0.017,
+    "debt_equity": 170.177,
+    "free_cashflow": -1342245437440,
+    "profit_margin": -0.0444,
+    "analyst_rating": 3.17647,
+    "analyst_label": "hold",
+    "return_on_equity": -0.09856,
+    "current_ratio": 1.56,
+    "dividend_yield": null,
+    "beta": 0.404,
+    "price_to_book": 0.24275877,
+    "earnings_growth": null,
+    "trailing_eps": -152.56,
+    "gross_margins": 0.12825,
+    "operating_margins": 0.01986,
+    "company_name": "Nissan Motor Co., Ltd.",
+    "sector": "Consumer Cyclical",
+    "industry": "Auto Manufacturers",
+    "market_cap": 1164994674688,
+    "currency": "JPY"
+  },
+  "7270.T": {
+    "ticker": "7270.T",
+    "pass": true,
+    "score": 7,
+    "max": 8,
+    "breakdown": {
+      "pe": 1,
+      "revenue_growth": 1,
+      "debt_equity": 1,
+      "free_cashflow": 1,
+      "profit_margin": 1,
+      "analyst": 1,
+      "roe": 0,
+      "current_ratio": 1
+    },
+    "is_etf": false,
+    "fetched_at": "2026-07-21T14:22:00.658555",
+    "pe": 20.61309,
+    "forward_pe": 5.79215,
+    "revenue_growth": 0.101,
+    "debt_equity": 19.79,
+    "free_cashflow": 112187752448,
+    "profit_margin": 0.01898,
+    "analyst_rating": 2.8,
+    "analyst_label": "hold",
+    "return_on_equity": 0.033069998,
+    "current_ratio": 2.207,
+    "dividend_yield": 4.58,
+    "beta": 0.063,
+    "price_to_book": 0.66527665,
+    "earnings_growth": -0.616,
+    "trailing_eps": 125.43,
+    "gross_margins": 0.15036,
+    "operating_margins": -0.01518,
+    "company_name": "Subaru Corporation",
+    "sector": "Consumer Cyclical",
+    "industry": "Auto Manufacturers",
+    "market_cap": 1821680467968,
+    "currency": "JPY"
   }
 }
