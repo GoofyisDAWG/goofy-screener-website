@@ -740,7 +740,7 @@ _TR = {
         "tip_beginner":   "💡 <b>New here?</b> Start with <b>Fundamental Rankings</b> — see all stocks ranked by financial health, no jargon. Then use <b>Portfolio Health Check</b> to analyse stocks you already own.",
         "tip_inter":      "💡 <b>Tip:</b> Check <b>Screener Rankings</b> for today's signals, then use <b>Stock Chart</b> to see the strategy driving each signal.",
         "tip_advanced":   "💡 <b>Tip:</b> <b>Track Record</b> shows all 37 live paper trade runs. Compare win rates across runs to see which config is outperforming.",
-        "footer_note":    "Data: yfinance · Not financial advice.",
+        "footer_note":    "Signals & fundamentals: computed nightly via yfinance, cached as JSON · Charts: live yfinance · Not financial advice.",
         # ── screener rankings ──
         "sr_title":       "### 📊 Screener Rankings",
         "sr_expander":    "❓ How to read this page",
@@ -975,7 +975,7 @@ _TR = {
         "tip_beginner":   "💡 <b>初めての方へ：</b>まず<b>ファンダメンタルランキング</b>をチェック — 財務健全性でランク付けされた全銘柄が一目でわかります。次に<b>ポートフォリオ健全性チェック</b>で保有銘柄を分析しましょう。",
         "tip_inter":      "💡 <b>ヒント：</b><b>スクリーナーランキング</b>で本日のシグナルを確認し、<b>株価チャート</b>で各シグナルの背景にある戦略を見てみましょう。",
         "tip_advanced":   "💡 <b>ヒント：</b><b>トラックレコード</b>では16本のライブペーパートレード実績を確認できます。各ランの勝率を比較して、どの設定が優れているか分析しましょう。",
-        "footer_note":    "データ: yfinance · 投資アドバイスではありません。",
+        "footer_note":    "シグナル・ファンダメンタルズ: yfinanceで毎晩計算しJSONにキャッシュ · チャート: yfinanceリアルタイム取得 · 投資アドバイスではありません。",
         # ── screener rankings ──
         "sr_title":       "### 📊 スクリーナー ランキング",
         "sr_expander":    "❓ このページの使い方",
