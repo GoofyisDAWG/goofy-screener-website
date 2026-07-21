@@ -2694,6 +2694,13 @@ elif page == "🌏 Fundamental Rankings":
         pills_html += "</div>"
         st.markdown(pills_html, unsafe_allow_html=True)
 
+        # ── search ─────────────────────────────────────────────────────────
+        fund_search = st.text_input(
+            "🔍 Search ticker or company name" if lang == "en" else "🔍 ティッカーまたは会社名で検索",
+            placeholder="e.g. Nissan, 7201, Toyota, BHP" if lang == "en" else "例: 日産, 7201, トヨタ",
+            key="fund_search",
+        )
+
         # ── filters & sort ─────────────────────────────────────────────────
         col_f, col_s, col_q = st.columns([2, 2, 3])
         with col_f:
@@ -2717,6 +2724,11 @@ elif page == "🌏 Fundamental Rankings":
             filtered = [r for r in filtered if r["market"] == mkt_map[mkt_sel]]
         if health_filter:
             filtered = [r for r in filtered if r["overall"] in health_filter]
+        if fund_search.strip():
+            _fq = fund_search.strip().lower()
+            filtered = [r for r in filtered
+                        if _fq in r["ticker"].lower()
+                        or _fq in r.get("name", "").lower()]
 
         # apply sort
         if sort_sel == T("sort_pe", lang):
@@ -3042,7 +3054,13 @@ elif page == "📊 Screener Rankings":
     else:
         verdict_col = "P7 Verdict" if "P7 Verdict" in df_universe.columns else "Today's Verdict"
 
-        # ── filters ──
+        # ── search + filters ──
+        _sr_fc = _load_fund_cache_raw()
+        sr_search = st.text_input(
+            "🔍 Search ticker or company name" if lang == "en" else "🔍 ティッカーまたは会社名で検索",
+            placeholder="e.g. Nissan, 7201, Apple, AAPL" if lang == "en" else "例: 日産, 7201, トヨタ",
+            key="sr_search",
+        )
         f1, f2, f3 = st.columns(3)
         mkt_filter  = f1.multiselect(T("sr_mkt", lang), ["US", "ASX", "JPX"],
                                       default=["US", "ASX", "JPX"])
@@ -3053,14 +3071,27 @@ elif page == "📊 Screener Rankings":
         df_filtered = df_universe[df_universe["Market"].isin(mkt_filter)].copy()
         if "Tier" in df_filtered.columns:
             df_filtered = df_filtered[df_filtered["Tier"].isin(tier_filter)]
-        if not show_all:
+
+        # search overrides show_all — always show matching stocks
+        if sr_search.strip():
+            _q = sr_search.strip().lower()
+            def _sr_match(row):
+                ticker = str(row.get("Asset", "")).lower()
+                cname  = _sr_fc.get(row.get("Asset",""), {}).get("company_name", "").lower()
+                return _q in ticker or _q in cname
+            df_filtered = df_filtered[df_filtered.apply(_sr_match, axis=1)]
+        elif not show_all:
             df_filtered = df_filtered[
                 df_filtered[verdict_col].str.contains("TRADE", na=False) |
                 df_filtered[verdict_col].str.contains("HOLD", na=False)
             ]
 
         if df_filtered.empty:
-            st.info(T("sr_no_signals", lang))
+            if sr_search.strip():
+                st.info(f"No stocks found matching **{sr_search}**." if lang == "en"
+                        else f"**{sr_search}** に一致する銘柄が見つかりません。")
+            else:
+                st.info(T("sr_no_signals", lang))
         else:
             # ── BUY signals first ──
             trade_mask = (df_filtered[verdict_col].str.contains("TRADE", na=False) &
@@ -3068,13 +3099,11 @@ elif page == "📊 Screener Rankings":
             df_trade   = df_filtered[trade_mask].sort_values("ML Score", ascending=False)
             df_rest    = df_filtered[~trade_mask].sort_values("Score", ascending=False)
 
-            _sr_fc = _load_fund_cache_raw()
-
             if not df_trade.empty:
                 st.markdown(f"#### {T('sr_buy', lang, n=len(df_trade))}")
                 _render_table(df_trade, verdict_col, simple_mode, lang, fund_cache=_sr_fc)
 
-            if not df_rest.empty and show_all:
+            if not df_rest.empty and (show_all or sr_search.strip()):
                 st.markdown(f"#### {T('sr_watch', lang, n=len(df_rest))}")
                 _render_table(df_rest, verdict_col, simple_mode, lang, fund_cache=_sr_fc)
             elif not df_rest.empty:
