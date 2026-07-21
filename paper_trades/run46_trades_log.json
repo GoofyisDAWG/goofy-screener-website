@@ -3,7 +3,7 @@
     "run": 46,
     "label": "Extreme Conviction: All Strategies, ML\u226590, Wide Stop (Run 46)",
     "created": "2026-07-20",
-    "total_logged": 3,
+    "total_logged": 5,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
@@ -63,10 +63,10 @@
       "score": 27,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 69.26,
-      "unrealised_pnl_pct": 1.109,
+      "current_price": 69.6,
+      "unrealised_pnl_pct": 1.606,
       "days_held": 1,
-      "peak_pnl_pct": 1.109
+      "peak_pnl_pct": 1.606
     },
     {
       "asset": "6702.T",
@@ -80,6 +80,39 @@
       "strategy": "Relative Strength",
       "tier": "B",
       "score": 29,
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 3305.0,
+      "unrealised_pnl_pct": -1.137,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0
+    },
+    {
+      "asset": "WES.AX",
+      "market": "ASX",
+      "entry_date": "2026-07-21",
+      "entry_price": 91.7,
+      "hold_days_target": 20,
+      "size_pct": 0.0,
+      "ml_score": 92.2,
+      "val_auc": 0.523,
+      "strategy": "Relative Strength",
+      "tier": "B",
+      "score": 32,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "COL.AX",
+      "market": "ASX",
+      "entry_date": "2026-07-21",
+      "entry_price": 23.2,
+      "hold_days_target": 20,
+      "size_pct": 3.8,
+      "ml_score": 91.4,
+      "val_auc": 0.61,
+      "strategy": "Mean Reversion",
+      "tier": "B",
+      "score": 30,
       "p7_verdict": "TRADE"
     }
   ],
