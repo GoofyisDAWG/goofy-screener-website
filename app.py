@@ -2988,12 +2988,14 @@ elif page == "🌏 Fundamental Rankings":
                                 _fc_view = _fc_hist
                             _fc_fig = _build_fund_chart(_fc_view, _ticker,
                                                         f"Since {_fc_pdate}" if lang == "en" else f"{_fc_pdate}以降")
-                            _fc_fig.add_vline(
-                                x=_fc_view.index[0], line_dash="dash",
-                                line_color="#58a6ff", line_width=2,
-                                annotation_text=("📅 Bought" if lang == "en" else "📅 購入"),
-                                annotation_font_color="#58a6ff",
-                            )
+                            _fc_entry_x = str(_fc_view.index[0])
+                            _fc_fig.add_shape(type="line", x0=_fc_entry_x, x1=_fc_entry_x,
+                                              y0=0, y1=1, yref="paper",
+                                              line=dict(color="#58a6ff", width=2, dash="dash"))
+                            _fc_fig.add_annotation(x=_fc_entry_x, y=0.98, yref="paper",
+                                                   text="📅 " + ("Bought" if lang == "en" else "購入"),
+                                                   showarrow=False, font=dict(color="#58a6ff", size=11),
+                                                   xanchor="left", bgcolor="#0d1117")
                             st.plotly_chart(_fc_fig, use_container_width=True)
                             # return stats
                             _fc_close = _fc_view["Close"].squeeze().dropna()
@@ -4012,12 +4014,14 @@ the "What to look for" box below the signal card explains exactly what to focus 
                                else "その日付のデータが見つかりません。")
                     price_df_view = _hist_df
                 fig = build_strategy_chart(price_df_view, strategy, selected_asset, market)
-                fig.add_vline(
-                    x=price_df_view.index[0], line_dash="dash",
-                    line_color="#58a6ff", line_width=2,
-                    annotation_text=("📅 Bought" if lang == "en" else "📅 購入"),
-                    annotation_font_color="#58a6ff",
-                )
+                _sc_entry_x = str(price_df_view.index[0])
+                fig.add_shape(type="line", x0=_sc_entry_x, x1=_sc_entry_x,
+                              y0=0, y1=1, yref="paper",
+                              line=dict(color="#58a6ff", width=2, dash="dash"))
+                fig.add_annotation(x=_sc_entry_x, y=0.98, yref="paper",
+                                   text="📅 " + ("Bought" if lang == "en" else "購入"),
+                                   showarrow=False, font=dict(color="#58a6ff", size=11),
+                                   xanchor="left", bgcolor="#0d1117")
                 st.plotly_chart(fig, use_container_width=True)
 
                 # investment return stats
