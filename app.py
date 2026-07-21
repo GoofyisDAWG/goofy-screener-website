@@ -307,6 +307,17 @@ def load_market_regime() -> dict:
         return {"status": "unknown"}
 
 
+def _fx_cross(frm: str, to: str, forex: dict) -> float:
+    """Multiplier: price_in_frm × result = price_in_to  (USD as pivot currency)."""
+    if frm == to:
+        return 1.0
+    frm_usd = 1.0 if frm == "USD" else forex.get(f"{frm}_USD", 1.0)
+    if to == "USD":
+        return frm_usd
+    to_usd = forex.get(f"{to}_USD", 1.0)
+    return frm_usd / to_usd if to_usd else frm_usd
+
+
 @st.cache_data(ttl=3600)
 def _fetch_fund_chart(ticker: str) -> pd.DataFrame:
     """Up to 10-year daily price data for the Fundamental Rankings detail panel."""
@@ -4056,42 +4067,81 @@ the "What to look for" box below the signal card explains exactly what to focus 
 
             else:
                 # ── standard period selector ──────────────────────────────────
-                _period_opts  = ["3M", "6M", "1Y", "2Y"]
+                _period_opts   = ["3M", "6M", "1Y", "2Y"]
                 _period_labels = {"3M": "3 months" if lang == "en" else "3ヶ月",
                                   "6M": "6 months" if lang == "en" else "6ヶ月",
                                   "1Y": "1 year"   if lang == "en" else "1年",
                                   "2Y": "2 years"  if lang == "en" else "2年"}
-                _period_days  = {"3M": 90, "6M": 180, "1Y": 365, "2Y": 730}
+                _period_days   = {"3M": 90, "6M": 180, "1Y": 365, "2Y": 730}
                 with _mode_col:
                     _sel_period = st.radio(
                         T("sc_period_label", lang), _period_opts,
                         index=1, horizontal=True, key="sc_period",
                         format_func=lambda x: _period_labels[x],
                     )
+
+                # ── currency converter ─────────────────────────────────────────
+                _base_ccy = {"US": "USD", "ASX": "AUD", "JPX": "JPY"}.get(market, "USD")
+                _forex    = load_market_regime().get("forex", {})
+                _ccys     = ["USD", "AUD", "JPY", "EUR", "GBP"]
+                _cx1, _cx2, _ = st.columns([1, 1.6, 2.4])
+                with _cx1:
+                    _display_ccy = st.selectbox(
+                        "🌐 " + ("Display currency" if lang == "en" else "表示通貨"),
+                        _ccys,
+                        index=_ccys.index(_base_ccy),
+                        key="sc_ccy",
+                    )
+                with _cx2:
+                    _auto_rate  = _fx_cross(_base_ccy, _display_ccy, _forex)
+                    _rate_fmt   = "%.4f" if _auto_rate >= 1.0 else "%.6f"
+                    _rate_label = (f"{_base_ccy} → {_display_ccy}"
+                                   if _display_ccy != _base_ccy
+                                   else ("Native" if lang == "en" else "ネイティブ"))
+                    _conv_rate = st.number_input(
+                        "📐 " + ("Rate" if lang == "en" else "レート") + f"  ({_rate_label})",
+                        value=float(_auto_rate),
+                        format=_rate_fmt,
+                        min_value=0.000001,
+                        key=f"sc_rate_{_base_ccy}_{_display_ccy}",
+                    )
+
+                # ── slice to period window ─────────────────────────────────────
                 _cutoff = pd.Timestamp.today(tz="UTC") - pd.Timedelta(days=_period_days[_sel_period])
                 price_df_view = price_df[price_df.index >= _cutoff]
                 if price_df_view.empty:
                     price_df_view = price_df
-                fig = build_strategy_chart(price_df_view, strategy, selected_asset, market)
+
+                # apply currency conversion to OHLC (Volume stays in original units)
+                _price_chart = price_df_view.copy()
+                if abs(_conv_rate - 1.0) > 1e-9:
+                    _price_chart[["Open", "High", "Low", "Close"]] = (
+                        price_df_view[["Open", "High", "Low", "Close"]] * _conv_rate
+                    )
+
+                fig = build_strategy_chart(_price_chart, strategy, selected_asset, market)
+                fig.update_yaxes(title_text=f"Price ({_display_ccy})", row=1, col=1)
                 st.plotly_chart(fig, use_container_width=True)
 
-                close = price_df_view["Close"].squeeze().dropna()
+                close = _price_chart["Close"].squeeze().dropna()
                 if len(close) >= 20:
                     s_cols = st.columns(5)
-                    last   = float(close.iloc[-1])
-                    _view_high = price_df_view["High"].squeeze() if "High" in price_df_view.columns else close
-                    _view_low  = price_df_view["Low"].squeeze()  if "Low"  in price_df_view.columns else close
+                    last       = float(close.iloc[-1])
+                    _view_high = _price_chart["High"].squeeze() if "High" in _price_chart.columns else close
+                    _view_low  = _price_chart["Low"].squeeze()  if "Low"  in _price_chart.columns else close
                     hi_period  = float(_view_high.max())
                     ma20       = float(close.rolling(20).mean().iloc[-1])
                     rsi14      = float(_rsi(close).iloc[-1]) if not np.isnan(_rsi(close).iloc[-1]) else 0
                     pct_hi     = (last / hi_period - 1) * 100
                     _hi_label  = (_sel_period + (" High" if lang == "en" else " 高値"))
+                    _pfmt      = (f"{{:.0f}} {_display_ccy}" if _display_ccy == "JPY"
+                                  else f"{{:.2f}} {_display_ccy}")
                     rsi_clr = "#3fb950" if rsi14 < 30 else ("#f85149" if rsi14 > 70 else "#e6edf3")
-                    s_cols[0].markdown(_stat(T("sc_stat_last", lang), f"{last:.2f}"), unsafe_allow_html=True)
-                    s_cols[1].markdown(_stat(T("sc_stat_ma20", lang), f"{ma20:.2f}",
+                    s_cols[0].markdown(_stat(T("sc_stat_last", lang),   _pfmt.format(last)),   unsafe_allow_html=True)
+                    s_cols[1].markdown(_stat(T("sc_stat_ma20", lang),   _pfmt.format(ma20),
                         "#3fb950" if last > ma20 else "#f85149"), unsafe_allow_html=True)
-                    s_cols[2].markdown(_stat(T("sc_stat_rsi14", lang), f"{rsi14:.1f}", rsi_clr), unsafe_allow_html=True)
-                    s_cols[3].markdown(_stat(_hi_label, f"{hi_period:.2f}"), unsafe_allow_html=True)
+                    s_cols[2].markdown(_stat(T("sc_stat_rsi14", lang),  f"{rsi14:.1f}", rsi_clr), unsafe_allow_html=True)
+                    s_cols[3].markdown(_stat(_hi_label,                  _pfmt.format(hi_period)), unsafe_allow_html=True)
                     s_cols[4].markdown(_stat(T("sc_stat_pct_high", lang),
                         f"{pct_hi:.1f}%", "#3fb950" if pct_hi > -5 else "#d29922"),
                         unsafe_allow_html=True)
