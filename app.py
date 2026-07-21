@@ -319,6 +319,18 @@ def _fetch_fund_chart(ticker: str) -> pd.DataFrame:
         return pd.DataFrame()
 
 
+@st.cache_data(ttl=86400)
+def _fetch_max_history(ticker: str) -> pd.DataFrame:
+    """Full available price history — used for investment tracking since any past date."""
+    try:
+        df = yf.Ticker(ticker).history(period="max", interval="1d", auto_adjust=True)
+        if df.empty:
+            raise ValueError("empty")
+        return df.dropna(subset=["Close"])
+    except Exception:
+        return pd.DataFrame()
+
+
 def _build_fund_chart(df: pd.DataFrame, ticker: str, period_label: str = "2Y") -> "go.Figure":
     from plotly.subplots import make_subplots
     close  = df["Close"].squeeze()
@@ -2941,13 +2953,79 @@ elif page == "🌏 Fundamental Rankings":
                         st.warning("Could not load chart data." if lang == "en"
                                    else "チャートデータを読み込めませんでした。")
                     else:
-                        _tz = _pdf.index.tz
-                        _cutoff = (pd.Timestamp.today(tz=_tz) - pd.Timedelta(days=_fp_opts[_fp_sel]))
-                        _pdf_view = _pdf[_pdf.index >= _cutoff]
-                        if _pdf_view.empty:
-                            _pdf_view = _pdf
-                        st.plotly_chart(_build_fund_chart(_pdf_view, _ticker, _fp_sel),
-                                        use_container_width=True)
+                        # ── investment tracker toggle ──────────────────────────
+                        _fc_left, _fc_right = st.columns([4, 1])
+                        with _fc_right:
+                            _fc_track = st.toggle(
+                                "📅 " + ("I own this" if lang == "en" else "保有中"),
+                                key=f"fc_own_{_ticker}",
+                            )
+
+                        if _fc_track:
+                            import datetime as _dt
+                            _fi_c1, _fi_c2 = st.columns(2)
+                            _fc_pdate = _fi_c1.date_input(
+                                "📅 " + ("Purchase date" if lang == "en" else "購入日"),
+                                value=_dt.date.today() - _dt.timedelta(days=365),
+                                min_value=_dt.date(2000, 1, 1),
+                                max_value=_dt.date.today(),
+                                key=f"fc_pdate_{_ticker}",
+                            )
+                            _fc_pprice = _fi_c2.number_input(
+                                "💰 " + ("Purchase price (optional)" if lang == "en" else "購入価格（任意）"),
+                                min_value=0.0, value=0.0, step=0.01, format="%.2f",
+                                key=f"fc_pprice_{_ticker}",
+                            )
+                            _fc_pts = pd.Timestamp(_fc_pdate, tz=_pdf.index.tz)
+                            _fc_hist = _pdf
+                            if _fc_pts < _pdf.index[0]:
+                                with st.spinner("Loading full history…" if lang == "en" else "履歴データ取得中…"):
+                                    _fc_ext = _fetch_max_history(_ticker)
+                                if not _fc_ext.empty:
+                                    _fc_hist = _fc_ext
+                            _fc_view = _fc_hist[_fc_hist.index >= pd.Timestamp(_fc_pdate, tz=_fc_hist.index.tz)]
+                            if _fc_view.empty:
+                                _fc_view = _fc_hist
+                            _fc_fig = _build_fund_chart(_fc_view, _ticker,
+                                                        f"Since {_fc_pdate}" if lang == "en" else f"{_fc_pdate}以降")
+                            _fc_fig.add_vline(
+                                x=_fc_view.index[0], line_dash="dash",
+                                line_color="#58a6ff", line_width=2,
+                                annotation_text=("📅 Bought" if lang == "en" else "📅 購入"),
+                                annotation_font_color="#58a6ff",
+                            )
+                            st.plotly_chart(_fc_fig, use_container_width=True)
+                            # return stats
+                            _fc_close = _fc_view["Close"].squeeze().dropna()
+                            _fc_entry = float(_fc_close.iloc[0])
+                            _fc_curr  = float(_fc_close.iloc[-1])
+                            _fc_ret   = (_fc_curr / _fc_entry - 1) * 100
+                            _fc_yrs   = max((pd.Timestamp.today(tz=_fc_hist.index.tz) - pd.Timestamp(_fc_pdate, tz=_fc_hist.index.tz)).days / 365.25, 0.01)
+                            _fc_ann   = ((1 + _fc_ret / 100) ** (1 / _fc_yrs) - 1) * 100
+                            _fc_clr   = "#3fb950" if _fc_ret >= 0 else "#f85149"
+                            def _fstat(lbl, val, col="#e6edf3"):
+                                return (f"<div style='background:#161b22;border-radius:8px;padding:10px;text-align:center'>"
+                                        f"<div style='font-size:10px;color:#8b949e;text-transform:uppercase'>{lbl}</div>"
+                                        f"<div style='font-size:15px;font-weight:700;color:{col}'>{val}</div></div>")
+                            _fc_ncols = 5 if _fc_pprice > 0 else 4
+                            _fc_scols = st.columns(_fc_ncols)
+                            _fc_scols[0].markdown(_fstat("Since Purchase" if lang == "en" else "購入来", f"{_fc_ret:+.1f}%", _fc_clr), unsafe_allow_html=True)
+                            _fc_scols[1].markdown(_fstat("Annualised" if lang == "en" else "年率", f"{_fc_ann:+.1f}%/yr" if lang == "en" else f"{_fc_ann:+.1f}%/年", _fc_clr), unsafe_allow_html=True)
+                            _fc_scols[2].markdown(_fstat("Held" if lang == "en" else "保有期間", f"{_fc_yrs:.1f} yrs" if lang == "en" else f"{_fc_yrs:.1f}年"), unsafe_allow_html=True)
+                            _fc_scols[3].markdown(_fstat("Price at entry" if lang == "en" else "購入時価格", f"{_fc_entry:.2f}"), unsafe_allow_html=True)
+                            if _fc_pprice > 0:
+                                _fc_now = _fc_pprice * (1 + _fc_ret / 100)
+                                _fc_scols[4].markdown(_fstat(f"{_fc_pprice:.2f} → now", f"{_fc_now:.2f}", _fc_clr), unsafe_allow_html=True)
+                        else:
+                            with _fc_left:
+                                pass  # period selector already rendered above
+                            _tz = _pdf.index.tz
+                            _cutoff = (pd.Timestamp.today(tz=_tz) - pd.Timedelta(days=_fp_opts[_fp_sel]))
+                            _pdf_view = _pdf[_pdf.index >= _cutoff]
+                            if _pdf_view.empty:
+                                _pdf_view = _pdf
+                            st.plotly_chart(_build_fund_chart(_pdf_view, _ticker, _fp_sel),
+                                            use_container_width=True)
                 else:
                     if st.button(_btn_lbl, key=f"fshow_{_ticker}"):
                         st.session_state[_chart_key] = True
@@ -3891,58 +3969,128 @@ the "What to look for" box below the signal card explains exactly what to focus 
         if price_df.empty:
             st.warning(T("sc_price_err", lang, ticker=selected_asset))
         else:
-            # period selector
-            _period_opts  = ["3M", "6M", "1Y", "2Y"]
-            _period_labels = {"3M": "3 months" if lang == "en" else "3ヶ月",
-                              "6M": "6 months" if lang == "en" else "6ヶ月",
-                              "1Y": "1 year"   if lang == "en" else "1年",
-                              "2Y": "2 years"  if lang == "en" else "2年"}
-            _period_days  = {"3M": 90, "6M": 180, "1Y": 365, "2Y": 730}
-            _p_col, _ = st.columns([2, 5])
-            with _p_col:
-                _sel_period = st.radio(
-                    T("sc_period_label", lang),
-                    _period_opts,
-                    index=1,           # default: 6M
-                    horizontal=True,
-                    key="sc_period",
-                    format_func=lambda x: _period_labels[x],
+            def _stat(label, val, colour="#e6edf3"):
+                return (f"<div style='background:#161b22;border-radius:8px;padding:10px;text-align:center'>"
+                        f"<div style='font-size:10px;color:#8b949e;text-transform:uppercase'>{label}</div>"
+                        f"<div style='font-size:16px;font-weight:700;color:{colour}'>{val}</div>"
+                        f"</div>")
+
+            # ── mode: period selector OR investment tracker ────────────────────
+            _mode_col, _toggle_col = st.columns([4, 1])
+            with _toggle_col:
+                _track_inv = st.toggle(
+                    "📅 " + ("I own this" if lang == "en" else "保有中"),
+                    key="sc_own_toggle",
                 )
-            # slice to selected window
-            _cutoff = pd.Timestamp.today(tz="UTC") - pd.Timedelta(days=_period_days[_sel_period])
-            price_df_view = price_df[price_df.index >= _cutoff]
-            if price_df_view.empty:
-                price_df_view = price_df  # fallback if not enough history
 
-            fig = build_strategy_chart(price_df_view, strategy, selected_asset, market)
-            st.plotly_chart(fig, use_container_width=True)
+            if _track_inv:
+                _inv_c1, _inv_c2 = st.columns(2)
+                import datetime as _dt
+                _purchase_date = _inv_c1.date_input(
+                    "📅 " + ("Purchase date" if lang == "en" else "購入日"),
+                    value=_dt.date.today() - _dt.timedelta(days=365),
+                    min_value=_dt.date(2000, 1, 1),
+                    max_value=_dt.date.today(),
+                    key="sc_purchase_date",
+                )
+                _purchase_price = _inv_c2.number_input(
+                    "💰 " + ("My purchase price (optional)" if lang == "en" else "購入価格（任意）"),
+                    min_value=0.0, value=0.0, step=0.01, format="%.2f",
+                    key="sc_purchase_price",
+                )
+                _purchase_ts = pd.Timestamp(_purchase_date, tz="UTC")
+                # fetch full history if purchase date is older than cached data
+                _hist_df = price_df
+                if price_df.empty or _purchase_ts < price_df.index[0]:
+                    with st.spinner("Loading full history…" if lang == "en" else "履歴データ取得中…"):
+                        _ext = _fetch_max_history(selected_asset)
+                    if not _ext.empty:
+                        _hist_df = _ext
+                price_df_view = _hist_df[_hist_df.index >= _purchase_ts]
+                if price_df_view.empty:
+                    st.warning("No price data found for that date." if lang == "en"
+                               else "その日付のデータが見つかりません。")
+                    price_df_view = _hist_df
+                fig = build_strategy_chart(price_df_view, strategy, selected_asset, market)
+                fig.add_vline(
+                    x=price_df_view.index[0], line_dash="dash",
+                    line_color="#58a6ff", line_width=2,
+                    annotation_text=("📅 Bought" if lang == "en" else "📅 購入"),
+                    annotation_font_color="#58a6ff",
+                )
+                st.plotly_chart(fig, use_container_width=True)
 
-            # quick stats row below the chart (based on selected period)
-            close = price_df_view["Close"].squeeze().dropna()
-            if len(close) >= 20:
-                s_cols = st.columns(5)
-                last   = float(close.iloc[-1])
-                _view_high = price_df_view["High"].squeeze() if "High" in price_df_view.columns else close
-                _view_low  = price_df_view["Low"].squeeze()  if "Low"  in price_df_view.columns else close
-                hi_period  = float(_view_high.max())
-                ma20       = float(close.rolling(20).mean().iloc[-1])
-                rsi14      = float(_rsi(close).iloc[-1]) if not np.isnan(_rsi(close).iloc[-1]) else 0
-                pct_hi     = (last / hi_period - 1) * 100
-                _hi_label  = (_sel_period + (" High" if lang == "en" else " 高値"))
-                def _stat(label, val, colour="#e6edf3"):
-                    return (f"<div style='background:#161b22;border-radius:8px;padding:10px;text-align:center'>"
-                            f"<div style='font-size:10px;color:#8b949e;text-transform:uppercase'>{label}</div>"
-                            f"<div style='font-size:16px;font-weight:700;color:{colour}'>{val}</div>"
-                            f"</div>")
-                rsi_clr = "#3fb950" if rsi14 < 30 else ("#f85149" if rsi14 > 70 else "#e6edf3")
-                s_cols[0].markdown(_stat(T("sc_stat_last", lang), f"{last:.2f}"), unsafe_allow_html=True)
-                s_cols[1].markdown(_stat(T("sc_stat_ma20", lang), f"{ma20:.2f}",
-                    "#3fb950" if last > ma20 else "#f85149"), unsafe_allow_html=True)
-                s_cols[2].markdown(_stat(T("sc_stat_rsi14", lang), f"{rsi14:.1f}", rsi_clr), unsafe_allow_html=True)
-                s_cols[3].markdown(_stat(_hi_label, f"{hi_period:.2f}"), unsafe_allow_html=True)
-                s_cols[4].markdown(_stat(T("sc_stat_pct_high", lang),
-                    f"{pct_hi:.1f}%", "#3fb950" if pct_hi > -5 else "#d29922"),
-                    unsafe_allow_html=True)
+                # investment return stats
+                _close_view = price_df_view["Close"].squeeze().dropna()
+                _entry_p   = float(_close_view.iloc[0])
+                _current_p = float(_close_view.iloc[-1])
+                _total_ret = (_current_p / _entry_p - 1) * 100
+                _years     = max((pd.Timestamp.today(tz="UTC") - _purchase_ts).days / 365.25, 0.01)
+                _ann_ret   = ((1 + _total_ret / 100) ** (1 / _years) - 1) * 100
+                _ret_clr   = "#3fb950" if _total_ret >= 0 else "#f85149"
+                _held_str  = (f"{_years:.1f} yrs" if lang == "en" else f"{_years:.1f}年")
+
+                _n_inv_cols = 5 if _purchase_price > 0 else 4
+                _inv_cols = st.columns(_n_inv_cols)
+                _inv_cols[0].markdown(_stat(
+                    "Since Purchase" if lang == "en" else "購入来",
+                    f"{_total_ret:+.1f}%", _ret_clr), unsafe_allow_html=True)
+                _inv_cols[1].markdown(_stat(
+                    "Annualised" if lang == "en" else "年率",
+                    f"{_ann_ret:+.1f}%/yr" if lang == "en" else f"{_ann_ret:+.1f}%/年",
+                    _ret_clr), unsafe_allow_html=True)
+                _inv_cols[2].markdown(_stat(
+                    "Held" if lang == "en" else "保有期間", _held_str), unsafe_allow_html=True)
+                _inv_cols[3].markdown(_stat(
+                    "Price at entry" if lang == "en" else "購入時価格",
+                    f"{_entry_p:.2f}"), unsafe_allow_html=True)
+                if _purchase_price > 0:
+                    _now_val = _purchase_price * (1 + _total_ret / 100)
+                    _inv_cols[4].markdown(_stat(
+                        f"{'Your' if lang == 'en' else '購入価格'} {_purchase_price:.2f} → now",
+                        f"{_now_val:.2f}", _ret_clr), unsafe_allow_html=True)
+
+            else:
+                # ── standard period selector ──────────────────────────────────
+                _period_opts  = ["3M", "6M", "1Y", "2Y"]
+                _period_labels = {"3M": "3 months" if lang == "en" else "3ヶ月",
+                                  "6M": "6 months" if lang == "en" else "6ヶ月",
+                                  "1Y": "1 year"   if lang == "en" else "1年",
+                                  "2Y": "2 years"  if lang == "en" else "2年"}
+                _period_days  = {"3M": 90, "6M": 180, "1Y": 365, "2Y": 730}
+                with _mode_col:
+                    _sel_period = st.radio(
+                        T("sc_period_label", lang), _period_opts,
+                        index=1, horizontal=True, key="sc_period",
+                        format_func=lambda x: _period_labels[x],
+                    )
+                _cutoff = pd.Timestamp.today(tz="UTC") - pd.Timedelta(days=_period_days[_sel_period])
+                price_df_view = price_df[price_df.index >= _cutoff]
+                if price_df_view.empty:
+                    price_df_view = price_df
+                fig = build_strategy_chart(price_df_view, strategy, selected_asset, market)
+                st.plotly_chart(fig, use_container_width=True)
+
+                close = price_df_view["Close"].squeeze().dropna()
+                if len(close) >= 20:
+                    s_cols = st.columns(5)
+                    last   = float(close.iloc[-1])
+                    _view_high = price_df_view["High"].squeeze() if "High" in price_df_view.columns else close
+                    _view_low  = price_df_view["Low"].squeeze()  if "Low"  in price_df_view.columns else close
+                    hi_period  = float(_view_high.max())
+                    ma20       = float(close.rolling(20).mean().iloc[-1])
+                    rsi14      = float(_rsi(close).iloc[-1]) if not np.isnan(_rsi(close).iloc[-1]) else 0
+                    pct_hi     = (last / hi_period - 1) * 100
+                    _hi_label  = (_sel_period + (" High" if lang == "en" else " 高値"))
+                    rsi_clr = "#3fb950" if rsi14 < 30 else ("#f85149" if rsi14 > 70 else "#e6edf3")
+                    s_cols[0].markdown(_stat(T("sc_stat_last", lang), f"{last:.2f}"), unsafe_allow_html=True)
+                    s_cols[1].markdown(_stat(T("sc_stat_ma20", lang), f"{ma20:.2f}",
+                        "#3fb950" if last > ma20 else "#f85149"), unsafe_allow_html=True)
+                    s_cols[2].markdown(_stat(T("sc_stat_rsi14", lang), f"{rsi14:.1f}", rsi_clr), unsafe_allow_html=True)
+                    s_cols[3].markdown(_stat(_hi_label, f"{hi_period:.2f}"), unsafe_allow_html=True)
+                    s_cols[4].markdown(_stat(T("sc_stat_pct_high", lang),
+                        f"{pct_hi:.1f}%", "#3fb950" if pct_hi > -5 else "#d29922"),
+                        unsafe_allow_html=True)
 
         # disclaimer at the bottom
         st.markdown("---")
