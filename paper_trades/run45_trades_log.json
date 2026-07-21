@@ -11,16 +11,16 @@
       "trail_floor_pct": 6.0,
       "blocked_strategies": [
         "ADX",
-        "RSI(2)",
+        "Donchian",
         "RSI Divergence",
-        "Gap Momentum",
-        "MACD",
+        "Bollinger Bands",
         "Relative Strength",
         "Institutional Momentum",
-        "Donchian",
         "Volume Breakout",
+        "MACD",
         "BB Squeeze",
-        "Bollinger Bands"
+        "RSI(2)",
+        "Gap Momentum"
       ],
       "mid_term_checkpoint_days": null,
       "mid_term_max_loss_pct": null,
