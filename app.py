@@ -266,15 +266,45 @@ def load_open_positions() -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-@st.cache_data(ttl=3600)
-def fetch_chart(ticker: str) -> pd.DataFrame:
+@st.cache_data(ttl=86400)
+def _load_price_history() -> dict:
+    """Load pre-computed OHLCV (written nightly by sync_to_website.py on private Mac)."""
+    p = SCREENER_DIR / "price_history.json"
+    if not p.exists():
+        return {}
     try:
-        df = yf.Ticker(ticker).history(period="2y", interval="1d", auto_adjust=True)
-        if df.empty:
-            raise ValueError("empty")
-        return df.dropna(subset=["Close"])
+        data = json.loads(p.read_text())
+        data.pop("updated", None)
+        return data
+    except Exception:
+        return {}
+
+
+def load_price_data(ticker: str) -> pd.DataFrame:
+    """Return pre-computed OHLCV DataFrame for ticker, or empty if not yet cached."""
+    d = _load_price_history().get(ticker)
+    if not d:
+        return pd.DataFrame()
+    try:
+        df = pd.DataFrame(
+            {"Open": d["o"], "High": d["h"], "Low": d["l"], "Close": d["c"], "Volume": d["v"]},
+            index=pd.to_datetime(d["d"]).tz_localize("UTC"),
+        )
+        df.index.name = "Date"
+        return df
     except Exception:
         return pd.DataFrame()
+
+
+def load_market_regime() -> dict:
+    """Load pre-computed VIX/SPY market regime (written nightly by sync_to_website.py)."""
+    p = SCREENER_DIR / "market_regime.json"
+    if not p.exists():
+        return {"status": "unknown"}
+    try:
+        return json.loads(p.read_text())
+    except Exception:
+        return {"status": "unknown"}
 
 
 @st.cache_data(ttl=3600)
@@ -287,32 +317,6 @@ def _fetch_fund_chart(ticker: str) -> pd.DataFrame:
         return df.dropna(subset=["Close"])
     except Exception:
         return pd.DataFrame()
-
-
-@st.cache_data(ttl=3600)
-def fetch_market_regime() -> dict:
-    """Fetch VIX and SPY to determine overall market regime. Cached 1 hour."""
-    try:
-        vix = yf.Ticker("^VIX").history(period="2d", interval="1d", auto_adjust=True)
-        spy = yf.Ticker("SPY").history(period="1y",  interval="1d", auto_adjust=True)
-        if vix.empty or spy.empty:
-            return {"status": "unknown"}
-        vix_now  = float(vix["Close"].dropna().iloc[-1])
-        spy_close = spy["Close"].dropna()
-        spy_now  = float(spy_close.iloc[-1])
-        spy_ma200 = float(spy_close.rolling(200).mean().dropna().iloc[-1])
-        above_ma  = spy_now >= spy_ma200
-        if vix_now < 20 and above_ma:
-            status = "calm"
-        elif vix_now > 25 or not above_ma:
-            status = "risk_off"
-        else:
-            status = "caution"
-        return {"status": status, "vix": round(vix_now, 1),
-                "spy": round(spy_now, 2), "spy_ma200": round(spy_ma200, 2),
-                "above_ma": above_ma}
-    except Exception:
-        return {"status": "unknown"}
 
 
 def _build_fund_chart(df: pd.DataFrame, ticker: str, period_label: str = "2Y") -> "go.Figure":
@@ -1655,8 +1659,9 @@ def build_strategy_chart(price_df: pd.DataFrame, strategy: str,
 
 # ── rankings table renderer ───────────────────────────────────────────────────
 
-def _render_table(df: pd.DataFrame, verdict_col: str, simple: bool, lang: str = "en"):
+def _render_table(df: pd.DataFrame, verdict_col: str, simple: bool, lang: str = "en", fund_cache: dict = None):
     """Render a stock rankings table in simple or advanced mode."""
+    _fc = fund_cache or {}
     if simple:
         for _, row in df.iterrows():
             asset   = row.get("Asset", "?")
@@ -1667,6 +1672,10 @@ def _render_table(df: pd.DataFrame, verdict_col: str, simple: bool, lang: str = 
             trend   = str(row.get("Current Trend", "?"))
             size    = row.get("Adj Size %", row.get("Recommended Size %", None))
             verdict = str(row.get(verdict_col, ""))
+
+            _fdata    = _fc.get(asset, {})
+            _cname    = _fdata.get("company_name", "")
+            _sector   = _fdata.get("sector", "")
 
             badge = signal_badge(verdict, simple=True)
             is_spec    = asset in SPECULATIVE_TICKERS
@@ -1685,6 +1694,11 @@ def _render_table(df: pd.DataFrame, verdict_col: str, simple: bool, lang: str = 
             tier_color = TIER_LABELS.get(tier, ("", "#8b949e"))[1]
             trend_str  = trend_icon(trend)
 
+            _name_html = (f"<span style='color:#c9d1d9;font-size:13px;font-weight:600'>{_cname}</span> "
+                          if _cname else "")
+            _sector_html = (f"<span style='color:#6e7681;font-size:11px'>{_sector}</span>"
+                            if _sector else "")
+
             st.markdown(
                 f"<div class='stock-row'>"
                 f"<div style='display:flex;justify-content:space-between;align-items:center'>"
@@ -1697,6 +1711,7 @@ def _render_table(df: pd.DataFrame, verdict_col: str, simple: bool, lang: str = 
                 f"</div>"
                 f"<div style='font-size:18px;font-weight:bold'>{badge}</div>"
                 f"</div>"
+                f"<div style='margin-top:3px'>{_name_html}{_sector_html}</div>"
                 f"<div style='margin-top:6px;font-size:13px;color:#8b949e'>"
                 f"{T('sr_card_strategy', lang)}: <span style='color:#e6edf3'>{strat}</span> &nbsp;·&nbsp; "
                 f"{T('sr_card_confidence', lang)}: <span style='color:{ml_color};font-weight:bold'>{ml_str}</span> &nbsp;·&nbsp; "
@@ -1894,7 +1909,7 @@ with st.sidebar:
 
     st.markdown("---")
     # Market regime indicator — VIX + SPY vs 200d MA
-    _regime = fetch_market_regime()
+    _regime = load_market_regime()
     _rs = _regime.get("status", "unknown")
     if _rs == "calm":
         _r_color, _r_icon = "#3fb950", "🟢"
@@ -3053,13 +3068,15 @@ elif page == "📊 Screener Rankings":
             df_trade   = df_filtered[trade_mask].sort_values("ML Score", ascending=False)
             df_rest    = df_filtered[~trade_mask].sort_values("Score", ascending=False)
 
+            _sr_fc = _load_fund_cache_raw()
+
             if not df_trade.empty:
                 st.markdown(f"#### {T('sr_buy', lang, n=len(df_trade))}")
-                _render_table(df_trade, verdict_col, simple_mode, lang)
+                _render_table(df_trade, verdict_col, simple_mode, lang, fund_cache=_sr_fc)
 
             if not df_rest.empty and show_all:
                 st.markdown(f"#### {T('sr_watch', lang, n=len(df_rest))}")
-                _render_table(df_rest, verdict_col, simple_mode, lang)
+                _render_table(df_rest, verdict_col, simple_mode, lang, fund_cache=_sr_fc)
             elif not df_rest.empty:
                 st.caption(T("sr_hidden", lang, n=len(df_rest)))
 
@@ -3839,8 +3856,8 @@ the "What to look for" box below the signal card explains exactly what to focus 
             )
 
         # ── fetch price data & draw chart ─────────────────────────────────────
-        with st.spinner(f"Loading {selected_asset} price data…"):
-            price_df = fetch_chart(selected_asset)
+        with st.spinner(f"Loading {selected_asset} chart…"):
+            price_df = load_price_data(selected_asset)
 
         if price_df.empty:
             st.warning(T("sc_price_err", lang, ticker=selected_asset))
