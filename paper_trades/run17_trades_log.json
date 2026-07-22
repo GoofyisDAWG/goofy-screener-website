@@ -3,7 +3,7 @@
     "run": 17,
     "label": "Strategy Block 2: No MACD/RSI-Div/Rel-Strength, Wide Stop, Tiered Floor (Run 17)",
     "created": "2026-07-12",
-    "total_logged": 15,
+    "total_logged": 16,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
@@ -44,8 +44,8 @@
       "tier": "B",
       "score": 40,
       "p7_verdict": "TRADE",
-      "current_price": 7038.0,
-      "unrealised_pnl_pct": 0.114,
+      "current_price": 7003.0,
+      "unrealised_pnl_pct": -0.384,
       "days_held": 7,
       "peak_pnl_pct": 4.808,
       "checkpoints": {
@@ -65,8 +65,8 @@
       "tier": "B",
       "score": 30,
       "p7_verdict": "TRADE",
-      "current_price": 23.32,
-      "unrealised_pnl_pct": 0.865,
+      "current_price": 23.4,
+      "unrealised_pnl_pct": 1.211,
       "days_held": 7,
       "peak_pnl_pct": 1.298,
       "checkpoints": {
@@ -131,8 +131,8 @@
       "checkpoints": {
         "4": 4.886
       },
-      "current_price": 160.57,
-      "unrealised_pnl_pct": 4.886,
+      "current_price": 159.72,
+      "unrealised_pnl_pct": 4.331,
       "days_held": 4,
       "peak_pnl_pct": 6.911
     },
@@ -152,8 +152,8 @@
       "checkpoints": {
         "4": -1.801
       },
-      "current_price": 61.07,
-      "unrealised_pnl_pct": -1.801,
+      "current_price": 60.86,
+      "unrealised_pnl_pct": -2.139,
       "days_held": 4,
       "peak_pnl_pct": 2.557
     },
@@ -173,8 +173,8 @@
       "checkpoints": {
         "4": 0.825
       },
-      "current_price": 3301.0,
-      "unrealised_pnl_pct": 0.825,
+      "current_price": 3311.0,
+      "unrealised_pnl_pct": 1.13,
       "days_held": 4,
       "peak_pnl_pct": 2.108
     },
@@ -211,10 +211,10 @@
       "score": 28,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 1317.5,
-      "unrealised_pnl_pct": 6.551,
+      "current_price": 1320.0,
+      "unrealised_pnl_pct": 6.753,
       "days_held": 3,
-      "peak_pnl_pct": 6.551
+      "peak_pnl_pct": 6.753
     },
     {
       "asset": "7733.T",
@@ -228,7 +228,12 @@
       "strategy": "RSI",
       "tier": "B",
       "score": 59,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 1726.0,
+      "unrealised_pnl_pct": 0.0,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0
     },
     {
       "asset": "4452.T",
@@ -242,6 +247,25 @@
       "strategy": "Mean Reversion",
       "tier": "B",
       "score": 28,
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 3230.0,
+      "unrealised_pnl_pct": 0.155,
+      "days_held": 0,
+      "peak_pnl_pct": 0.155
+    },
+    {
+      "asset": "ORI.AX",
+      "market": "ASX",
+      "entry_date": "2026-07-22",
+      "entry_price": 22.98,
+      "hold_days_target": 20,
+      "size_pct": 15.7,
+      "ml_score": 61.6,
+      "val_auc": 0.61,
+      "strategy": "RSI(2)",
+      "tier": "B",
+      "score": 45,
       "p7_verdict": "TRADE"
     }
   ],
