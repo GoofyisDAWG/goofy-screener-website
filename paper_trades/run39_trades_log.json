@@ -3,7 +3,7 @@
     "run": 39,
     "label": "Family B: Momentum/Breakout Only \u2014 MACD, Donchian, Vol Break, BB Squeeze, Gap Mom (Run 39)",
     "created": "2026-07-20",
-    "total_logged": 6,
+    "total_logged": 7,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
@@ -54,8 +54,8 @@
       "score": 68,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 327.74,
-      "unrealised_pnl_pct": -1.798,
+      "current_price": 325.89,
+      "unrealised_pnl_pct": -2.352,
       "days_held": 2,
       "peak_pnl_pct": 0.0
     },
@@ -73,10 +73,10 @@
       "score": 44,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 386.5,
-      "unrealised_pnl_pct": 4.226,
+      "current_price": 396.81,
+      "unrealised_pnl_pct": 7.006,
       "days_held": 2,
-      "peak_pnl_pct": 4.226
+      "peak_pnl_pct": 7.006
     },
     {
       "asset": "BAC",
@@ -92,10 +92,10 @@
       "score": 68,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 61.22,
-      "unrealised_pnl_pct": -0.082,
+      "current_price": 61.62,
+      "unrealised_pnl_pct": 0.571,
       "days_held": 2,
-      "peak_pnl_pct": 0.0
+      "peak_pnl_pct": 0.571
     },
     {
       "asset": "SPY",
@@ -111,10 +111,10 @@
       "score": 45,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 748.28,
-      "unrealised_pnl_pct": 0.671,
+      "current_price": 747.41,
+      "unrealised_pnl_pct": 0.554,
       "days_held": 2,
-      "peak_pnl_pct": 0.671
+      "peak_pnl_pct": 0.554
     },
     {
       "asset": "ANZ.AX",
@@ -136,23 +136,32 @@
       "peak_pnl_pct": 0.055
     },
     {
-      "asset": "PANW",
+      "asset": "DIA",
       "market": "US",
       "entry_date": "2026-07-22",
-      "entry_price": 342.15,
+      "entry_price": 521.47,
       "hold_days_target": 20,
-      "size_pct": 2.3,
-      "ml_score": 74.4,
-      "val_auc": 0.494,
+      "size_pct": 3.3,
+      "ml_score": 92.9,
+      "val_auc": 0.454,
       "strategy": "MACD",
       "tier": "B",
-      "score": 47,
-      "p7_verdict": "TRADE",
-      "checkpoints": {},
-      "current_price": 342.15,
-      "unrealised_pnl_pct": -0.0,
-      "days_held": 0,
-      "peak_pnl_pct": 0.0
+      "score": 36,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "XLE",
+      "market": "US",
+      "entry_date": "2026-07-22",
+      "entry_price": 59.2,
+      "hold_days_target": 20,
+      "size_pct": 3.1,
+      "ml_score": 66.4,
+      "val_auc": 0.502,
+      "strategy": "MACD",
+      "tier": "S",
+      "score": 83,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": []

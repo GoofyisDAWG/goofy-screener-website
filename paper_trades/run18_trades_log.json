@@ -3,7 +3,7 @@
     "run": 18,
     "label": "Full Quality Block: No MACD/BB/RSI-Div/RS, ML\u226580, Tiered Floor (Run 18)",
     "created": "2026-07-12",
-    "total_logged": 10,
+    "total_logged": 9,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
@@ -88,12 +88,12 @@
       "score": 59,
       "p7_verdict": "TRADE",
       "checkpoints": {
-        "4": 1.617
+        "4": -2.312
       },
-      "current_price": 493.23,
-      "unrealised_pnl_pct": 1.617,
+      "current_price": 474.16,
+      "unrealised_pnl_pct": -2.312,
       "days_held": 4,
-      "peak_pnl_pct": 1.617
+      "peak_pnl_pct": 0.0
     },
     {
       "asset": "CMG",
@@ -109,10 +109,10 @@
       "score": 30,
       "p7_verdict": "TRADE",
       "checkpoints": {
-        "4": -3.783
+        "4": -7.017
       },
-      "current_price": 33.32,
-      "unrealised_pnl_pct": -3.783,
+      "current_price": 32.2,
+      "unrealised_pnl_pct": -7.017,
       "days_held": 4,
       "peak_pnl_pct": 0.0
     },
@@ -130,12 +130,12 @@
       "score": 54,
       "p7_verdict": "TRADE",
       "checkpoints": {
-        "4": 4.886
+        "4": 4.331
       },
       "current_price": 159.72,
       "unrealised_pnl_pct": 4.331,
       "days_held": 4,
-      "peak_pnl_pct": 6.911
+      "peak_pnl_pct": 5.84
     },
     {
       "asset": "AMC.AX",
@@ -151,7 +151,7 @@
       "score": 54,
       "p7_verdict": "TRADE",
       "checkpoints": {
-        "4": -1.801
+        "4": -2.139
       },
       "current_price": 60.86,
       "unrealised_pnl_pct": -2.139,
@@ -172,12 +172,12 @@
       "score": 31,
       "p7_verdict": "TRADE",
       "checkpoints": {
-        "4": 0.825
+        "4": 1.13
       },
       "current_price": 3311.0,
       "unrealised_pnl_pct": 1.13,
       "days_held": 4,
-      "peak_pnl_pct": 2.108
+      "peak_pnl_pct": 1.222
     },
     {
       "asset": "8035.T",
@@ -196,7 +196,7 @@
       "current_price": 65960.0,
       "unrealised_pnl_pct": 1.321,
       "days_held": 3,
-      "peak_pnl_pct": 1.767
+      "peak_pnl_pct": 1.321
     },
     {
       "asset": "7733.T",
@@ -205,30 +205,11 @@
       "entry_price": 1726.0,
       "hold_days_target": 20,
       "size_pct": 12.4,
-      "ml_score": 92.3,
-      "val_auc": 0.481,
+      "ml_score": 92.4,
+      "val_auc": 0.483,
       "strategy": "RSI",
       "tier": "B",
       "score": 59,
-      "p7_verdict": "TRADE",
-      "checkpoints": {},
-      "current_price": 1726.0,
-      "unrealised_pnl_pct": 0.0,
-      "days_held": 0,
-      "peak_pnl_pct": 0.0
-    },
-    {
-      "asset": "4452.T",
-      "market": "JPX",
-      "entry_date": "2026-07-22",
-      "entry_price": 3230.0,
-      "hold_days_target": 20,
-      "size_pct": 1.1,
-      "ml_score": 80.9,
-      "val_auc": 0.516,
-      "strategy": "Mean Reversion",
-      "tier": "B",
-      "score": 28,
       "p7_verdict": "TRADE"
     }
   ],
