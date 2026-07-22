@@ -3,7 +3,7 @@
     "run": 24,
     "label": "Proven Trio + Fund Gate: 3 Winners + Fundamentals, ML\u226570 (Run 24)",
     "created": "2026-07-16",
-    "total_logged": 3,
+    "total_logged": 5,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
@@ -52,10 +52,12 @@
       "tier": "B",
       "score": 30,
       "p7_verdict": "TRADE",
-      "checkpoints": {},
-      "current_price": 23.2,
-      "unrealised_pnl_pct": 2.86,
-      "days_held": 3,
+      "checkpoints": {
+        "4": 3.746
+      },
+      "current_price": 23.4,
+      "unrealised_pnl_pct": 3.746,
+      "days_held": 4,
       "peak_pnl_pct": 3.835
     },
     {
@@ -71,10 +73,12 @@
       "tier": "A",
       "score": 54,
       "p7_verdict": "TRADE",
-      "checkpoints": {},
-      "current_price": 61.67,
-      "unrealised_pnl_pct": -0.724,
-      "days_held": 3,
+      "checkpoints": {
+        "4": -2.028
+      },
+      "current_price": 60.86,
+      "unrealised_pnl_pct": -2.028,
+      "days_held": 4,
       "peak_pnl_pct": 2.672
     },
     {
@@ -93,8 +97,36 @@
       "checkpoints": {},
       "current_price": 374.81,
       "unrealised_pnl_pct": 2.699,
-      "days_held": 2,
+      "days_held": 3,
       "peak_pnl_pct": 2.699
+    },
+    {
+      "asset": "7733.T",
+      "market": "JPX",
+      "entry_date": "2026-07-22",
+      "entry_price": 1726.0,
+      "hold_days_target": 20,
+      "size_pct": 12.4,
+      "ml_score": 91.3,
+      "val_auc": 0.485,
+      "strategy": "RSI",
+      "tier": "B",
+      "score": 59,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "4452.T",
+      "market": "JPX",
+      "entry_date": "2026-07-22",
+      "entry_price": 3230.0,
+      "hold_days_target": 20,
+      "size_pct": 1.1,
+      "ml_score": 78.6,
+      "val_auc": 0.518,
+      "strategy": "Mean Reversion",
+      "tier": "B",
+      "score": 28,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": []
