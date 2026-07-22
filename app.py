@@ -279,7 +279,7 @@ def load_open_positions() -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=3600)
 def _load_price_history() -> dict:
     """Load pre-computed OHLCV (written nightly by sync_to_website.py on private Mac)."""
     p = SCREENER_DIR / "price_history.json"
@@ -822,7 +822,7 @@ _TR = {
         # chart description + stats
         "sc_what_to_look":   "What to look for on the chart:",
         "sc_strat_unknown":  "Quantitative signal based on price history.",
-        "sc_price_err":      "Could not load price data for **{ticker}**. Try a different ticker or check your connection.",
+        "sc_price_err":      "Price data for **{ticker}** is not yet in today's cache. It was likely added in the most recent screener run — data refreshes automatically within 1 hour.",
         "sc_chart_disc":     "Chart data: yfinance (up to 2 years daily). Indicators are illustrative. Not financial advice — always do your own research.",
         "sc_period_label":   "Chart period",
         "sc_stat_last":      "Last Price",
@@ -1057,7 +1057,7 @@ _TR = {
         # chart description + stats
         "sc_what_to_look":   "チャートで確認すべきポイント：",
         "sc_strat_unknown":  "価格履歴に基づくクオンツシグナル。",
-        "sc_price_err":      "**{ticker}**の価格データを読み込めませんでした。別のティッカーを試すか、接続を確認してください。",
+        "sc_price_err":      "**{ticker}**の価格データは本日のキャッシュにまだありません。最新のスクリーナー実行で追加された可能性があります — 1時間以内に自動更新されます。",
         "sc_chart_disc":     "チャートデータ: yfinance（最大2年日足）。インジケーターは参考表示です。投資アドバイスではありません。",
         "sc_period_label":   "チャート期間",
         "sc_stat_last":      "直近終値",
