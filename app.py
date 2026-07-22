@@ -244,7 +244,7 @@ def load_trade_history() -> pd.DataFrame:
 
 
 def load_open_positions() -> pd.DataFrame:
-    """Load all open trades with current unrealised P&L."""
+    """Load all open trades with current unrealised P&L and full metadata."""
     def fix_nan(s):
         s = re.sub(r'\bNaN\b', 'null', s)
         s = re.sub(r'\bInfinity\b', 'null', s)
@@ -262,7 +262,19 @@ def load_open_positions() -> pd.DataFrame:
             pnl = t.get("unrealised_pnl_pct")
             if pnl is None:
                 continue
-            rows.append({"run": run, "asset": t.get("asset", "?"), "pnl_pct": float(pnl)})
+            rows.append({
+                "run":           run,
+                "asset":         t.get("asset", "?"),
+                "market":        t.get("market", "?"),
+                "strategy":      t.get("strategy", "?"),
+                "pnl_pct":       float(pnl),
+                "entry_price":   t.get("entry_price"),
+                "current_price": t.get("current_price"),
+                "days_held":     t.get("days_held", 0),
+                "tier":          t.get("tier", "?"),
+                "entry_date":    t.get("entry_date", ""),
+                "ml_score":      t.get("ml_score"),
+            })
     return pd.DataFrame(rows)
 
 
@@ -1880,15 +1892,15 @@ with st.sidebar:
     _nav_opts = (
         ["🏠 ホーム", "🔍 ポートフォリオ健全性チェック", "🌏 ファンダメンタルランキング",
          "📊 スクリーナーランキング", "📈 株価チャート", "🏆 トラックレコード",
-         "ℹ️ 概要と免責事項"]
+         "📋 オープンポジション", "ℹ️ 概要と免責事項"]
         if lang == "ja" else
         ["🏠 Home", "🔍 Portfolio Health Check", "🌏 Fundamental Rankings",
          "📊 Screener Rankings", "📈 Stock Chart", "🏆 Track Record",
-         "ℹ️ About & Disclaimer"]
+         "📋 Open Positions", "ℹ️ About & Disclaimer"]
     )
     _nav_en = ["🏠 Home", "🔍 Portfolio Health Check", "🌏 Fundamental Rankings",
                "📊 Screener Rankings", "📈 Stock Chart", "🏆 Track Record",
-               "ℹ️ About & Disclaimer"]
+               "📋 Open Positions", "ℹ️ About & Disclaimer"]
     _nav_sel = st.radio("nav", _nav_opts, label_visibility="collapsed")
     # always resolve to English key for page routing
     page = _nav_en[_nav_opts.index(_nav_sel)]
@@ -2084,6 +2096,104 @@ It does NOT tell you what to buy. It tells you which stocks are showing interest
                 f"</div>",
                 unsafe_allow_html=True,
             )
+
+    st.markdown("---")
+
+    # ── live performance preview ───────────────────────────────────────────────
+    if not df_history.empty:
+        _hp_title = "📊 System Performance — Live Paper Trade Results" if lang == "en" else "📊 システムパフォーマンス — ペーパートレード実績"
+        st.markdown(f"### {_hp_title}")
+
+        # best run by avg P&L with ≥5 trades
+        _hp_runs = []
+        for _r in df_history["run"].unique():
+            _rd = df_history[df_history["run"] == _r]
+            if len(_rd) >= 5:
+                _hp_runs.append({"run": _r, "trades": len(_rd),
+                                 "avg": _rd["pnl_pct"].mean(),
+                                 "wr": (_rd["win"].sum() / len(_rd)) * 100})
+        _hp_runs.sort(key=lambda x: x["avg"], reverse=True)
+        _best = _hp_runs[0] if _hp_runs else None
+
+        _hc1, _hc2 = st.columns([1, 2])
+        with _hc1:
+            if _best:
+                _bc = "#3fb950" if _best["avg"] >= 0 else "#f85149"
+                _n_total_trades = len(df_history)
+                _n_open = len(df_open) if not df_open.empty else 0
+                st.markdown(
+                    f"<div style='background:#161b22;border:1px solid {_bc};"
+                    f"border-radius:10px;padding:18px 16px;text-align:center'>"
+                    f"<div style='font-size:11px;color:#8b949e;text-transform:uppercase;letter-spacing:1px'>"
+                    f"{'Best Run' if lang == 'en' else '最良ラン'}</div>"
+                    f"<div style='font-size:26px;font-weight:800;color:{_bc};margin:6px 0'>"
+                    f"R{_best['run']}  {_best['avg']:+.2f}%</div>"
+                    f"<div style='font-size:12px;color:#8b949e'>"
+                    f"{_best['trades']} {'trades' if lang == 'en' else '取引'} · "
+                    f"WR {_best['wr']:.0f}%</div>"
+                    f"<hr style='border-color:#30363d;margin:12px 0'>"
+                    f"<div style='font-size:12px;color:#8b949e'>"
+                    f"{'Total closed trades' if lang == 'en' else '決済済み取引'}: "
+                    f"<b style='color:#e6edf3'>{_n_total_trades}</b></div>"
+                    f"<div style='font-size:12px;color:#8b949e'>"
+                    f"{'Open positions' if lang == 'en' else '保有ポジション'}: "
+                    f"<b style='color:#58a6ff'>{_n_open}</b></div>"
+                    f"</div>",
+                    unsafe_allow_html=True,
+                )
+        with _hc2:
+            # mini equity curve — best run
+            if _best:
+                _bdf = (df_history[df_history["run"] == _best["run"]]
+                        .dropna(subset=["exit_date"]).copy())
+                _bdf["exit_date"] = pd.to_datetime(_bdf["exit_date"], errors="coerce")
+                _bdf = _bdf.dropna(subset=["exit_date"]).sort_values("exit_date")
+                _bdf["cum"] = _bdf["pnl_pct"].cumsum()
+                _end_val    = float(_bdf["cum"].iloc[-1])
+                _eq_clr     = "#3fb950" if _end_val >= 0 else "#f85149"
+                _fill_clr   = "rgba(63,185,80,0.08)" if _end_val >= 0 else "rgba(248,81,73,0.08)"
+                _fig_home = go.Figure()
+                _fig_home.add_trace(go.Scatter(
+                    x=_bdf["exit_date"], y=_bdf["cum"],
+                    mode="lines", line=dict(color=_eq_clr, width=2),
+                    fill="tozeroy", fillcolor=_fill_clr,
+                    showlegend=False,
+                    hovertemplate="%{x|%b %d}: %{y:+.1f}%<extra></extra>",
+                ))
+                _fig_home.add_hline(y=0, line_dash="dash", line_color="#8b949e", opacity=0.4)
+                _fig_home.update_layout(
+                    height=200, plot_bgcolor="#0d1117", paper_bgcolor="#0d1117",
+                    font_color="#e6edf3",
+                    margin=dict(l=45, r=10, t=10, b=30),
+                    xaxis=dict(gridcolor="#21262d", showticklabels=True),
+                    yaxis=dict(gridcolor="#21262d", ticksuffix="%"),
+                    title=dict(
+                        text=(f"Run {_best['run']} — Cumulative P&L" if lang == "en"
+                              else f"ラン{_best['run']} — 累積損益"),
+                        font_size=12, x=0.01, y=0.97,
+                    ),
+                )
+                st.plotly_chart(_fig_home, use_container_width=True)
+
+        # open positions quick list
+        if not df_open.empty:
+            _n_winning = (df_open["pnl_pct"] > 0).sum()
+            _avg_unr   = df_open["pnl_pct"].mean()
+            _unr_clr   = "#3fb950" if _avg_unr >= 0 else "#f85149"
+            _op_lbl    = ("Open Positions" if lang == "en" else "オープンポジション")
+            st.markdown(
+                f"<div style='background:#161b22;border:1px solid #30363d;"
+                f"border-radius:8px;padding:10px 16px;font-size:13px;margin-top:8px'>"
+                f"<b style='color:#e6edf3'>📋 {_op_lbl}:</b> &nbsp;"
+                f"<b style='color:#58a6ff'>{len(df_open)}</b> {'positions across' if lang == 'en' else 'ポジション / '}"
+                f" <b>{df_open['run'].nunique()}</b> {'active runs' if lang == 'en' else 'ラン稼働中'}"
+                f" &nbsp;·&nbsp; avg unrealised: "
+                f"<b style='color:{_unr_clr}'>{_avg_unr:+.2f}%</b>"
+                f" &nbsp;·&nbsp; <b style='color:#3fb950'>{_n_winning}</b> winning"
+                f"</div>",
+                unsafe_allow_html=True,
+            )
+        st.markdown("")
 
     st.markdown("---")
 
@@ -3355,6 +3465,52 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                     _disp_df.style.map(_lb_color, subset=[_avg_col]),
                     use_container_width=True, hide_index=True,
                 )
+        # ── multi-run equity curve comparison ─────────────────────────────────
+        _mr_label = ("📈 Run Comparison — Equity Curves" if lang == "en"
+                     else "📈 ラン比較 — 資産曲線")
+        with st.expander(_mr_label, expanded=True):
+            _mr_sub = ("Equity curves for the top runs by trade count. Each line shows cumulative P&L% across closed trades over time."
+                       if lang == "en" else
+                       "取引数の多い上位ランの資産曲線。各ラインは決済済み取引の累積損益%の推移を示します。")
+            st.caption(_mr_sub)
+            if not df_history.empty:
+                _mr_fig = go.Figure()
+                _mr_colors = ["#58a6ff","#3fb950","#f0883e","#bc8cff","#e3b341",
+                               "#39d353","#ff7b72","#79c0ff","#ffa657","#d2a8ff"]
+                _runs_by_trades = (df_history.groupby("run").size()
+                                   .sort_values(ascending=False).head(10).index.tolist())
+                _shown = 0
+                for _ri, _r in enumerate(_runs_by_trades):
+                    _rdf = (df_history[df_history["run"] == _r]
+                            .dropna(subset=["exit_date"]).copy())
+                    _rdf["exit_date"] = pd.to_datetime(_rdf["exit_date"], errors="coerce")
+                    _rdf = _rdf.dropna(subset=["exit_date"]).sort_values("exit_date")
+                    if len(_rdf) < 3:
+                        continue
+                    _rdf["cum"] = _rdf["pnl_pct"].cumsum()
+                    _clr = _mr_colors[_shown % len(_mr_colors)]
+                    _mr_fig.add_trace(go.Scatter(
+                        x=_rdf["exit_date"], y=_rdf["cum"],
+                        mode="lines", name=f"R{_r}",
+                        line=dict(color=_clr, width=1.8),
+                        hovertemplate=f"R{_r}: %{{y:+.1f}}%<extra></extra>",
+                    ))
+                    _shown += 1
+                _mr_fig.add_hline(y=0, line_dash="dash", line_color="#8b949e", opacity=0.4)
+                _mr_fig.update_layout(
+                    height=340, plot_bgcolor="#0d1117", paper_bgcolor="#0d1117",
+                    font_color="#e6edf3",
+                    margin=dict(l=50, r=20, t=16, b=40),
+                    xaxis=dict(gridcolor="#21262d"),
+                    yaxis=dict(gridcolor="#21262d",
+                               title="Cumulative P&L %" if lang == "en" else "累積損益 %"),
+                    legend=dict(orientation="h", y=-0.18, font_size=11),
+                    hovermode="x unified",
+                )
+                st.plotly_chart(_mr_fig, use_container_width=True)
+            else:
+                st.info("No trade data yet." if lang == "en" else "まだ取引データがありません。")
+
         st.markdown("---")
 
     if df_history.empty:
@@ -3607,6 +3763,55 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                     .format({pnl_col: "{:+.2f}%", wr_col: "{:.1f}%"}),
                 use_container_width=True, hide_index=True,
             )
+
+            # ── strategy bar chart ────────────────────────────────────────────
+            _bar_label = "Strategy Attribution" if lang == "en" else "戦略別アトリビューション"
+            st.markdown(f"**{_bar_label}**")
+            _ss_sorted = ss.sort_values("avg_pnl")
+            _bar_colors = ["#3fb950" if v >= 0 else "#f85149" for v in _ss_sorted["avg_pnl"]]
+            _fig_bar = go.Figure(go.Bar(
+                x=_ss_sorted["avg_pnl"],
+                y=_ss_sorted["strategy"],
+                orientation="h",
+                marker_color=_bar_colors,
+                text=[f"{v:+.2f}%" for v in _ss_sorted["avg_pnl"]],
+                textposition="outside",
+                hovertemplate="%{y}: %{x:+.2f}%<extra></extra>",
+            ))
+            _fig_bar.add_vline(x=0, line_color="#8b949e", line_width=1)
+            _fig_bar.update_layout(
+                height=max(200, len(_ss_sorted) * 28),
+                plot_bgcolor="#0d1117", paper_bgcolor="#0d1117",
+                font_color="#e6edf3", font_size=11,
+                margin=dict(l=10, r=60, t=8, b=20),
+                xaxis=dict(gridcolor="#21262d", ticksuffix="%"),
+                yaxis=dict(gridcolor="rgba(0,0,0,0)"),
+            )
+            st.plotly_chart(_fig_bar, use_container_width=True)
+
+            # ── tier attribution ──────────────────────────────────────────────
+            if "tier" in dc.columns:
+                _tier_label = "Performance by Tier" if lang == "en" else "ティア別パフォーマンス"
+                st.markdown(f"**{_tier_label}**")
+                _ts = (dc.groupby("tier")
+                         .agg(trades=("pnl_pct","count"),
+                              wins=("win","sum"),
+                              avg_pnl=("pnl_pct","mean"))
+                         .reset_index()
+                         .sort_values("avg_pnl", ascending=False))
+                _ts["win_rate"] = _ts["wins"] / _ts["trades"] * 100
+                for _, _tr in _ts.iterrows():
+                    _tc = "#3fb950" if _tr["avg_pnl"] > 0 else "#f85149"
+                    st.markdown(
+                        f"<div style='background:#161b22;border-left:4px solid {_tc};"
+                        f"border-radius:4px;padding:7px 12px;margin:3px 0;font-size:13px'>"
+                        f"<b>Tier {_tr['tier']}</b> &nbsp;"
+                        f"<span style='color:{_tc};font-weight:bold'>{_tr['avg_pnl']:+.2f}%</span> avg"
+                        f"<span style='color:#8b949e;font-size:11px'> · "
+                        f"{int(_tr['trades'])} trades · {_tr['win_rate']:.0f}% WR</span>"
+                        f"</div>",
+                        unsafe_allow_html=True,
+                    )
 
         with col_r:
             # ── exit breakdown ──
@@ -4149,6 +4354,161 @@ the "What to look for" box below the signal card explains exactly what to focus 
         # disclaimer at the bottom
         st.markdown("---")
         st.caption(T("sc_chart_disc", lang))
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  OPEN POSITIONS DASHBOARD
+# ══════════════════════════════════════════════════════════════════════════════
+elif page == "📋 Open Positions":
+    _op_title = "📋 Open Positions" if lang == "en" else "📋 オープンポジション"
+    _op_sub   = ("Live view of all paper trade positions currently open across every run. "
+                 "Updated nightly after market close."
+                 if lang == "en" else
+                 "全ランで現在保有中のペーパートレードポジション一覧。毎晩市場クローズ後に更新。")
+    st.markdown(f"## {_op_title}")
+    st.caption(_op_sub)
+
+    if df_open.empty:
+        st.info("No open positions right now." if lang == "en" else "現在オープンポジションはありません。")
+    else:
+        # ── summary tiles ────────────────────────────────────────────────────
+        _n_pos     = len(df_open)
+        _n_runs    = df_open["run"].nunique()
+        _n_assets  = df_open["asset"].nunique() if "asset" in df_open.columns else 0
+        _avg_upnl  = df_open["pnl_pct"].mean()
+        _winning   = (df_open["pnl_pct"] > 0).sum()
+        _wr_live   = _winning / _n_pos * 100
+
+        _op_c = st.columns(5)
+        for _col, _lbl, _val, _clr in [
+            (_op_c[0], ("Total Positions" if lang == "en" else "総ポジション数"),
+             str(_n_pos), "#e6edf3"),
+            (_op_c[1], ("Runs Active"     if lang == "en" else "稼働中ラン"),
+             str(_n_runs), "#e6edf3"),
+            (_op_c[2], ("Unique Stocks"   if lang == "en" else "銘柄数"),
+             str(_n_assets), "#e6edf3"),
+            (_op_c[3], ("Avg Unrealised"  if lang == "en" else "平均含み損益"),
+             f"{_avg_upnl:+.2f}%", "#3fb950" if _avg_upnl >= 0 else "#f85149"),
+            (_op_c[4], ("Currently Winning" if lang == "en" else "含み益ポジション"),
+             f"{_wr_live:.0f}%", "#3fb950" if _wr_live >= 50 else "#d29922"),
+        ]:
+            _col.markdown(
+                f"<div class='metric-card'><div class='label'>{_lbl}</div>"
+                f"<div class='value' style='color:{_clr}'>{_val}</div></div>",
+                unsafe_allow_html=True,
+            )
+
+        st.markdown("")
+
+        # ── filters ──────────────────────────────────────────────────────────
+        _fc1, _fc2, _fc3 = st.columns([1, 1, 2])
+        with _fc1:
+            _op_markets = ["All"] + sorted(df_open["market"].dropna().unique().tolist()) if "market" in df_open.columns else ["All"]
+            _op_mkt_sel = st.selectbox("Market" if lang == "en" else "マーケット",
+                                       _op_markets, key="op_mkt")
+        with _fc2:
+            _op_sort_opts = (["Unrealised P&L ▼", "Unrealised P&L ▲", "Days Held ▼", "Run"]
+                             if lang == "en" else
+                             ["含み損益 ▼", "含み損益 ▲", "保有日数 ▼", "ラン"])
+            _op_sort_sel = st.selectbox("Sort by" if lang == "en" else "並び替え",
+                                        _op_sort_opts, key="op_sort")
+        with _fc3:
+            _op_run_opts = (["All Runs"] + [f"Run {r}" for r in sorted(df_open["run"].unique())])
+            _op_run_sel  = st.selectbox("Run filter" if lang == "en" else "ランフィルター",
+                                        _op_run_opts, key="op_run")
+
+        _op_df = df_open.copy()
+        if _op_mkt_sel != "All" and "market" in _op_df.columns:
+            _op_df = _op_df[_op_df["market"] == _op_mkt_sel]
+        if _op_run_sel != "All Runs":
+            _op_run_n = int(_op_run_sel.split()[1])
+            _op_df = _op_df[_op_df["run"] == _op_run_n]
+
+        _sort_key = {"Unrealised P&L ▼": ("pnl_pct", False),
+                     "含み損益 ▼":        ("pnl_pct", False),
+                     "Unrealised P&L ▲": ("pnl_pct", True),
+                     "含み損益 ▲":        ("pnl_pct", True),
+                     "Days Held ▼":      ("days_held", False),
+                     "保有日数 ▼":        ("days_held", False),
+                     "Run":              ("run", True),
+                     "ラン":             ("run", True)}.get(_op_sort_sel, ("pnl_pct", False))
+        _op_df = _op_df.sort_values(_sort_key[0], ascending=_sort_key[1]).reset_index(drop=True)
+
+        # ── P&L distribution bar ─────────────────────────────────────────────
+        _pos_count = (_op_df["pnl_pct"] > 0).sum()
+        _neg_count = (_op_df["pnl_pct"] <= 0).sum()
+        _pct_pos   = _pos_count / len(_op_df) * 100 if len(_op_df) > 0 else 0
+        st.markdown(
+            f"<div style='background:#161b22;border-radius:6px;padding:10px 14px;"
+            f"margin-bottom:12px;font-size:13px'>"
+            f"<span style='color:#3fb950'>▲ {_pos_count} winning</span> &nbsp;|&nbsp; "
+            f"<span style='color:#f85149'>▼ {_neg_count} losing</span> &nbsp;|&nbsp; "
+            f"<div style='height:8px;background:#f85149;border-radius:4px;margin-top:6px'>"
+            f"<div style='width:{_pct_pos:.0f}%;height:100%;background:#3fb950;"
+            f"border-radius:4px'></div></div></div>",
+            unsafe_allow_html=True,
+        )
+
+        # ── positions table ───────────────────────────────────────────────────
+        _table_rows = []
+        for _, _t in _op_df.iterrows():
+            _pnl  = _t["pnl_pct"]
+            _pnl_str = f"{_pnl:+.2f}%"
+            _entry_p = _t.get("entry_price")
+            _curr_p  = _t.get("current_price")
+            _ml      = _t.get("ml_score")
+            _table_rows.append({
+                ("Run"           if lang == "en" else "ラン"):    f"R{int(_t['run'])}",
+                ("Asset"         if lang == "en" else "銘柄"):    _t["asset"],
+                ("Market"        if lang == "en" else "市場"):    _t.get("market", "?"),
+                ("Strategy"      if lang == "en" else "戦略"):    _t.get("strategy", "?"),
+                ("Tier"          if lang == "en" else "ティア"):  _t.get("tier", "?"),
+                ("Days"          if lang == "en" else "日数"):    int(_t.get("days_held", 0)),
+                ("Entry"         if lang == "en" else "取得価格"): f"{float(_entry_p):.2f}" if _entry_p else "—",
+                ("Now"           if lang == "en" else "現在価格"): f"{float(_curr_p):.2f}"  if _curr_p  else "—",
+                ("Unrealised P&L" if lang == "en" else "含み損益"): _pnl_str,
+                ("ML Score"      if lang == "en" else "MLスコア"): f"{int(_ml)}%" if _ml else "—",
+            })
+
+        _tbl_df = pd.DataFrame(_table_rows)
+        _upnl_col = "Unrealised P&L" if lang == "en" else "含み損益"
+
+        def _op_color(v):
+            if not isinstance(v, str): return ""
+            if v.startswith("+"): return "color:#3fb950;font-weight:bold"
+            if v.startswith("-"): return "color:#f85149;font-weight:bold"
+            return ""
+
+        st.dataframe(
+            _tbl_df.style.map(_op_color, subset=[_upnl_col]),
+            use_container_width=True, hide_index=True, height=500,
+        )
+
+        # ── unrealised P&L histogram ─────────────────────────────────────────
+        with st.expander("P&L Distribution" if lang == "en" else "損益分布", expanded=False):
+            _hist_fig = go.Figure(go.Histogram(
+                x=_op_df["pnl_pct"],
+                nbinsx=30,
+                marker_color=[
+                    "#3fb950" if v >= 0 else "#f85149"
+                    for v in _op_df["pnl_pct"]
+                ],
+                hovertemplate="P&L: %{x:.1f}%<br>Count: %{y}<extra></extra>",
+            ))
+            _hist_fig.add_vline(x=0, line_color="#8b949e", line_dash="dash")
+            _hist_fig.update_layout(
+                height=260, plot_bgcolor="#0d1117", paper_bgcolor="#0d1117",
+                font_color="#e6edf3", bargap=0.05,
+                margin=dict(l=40, r=20, t=16, b=40),
+                xaxis=dict(title="Unrealised P&L %" if lang == "en" else "含み損益 %",
+                           gridcolor="#21262d"),
+                yaxis=dict(title="Count" if lang == "en" else "件数", gridcolor="#21262d"),
+            )
+            st.plotly_chart(_hist_fig, use_container_width=True)
+
+    st.markdown("---")
+    st.markdown(f"<div class='disclaimer-box'>{T('disclaimer', lang)}</div>",
+                unsafe_allow_html=True)
 
 
 elif page == "ℹ️ About & Disclaimer":
