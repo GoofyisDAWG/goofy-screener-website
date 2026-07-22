@@ -837,6 +837,15 @@ _TR = {
         "sr_card_size":      "Suggested size",
         "sr_spec_badge":     "⚡ High Risk",
         "sr_spec_tooltip":   "Speculative — pre-profitable, high volatility. Not traded by main runs.",
+        # ── strategy breakdown ──
+        "sb_title":    "## 🎯 Strategy Breakdown",
+        "sb_sub":      "Performance of each strategy across all closed paper trades — no cherry picking.",
+        "sb_champs":   "### 🏆 The 4 Champions",
+        "sb_champs_sub": "These 4 strategies show consistent positive results across 600+ live trades. All other strategies have been blocked from new runs.",
+        "sb_all":      "### 📊 All Strategies — Avg P&L Comparison",
+        "sb_by_mkt":   "### 🌍 Champions by Market",
+        "sb_blocked":  "### 🚫 Permanently Blocked",
+        "sb_blocked_sub": "Blocked after live data confirmed consistent losses. Not just backtested — these failed on real forward trades.",
         # ── about ──
         "ab_title":    "### About Goofy Screener",
         "ab_method":   "### Methodology",
@@ -1072,6 +1081,15 @@ _TR = {
         "sr_card_size":      "推奨サイズ",
         "sr_spec_badge":     "⚡ 高リスク",
         "sr_spec_tooltip":   "投機的銘柄 — 無収益・高ボラティリティ。メインランでは取引されません。",
+        # ── strategy breakdown ──
+        "sb_title":    "## 🎯 戦略分析",
+        "sb_sub":      "全クローズドトレードにおける各戦略のパフォーマンス — 結果は全公開。",
+        "sb_champs":   "### 🏆 4つのチャンピオン戦略",
+        "sb_champs_sub": "これら4戦略は600件超のライブトレードで一貫したプラス結果を示しています。他の全戦略は新規ランからブロックされています。",
+        "sb_all":      "### 📊 全戦略 — 平均損益比較",
+        "sb_by_mkt":   "### 🌍 市場別チャンピオン成績",
+        "sb_blocked":  "### 🚫 永久ブロック済み戦略",
+        "sb_blocked_sub": "ライブデータで一貫した損失が確認されたためブロック。バックテストだけでなく、実際のフォワードトレードで失敗した戦略です。",
         # ── about ──
         "ab_title":    "### Goofy Screenerについて",
         "ab_method":   "### 方法論",
@@ -1870,6 +1888,25 @@ a { color: #58a6ff !important; }
 .mbadge-us  { background: #1e3a5f; color: #4fc3f7; }
 .mbadge-asx { background: #1a3a1a; color: #23d18b; }
 .mbadge-jpx { background: #3a1a1a; color: #ff8c69; }
+
+/* ── Mobile responsive ───────────────────────────────────── */
+@media (max-width: 768px) {
+    [data-testid="block-container"] { padding: 0.75rem 0.5rem !important; }
+    .metric-card { padding: 10px 12px; }
+    .metric-card .value { font-size: 20px; }
+    .metric-card .label { font-size: 11px; }
+    .stock-row { padding: 8px 10px; font-size: 13px; }
+    .health-card { padding: 10px 12px; }
+    .fund-card { padding: 10px 12px; }
+}
+@media (max-width: 640px) {
+    [data-testid="stHorizontalBlock"] > [data-testid="column"] {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    .metric-card .value { font-size: 18px; }
+    .section-header { font-size: 16px; }
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -1894,17 +1931,17 @@ with st.sidebar:
         ["🏠 ホーム", "🔍 ポートフォリオ健全性チェック", "🌏 ファンダメンタルランキング",
          "📊 スクリーナーランキング", "📈 株価チャート", "🏆 トラックレコード",
          "📋 オープンポジション", "🌡️ セクターヒートマップ", "📜 取引ログ",
-         "ℹ️ 概要と免責事項"]
+         "🎯 戦略分析", "ℹ️ 概要と免責事項"]
         if lang == "ja" else
         ["🏠 Home", "🔍 Portfolio Health Check", "🌏 Fundamental Rankings",
          "📊 Screener Rankings", "📈 Stock Chart", "🏆 Track Record",
          "📋 Open Positions", "🌡️ Sector Heat Map", "📜 Closed Trades Log",
-         "ℹ️ About & Disclaimer"]
+         "🎯 Strategy Breakdown", "ℹ️ About & Disclaimer"]
     )
     _nav_en = ["🏠 Home", "🔍 Portfolio Health Check", "🌏 Fundamental Rankings",
                "📊 Screener Rankings", "📈 Stock Chart", "🏆 Track Record",
                "📋 Open Positions", "🌡️ Sector Heat Map", "📜 Closed Trades Log",
-               "ℹ️ About & Disclaimer"]
+               "🎯 Strategy Breakdown", "ℹ️ About & Disclaimer"]
     _nav_sel = st.radio("nav", _nav_opts, label_visibility="collapsed")
     # always resolve to English key for page routing
     page = _nav_en[_nav_opts.index(_nav_sel)]
@@ -2205,33 +2242,38 @@ It does NOT tell you what to buy. It tells you which stocks are showing interest
     col_l, col_r = st.columns([3, 2])
     with col_l:
         st.markdown(T("how_it_works", lang))
-        if lang == "ja":
-            st.markdown("""
-Goofy Screenerは毎日278銘柄に対して15種類のクオンツ取引戦略を実行します。
-各銘柄について、モデルが学習で見たことのないデータでテストした、最も強い過去パフォーマンスを持つ戦略を選びます。
-
-**パイプライン:**
-1. **戦略選択** — 15戦略をバックテストしスコアリング。銘柄ごとに最良の戦略を選択。
-2. **レジームフィルター** — 選択した戦略が歴史的に低パフォーマンスな市場環境（強気/弱気/横ばい）ではシグナルを抑制。
-3. **MLゲート** — 過去のシグナルで学習したXGBoostモデルが信頼スコアを付与。低信頼スコアのシグナルは保留。
-4. **ポジションサイジング** — ケリー基準＋ボラティリティ調整で推奨配分を算出。
-
-シグナルは **BUY（買い）**、**WATCH（注目）**、**PASS（見送り）** のいずれかで表示されます。
-""")
-        else:
-            st.markdown("""
-The Goofy Screener runs 15 quantitative trading strategies across 278 stocks every day.
-For each stock, it finds the strategy with the strongest historical performance — tested on
-data the model never saw during training.
-
-**The pipeline:**
-1. **Strategy selection** — 15 strategies are backtested and scored. The best one is chosen per stock.
-2. **Regime filter** — signals are suppressed in markets where the chosen strategy historically underperforms (Bull / Bear / Sideways).
-3. **ML gate** — an XGBoost model trained on hundreds of historical signals gives a confidence score. Low-confidence signals are held back.
-4. **Position sizing** — Kelly criterion + volatility scaling sets a recommended allocation.
-
-Signals are labelled **BUY**, **WATCH**, or **PASS**.
-""")
+        _hiw_steps = [
+            ("1️⃣", "Screen" if lang == "en" else "スクリーン",
+             "313 stocks · US, ASX, JPX · 15 strategies tested on each"
+             if lang == "en" else
+             "313銘柄 · US・ASX・JPX · 15戦略を各銘柄に適用"),
+            ("2️⃣", "Score" if lang == "en" else "スコア",
+             "Walk-forward backtest: trained 2016–21, tested 2021–now. Best strategy chosen per stock."
+             if lang == "en" else
+             "ウォークフォワード: 2016–21で学習、2021以降でテスト。銘柄ごとに最良戦略を選択。"),
+            ("3️⃣", "Regime filter" if lang == "en" else "レジームフィルター",
+             "Signal only issued when market regime (Bull/Bear/Sideways) matches strategy's sweet spot."
+             if lang == "en" else
+             "市場レジーム（強気/弱気/横ばい）が戦略の得意環境と一致する時のみシグナル発行。"),
+            ("4️⃣", "ML gate" if lang == "en" else "MLゲート",
+             "XGBoost confidence score on every signal. Low-confidence signals are held back."
+             if lang == "en" else
+             "全シグナルにXGBoost信頼スコアを付与。低スコアのシグナルは保留。"),
+            ("5️⃣", "Size + Track" if lang == "en" else "サイズ＆追跡",
+             "Kelly criterion sets position size. Every trade is paper-traded live and tracked transparently."
+             if lang == "en" else
+             "ケリー基準でポジションサイズを設定。全トレードをライブでペーパートレードし透明に公開。"),
+        ]
+        for _icon, _title, _desc in _hiw_steps:
+            st.markdown(
+                f"<div style='background:#161b22;border:1px solid #30363d;border-radius:8px;"
+                f"padding:10px 14px;margin:6px 0;display:flex;gap:12px;align-items:flex-start'>"
+                f"<span style='font-size:20px;line-height:1.4'>{_icon}</span>"
+                f"<div><b style='color:#e6edf3'>{_title}</b>"
+                f"<div style='color:#8b949e;font-size:12px;margin-top:2px'>{_desc}</div></div>"
+                f"</div>",
+                unsafe_allow_html=True,
+            )
 
     with col_r:
         st.markdown(T("top_picks", lang))
@@ -4938,6 +4980,172 @@ When the screener fires a BUY signal, it records an entry at that day's price. T
             mime="text/csv",
             key="cl_download",
         )
+
+    st.markdown("---")
+    st.markdown(f"<div class='disclaimer-box'>{T('disclaimer', lang)}</div>",
+                unsafe_allow_html=True)
+
+
+elif page == "🎯 Strategy Breakdown":
+    st.markdown(T("sb_title", lang))
+    st.caption(T("sb_sub", lang))
+
+    _CHAMPIONS = ["RSI", "Bollinger Bands", "MA Crossover", "Mean Reversion"]
+    _BLOCKED   = ["RSI Divergence", "Institutional Momentum", "Relative Strength"]
+
+    if df_history.empty:
+        st.info("No trade history found. Run the screener first." if lang == "en"
+                else "トレード履歴が見つかりません。")
+    else:
+        # ── aggregate per strategy ────────────────────────────────────────────
+        _sb_rows = []
+        for _strat, _grp in df_history.groupby("strategy"):
+            _n = len(_grp)
+            if _n < 3:
+                continue
+            _w   = int(_grp["win"].sum())
+            _avg = _grp["pnl_pct"].mean()
+            _wr  = _w / _n * 100
+            _sb_rows.append({
+                "strategy":     _strat,
+                "trades":       _n,
+                "wins":         _w,
+                "win_rate":     _wr,
+                "avg_pnl":      _avg,
+                "is_champion":  _strat in _CHAMPIONS,
+                "is_blocked":   _strat in _BLOCKED,
+            })
+        _sb_df = pd.DataFrame(_sb_rows).sort_values("avg_pnl", ascending=False)
+
+        # ── champion cards ─────────────────────────────────────────────────────
+        st.markdown(T("sb_champs", lang))
+        st.caption(T("sb_champs_sub", lang))
+        st.markdown("")
+
+        _champ_rows = _sb_df[_sb_df["is_champion"]]
+        _champ_cols = st.columns(len(_CHAMPIONS))
+        for _ci, _cn in enumerate(_CHAMPIONS):
+            with _champ_cols[_ci]:
+                _cr = _champ_rows[_champ_rows["strategy"] == _cn]
+                if _cr.empty:
+                    st.markdown(
+                        f"<div class='metric-card'><div class='label'>{_cn}</div>"
+                        f"<div class='value' style='color:#8b949e'>—</div>"
+                        f"<div class='sub'>no data yet</div></div>",
+                        unsafe_allow_html=True,
+                    )
+                else:
+                    _r = _cr.iloc[0]
+                    _col = "#3fb950" if _r["avg_pnl"] > 0 else "#f85149"
+                    st.markdown(
+                        f"<div class='metric-card' style='border-color:#3fb950'>"
+                        f"<div class='label'>{_cn}</div>"
+                        f"<div class='value' style='color:{_col}'>{_r['avg_pnl']:+.2f}%</div>"
+                        f"<div class='sub'>avg P&L · {int(_r['trades'])} trades · "
+                        f"WR {_r['win_rate']:.0f}%</div></div>",
+                        unsafe_allow_html=True,
+                    )
+
+        st.markdown("")
+
+        # ── all strategies bar chart ───────────────────────────────────────────
+        st.markdown(T("sb_all", lang))
+        _bar_colors = []
+        for _, _brow in _sb_df.iterrows():
+            if _brow["is_champion"]:
+                _bar_colors.append("#3fb950")
+            elif _brow["is_blocked"]:
+                _bar_colors.append("#f85149")
+            else:
+                _bar_colors.append("#58a6ff")
+
+        _fig_sb = go.Figure(go.Bar(
+            x=_sb_df["avg_pnl"].round(2),
+            y=_sb_df["strategy"],
+            orientation="h",
+            marker_color=_bar_colors,
+            text=[f"{v:+.2f}%" for v in _sb_df["avg_pnl"]],
+            textposition="outside",
+            customdata=_sb_df[["trades", "win_rate"]].values,
+            hovertemplate="<b>%{y}</b><br>Avg P&L: %{x:.2f}%<br>Trades: %{customdata[0]}<br>Win rate: %{customdata[1]:.0f}%<extra></extra>",
+        ))
+        _fig_sb.add_vline(x=0, line_color="#30363d", line_width=1)
+        _fig_sb.update_layout(
+            height=max(250, len(_sb_df) * 44),
+            paper_bgcolor="#0d1117", plot_bgcolor="#0d1117",
+            font_color="#c9d1d9",
+            xaxis=dict(showgrid=True, gridcolor="#21262d", zeroline=False,
+                       ticksuffix="%", title="Avg P&L per trade"),
+            yaxis=dict(showgrid=False, autorange="reversed"),
+            margin=dict(l=10, r=60, t=20, b=30),
+            showlegend=False,
+        )
+        st.plotly_chart(_fig_sb, use_container_width=True)
+
+        _leg_col1, _leg_col2, _leg_col3 = st.columns(3)
+        _leg_col1.markdown("<span style='color:#3fb950'>■</span> Champion (active)" if lang == "en"
+                           else "<span style='color:#3fb950'>■</span> チャンピオン（稼働中）",
+                           unsafe_allow_html=True)
+        _leg_col2.markdown("<span style='color:#f85149'>■</span> Permanently blocked" if lang == "en"
+                           else "<span style='color:#f85149'>■</span> 永久ブロック済み",
+                           unsafe_allow_html=True)
+        _leg_col3.markdown("<span style='color:#58a6ff'>■</span> Other / limited data" if lang == "en"
+                           else "<span style='color:#58a6ff'>■</span> その他 / データ少",
+                           unsafe_allow_html=True)
+
+        st.markdown("")
+
+        # ── champions by market ────────────────────────────────────────────────
+        st.markdown(T("sb_by_mkt", lang))
+        _champ_hist = df_history[df_history["strategy"].isin(_CHAMPIONS)]
+        if not _champ_hist.empty:
+            _mkt_rows = []
+            for _s in _CHAMPIONS:
+                for _m in ["US", "ASX", "JPX"]:
+                    _sub = _champ_hist[(_champ_hist["strategy"] == _s) & (_champ_hist["market"] == _m)]
+                    if len(_sub) >= 2:
+                        _mkt_rows.append({
+                            "Strategy": _s, "Market": _m,
+                            "Trades": len(_sub),
+                            "Win Rate": f"{_sub['win'].mean()*100:.0f}%",
+                            "Avg P&L": f"{_sub['pnl_pct'].mean():+.2f}%",
+                        })
+            if _mkt_rows:
+                _mkt_tbl = pd.DataFrame(_mkt_rows)
+                st.dataframe(
+                    _mkt_tbl.style.applymap(
+                        lambda v: "color:#3fb950;font-weight:700" if isinstance(v, str) and v.startswith("+") and v != "+0.00%"
+                        else ("color:#f85149;font-weight:700" if isinstance(v, str) and v.startswith("-") else ""),
+                    ),
+                    use_container_width=True, hide_index=True,
+                )
+
+        st.markdown("")
+
+        # ── blocked strategies ─────────────────────────────────────────────────
+        st.markdown(T("sb_blocked", lang))
+        st.caption(T("sb_blocked_sub", lang))
+        _blocked_data = [
+            ("RSI Divergence",        309, -0.85, 37,
+             "309 trades, avg -0.85%, 37% win rate. Consistently lost across all markets."
+             if lang == "en" else "309件、平均-0.85%、勝率37%。全市場で一貫して損失。"),
+            ("Relative Strength",     106, -0.69, 48,
+             "106 trades, avg -0.69%, 48% win rate. Wins not big enough to cover losses."
+             if lang == "en" else "106件、平均-0.69%、勝率48%。勝ちが損失をカバーできない。"),
+            ("Institutional Momentum", 26, -7.19,  0,
+             "26 trades, avg -7.19%, 0% win rate. Every single trade lost money."
+             if lang == "en" else "26件、平均-7.19%、勝率0%。全件が損失。"),
+        ]
+        for _bn, _bt, _ba, _bw, _bdesc in _blocked_data:
+            st.markdown(
+                f"<div style='background:#1a0a0a;border:1px solid #f85149;border-radius:8px;"
+                f"padding:12px 16px;margin:6px 0'>"
+                f"<b style='color:#f85149'>🚫 {_bn}</b>"
+                f"<span style='color:#8b949e;font-size:12px;margin-left:12px'>"
+                f"{_bt} trades · avg {_ba:+.2f}% · WR {_bw}%</span><br>"
+                f"<span style='color:#8b949e;font-size:12px'>{_bdesc}</span></div>",
+                unsafe_allow_html=True,
+            )
 
     st.markdown("---")
     st.markdown(f"<div class='disclaimer-box'>{T('disclaimer', lang)}</div>",
