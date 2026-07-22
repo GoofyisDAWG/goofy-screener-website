@@ -4525,6 +4525,45 @@ elif page == "🌡️ Sector Heat Map":
         "今日最もBUYシグナルが多いセクターはどこ？色はシグナル密度（緑＝多い、赤＝少ない）。"
     )
 
+    with st.expander("❓ " + ("How to read this page" if lang == "en" else "このページの見方"),
+                     expanded=False):
+        if lang == "en":
+            st.markdown("""
+**What is a Sector Heat Map?**
+It shows which broad categories of stocks (Technology, Healthcare, Energy, etc.) are generating the most BUY signals from the screener *today*.
+
+**How to read each card:**
+- **Big number (%)** — out of all stocks the screener watches in that sector, this percentage had a BUY signal today
+- **BUY signals: X / Y** — X stocks got a signal, Y is the total stocks in that sector we track
+- **Colour** — 🟢 Green = sector is "hot" (many signals) · 🟡 Yellow = moderate · 🔴 Red = sector is "cold" (few signals)
+- **Bar at the bottom** — visual representation of the same percentage
+
+**What does it mean?**
+A hot sector doesn't guarantee gains — it means momentum strategies are finding more opportunities there *right now*. It's useful for spotting where the market action is concentrated.
+
+**Filters:**
+- **Market** — filter to US, ASX (Australia), or JPX (Japan) stocks only
+- **View** — switch between broad Sector view or detailed Industry view
+""")
+        else:
+            st.markdown("""
+**セクターヒートマップとは？**
+テクノロジー・ヘルスケア・エネルギーなど、各セクターで今日スクリーナーがBUYシグナルを出した銘柄の割合を示します。
+
+**各カードの見方:**
+- **大きな数字（%）** — そのセクターで監視中の全銘柄のうち、今日BUYシグナルが出た割合
+- **BUYシグナル: X / Y** — X銘柄がシグナルを取得、Yはそのセクターの監視銘柄数
+- **色** — 🟢 緑＝「熱い」（シグナル多い）· 🟡 黄＝中程度 · 🔴 赤＝「冷たい」（シグナル少ない）
+- **下のバー** — 同じ割合の視覚的表示
+
+**何を意味するのか？**
+シグナルが多いセクターが必ず利益になるわけではありません。今この瞬間、モメンタム戦略がそのセクターで多くのチャンスを見つけていることを示します。市場の動きがどこに集中しているかを把握するのに役立ちます。
+
+**フィルター:**
+- **マーケット** — 米国・ASX（オーストラリア）・JPX（日本）で絞り込み
+- **表示** — セクター別（広い分類）と業種別（詳細分類）を切り替え
+""")
+
     if df_universe.empty:
         st.info("No screener data available." if lang == "en" else "スクリーナーデータがありません。")
     else:
@@ -4566,10 +4605,39 @@ elif page == "🌡️ Sector Heat Map":
             .reset_index()
             .rename(columns={_group_col: "label"})
         )
-        _sec_stats = _sec_stats[_sec_stats["label"].str.len() > 0]
+        _sec_stats = _sec_stats[
+            (_sec_stats["label"].str.len() > 0) & (_sec_stats["label"] != "Unknown")
+        ]
         _sec_stats["pct"]  = (_sec_stats["buys"] / _sec_stats["total"] * 100).round(1)
         _sec_stats["none"] = _sec_stats["total"] - _sec_stats["buys"]
         _sec_stats = _sec_stats.sort_values("pct", ascending=False)
+
+        # ── colour legend + summary ───────────────────────────────────────────
+        _total_buys  = int(_sec_stats["buys"].sum())
+        _total_all   = int(_sec_stats["total"].sum())
+        _overall_pct = round(_total_buys / _total_all * 100, 1) if _total_all else 0
+        _hottest     = _sec_stats.iloc[0]["label"]  if not _sec_stats.empty else "—"
+        _coldest     = _sec_stats.iloc[-1]["label"] if not _sec_stats.empty else "—"
+        st.markdown(
+            f"<div style='background:#161b22;border:1px solid #30363d;border-radius:8px;"
+            f"padding:10px 16px;font-size:13px;margin-bottom:12px'>"
+            f"<b style='color:#e6edf3'>{'Today' if lang == 'en' else '今日'}</b>: &nbsp;"
+            f"<b style='color:#58a6ff'>{_total_buys}</b> BUY signals across "
+            f"<b>{_total_all}</b> stocks &nbsp;·&nbsp; "
+            f"Overall: <b style='color:#e6edf3'>{_overall_pct}%</b> &nbsp;·&nbsp; "
+            f"🔥 {'Hottest' if lang == 'en' else '最熱'}: <b style='color:#3fb950'>{_hottest}</b> &nbsp;·&nbsp; "
+            f"❄️ {'Coldest' if lang == 'en' else '最冷'}: <b style='color:#f85149'>{_coldest}</b>"
+            f"</div>",
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            "<div style='font-size:11px;color:#8b949e;margin-bottom:10px'>"
+            + ("🟢 ≥60% hot &nbsp; 🟡 40–59% warm &nbsp; 🟠 25–39% cool &nbsp; 🔴 &lt;25% cold"
+               if lang == "en" else
+               "🟢 60%以上 熱い &nbsp; 🟡 40–59% 温かい &nbsp; 🟠 25–39% 冷たい &nbsp; 🔴 25%未満 冷たい")
+            + "</div>",
+            unsafe_allow_html=True,
+        )
 
         # ── colour scale: 0% = red, 50% = yellow, 100% = green ───────────────
         def _heat_color(pct):
@@ -4673,6 +4741,71 @@ elif page == "📜 Closed Trades Log":
         if lang == "en" else
         "全47ランの決済済みペーパートレード一覧。フィルター・並び替え・検索で詳細分析できます。"
     )
+
+    with st.expander("❓ " + ("How to read this page" if lang == "en" else "このページの見方"),
+                     expanded=False):
+        if lang == "en":
+            st.markdown("""
+**What is the Closed Trades Log?**
+Every single paper trade that has *finished* — meaning the position was opened and then closed — is recorded here. This is the raw evidence behind the Track Record page stats.
+
+**How paper trades work:**
+When the screener fires a BUY signal, it records an entry at that day's price. The trade is then closed when one of these happens:
+- **Stop Loss** — the stock fell too far (automatic protection)
+- **Hold Complete** — the 20-day hold period ended normally
+- **Take Profit** — the stock hit a profit target early
+- **Signal Reversal** — the screener changed its view on the stock
+
+**Column guide:**
+| Column | Meaning |
+|---|---|
+| **Run** | Which of the 47 test configurations fired this signal |
+| **Date** | When the trade was closed |
+| **Asset** | The stock ticker (e.g. AAPL, BHP.AX, 7203.T) |
+| **Market** | US / ASX (Australia) / JPX (Japan) |
+| **Strategy** | Which trading strategy fired the signal |
+| **Tier** | A = highest quality signal, D = lowest |
+| **Days** | How long the trade was held |
+| **P&L %** | Profit or loss as a percentage (green = win, red = loss) |
+| **Result** | WIN or LOSS |
+| **Exit** | Why the trade was closed |
+
+**Tips:**
+- Filter by **Strategy** to see which trading strategies work best
+- Filter by **Wins only** to study what successful trades looked like
+- Use the **Download CSV** button to do your own analysis in Excel
+""")
+        else:
+            st.markdown("""
+**取引ログとは？**
+*完了した*すべてのペーパートレード（ポジションを開いて決済したもの）がここに記録されています。トラックレコードページの統計の根拠となるデータです。
+
+**ペーパートレードの仕組み:**
+スクリーナーがBUYシグナルを出すと、その日の価格でエントリーを記録します。以下のいずれかが発生した時に決済されます：
+- **損切り（Stop Loss）** — 株価が下がりすぎた場合（自動保護）
+- **保有完了（Hold Complete）** — 20日間の保有期間が正常終了
+- **利確（Take Profit）** — 早期に利益目標に達した場合
+- **シグナル反転（Signal Reversal）** — スクリーナーが見方を変えた場合
+
+**列の説明:**
+| 列 | 意味 |
+|---|---|
+| **ラン** | 47のテスト設定のどれがシグナルを出したか |
+| **決済日** | 取引が決済された日 |
+| **銘柄** | 株式ティッカー（例: AAPL, BHP.AX, 7203.T） |
+| **市場** | 米国 / ASX（オーストラリア）/ JPX（日本） |
+| **戦略** | どの取引戦略がシグナルを出したか |
+| **ティア** | A＝最高品質シグナル、D＝最低品質 |
+| **日数** | 保有期間 |
+| **損益%** | 損益の割合（緑＝勝ち、赤＝負け） |
+| **結果** | WIN（勝ち）またはLOSS（負け） |
+| **決済理由** | 取引が決済された理由 |
+
+**使い方のコツ:**
+- **戦略**でフィルターして、どの戦略が最も機能しているかを確認
+- **勝ちのみ**でフィルターして、成功した取引のパターンを分析
+- **CSVダウンロード**でExcelでの独自分析も可能
+""")
 
     if df_history.empty:
         st.info("No closed trades yet." if lang == "en" else "まだ決済済み取引がありません。")
