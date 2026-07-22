@@ -1892,15 +1892,18 @@ with st.sidebar:
     _nav_opts = (
         ["🏠 ホーム", "🔍 ポートフォリオ健全性チェック", "🌏 ファンダメンタルランキング",
          "📊 スクリーナーランキング", "📈 株価チャート", "🏆 トラックレコード",
-         "📋 オープンポジション", "ℹ️ 概要と免責事項"]
+         "📋 オープンポジション", "🌡️ セクターヒートマップ", "📜 取引ログ",
+         "ℹ️ 概要と免責事項"]
         if lang == "ja" else
         ["🏠 Home", "🔍 Portfolio Health Check", "🌏 Fundamental Rankings",
          "📊 Screener Rankings", "📈 Stock Chart", "🏆 Track Record",
-         "📋 Open Positions", "ℹ️ About & Disclaimer"]
+         "📋 Open Positions", "🌡️ Sector Heat Map", "📜 Closed Trades Log",
+         "ℹ️ About & Disclaimer"]
     )
     _nav_en = ["🏠 Home", "🔍 Portfolio Health Check", "🌏 Fundamental Rankings",
                "📊 Screener Rankings", "📈 Stock Chart", "🏆 Track Record",
-               "📋 Open Positions", "ℹ️ About & Disclaimer"]
+               "📋 Open Positions", "🌡️ Sector Heat Map", "📜 Closed Trades Log",
+               "ℹ️ About & Disclaimer"]
     _nav_sel = st.radio("nav", _nav_opts, label_visibility="collapsed")
     # always resolve to English key for page routing
     page = _nav_en[_nav_opts.index(_nav_sel)]
@@ -4505,6 +4508,302 @@ elif page == "📋 Open Positions":
                 yaxis=dict(title="Count" if lang == "en" else "件数", gridcolor="#21262d"),
             )
             st.plotly_chart(_hist_fig, use_container_width=True)
+
+    st.markdown("---")
+    st.markdown(f"<div class='disclaimer-box'>{T('disclaimer', lang)}</div>",
+                unsafe_allow_html=True)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  SECTOR HEAT MAP
+# ══════════════════════════════════════════════════════════════════════════════
+elif page == "🌡️ Sector Heat Map":
+    st.markdown("## 🌡️ " + ("Sector Heat Map" if lang == "en" else "セクターヒートマップ"))
+    st.caption(
+        "Which sectors have the most BUY signals today? Colour = signal density (green = hot, red = cold)."
+        if lang == "en" else
+        "今日最もBUYシグナルが多いセクターはどこ？色はシグナル密度（緑＝多い、赤＝少ない）。"
+    )
+
+    if df_universe.empty:
+        st.info("No screener data available." if lang == "en" else "スクリーナーデータがありません。")
+    else:
+        # merge sector from fundamentals cache
+        _fc_raw  = _load_fund_cache_raw()
+        _sec_map = {k: v.get("sector", "") for k, v in _fc_raw.items() if v.get("sector")}
+        _ind_map = {k: v.get("industry", "") for k, v in _fc_raw.items() if v.get("industry")}
+
+        _verdict_col = "P7 Verdict" if "P7 Verdict" in df_universe.columns else "Today's Verdict"
+        _asset_col   = "Asset"      if "Asset"      in df_universe.columns else df_universe.columns[1]
+        _mkt_col     = "Market"     if "Market"     in df_universe.columns else None
+
+        _hm = df_universe.copy()
+        _hm["sector"]   = _hm[_asset_col].map(_sec_map).fillna("Unknown")
+        _hm["industry"] = _hm[_asset_col].map(_ind_map).fillna("")
+        _hm["is_buy"]   = _hm[_verdict_col].astype(str).str.upper().str.contains("TRADE|BUY") & \
+                          ~_hm[_verdict_col].astype(str).str.upper().str.contains("STAND")
+
+        # ── market filter ─────────────────────────────────────────────────────
+        _shm_mkts = ["All"] + (sorted(_hm[_mkt_col].dropna().unique().tolist()) if _mkt_col else [])
+        _shm_col1, _shm_col2, _ = st.columns([1, 1, 3])
+        with _shm_col1:
+            _shm_mkt = st.selectbox("Market" if lang == "en" else "マーケット",
+                                    _shm_mkts, key="shm_mkt")
+        with _shm_col2:
+            _shm_view = st.selectbox("View" if lang == "en" else "表示",
+                                     ["By Sector", "By Industry"] if lang == "en"
+                                     else ["セクター別", "業種別"],
+                                     key="shm_view")
+        _by_industry = "Industry" in _shm_view or "業種" in _shm_view
+
+        _hm_f = _hm if _shm_mkt == "All" else _hm[_hm[_mkt_col] == _shm_mkt]
+        _group_col = "industry" if _by_industry else "sector"
+
+        # ── aggregate ─────────────────────────────────────────────────────────
+        _sec_stats = (
+            _hm_f.groupby(_group_col)
+            .agg(total=(_asset_col, "count"), buys=("is_buy", "sum"))
+            .reset_index()
+            .rename(columns={_group_col: "label"})
+        )
+        _sec_stats = _sec_stats[_sec_stats["label"].str.len() > 0]
+        _sec_stats["pct"]  = (_sec_stats["buys"] / _sec_stats["total"] * 100).round(1)
+        _sec_stats["none"] = _sec_stats["total"] - _sec_stats["buys"]
+        _sec_stats = _sec_stats.sort_values("pct", ascending=False)
+
+        # ── colour scale: 0% = red, 50% = yellow, 100% = green ───────────────
+        def _heat_color(pct):
+            if pct >= 60:  return "#3fb950"
+            if pct >= 40:  return "#56d364"
+            if pct >= 25:  return "#e3b341"
+            if pct >= 10:  return "#d29922"
+            return "#f85149"
+
+        # ── heat map grid ─────────────────────────────────────────────────────
+        _ncols = 3 if not _by_industry else 2
+        _rows  = [_sec_stats.iloc[i:i+_ncols] for i in range(0, len(_sec_stats), _ncols)]
+        for _row_df in _rows:
+            _cols = st.columns(_ncols)
+            for _ci, (_, _s) in enumerate(zip(_cols, _row_df.itertuples())):
+                _clr = _heat_color(_s.pct)
+                _bar_w = max(4, int(_s.pct))
+                _cols[_ci].markdown(
+                    f"<div style='background:#161b22;border:1px solid {_clr};"
+                    f"border-radius:8px;padding:14px 16px;margin-bottom:8px'>"
+                    f"<div style='font-size:13px;font-weight:700;color:#e6edf3;"
+                    f"margin-bottom:6px'>{_s.label}</div>"
+                    f"<div style='font-size:26px;font-weight:800;color:{_clr}'>"
+                    f"{_s.pct:.0f}%</div>"
+                    f"<div style='font-size:11px;color:#8b949e;margin:2px 0 8px'>"
+                    f"{'BUY signals' if lang == 'en' else 'BUYシグナル'}: "
+                    f"<b style='color:{_clr}'>{int(_s.buys)}</b> / {int(_s.total)}</div>"
+                    f"<div style='height:6px;background:#21262d;border-radius:3px'>"
+                    f"<div style='width:{_bar_w}%;height:100%;background:{_clr};"
+                    f"border-radius:3px'></div></div>"
+                    f"</div>",
+                    unsafe_allow_html=True,
+                )
+
+        st.markdown("")
+
+        # ── stacked bar chart ─────────────────────────────────────────────────
+        with st.expander("Signal breakdown chart" if lang == "en" else "シグナル内訳チャート",
+                         expanded=False):
+            _fig_shm = go.Figure()
+            _fig_shm.add_trace(go.Bar(
+                name="BUY" if lang == "en" else "BUY",
+                x=_sec_stats["label"], y=_sec_stats["buys"],
+                marker_color="#3fb950",
+                hovertemplate="%{x}<br>BUY: %{y}<extra></extra>",
+            ))
+            _fig_shm.add_trace(go.Bar(
+                name="No signal" if lang == "en" else "シグナルなし",
+                x=_sec_stats["label"], y=_sec_stats["none"],
+                marker_color="#21262d",
+                hovertemplate="%{x}<br>No signal: %{y}<extra></extra>",
+            ))
+            _fig_shm.update_layout(
+                barmode="stack", height=340,
+                plot_bgcolor="#0d1117", paper_bgcolor="#0d1117",
+                font_color="#e6edf3", font_size=11,
+                margin=dict(l=40, r=20, t=16, b=80),
+                xaxis=dict(gridcolor="#21262d", tickangle=-35),
+                yaxis=dict(gridcolor="#21262d",
+                           title="Stocks" if lang == "en" else "銘柄数"),
+                legend=dict(orientation="h", y=1.08),
+            )
+            st.plotly_chart(_fig_shm, use_container_width=True)
+
+        # ── top picks per sector ──────────────────────────────────────────────
+        _ml_col = "ML Score" if "ML Score" in _hm_f.columns else None
+        if _ml_col:
+            with st.expander("Top pick per sector" if lang == "en" else "セクター別トップ銘柄",
+                             expanded=False):
+                for _, _s in _sec_stats.iterrows():
+                    _sec_df = _hm_f[(_hm_f[_group_col] == _s["label"]) & _hm_f["is_buy"]]
+                    if _sec_df.empty:
+                        continue
+                    _top = _sec_df.sort_values(_ml_col, ascending=False).iloc[0]
+                    _ml  = _top.get(_ml_col, "—")
+                    _ml_s = f"{float(_ml):.0f}%" if pd.notna(_ml) else "—"
+                    _clr = _heat_color(_s["pct"])
+                    st.markdown(
+                        f"<div style='background:#161b22;border-left:4px solid {_clr};"
+                        f"border-radius:4px;padding:7px 12px;margin:3px 0;font-size:13px'>"
+                        f"<b style='color:#e6edf3'>{_s['label']}</b> &nbsp;→&nbsp; "
+                        f"<b style='color:#58a6ff'>{_top[_asset_col]}</b> "
+                        f"<span style='color:#8b949e;font-size:11px'>"
+                        f"ML {_ml_s} · {_top.get('Best Strategy','')}</span>"
+                        f"</div>",
+                        unsafe_allow_html=True,
+                    )
+
+    st.markdown("---")
+    st.markdown(f"<div class='disclaimer-box'>{T('disclaimer', lang)}</div>",
+                unsafe_allow_html=True)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  CLOSED TRADES LOG
+# ══════════════════════════════════════════════════════════════════════════════
+elif page == "📜 Closed Trades Log":
+    st.markdown("## 📜 " + ("Closed Trades Log" if lang == "en" else "取引ログ"))
+    st.caption(
+        "Every completed paper trade across all 47 runs. Filter, sort, and search to dig into performance."
+        if lang == "en" else
+        "全47ランの決済済みペーパートレード一覧。フィルター・並び替え・検索で詳細分析できます。"
+    )
+
+    if df_history.empty:
+        st.info("No closed trades yet." if lang == "en" else "まだ決済済み取引がありません。")
+    else:
+        # ── summary strip ─────────────────────────────────────────────────────
+        _cl_n    = len(df_history)
+        _cl_wins = int(df_history["win"].sum())
+        _cl_wr   = _cl_wins / _cl_n * 100
+        _cl_avg  = df_history["pnl_pct"].mean()
+        _cl_best = df_history["pnl_pct"].max()
+        _cl_worst= df_history["pnl_pct"].min()
+
+        _cl_cols = st.columns(6)
+        for _col, _lbl, _val, _clr in [
+            (_cl_cols[0], "Total Trades"    if lang == "en" else "総取引数",    str(_cl_n),               "#e6edf3"),
+            (_cl_cols[1], "Win Rate"        if lang == "en" else "勝率",         f"{_cl_wr:.1f}%",         "#3fb950" if _cl_wr >= 50 else "#f85149"),
+            (_cl_cols[2], "Avg P&L"         if lang == "en" else "平均損益",     f"{_cl_avg:+.2f}%",       "#3fb950" if _cl_avg >= 0 else "#f85149"),
+            (_cl_cols[3], "Best Trade"      if lang == "en" else "最高取引",     f"+{_cl_best:.2f}%",      "#3fb950"),
+            (_cl_cols[4], "Worst Trade"     if lang == "en" else "最悪取引",     f"{_cl_worst:.2f}%",      "#f85149"),
+            (_cl_cols[5], "Runs with Data"  if lang == "en" else "データあるラン", str(df_history["run"].nunique()), "#e6edf3"),
+        ]:
+            _col.markdown(
+                f"<div class='metric-card'><div class='label'>{_lbl}</div>"
+                f"<div class='value' style='color:{_clr}'>{_val}</div></div>",
+                unsafe_allow_html=True,
+            )
+
+        st.markdown("")
+
+        # ── filters ───────────────────────────────────────────────────────────
+        _fl1, _fl2, _fl3, _fl4 = st.columns([1, 1, 1, 1.5])
+        with _fl1:
+            _cl_mkts = ["All"] + sorted(df_history["market"].dropna().unique().tolist())
+            _cl_mkt  = st.selectbox("Market"   if lang == "en" else "マーケット", _cl_mkts, key="cl_mkt")
+        with _fl2:
+            _cl_strats = ["All"] + sorted(df_history["strategy"].dropna().unique().tolist())
+            _cl_strat  = st.selectbox("Strategy" if lang == "en" else "戦略",    _cl_strats, key="cl_strat")
+        with _fl3:
+            _cl_exits = ["All"] + sorted(df_history["exit_reason"].dropna().unique().tolist())
+            _cl_exit  = st.selectbox("Exit reason" if lang == "en" else "決済理由", _cl_exits, key="cl_exit")
+        with _fl4:
+            _cl_runs_opts = ["All Runs"] + [f"Run {r}" for r in sorted(df_history["run"].unique())]
+            _cl_run_sel   = st.selectbox("Run" if lang == "en" else "ラン", _cl_runs_opts, key="cl_run")
+
+        _fl5, _fl6, _ = st.columns([1, 1, 3])
+        with _fl5:
+            _cl_result = st.selectbox(
+                "Result" if lang == "en" else "結果",
+                ["All", "Wins only", "Losses only"] if lang == "en"
+                else ["全て", "勝ちのみ", "負けのみ"],
+                key="cl_result"
+            )
+        with _fl6:
+            _cl_search = st.text_input("Search ticker" if lang == "en" else "銘柄検索",
+                                       placeholder="e.g. AAPL", key="cl_search")
+
+        # apply filters
+        _cd = df_history.copy()
+        if _cl_mkt   != "All":               _cd = _cd[_cd["market"]   == _cl_mkt]
+        if _cl_strat != "All":               _cd = _cd[_cd["strategy"] == _cl_strat]
+        if _cl_exit  != "All":               _cd = _cd[_cd["exit_reason"] == _cl_exit]
+        if _cl_run_sel != "All Runs":        _cd = _cd[_cd["run"] == int(_cl_run_sel.split()[1])]
+        if _cl_result in ("Wins only",  "勝ちのみ"): _cd = _cd[_cd["win"] == True]
+        if _cl_result in ("Losses only","負けのみ"): _cd = _cd[_cd["win"] == False]
+        if _cl_search.strip():
+            _cd = _cd[_cd["asset"].str.upper().str.contains(_cl_search.strip().upper(), na=False)]
+
+        st.caption(f"{'Showing' if lang == 'en' else '表示中'}: {len(_cd):,} / {_cl_n:,} {'trades' if lang == 'en' else '取引'}")
+
+        # ── filtered stats ────────────────────────────────────────────────────
+        if len(_cd) > 0 and len(_cd) < _cl_n:
+            _flt_wr  = _cd["win"].sum() / len(_cd) * 100
+            _flt_avg = _cd["pnl_pct"].mean()
+            _flt_clr = "#3fb950" if _flt_avg >= 0 else "#f85149"
+            st.markdown(
+                f"<div style='background:#161b22;border:1px solid #30363d;"
+                f"border-radius:6px;padding:8px 14px;font-size:13px;margin-bottom:8px'>"
+                f"{'Filtered result' if lang == 'en' else 'フィルター結果'}: &nbsp;"
+                f"WR <b style='color:#e6edf3'>{_flt_wr:.1f}%</b> &nbsp;·&nbsp; "
+                f"Avg P&L <b style='color:{_flt_clr}'>{_flt_avg:+.2f}%</b>"
+                f"</div>",
+                unsafe_allow_html=True,
+            )
+
+        # ── table ─────────────────────────────────────────────────────────────
+        _cd_display = _cd.sort_values("exit_date", ascending=False).copy()
+        _tbl = pd.DataFrame({
+            "Run"         if lang == "en" else "ラン":       _cd_display["run"].apply(lambda x: f"R{int(x)}"),
+            "Date"        if lang == "en" else "決済日":      _cd_display["exit_date"],
+            "Asset"       if lang == "en" else "銘柄":        _cd_display["asset"],
+            "Market"      if lang == "en" else "市場":        _cd_display["market"],
+            "Strategy"    if lang == "en" else "戦略":        _cd_display["strategy"],
+            "Tier"        if lang == "en" else "ティア":      _cd_display["tier"],
+            "Days"        if lang == "en" else "日数":        _cd_display["days_held"].astype(int),
+            "P&L %"       if lang == "en" else "損益%":       _cd_display["pnl_pct"].round(2),
+            "Result"      if lang == "en" else "結果":        _cd_display["win"].map({True: "WIN", False: "LOSS"}),
+            "Exit"        if lang == "en" else "決済理由":    _cd_display["exit_reason"].str.replace("_", " ").str.title(),
+        })
+
+        _pnl_col_name = "P&L %" if lang == "en" else "損益%"
+        _res_col_name = "Result" if lang == "en" else "結果"
+
+        def _cl_pnl_color(v):
+            if not isinstance(v, (int, float)): return ""
+            return "color:#3fb950;font-weight:bold" if v > 0 else "color:#f85149;font-weight:bold"
+
+        def _cl_res_color(v):
+            if v == "WIN":  return "color:#3fb950;font-weight:bold"
+            if v == "LOSS": return "color:#f85149"
+            return ""
+
+        st.dataframe(
+            _tbl.style
+                .map(_cl_pnl_color, subset=[_pnl_col_name])
+                .map(_cl_res_color, subset=[_res_col_name])
+                .format({_pnl_col_name: "{:+.2f}%"}),
+            use_container_width=True, hide_index=True, height=520,
+        )
+
+        # ── download button ───────────────────────────────────────────────────
+        _csv = _cd_display[[
+            "run","exit_date","asset","market","strategy","tier",
+            "days_held","pnl_pct","win","exit_reason","entry_date","ml_score"
+        ]].to_csv(index=False).encode("utf-8")
+        st.download_button(
+            label="⬇️ Download CSV" if lang == "en" else "⬇️ CSV ダウンロード",
+            data=_csv,
+            file_name="goofy_screener_trades.csv",
+            mime="text/csv",
+            key="cl_download",
+        )
 
     st.markdown("---")
     st.markdown(f"<div class='disclaimer-box'>{T('disclaimer', lang)}</div>",
