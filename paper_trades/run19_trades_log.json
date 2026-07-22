@@ -192,10 +192,10 @@
       "peak_pnl_pct": 5.951
     },
     {
-      "asset": "AMC.AX",
-      "market": "ASX",
-      "entry_date": "2026-07-21",
-      "entry_price": 61.68,
+      "asset": "7733.T",
+      "market": "JPX",
+      "entry_date": "2026-07-22",
+      "entry_price": 1726.0,
       "hold_days_target": 20,
       "size_pct": 12.7,
       "ml_score": 85.3,

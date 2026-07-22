@@ -1048,12 +1048,12 @@
     {
       "asset": "4188.T",
       "market": "JPX",
-      "entry_date": "2026-07-21",
-      "entry_price": 1197.5,
+      "entry_date": "2026-07-22",
+      "entry_price": 1195.5,
       "hold_days_target": 20,
       "size_pct": 3.5,
-      "ml_score": 77.8,
-      "val_auc": 0.57,
+      "ml_score": 80.0,
+      "val_auc": 0.571,
       "strategy": "Relative Strength",
       "tier": "A",
       "score": 48,
@@ -1402,6 +1402,31 @@
       "peak_pnl_pct": 0.0,
       "win": false,
       "exit_reason": "STOP_LOSS"
+    },
+    {
+      "asset": "S32.AX",
+      "market": "ASX",
+      "entry_date": "2026-07-07",
+      "entry_price": 4.035,
+      "hold_days_target": 20,
+      "size_pct": 6.5,
+      "ml_score": 81.5,
+      "val_auc": 0.481,
+      "strategy": "RSI Divergence",
+      "tier": "B",
+      "score": 39,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 0.372
+      },
+      "exit_date": "2026-07-22",
+      "exit_price": 4.55,
+      "days_held": 11,
+      "pnl_pct": 12.763,
+      "peak_pnl_pct": 12.763,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
     },
     {
       "asset": "7203.T",

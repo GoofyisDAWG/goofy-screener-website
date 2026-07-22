@@ -789,11 +789,11 @@
       "checkpoints": {
         "10": 3.448
       },
-      "exit_date": "2026-07-21",
-      "exit_price": 151.8,
-      "days_held": 14,
-      "pnl_pct": 4.69,
-      "peak_pnl_pct": 5.241,
+      "exit_date": "2026-07-22",
+      "exit_price": 152.0,
+      "days_held": 15,
+      "pnl_pct": 4.828,
+      "peak_pnl_pct": 5.172,
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
