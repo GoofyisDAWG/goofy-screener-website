@@ -145,9 +145,9 @@
       "current_ratio": 1
     },
     "is_etf": false,
-    "fetched_at": "2026-07-21T14:22:00.658555",
-    "pe": 20.61309,
-    "forward_pe": 5.79215,
+    "fetched_at": "2026-07-21T23:41:01.494137",
+    "pe": 20.65694,
+    "forward_pe": 5.8044715,
     "revenue_growth": 0.101,
     "debt_equity": 19.79,
     "free_cashflow": 112187752448,
@@ -156,9 +156,9 @@
     "analyst_label": "hold",
     "return_on_equity": 0.033069998,
     "current_ratio": 2.207,
-    "dividend_yield": 4.58,
+    "dividend_yield": 4.48,
     "beta": 0.063,
-    "price_to_book": 0.66527665,
+    "price_to_book": 0.6666919,
     "earnings_growth": -0.616,
     "trailing_eps": 125.43,
     "gross_margins": 0.15036,
@@ -166,7 +166,7 @@
     "company_name": "Subaru Corporation",
     "sector": "Consumer Cyclical",
     "industry": "Auto Manufacturers",
-    "market_cap": 1821680467968,
+    "market_cap": 1825555611648,
     "currency": "JPY"
   },
   "AAPL": {
