@@ -52,13 +52,11 @@
       "tier": "B",
       "score": 30,
       "p7_verdict": "TRADE",
-      "checkpoints": {
-        "4": 3.746
-      },
-      "current_price": 23.4,
-      "unrealised_pnl_pct": 3.746,
-      "days_held": 4,
-      "peak_pnl_pct": 3.835
+      "checkpoints": {},
+      "current_price": 23.43,
+      "unrealised_pnl_pct": 3.879,
+      "days_held": 5,
+      "peak_pnl_pct": 3.879
     },
     {
       "asset": "AMC.AX",
@@ -73,12 +71,10 @@
       "tier": "A",
       "score": 54,
       "p7_verdict": "TRADE",
-      "checkpoints": {
-        "4": -2.028
-      },
-      "current_price": 60.86,
-      "unrealised_pnl_pct": -2.028,
-      "days_held": 4,
+      "checkpoints": {},
+      "current_price": 61.31,
+      "unrealised_pnl_pct": -1.304,
+      "days_held": 5,
       "peak_pnl_pct": 2.672
     },
     {
@@ -94,21 +90,23 @@
       "tier": "A",
       "score": 44,
       "p7_verdict": "TRADE",
-      "checkpoints": {},
+      "checkpoints": {
+        "4": 3.88
+      },
       "current_price": 379.12,
       "unrealised_pnl_pct": 3.88,
-      "days_held": 3,
+      "days_held": 4,
       "peak_pnl_pct": 3.88
     },
     {
       "asset": "7733.T",
       "market": "JPX",
-      "entry_date": "2026-07-22",
-      "entry_price": 1726.0,
+      "entry_date": "2026-07-23",
+      "entry_price": 1723.0,
       "hold_days_target": 20,
-      "size_pct": 12.4,
-      "ml_score": 92.4,
-      "val_auc": 0.483,
+      "size_pct": 12.6,
+      "ml_score": 95.2,
+      "val_auc": 0.484,
       "strategy": "RSI",
       "tier": "B",
       "score": 59,
@@ -117,12 +115,12 @@
     {
       "asset": "4452.T",
       "market": "JPX",
-      "entry_date": "2026-07-22",
-      "entry_price": 3230.0,
+      "entry_date": "2026-07-23",
+      "entry_price": 3224.0,
       "hold_days_target": 20,
       "size_pct": 1.1,
-      "ml_score": 79.1,
-      "val_auc": 0.518,
+      "ml_score": 80.9,
+      "val_auc": 0.517,
       "strategy": "Mean Reversion",
       "tier": "B",
       "score": 28,

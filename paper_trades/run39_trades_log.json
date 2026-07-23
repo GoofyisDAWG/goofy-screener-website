@@ -56,7 +56,7 @@
       "checkpoints": {},
       "current_price": 325.89,
       "unrealised_pnl_pct": -2.352,
-      "days_held": 2,
+      "days_held": 3,
       "peak_pnl_pct": 0.0
     },
     {
@@ -75,7 +75,7 @@
       "checkpoints": {},
       "current_price": 396.81,
       "unrealised_pnl_pct": 7.006,
-      "days_held": 2,
+      "days_held": 3,
       "peak_pnl_pct": 7.006
     },
     {
@@ -94,7 +94,7 @@
       "checkpoints": {},
       "current_price": 61.62,
       "unrealised_pnl_pct": 0.571,
-      "days_held": 2,
+      "days_held": 3,
       "peak_pnl_pct": 0.571
     },
     {
@@ -113,7 +113,7 @@
       "checkpoints": {},
       "current_price": 747.41,
       "unrealised_pnl_pct": 0.554,
-      "days_held": 2,
+      "days_held": 3,
       "peak_pnl_pct": 0.554
     },
     {
@@ -130,15 +130,15 @@
       "score": 49,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 35.73,
-      "unrealised_pnl_pct": -1.271,
-      "days_held": 2,
+      "current_price": 35.96,
+      "unrealised_pnl_pct": -0.636,
+      "days_held": 3,
       "peak_pnl_pct": 0.055
     },
     {
       "asset": "DIA",
       "market": "US",
-      "entry_date": "2026-07-22",
+      "entry_date": "2026-07-23",
       "entry_price": 521.47,
       "hold_days_target": 20,
       "size_pct": 3.3,
@@ -152,7 +152,7 @@
     {
       "asset": "XLE",
       "market": "US",
-      "entry_date": "2026-07-22",
+      "entry_date": "2026-07-23",
       "entry_price": 59.2,
       "hold_days_target": 20,
       "size_pct": 3.1,
