@@ -3579,8 +3579,13 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                                "#39d353","#ff7b72","#79c0ff","#ffa657","#d2a8ff"]
                 _runs_by_trades = (df_history.groupby("run").size()
                                    .sort_values(ascending=False).head(10).index.tolist())
+                # top run by avg P&L (from leaderboard already computed above)
+                _top_run = int(_lb_df.iloc[0]["run"]) if (_lb_rows and not _lb_df.empty) else None
                 _shown = 0
-                for _ri, _r in enumerate(_runs_by_trades):
+                # draw non-top runs first so gold line sits on top
+                _ordered = ([r for r in _runs_by_trades if r != _top_run] +
+                            ([_top_run] if _top_run in _runs_by_trades else []))
+                for _r in _ordered:
                     _rdf = (df_history[df_history["run"] == _r]
                             .dropna(subset=["exit_date"]).copy())
                     _rdf["exit_date"] = pd.to_datetime(_rdf["exit_date"], errors="coerce")
@@ -3588,14 +3593,32 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                     if len(_rdf) < 3:
                         continue
                     _rdf["cum"] = _rdf["pnl_pct"].cumsum()
-                    _clr = _mr_colors[_shown % len(_mr_colors)]
+                    _is_top = (_r == _top_run)
+                    _clr  = "#ffd700" if _is_top else _mr_colors[_shown % len(_mr_colors)]
+                    _wdth = 3.5 if _is_top else 1.4
+                    _name = f"🥇 R{_r} (Top)" if _is_top else f"R{_r}"
                     _mr_fig.add_trace(go.Scatter(
                         x=_rdf["exit_date"], y=_rdf["cum"],
-                        mode="lines", name=f"R{_r}",
-                        line=dict(color=_clr, width=1.8),
-                        hovertemplate=f"R{_r}: %{{y:+.1f}}%<extra></extra>",
+                        mode="lines", name=_name,
+                        line=dict(color=_clr, width=_wdth),
+                        opacity=1.0 if _is_top else 0.55,
+                        hovertemplate=(f"🥇 R{_r} (Top): %{{y:+.1f}}%<extra></extra>"
+                                       if _is_top else
+                                       f"R{_r}: %{{y:+.1f}}%<extra></extra>"),
                     ))
-                    _shown += 1
+                    if not _is_top:
+                        _shown += 1
+                    # annotate the end of the top run line
+                    if _is_top and not _rdf.empty:
+                        _mr_fig.add_annotation(
+                            x=_rdf["exit_date"].iloc[-1],
+                            y=_rdf["cum"].iloc[-1],
+                            text=f"🥇 R{_r}",
+                            showarrow=True, arrowhead=2, arrowcolor="#ffd700",
+                            font=dict(color="#ffd700", size=11, family="Arial Black"),
+                            bgcolor="#0d1117", bordercolor="#ffd700",
+                            xanchor="left", ax=20, ay=-20,
+                        )
                 _mr_fig.add_hline(y=0, line_dash="dash", line_color="#8b949e", opacity=0.4)
                 _mr_fig.update_layout(
                     height=340, plot_bgcolor="#0d1117", paper_bgcolor="#0d1117",
