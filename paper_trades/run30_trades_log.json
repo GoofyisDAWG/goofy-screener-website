@@ -3,7 +3,7 @@
     "run": 30,
     "label": "Phase 10C: Full Combo \u2014 Proven Trio + All Phase 10 Filters (Run 30)",
     "created": "2026-07-18",
-    "total_logged": 3,
+    "total_logged": 4,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
@@ -59,17 +59,31 @@
       "peak_pnl_pct": 1.297
     },
     {
+      "asset": "JPM",
+      "market": "US",
+      "entry_date": "2026-07-24",
+      "entry_price": 353.21,
+      "hold_days_target": 20,
+      "size_pct": 4.0,
+      "ml_score": 81.6,
+      "val_auc": 0.544,
+      "strategy": "MA Crossover",
+      "tier": "A",
+      "score": 66,
+      "p7_verdict": "TRADE"
+    },
+    {
       "asset": "AMC.AX",
       "market": "ASX",
       "entry_date": "2026-07-24",
       "entry_price": 61.15,
       "hold_days_target": 20,
-      "size_pct": 12.8,
-      "ml_score": 88.5,
-      "val_auc": 0.493,
+      "size_pct": 13.9,
+      "ml_score": 89.1,
+      "val_auc": 0.494,
       "strategy": "RSI",
       "tier": "A",
-      "score": 49,
+      "score": 54,
       "p7_verdict": "TRADE"
     }
   ],
@@ -89,10 +103,10 @@
       "p7_verdict": "TRADE",
       "checkpoints": {},
       "exit_date": "2026-07-24",
-      "exit_price": 371.52,
+      "exit_price": 371.9,
       "days_held": 5,
-      "pnl_pct": 1.797,
-      "peak_pnl_pct": 1.797,
+      "pnl_pct": 1.902,
+      "peak_pnl_pct": 1.902,
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
