@@ -3575,23 +3575,47 @@ The leaderboard above updates automatically — the top 3 are the runs producing
             st.caption(_mr_sub)
             if not df_history.empty:
                 _mr_fig = go.Figure()
-                _mr_colors = ["#58a6ff","#3fb950","#f0883e","#bc8cff","#e3b341",
-                               "#39d353","#ff7b72","#79c0ff","#ffa657","#d2a8ff"]
-                _runs_by_trades = (df_history.groupby("run").size()
-                                   .sort_values(ascending=False).head(10).index.tolist())
-                # compute top run by avg P&L directly (min 5 trades)
+
+                # ── rank all runs by avg P&L (min 5 trades) ───────────────────
                 _ec_avgs = (df_history.groupby("run")["pnl_pct"]
                             .agg(["mean", "count"]).query("count >= 5")
                             .sort_values("mean", ascending=False))
-                _top_run = int(_ec_avgs.index[0]) if not _ec_avgs.empty else None
-                # always include the top run even if it's outside the top-10-by-trades
+                _top4_runs = [int(r) for r in _ec_avgs.index[:4]] if not _ec_avgs.empty else []
+
+                # ── 2 potential runs: best recent momentum, not already in top 4 ──
+                _pot_scores = []
+                for _pr in _ec_avgs.index:
+                    if int(_pr) in _top4_runs:
+                        continue
+                    _prd = (df_history[df_history["run"] == _pr]
+                            .dropna(subset=["exit_date"]).copy())
+                    _prd["exit_date"] = pd.to_datetime(_prd["exit_date"], errors="coerce")
+                    _prd = _prd.dropna(subset=["exit_date"]).sort_values("exit_date")
+                    if len(_prd) < 5:
+                        continue
+                    _mom = _prd.tail(10)["pnl_pct"].mean() - _prd["pnl_pct"].mean()
+                    _pot_scores.append((int(_pr), _mom))
+                _pot_runs = [r for r, _ in sorted(_pot_scores, key=lambda x: -x[1])[:2]]
+
+                # top-4 medal colours: gold / silver / bronze / steel-blue
+                _medal_clr  = ["#ffd700", "#c0c0c0", "#cd7f32", "#58a6ff"]
+                _medal_lbl  = ["🥇", "🥈", "🥉", "4️⃣"]
+                _medal_wdth = [3.8, 3.2, 2.8, 2.5]
+                _pot_clr    = "#e3b341"   # amber for potential runs
+
+                # build all runs to plot: top-10-by-trades + top4 + potential (no dupes)
+                _runs_by_trades = (df_history.groupby("run").size()
+                                   .sort_values(ascending=False).head(10).index.tolist())
+                _must_include = _top4_runs + _pot_runs
                 _runs_to_plot = list(_runs_by_trades)
-                if _top_run is not None and _top_run not in _runs_to_plot:
-                    _runs_to_plot.append(_top_run)
-                _shown = 0
-                # draw non-top runs first so gold line renders on top
-                _ordered = ([r for r in _runs_to_plot if r != _top_run] +
-                            ([_top_run] if _top_run is not None else []))
+                for _ri in _must_include:
+                    if _ri not in _runs_to_plot:
+                        _runs_to_plot.append(_ri)
+
+                # draw order: background (grey) first, then potential, then top 4 on top
+                _bg_runs  = [r for r in _runs_to_plot if r not in _top4_runs and r not in _pot_runs]
+                _ordered  = _bg_runs + _pot_runs + list(reversed(_top4_runs))
+
                 for _r in _ordered:
                     _rdf = (df_history[df_history["run"] == _r]
                             .dropna(subset=["exit_date"]).copy())
@@ -3600,32 +3624,51 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                     if len(_rdf) < 3:
                         continue
                     _rdf["cum"] = _rdf["pnl_pct"].cumsum()
-                    _is_top = (_r == _top_run)
-                    _clr  = "#ffd700" if _is_top else _mr_colors[_shown % len(_mr_colors)]
-                    _wdth = 3.5 if _is_top else 1.4
-                    _name = f"🥇 R{_r} (Top)" if _is_top else f"R{_r}"
+
+                    if _r in _top4_runs:
+                        _rank  = _top4_runs.index(_r)
+                        _clr   = _medal_clr[_rank]
+                        _wdth  = _medal_wdth[_rank]
+                        _opac  = 1.0
+                        _name  = f"{_medal_lbl[_rank]} R{_r}"
+                        _hover = f"{_medal_lbl[_rank]} R{_r}: %{{y:+.1f}}%<extra></extra>"
+                    elif _r in _pot_runs:
+                        _clr   = _pot_clr
+                        _wdth  = 2.2
+                        _opac  = 0.9
+                        _name  = f"⚡ R{_r} (Potential)"
+                        _hover = f"⚡ R{_r} (Potential): %{{y:+.1f}}%<extra></extra>"
+                    else:
+                        _clr   = "#484f58"
+                        _wdth  = 1.0
+                        _opac  = 0.3
+                        _name  = f"R{_r}"
+                        _hover = f"R{_r}: %{{y:+.1f}}%<extra></extra>"
+
                     _mr_fig.add_trace(go.Scatter(
                         x=_rdf["exit_date"], y=_rdf["cum"],
                         mode="lines", name=_name,
                         line=dict(color=_clr, width=_wdth),
-                        opacity=1.0 if _is_top else 0.55,
-                        hovertemplate=(f"🥇 R{_r} (Top): %{{y:+.1f}}%<extra></extra>"
-                                       if _is_top else
-                                       f"R{_r}: %{{y:+.1f}}%<extra></extra>"),
+                        opacity=_opac,
+                        hovertemplate=_hover,
                     ))
-                    if not _is_top:
-                        _shown += 1
-                    # annotate the end of the top run line
-                    if _is_top and not _rdf.empty:
+
+                    # end-of-line annotation for top 4 and potential runs
+                    if (_r in _top4_runs or _r in _pot_runs) and not _rdf.empty:
+                        _rank  = _top4_runs.index(_r) if _r in _top4_runs else None
+                        _albl  = (f"{_medal_lbl[_rank]} R{_r}" if _rank is not None
+                                  else f"⚡ R{_r}")
+                        _aclr  = (_medal_clr[_rank] if _rank is not None else _pot_clr)
                         _mr_fig.add_annotation(
                             x=_rdf["exit_date"].iloc[-1],
                             y=_rdf["cum"].iloc[-1],
-                            text=f"🥇 R{_r}",
-                            showarrow=True, arrowhead=2, arrowcolor="#ffd700",
-                            font=dict(color="#ffd700", size=11, family="Arial Black"),
-                            bgcolor="#0d1117", bordercolor="#ffd700",
-                            xanchor="left", ax=20, ay=-20,
+                            text=_albl,
+                            showarrow=True, arrowhead=2, arrowcolor=_aclr,
+                            font=dict(color=_aclr, size=10),
+                            bgcolor="#0d1117", bordercolor=_aclr,
+                            xanchor="left", ax=18, ay=(-20 if _r in _top4_runs else 20),
                         )
+
                 _mr_fig.add_hline(y=0, line_dash="dash", line_color="#8b949e", opacity=0.4)
                 _mr_fig.update_layout(
                     height=340, plot_bgcolor="#0d1117", paper_bgcolor="#0d1117",
