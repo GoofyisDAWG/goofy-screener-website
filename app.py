@@ -3482,6 +3482,60 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                 )
             st.markdown("")
 
+            # ── Ones to Watch: 2 non-top-3 runs with strongest recent improvement ──
+            _remaining = _lb_df.iloc[3:].copy()
+            if not _remaining.empty:
+                _watch_scores = []
+                for _, _wrow in _remaining.iterrows():
+                    _w_rdf = (df_history[df_history["run"] == _wrow["run"]]
+                              .dropna(subset=["exit_date"]).copy())
+                    _w_rdf["exit_date"] = pd.to_datetime(_w_rdf["exit_date"], errors="coerce")
+                    _w_rdf = _w_rdf.dropna(subset=["exit_date"]).sort_values("exit_date")
+                    if len(_w_rdf) < 5:
+                        continue
+                    _recent_avg = _w_rdf.tail(10)["pnl_pct"].mean()
+                    _momentum   = _recent_avg - _wrow["avg_pnl"]
+                    _watch_scores.append({**_wrow.to_dict(),
+                                          "recent_avg": _recent_avg,
+                                          "momentum": _momentum})
+                if _watch_scores:
+                    _watch_df   = pd.DataFrame(_watch_scores).sort_values("momentum", ascending=False)
+                    _watch_top2 = _watch_df.head(2)
+                    _watch_lbl  = "🔭 Ones to Watch" if lang == "en" else "🔭 注目ラン"
+                    _watch_cap  = ("Underperforming runs that show the strongest recent improvement — "
+                                   "last 10 trades trending better than their overall average."
+                                   if lang == "en" else
+                                   "直近10件が全体平均を上回っている、改善傾向のあるラン。")
+                    st.markdown(f"**{_watch_lbl}**")
+                    st.caption(_watch_cap)
+                    _watch_cols  = st.columns(2)
+                    _watch_icons = ["⚡", "🌱"]
+                    for _wi, (_wcol, (_, _wr)) in enumerate(zip(_watch_cols, _watch_top2.iterrows())):
+                        _wc   = "#e3b341"
+                        _wpfs = f"{_wr['profit_factor']:.2f}" if not np.isinf(_wr["profit_factor"]) else "∞"
+                        _wsos = f"{_wr['sortino']:.2f}" if not np.isnan(_wr["sortino"]) else "—"
+                        _mmc  = "#3fb950" if _wr["momentum"] > 0 else "#f85149"
+                        _wcol.markdown(
+                            f"<div style='background:#161b22;border:1px solid {_wc};"
+                            f"border-radius:10px;padding:14px 12px;text-align:center'>"
+                            f"<div style='font-size:20px'>{_watch_icons[_wi]}</div>"
+                            f"<div style='font-size:15px;font-weight:bold;color:{_wc}'>"
+                            f"R{int(_wr['run'])}</div>"
+                            f"<div style='font-size:11px;color:#8b949e;margin:4px 0 6px'>"
+                            f"{str(_wr['label'])[:42]}{'…' if len(str(_wr['label'])) > 42 else ''}</div>"
+                            f"<div style='font-size:16px;font-weight:800;color:#f85149'>"
+                            f"{_wr['avg_pnl']:+.2f}%</div>"
+                            f"<div style='font-size:11px;color:#8b949e'>avg P&L · {_wr['trades']} trades</div>"
+                            f"<div style='font-size:12px;color:{_mmc};margin-top:6px;font-weight:bold'>"
+                            f"Recent trend: {_wr['momentum']:+.2f}%</div>"
+                            f"<div style='font-size:10px;color:#8b949e'>vs overall avg (last 10 trades)</div>"
+                            f"<div style='font-size:11px;color:#8b949e;margin-top:4px'>"
+                            f"WR {_wr['win_rate']:.0f}% · PF {_wpfs} · Sortino {_wsos}</div>"
+                            f"</div>",
+                            unsafe_allow_html=True,
+                        )
+                    st.markdown("")
+
             # full leaderboard table
             _lb_label = "All Runs — sorted by Avg P&L" if lang == "en" else "全ラン — 平均損益順"
             with st.expander(_lb_label, expanded=False):
