@@ -3579,12 +3579,19 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                                "#39d353","#ff7b72","#79c0ff","#ffa657","#d2a8ff"]
                 _runs_by_trades = (df_history.groupby("run").size()
                                    .sort_values(ascending=False).head(10).index.tolist())
-                # top run by avg P&L (from leaderboard already computed above)
-                _top_run = int(_lb_df.iloc[0]["run"]) if (_lb_rows and not _lb_df.empty) else None
+                # compute top run by avg P&L directly (min 5 trades)
+                _ec_avgs = (df_history.groupby("run")["pnl_pct"]
+                            .agg(["mean", "count"]).query("count >= 5")
+                            .sort_values("mean", ascending=False))
+                _top_run = int(_ec_avgs.index[0]) if not _ec_avgs.empty else None
+                # always include the top run even if it's outside the top-10-by-trades
+                _runs_to_plot = list(_runs_by_trades)
+                if _top_run is not None and _top_run not in _runs_to_plot:
+                    _runs_to_plot.append(_top_run)
                 _shown = 0
-                # draw non-top runs first so gold line sits on top
-                _ordered = ([r for r in _runs_by_trades if r != _top_run] +
-                            ([_top_run] if _top_run in _runs_by_trades else []))
+                # draw non-top runs first so gold line renders on top
+                _ordered = ([r for r in _runs_to_plot if r != _top_run] +
+                            ([_top_run] if _top_run is not None else []))
                 for _r in _ordered:
                     _rdf = (df_history[df_history["run"] == _r]
                             .dropna(subset=["exit_date"]).copy())
