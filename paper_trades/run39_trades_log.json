@@ -53,10 +53,12 @@
       "tier": "A",
       "score": 68,
       "p7_verdict": "TRADE",
-      "checkpoints": {},
+      "checkpoints": {
+        "4": -3.62
+      },
       "current_price": 321.66,
       "unrealised_pnl_pct": -3.62,
-      "days_held": 3,
+      "days_held": 4,
       "peak_pnl_pct": 0.0
     },
     {
@@ -72,10 +74,12 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "checkpoints": {},
+      "checkpoints": {
+        "4": 5.836
+      },
       "current_price": 392.47,
       "unrealised_pnl_pct": 5.836,
-      "days_held": 3,
+      "days_held": 4,
       "peak_pnl_pct": 5.836
     },
     {
@@ -91,10 +95,12 @@
       "tier": "B",
       "score": 68,
       "p7_verdict": "TRADE",
-      "checkpoints": {},
+      "checkpoints": {
+        "4": 0.016
+      },
       "current_price": 61.28,
       "unrealised_pnl_pct": 0.016,
-      "days_held": 3,
+      "days_held": 4,
       "peak_pnl_pct": 0.016
     },
     {
@@ -110,10 +116,12 @@
       "tier": "A",
       "score": 45,
       "p7_verdict": "TRADE",
-      "checkpoints": {},
+      "checkpoints": {
+        "4": -0.687
+      },
       "current_price": 738.18,
       "unrealised_pnl_pct": -0.687,
-      "days_held": 3,
+      "days_held": 4,
       "peak_pnl_pct": 0.0
     },
     {
@@ -129,16 +137,18 @@
       "tier": "A",
       "score": 49,
       "p7_verdict": "TRADE",
-      "checkpoints": {},
-      "current_price": 35.96,
-      "unrealised_pnl_pct": -0.636,
-      "days_held": 3,
-      "peak_pnl_pct": 0.055
+      "checkpoints": {
+        "4": 0.774
+      },
+      "current_price": 36.47,
+      "unrealised_pnl_pct": 0.774,
+      "days_held": 4,
+      "peak_pnl_pct": 0.774
     },
     {
       "asset": "DIA",
       "market": "US",
-      "entry_date": "2026-07-23",
+      "entry_date": "2026-07-24",
       "entry_price": 516.26,
       "hold_days_target": 20,
       "size_pct": 3.0,
@@ -152,11 +162,11 @@
     {
       "asset": "XLE",
       "market": "US",
-      "entry_date": "2026-07-23",
+      "entry_date": "2026-07-24",
       "entry_price": 59.38,
       "hold_days_target": 20,
       "size_pct": 3.1,
-      "ml_score": 64.9,
+      "ml_score": 66.1,
       "val_auc": 0.501,
       "strategy": "MACD",
       "tier": "S",
