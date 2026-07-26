@@ -5117,8 +5117,9 @@ elif page == "🎯 Strategy Breakdown":
     st.markdown(T("sb_title", lang))
     st.caption(T("sb_sub", lang))
 
-    _CHAMPIONS = ["RSI", "Bollinger Bands", "MA Crossover", "Mean Reversion"]
-    _BLOCKED   = ["RSI Divergence", "Institutional Momentum", "Relative Strength"]
+    _CHAMPIONS  = ["RSI", "Bollinger Bands", "MA Crossover", "Mean Reversion"]
+    _BLOCKED    = ["RSI Divergence", "Institutional Momentum", "Relative Strength"]
+    _WATCHLIST  = ["RSI(2)"]   # bad early stats but still accumulating data
 
     if df_history.empty:
         st.info("No trade history found. Run the screener first." if lang == "en"
@@ -5143,6 +5144,7 @@ elif page == "🎯 Strategy Breakdown":
                 "is_blocked":   _strat in _BLOCKED,
             })
         _sb_df = pd.DataFrame(_sb_rows).sort_values("avg_pnl", ascending=False)
+        _sb_df["is_watchlist"] = _sb_df["strategy"].isin(_WATCHLIST)
 
         # ── champion cards ─────────────────────────────────────────────────────
         st.markdown(T("sb_champs", lang))
@@ -5183,6 +5185,8 @@ elif page == "🎯 Strategy Breakdown":
                 _bar_colors.append("#3fb950")
             elif _brow["is_blocked"]:
                 _bar_colors.append("#f85149")
+            elif _brow.get("is_watchlist"):
+                _bar_colors.append("#e3b341")
             else:
                 _bar_colors.append("#58a6ff")
 
@@ -5249,30 +5253,72 @@ elif page == "🎯 Strategy Breakdown":
 
         st.markdown("")
 
-        # ── blocked strategies ─────────────────────────────────────────────────
+        # ── blocked strategies (live from df_history) ──────────────────────────
         st.markdown(T("sb_blocked", lang))
         st.caption(T("sb_blocked_sub", lang))
-        _blocked_data = [
-            ("RSI Divergence",        309, -0.85, 37,
-             "309 trades, avg -0.85%, 37% win rate. Consistently lost across all markets."
-             if lang == "en" else "309件、平均-0.85%、勝率37%。全市場で一貫して損失。"),
-            ("Relative Strength",     106, -0.69, 48,
-             "106 trades, avg -0.69%, 48% win rate. Wins not big enough to cover losses."
-             if lang == "en" else "106件、平均-0.69%、勝率48%。勝ちが損失をカバーできない。"),
-            ("Institutional Momentum", 26, -7.19,  0,
-             "26 trades, avg -7.19%, 0% win rate. Every single trade lost money."
-             if lang == "en" else "26件、平均-7.19%、勝率0%。全件が損失。"),
-        ]
-        for _bn, _bt, _ba, _bw, _bdesc in _blocked_data:
+        _blocked_descs = {
+            "RSI Divergence": (
+                "High trade volume but near-breakeven — blocked in selective runs to reduce noise."
+                if lang == "en" else
+                "取引量は多いがほぼ損益ゼロ。ノイズ低減のため選択的なランでブロック。"
+            ),
+            "Relative Strength": (
+                "Negative expectancy — wins not large enough to cover losses."
+                if lang == "en" else
+                "期待値がマイナス。勝ちが損失をカバーできない。"
+            ),
+            "Institutional Momentum": (
+                "0% win rate — every closed trade was a loss."
+                if lang == "en" else
+                "勝率0%。全決済トレードが損失。"
+            ),
+        }
+        for _bn in _BLOCKED:
+            _br = _sb_df[_sb_df["strategy"] == _bn]
+            if _br.empty:
+                continue
+            _r     = _br.iloc[0]
+            _bdesc = _blocked_descs.get(_bn, "")
             st.markdown(
                 f"<div style='background:#1a0a0a;border:1px solid #f85149;border-radius:8px;"
                 f"padding:12px 16px;margin:6px 0'>"
                 f"<b style='color:#f85149'>🚫 {_bn}</b>"
                 f"<span style='color:#8b949e;font-size:12px;margin-left:12px'>"
-                f"{_bt} trades · avg {_ba:+.2f}% · WR {_bw}%</span><br>"
+                f"{int(_r['trades'])} trades · avg {_r['avg_pnl']:+.2f}% · "
+                f"WR {_r['win_rate']:.0f}%</span><br>"
                 f"<span style='color:#8b949e;font-size:12px'>{_bdesc}</span></div>",
                 unsafe_allow_html=True,
             )
+
+        # ── under watch (early bad data, still accumulating) ───────────────────
+        _watch_rows = _sb_df[_sb_df["strategy"].isin(_WATCHLIST)]
+        if not _watch_rows.empty:
+            st.markdown("")
+            _wlbl = "⚠️ Under Watch" if lang == "en" else "⚠️ 監視中"
+            _wcap = ("Early results are negative but sample size is still small — running in isolated configs to gather more data."
+                     if lang == "en" else
+                     "初期結果はマイナスだが、サンプルが少なく判断保留。データ収集のため限定的な設定で継続稼働中。")
+            st.markdown(f"**{_wlbl}**")
+            st.caption(_wcap)
+            _watch_descs = {
+                "RSI(2)": (
+                    "Larry Connors 2-period RSI strategy. 0% win rate so far — all closed trades lost. Too early to permanently block; watching R22 for more data."
+                    if lang == "en" else
+                    "ラリー・コナーズの2期間RSI戦略。勝率0%（全決済トレードが損失）。永久ブロックには早すぎる。R22で追加データ収集中。"
+                ),
+            }
+            for _, _wr_row in _watch_rows.iterrows():
+                _wdesc = _watch_descs.get(_wr_row["strategy"], "")
+                st.markdown(
+                    f"<div style='background:#1a0f00;border:1px solid #e3b341;border-radius:8px;"
+                    f"padding:12px 16px;margin:6px 0'>"
+                    f"<b style='color:#e3b341'>⚠️ {_wr_row['strategy']}</b>"
+                    f"<span style='color:#8b949e;font-size:12px;margin-left:12px'>"
+                    f"{int(_wr_row['trades'])} trades · avg {_wr_row['avg_pnl']:+.2f}% · "
+                    f"WR {_wr_row['win_rate']:.0f}%</span><br>"
+                    f"<span style='color:#8b949e;font-size:12px'>{_wdesc}</span></div>",
+                    unsafe_allow_html=True,
+                )
 
     st.markdown("---")
     st.markdown(f"<div class='disclaimer-box'>{T('disclaimer', lang)}</div>",
