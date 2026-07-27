@@ -217,12 +217,13 @@
         "4": -3.783
       },
       "exit_date": "2026-07-27",
-      "exit_price": 31.79,
+      "exit_price": 33.2,
       "days_held": 7,
-      "pnl_pct": -8.201,
+      "pnl_pct": -4.129,
       "peak_pnl_pct": 0.0,
       "win": false,
-      "exit_reason": "STOP_LOSS"
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     },
     {
       "asset": "GLD",
@@ -239,9 +240,9 @@
       "p7_verdict": "TRADE",
       "checkpoints": {},
       "exit_date": "2026-07-27",
-      "exit_price": 371.9,
+      "exit_price": 374.63,
       "days_held": 6,
-      "pnl_pct": 1.902,
+      "pnl_pct": 2.65,
       "peak_pnl_pct": 2.699,
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
