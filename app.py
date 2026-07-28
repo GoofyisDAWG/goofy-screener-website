@@ -4141,6 +4141,119 @@ The leaderboard above updates automatically — the top 3 are the runs producing
             )
 
     st.markdown("---")
+
+    # ── deduplicated signal analysis ──────────────────────────────────────────
+    _dedup_label = ("🔬 Deduplicated Signal Analysis" if lang == "en"
+                    else "🔬 重複排除シグナル分析")
+    with st.expander(_dedup_label, expanded=True):
+        st.caption(
+            "Multiple runs can fire on the same stock on the same day with the same strategy. "
+            "This view counts each unique signal **once** — removing the inflation from overlapping runs. "
+            "This is the most honest measure of whether the screener is generating real edge."
+            if lang == "en" else
+            "複数のランが同じ日に同じ銘柄・同じ戦略でシグナルを出すことがあります。"
+            "このビューは各ユニークなシグナルを**1回だけ**カウントし、重複による水増しを除去します。"
+            "スクリーナーが真のエッジを持つかどうかの最も正直な指標です。"
+        )
+
+        if not df_history.empty:
+            # deduplicate: keep first run that fired each (asset, entry_date, strategy)
+            _ddf = (df_history
+                    .sort_values("run")
+                    .drop_duplicates(subset=["asset", "entry_date", "strategy"])
+                    .copy())
+
+            _raw_n   = len(df_history)
+            _raw_wr  = df_history["win"].mean() * 100
+            _raw_avg = df_history["pnl_pct"].mean()
+            _ded_n   = len(_ddf)
+            _ded_wr  = _ddf["win"].mean() * 100
+            _ded_avg = _ddf["pnl_pct"].mean()
+            _dup_pct = (_raw_n - _ded_n) / _raw_n * 100
+
+            # comparison cards
+            _cc1, _cc2, _cc3 = st.columns(3)
+            _cc1.markdown(
+                f"<div style='background:#161b22;border:1px solid #30363d;border-radius:10px;padding:14px'>"
+                f"<div style='font-size:11px;color:#8b949e;text-transform:uppercase'>{'All runs (raw)' if lang == 'en' else '全ラン（生データ）'}</div>"
+                f"<div style='font-size:22px;font-weight:800;color:#58a6ff'>{_raw_n} {'trades' if lang == 'en' else '取引'}</div>"
+                f"<div style='font-size:13px;color:#8b949e'>"
+                f"WR {_raw_wr:.1f}% · Avg {_raw_avg:+.2f}%</div></div>",
+                unsafe_allow_html=True,
+            )
+            _cc2.markdown(
+                f"<div style='background:#161b22;border:1px solid #30363d;border-radius:10px;padding:14px'>"
+                f"<div style='font-size:11px;color:#8b949e;text-transform:uppercase'>{'Unique signals' if lang == 'en' else 'ユニークシグナル'}</div>"
+                f"<div style='font-size:22px;font-weight:800;color:#3fb950'>{_ded_n} {'signals' if lang == 'en' else 'シグナル'}</div>"
+                f"<div style='font-size:13px;color:#8b949e'>"
+                f"WR {_ded_wr:.1f}% · Avg {_ded_avg:+.2f}%</div></div>",
+                unsafe_allow_html=True,
+            )
+            _cc3.markdown(
+                f"<div style='background:#161b22;border:1px solid #30363d;border-radius:10px;padding:14px'>"
+                f"<div style='font-size:11px;color:#8b949e;text-transform:uppercase'>{'Overlap removed' if lang == 'en' else '重複除去'}</div>"
+                f"<div style='font-size:22px;font-weight:800;color:#d29922'>{_raw_n - _ded_n}</div>"
+                f"<div style='font-size:13px;color:#8b949e'>"
+                f"{_dup_pct:.0f}% {'of raw trades were duplicates' if lang == 'en' else 'が重複取引'}</div></div>",
+                unsafe_allow_html=True,
+            )
+
+            st.markdown("")
+
+            # strategy breakdown on deduped data
+            st.markdown("**" + ("Performance by strategy — unique signals only" if lang == "en"
+                                else "戦略別パフォーマンス（ユニークシグナルのみ）") + "**")
+
+            _sb_rows = []
+            for _strat, _sdf in _ddf.groupby("strategy"):
+                _sn   = len(_sdf)
+                _swr  = _sdf["win"].mean() * 100
+                _savg = _sdf["pnl_pct"].mean()
+                _sw   = _sdf[_sdf["win"]]["pnl_pct"].mean() if _sdf["win"].any() else 0
+                _sl   = _sdf[~_sdf["win"]]["pnl_pct"].mean() if (~_sdf["win"]).any() else 0
+                _spf  = abs(_sw / _sl) if _sl != 0 else float("inf")
+                # verdict
+                if _savg >= 1.5 and _swr >= 55:
+                    _verdict = "✅ Keep" if lang == "en" else "✅ 継続"
+                elif _savg >= 0 and _swr >= 50:
+                    _verdict = "🟡 Watch" if lang == "en" else "🟡 要観察"
+                else:
+                    _verdict = "🔴 Review" if lang == "en" else "🔴 要見直し"
+                _sb_rows.append({
+                    ("Strategy" if lang == "en" else "戦略"): _strat,
+                    ("Signals" if lang == "en" else "シグナル数"): _sn,
+                    ("Win rate" if lang == "en" else "勝率"): f"{_swr:.0f}%",
+                    ("Avg P&L" if lang == "en" else "平均損益"): f"{_savg:+.2f}%",
+                    ("Profit factor" if lang == "en" else "プロフィットファクター"):
+                        f"{_spf:.2f}" if not np.isinf(_spf) else "∞",
+                    ("Verdict" if lang == "en" else "判定"): _verdict,
+                })
+
+            _sb_df = pd.DataFrame(_sb_rows).sort_values(
+                ("Avg P&L" if lang == "en" else "平均損益"), ascending=False
+            ).reset_index(drop=True)
+
+            def _vc(v):
+                if "✅" in str(v): return "color:#3fb950;font-weight:bold"
+                if "🔴" in str(v): return "color:#f85149;font-weight:bold"
+                if "🟡" in str(v): return "color:#d29922;font-weight:bold"
+                return ""
+
+            _verd_col = "Verdict" if lang == "en" else "判定"
+            st.dataframe(
+                _sb_df.style.map(_vc, subset=[_verd_col]),
+                use_container_width=True, hide_index=True,
+            )
+
+            st.caption(
+                "✅ Keep = avg P&L ≥ +1.5% and win rate ≥ 55% on unique signals. "
+                "🔴 Review = negative avg P&L or win rate below 50% — these strategies are diluting overall results."
+                if lang == "en" else
+                "✅ 継続 = ユニークシグナルで平均損益≥+1.5%かつ勝率≥55%。"
+                "🔴 要見直し = 平均損益マイナスまたは勝率50%未満 — 全体結果を希薄化している戦略。"
+            )
+
+    st.markdown("---")
     st.markdown(
         f"<div class='disclaimer-box'>{T('tr_disclaimer', lang)}</div>",
         unsafe_allow_html=True,
