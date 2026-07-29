@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "run": 38,
-    "label": "Family A: Trend Following Only \u2014 MA Crossover, ADX, Supertrend, Ichimoku (Run 38)",
-    "created": "2026-07-20",
+    "run": 49,
+    "label": "BB Rehab: Bollinger Bands ONLY + MA200 Trend Filter \u2014 can BB work in uptrends? (Run 49)",
+    "created": "2026-07-29",
     "total_logged": 0,
     "config": {
       "stop_loss_pct": 8.0,
@@ -10,23 +10,26 @@
       "trail_trigger_pct": 12.0,
       "trail_floor_pct": 6.0,
       "blocked_strategies": [
-        "Donchian",
-        "RSI Divergence",
-        "Bollinger Bands",
-        "Relative Strength",
-        "Institutional Momentum",
-        "Gap Momentum",
-        "RSI",
+        "MA Crossover",
         "Stochastic",
+        "Relative Strength",
+        "RSI(2)",
+        "Institutional Momentum",
+        "ADX",
         "MACD",
+        "Gap Momentum",
+        "Supertrend",
+        "Mean Reversion",
         "Volume Breakout",
         "BB Squeeze",
-        "RSI(2)",
-        "Mean Reversion"
+        "RSI",
+        "Ichimoku",
+        "Donchian",
+        "RSI Divergence"
       ],
       "mid_term_checkpoint_days": null,
       "mid_term_max_loss_pct": null,
-      "trend_filter_ma": null,
+      "trend_filter_ma": 200,
       "ml_thresh_override": null,
       "tiered_floors": [
         [

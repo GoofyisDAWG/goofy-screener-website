@@ -47,7 +47,7 @@
       "p7_verdict": "TRADE",
       "current_price": 7659.0,
       "unrealised_pnl_pct": 8.947,
-      "days_held": 11,
+      "days_held": 12,
       "peak_pnl_pct": 8.947,
       "checkpoints": {
         "4": 4.808
@@ -68,7 +68,7 @@
       "p7_verdict": "TRADE",
       "current_price": 23.79,
       "unrealised_pnl_pct": 2.898,
-      "days_held": 11,
+      "days_held": 12,
       "peak_pnl_pct": 2.898,
       "checkpoints": {
         "4": 0.411
@@ -90,31 +90,10 @@
       "checkpoints": {
         "4": 1.617
       },
-      "current_price": 494.72,
-      "unrealised_pnl_pct": 1.924,
-      "days_held": 8,
-      "peak_pnl_pct": 1.924
-    },
-    {
-      "asset": "CMG",
-      "market": "US",
-      "entry_date": "2026-07-16",
-      "entry_price": 34.63,
-      "hold_days_target": 20,
-      "size_pct": 2.4,
-      "ml_score": 85.1,
-      "val_auc": 0.569,
-      "strategy": "RSI(2)",
-      "tier": "B",
-      "score": 30,
-      "p7_verdict": "TRADE",
-      "checkpoints": {
-        "4": -3.783
-      },
-      "current_price": 33.2,
-      "unrealised_pnl_pct": -4.129,
-      "days_held": 8,
-      "peak_pnl_pct": 0.0
+      "current_price": 511.56,
+      "unrealised_pnl_pct": 5.394,
+      "days_held": 9,
+      "peak_pnl_pct": 5.394
     },
     {
       "asset": "REA.AX",
@@ -134,7 +113,7 @@
       },
       "current_price": 162.99,
       "unrealised_pnl_pct": 6.467,
-      "days_held": 8,
+      "days_held": 9,
       "peak_pnl_pct": 6.911
     },
     {
@@ -155,7 +134,7 @@
       },
       "current_price": 3700.0,
       "unrealised_pnl_pct": 13.012,
-      "days_held": 8,
+      "days_held": 9,
       "peak_pnl_pct": 13.012
     },
     {
@@ -171,27 +150,30 @@
       "tier": "B",
       "score": 59,
       "p7_verdict": "TRADE",
-      "checkpoints": {
-        "4": 4.403
-      },
+      "checkpoints": {},
       "current_price": 1802.0,
       "unrealised_pnl_pct": 4.403,
-      "days_held": 4,
+      "days_held": 5,
       "peak_pnl_pct": 4.403
     },
     {
-      "asset": "JPM",
-      "market": "US",
-      "entry_date": "2026-07-28",
-      "entry_price": 356.2,
+      "asset": "4452.T",
+      "market": "JPX",
+      "entry_date": "2026-07-22",
+      "entry_price": 3230.0,
       "hold_days_target": 20,
-      "size_pct": 4.1,
-      "ml_score": 85.1,
-      "val_auc": 0.541,
-      "strategy": "MA Crossover",
-      "tier": "A",
-      "score": 66,
-      "p7_verdict": "TRADE"
+      "size_pct": 1.1,
+      "ml_score": 80.9,
+      "val_auc": 0.516,
+      "strategy": "Mean Reversion",
+      "tier": "B",
+      "score": 28,
+      "p7_verdict": "TRADE",
+      "checkpoints": {},
+      "current_price": 3320.0,
+      "unrealised_pnl_pct": 2.786,
+      "days_held": 5,
+      "peak_pnl_pct": 2.786
     }
   ],
   "closed": [
@@ -209,13 +191,38 @@
       "score": 53,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "exit_date": "2026-07-28",
+      "exit_date": "2026-07-29",
       "exit_price": 55920.0,
-      "days_held": 7,
+      "days_held": 8,
       "pnl_pct": -14.101,
       "peak_pnl_pct": 1.767,
       "win": false,
       "exit_reason": "STOP_LOSS"
+    },
+    {
+      "asset": "CMG",
+      "market": "US",
+      "entry_date": "2026-07-16",
+      "entry_price": 34.63,
+      "hold_days_target": 20,
+      "size_pct": 2.4,
+      "ml_score": 85.1,
+      "val_auc": 0.569,
+      "strategy": "RSI(2)",
+      "tier": "B",
+      "score": 30,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": -3.783
+      },
+      "exit_date": "2026-07-29",
+      "exit_price": 33.51,
+      "days_held": 9,
+      "pnl_pct": -3.234,
+      "peak_pnl_pct": 0.0,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     },
     {
       "asset": "AMC.AX",
@@ -233,9 +240,9 @@
       "checkpoints": {
         "4": -1.801
       },
-      "exit_date": "2026-07-28",
+      "exit_date": "2026-07-29",
       "exit_price": 64.79,
-      "days_held": 8,
+      "days_held": 9,
       "pnl_pct": 4.181,
       "peak_pnl_pct": 4.181,
       "win": true,

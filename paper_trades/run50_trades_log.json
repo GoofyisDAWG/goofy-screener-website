@@ -1,0 +1,51 @@
+{
+  "metadata": {
+    "run": 50,
+    "label": "Regime Gate: R13 config + VIX/SPY regime filter \u2014 risk-off allows RSI+BB+MeanRev only (Run 50)",
+    "created": "2026-07-29",
+    "total_logged": 1,
+    "config": {
+      "stop_loss_pct": 8.0,
+      "take_profit_pct": 15.0,
+      "trail_trigger_pct": 12.0,
+      "trail_floor_pct": 6.0,
+      "blocked_strategies": [
+        "MACD",
+        "RSI Divergence",
+        "Relative Strength",
+        "Institutional Momentum"
+      ],
+      "mid_term_checkpoint_days": null,
+      "mid_term_max_loss_pct": null,
+      "trend_filter_ma": null,
+      "ml_thresh_override": null,
+      "tiered_floors": [
+        [
+          5.0,
+          0.0
+        ],
+        [
+          10.0,
+          4.0
+        ]
+      ]
+    }
+  },
+  "open": [
+    {
+      "asset": "7751.T",
+      "market": "JPX",
+      "entry_date": "2026-07-29",
+      "entry_price": 4478.0,
+      "hold_days_target": 20,
+      "size_pct": 16.9,
+      "ml_score": 64.2,
+      "val_auc": 0.516,
+      "strategy": "Mean Reversion",
+      "tier": "S",
+      "score": 71,
+      "p7_verdict": "TRADE"
+    }
+  ],
+  "closed": []
+}
