@@ -3,7 +3,7 @@
     "run": 18,
     "label": "Full Quality Block: No MACD/BB/RSI-Div/RS, ML\u226580, Tiered Floor (Run 18)",
     "created": "2026-07-12",
-    "total_logged": 10,
+    "total_logged": 9,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
@@ -75,27 +75,6 @@
       }
     },
     {
-      "asset": "SPOT",
-      "market": "US",
-      "entry_date": "2026-07-16",
-      "entry_price": 485.38,
-      "hold_days_target": 20,
-      "size_pct": 10.6,
-      "ml_score": 84.2,
-      "val_auc": 0.397,
-      "strategy": "Institutional Momentum",
-      "tier": "B",
-      "score": 59,
-      "p7_verdict": "TRADE",
-      "checkpoints": {
-        "4": 1.617
-      },
-      "current_price": 494.72,
-      "unrealised_pnl_pct": 1.924,
-      "days_held": 9,
-      "peak_pnl_pct": 1.924
-    },
-    {
       "asset": "CMG",
       "market": "US",
       "entry_date": "2026-07-16",
@@ -111,8 +90,8 @@
       "checkpoints": {
         "4": -3.783
       },
-      "current_price": 33.2,
-      "unrealised_pnl_pct": -4.129,
+      "current_price": 34.24,
+      "unrealised_pnl_pct": -1.126,
       "days_held": 9,
       "peak_pnl_pct": 0.0
     },
@@ -155,20 +134,6 @@
       "unrealised_pnl_pct": 7.908,
       "days_held": 5,
       "peak_pnl_pct": 7.908
-    },
-    {
-      "asset": "JPM",
-      "market": "US",
-      "entry_date": "2026-07-29",
-      "entry_price": 356.2,
-      "hold_days_target": 20,
-      "size_pct": 4.1,
-      "ml_score": 84.8,
-      "val_auc": 0.541,
-      "strategy": "MA Crossover",
-      "tier": "A",
-      "score": 66,
-      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -217,6 +182,31 @@
       "peak_pnl_pct": 1.767,
       "win": false,
       "exit_reason": "STOP_LOSS"
+    },
+    {
+      "asset": "SPOT",
+      "market": "US",
+      "entry_date": "2026-07-16",
+      "entry_price": 485.38,
+      "hold_days_target": 20,
+      "size_pct": 10.6,
+      "ml_score": 84.2,
+      "val_auc": 0.397,
+      "strategy": "Institutional Momentum",
+      "tier": "B",
+      "score": 59,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 1.617
+      },
+      "exit_date": "2026-07-29",
+      "exit_price": 524.01,
+      "days_held": 9,
+      "pnl_pct": 7.959,
+      "peak_pnl_pct": 7.959,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
     },
     {
       "asset": "AMC.AX",

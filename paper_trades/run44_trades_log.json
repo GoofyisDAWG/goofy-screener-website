@@ -3,7 +3,7 @@
     "run": 44,
     "label": "Earnings Blackout: Proven Trio + Blackout, ML\u226570 (Run 44)",
     "created": "2026-07-20",
-    "total_logged": 6,
+    "total_logged": 5,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
@@ -95,20 +95,6 @@
       "unrealised_pnl_pct": 6.016,
       "days_held": 5,
       "peak_pnl_pct": 6.016
-    },
-    {
-      "asset": "JPM",
-      "market": "US",
-      "entry_date": "2026-07-29",
-      "entry_price": 356.2,
-      "hold_days_target": 20,
-      "size_pct": 4.1,
-      "ml_score": 84.8,
-      "val_auc": 0.541,
-      "strategy": "MA Crossover",
-      "tier": "A",
-      "score": 66,
-      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -127,9 +113,9 @@
       "p7_verdict": "TRADE",
       "checkpoints": {},
       "exit_date": "2026-07-29",
-      "exit_price": 374.63,
+      "exit_price": 371.08,
       "days_held": 7,
-      "pnl_pct": 1.688,
+      "pnl_pct": 0.725,
       "peak_pnl_pct": 1.737,
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
