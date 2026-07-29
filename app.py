@@ -3758,20 +3758,45 @@ The leaderboard above updates automatically — the top 3 are the runs producing
             else:
                 sortino_str = "—"
 
+        # ── tooltip helper ──
+        def _tip(text_en, text_ja):
+            t = text_en if lang == "en" else text_ja
+            return (f"<span title='{t}' style='cursor:help;color:#8b949e;"
+                    f"font-size:11px;margin-left:3px'>ⓘ</span>")
+
+        _tips = {
+            "m1": _tip("Total number of completed trades in this run.",
+                        "このランで完了した取引の総数。"),
+            "m2": _tip("% of trades that made money. Above 50% means more wins than losses.",
+                        "利益が出た取引の割合。50%超＝勝ちが多い。"),
+            "m3": _tip("Average profit or loss across all trades. Positive = strategy is making money overall.",
+                        "全取引の平均損益。プラス＝戦略全体で利益が出ている。"),
+            "m4": _tip("Average gain on winning trades only.",
+                        "勝ち取引のみの平均利益。"),
+            "m5": _tip("Average loss on losing trades only.",
+                        "負け取引のみの平均損失。"),
+            "m6": _tip("Trades automatically closed to limit losses when price dropped too far.",
+                        "価格が大きく下落した際に損失を抑えるため自動決済した取引数。"),
+            "pf":  _tip("For every $1 lost, how much was made. Above 1.0 = profitable. 1.30 means $1.30 earned per $1 lost.",
+                         "1ドルの損失に対して何ドル稼いだか。1.0超＝利益あり。1.30は損失1ドルに対し1.30ドル獲得。"),
+            "so":  _tip("Risk-adjusted return score that only penalises losing trades (not winning volatility). Above 1.0 is good.",
+                         "損失のみを考慮したリスク調整済みリターン指標。1.0超が良好。"),
+        }
+
         # ── summary metrics row 1 ──
         cols = st.columns(6)
-        for col, label, val, sub in [
-            (cols[0], T("tr_m1", lang), str(n_total),        T("tr_m1s", lang)),
-            (cols[1], T("tr_m2", lang), f"{win_rate:.1f}%",  wl_str),
-            (cols[2], T("tr_m3", lang), f"{avg_pnl:+.2f}%",  T("tr_m3s", lang)),
-            (cols[3], T("tr_m4", lang), f"{avg_win:+.2f}%",  T("tr_m4s", lang)),
-            (cols[4], T("tr_m5", lang), f"{avg_loss:+.2f}%", T("tr_m5s", lang)),
-            (cols[5], T("tr_m6", lang), str(n_stops),        stops_sub),
+        for col, label, val, sub, tip_key in [
+            (cols[0], T("tr_m1", lang), str(n_total),        T("tr_m1s", lang), "m1"),
+            (cols[1], T("tr_m2", lang), f"{win_rate:.1f}%",  wl_str,            "m2"),
+            (cols[2], T("tr_m3", lang), f"{avg_pnl:+.2f}%",  T("tr_m3s", lang), "m3"),
+            (cols[3], T("tr_m4", lang), f"{avg_win:+.2f}%",  T("tr_m4s", lang), "m4"),
+            (cols[4], T("tr_m5", lang), f"{avg_loss:+.2f}%", T("tr_m5s", lang), "m5"),
+            (cols[5], T("tr_m6", lang), str(n_stops),        stops_sub,         "m6"),
         ]:
             color = "#3fb950" if "+" in str(val) else ("#f85149" if "-" in str(val) else "#e6edf3")
             col.markdown(
                 f"<div class='metric-card'>"
-                f"<div class='label'>{label}</div>"
+                f"<div class='label'>{label}{_tips[tip_key]}</div>"
                 f"<div class='value' style='color:{color}'>{val}</div>"
                 f"<div class='sub'>{sub}</div>"
                 f"</div>",
@@ -3789,14 +3814,14 @@ The leaderboard above updates automatically — the top 3 are the runs producing
         _so_color = "#3fb950" if sortino_str not in ("—",) and float(sortino_str) > 0 else "#f85149" if sortino_str != "—" else "#e6edf3"
         _r2c1.markdown(
             f"<div class='metric-card'>"
-            f"<div class='label'>{_pf_label}</div>"
+            f"<div class='label'>{_pf_label}{_tips['pf']}</div>"
             f"<div class='value' style='color:{_pf_color}'>{pf_str}</div>"
             f"<div class='sub'>{_pf_sub}</div>"
             f"</div>", unsafe_allow_html=True,
         )
         _r2c2.markdown(
             f"<div class='metric-card'>"
-            f"<div class='label'>{_so_label}</div>"
+            f"<div class='label'>{_so_label}{_tips['so']}</div>"
             f"<div class='value' style='color:{_so_color}'>{sortino_str}</div>"
             f"<div class='sub'>{_so_note}</div>"
             f"</div>", unsafe_allow_html=True,
@@ -3811,8 +3836,29 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                 min_value=100, max_value=10_000_000,
                 value=1000, step=100, key="tr_sim_amt",
             )
-        if not dc.empty:
-            _sim_sorted = dc.dropna(subset=["exit_date"]).copy()
+
+        # When "All Runs" is selected dc mixes trades from all runs which gives
+        # meaningless compounding. Use the top run by avg P&L instead.
+        _sim_run_label = None
+        if selected_run is None and not dc.empty:
+            _sim_avgs = (df_history.groupby("run")["pnl_pct"]
+                         .agg(["mean", "count"]).query("count >= 5")
+                         .sort_values("mean", ascending=False))
+            if not _sim_avgs.empty:
+                _sim_top_run = int(_sim_avgs.index[0])
+                _sim_dc = df_history[df_history["run"] == _sim_top_run].copy()
+                _sim_run_label = f"Run {_sim_top_run}" if lang == "en" else f"ラン {_sim_top_run}"
+            else:
+                _sim_dc = dc.copy()
+        else:
+            _sim_dc = dc.copy()
+
+        if not _sim_dc.empty:
+            if _sim_run_label:
+                st.caption(f"Showing best run ({_sim_run_label}) — select a specific run above to simulate any run."
+                           if lang == "en" else
+                           f"最優秀ラン（{_sim_run_label}）を表示中 — 上のセレクタで任意のランを選択できます。")
+            _sim_sorted = _sim_dc.dropna(subset=["exit_date"]).copy()
             _sim_sorted["exit_date"] = pd.to_datetime(_sim_sorted["exit_date"], errors="coerce")
             _sim_sorted = _sim_sorted.dropna(subset=["exit_date"]).sort_values("exit_date")
 
@@ -3870,6 +3916,40 @@ The leaderboard above updates automatically — the top 3 are the runs producing
         else:
             st.info("No closed trades yet — simulator will activate once trades close." if lang == "en"
                     else "まだ決済済み取引がありません。取引が決済されると有効になります。")
+
+        # ── trade bar chart — wins vs losses at a glance ─────────────────────
+        if not dc.empty and len(dc) >= 3:
+            _bar_dc = dc.dropna(subset=["exit_date"]).copy()
+            _bar_dc["exit_date"] = pd.to_datetime(_bar_dc["exit_date"], errors="coerce")
+            _bar_dc = _bar_dc.dropna(subset=["exit_date"]).sort_values("exit_date").reset_index(drop=True)
+            _bar_colors = ["#3fb950" if w else "#f85149" for w in _bar_dc["win"]]
+            _bar_labels = [
+                f"{row['asset']}<br>{row['exit_date'].strftime('%b %d')}<br>{row['pnl_pct']:+.1f}%"
+                for _, row in _bar_dc.iterrows()
+            ]
+            _bar_title = ("Each bar = one trade  ·  green = win, red = loss"
+                          if lang == "en" else
+                          "各バー＝1取引　緑＝利益、赤＝損失")
+            _fig_bars = go.Figure(go.Bar(
+                x=list(range(len(_bar_dc))),
+                y=_bar_dc["pnl_pct"].tolist(),
+                marker_color=_bar_colors,
+                text=None,
+                customdata=_bar_labels,
+                hovertemplate="%{customdata}<extra></extra>",
+            ))
+            _fig_bars.add_hline(y=0, line_color="#8b949e", line_width=1)
+            _fig_bars.update_layout(
+                title=dict(text=_bar_title, font=dict(size=13, color="#8b949e"), x=0),
+                height=220,
+                plot_bgcolor="#0d1117", paper_bgcolor="#0d1117",
+                font_color="#e6edf3",
+                margin=dict(l=45, r=8, t=36, b=10),
+                xaxis=dict(visible=False),
+                yaxis=dict(gridcolor="#21262d", ticksuffix="%", zeroline=False),
+                bargap=0.15,
+            )
+            st.plotly_chart(_fig_bars, use_container_width=True)
 
         st.markdown("---")
 
