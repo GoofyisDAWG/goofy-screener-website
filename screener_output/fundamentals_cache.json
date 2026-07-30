@@ -626,7 +626,7 @@
     "analyst_label": "buy",
     "return_on_equity": 0.94975996,
     "current_ratio": 3.026,
-    "dividend_yield": 0.48,
+    "dividend_yield": 0.45,
     "beta": 1.407,
     "price_to_book": 38.15064,
     "earnings_growth": 0.118,
@@ -3386,7 +3386,7 @@
     "analyst_label": "buy",
     "return_on_equity": 0.31112,
     "current_ratio": 0.732,
-    "dividend_yield": 2.92,
+    "dividend_yield": 2.93,
     "beta": 0.38,
     "price_to_book": 6.329882,
     "earnings_growth": 0.058,
@@ -3482,10 +3482,10 @@
   "WMT": {
     "ticker": "WMT",
     "pass": true,
-    "score": 6,
+    "score": 7,
     "max": 8,
     "breakdown": {
-      "pe": 0,
+      "pe": 1,
       "revenue_growth": 1,
       "debt_equity": 1,
       "free_cashflow": 1,
@@ -3710,7 +3710,7 @@
     "beta": 0.319,
     "price_to_book": 516.51935,
     "earnings_growth": -0.059,
-    "trailing_eps": 2.58,
+    "trailing_eps": 2.6,
     "gross_margins": 0.60063,
     "operating_margins": 0.20924,
     "company_name": "Colgate-Palmolive Company",
@@ -4122,10 +4122,10 @@
   "GM": {
     "ticker": "GM",
     "pass": true,
-    "score": 7,
+    "score": 6,
     "max": 8,
     "breakdown": {
-      "pe": 1,
+      "pe": 0,
       "revenue_growth": 1,
       "debt_equity": 1,
       "free_cashflow": 1,
@@ -4242,10 +4242,10 @@
   "CAT": {
     "ticker": "CAT",
     "pass": true,
-    "score": 8,
+    "score": 7,
     "max": 8,
     "breakdown": {
-      "pe": 1,
+      "pe": 0,
       "revenue_growth": 1,
       "debt_equity": 1,
       "free_cashflow": 1,
@@ -5566,7 +5566,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-30T11:52:18.951379"
+    "fetched_at": "2026-07-30T04:32:45.167940"
   },
   "QQQ": {
     "ticker": "QQQ",
@@ -5575,7 +5575,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-30T11:52:18.951514"
+    "fetched_at": "2026-07-30T04:32:45.167946"
   },
   "GLD": {
     "ticker": "GLD",
@@ -5584,7 +5584,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-30T11:52:18.951540"
+    "fetched_at": "2026-07-30T04:32:45.167948"
   },
   "TLT": {
     "ticker": "TLT",
@@ -5593,7 +5593,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-30T11:52:18.951559"
+    "fetched_at": "2026-07-30T04:32:45.167950"
   },
   "IWM": {
     "ticker": "IWM",
@@ -5602,7 +5602,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-30T11:52:18.951590"
+    "fetched_at": "2026-07-30T04:32:45.167952"
   },
   "VTI": {
     "ticker": "VTI",
@@ -7891,7 +7891,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-30T11:59:25.238194"
+    "fetched_at": "2026-07-30T04:32:45.168137"
   },
   "STW.AX": {
     "ticker": "STW.AX",
@@ -7900,7 +7900,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-30T11:59:25.238252"
+    "fetched_at": "2026-07-30T04:32:45.168139"
   },
   "VAS.AX": {
     "ticker": "VAS.AX",
@@ -7909,7 +7909,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-30T11:59:25.238271"
+    "fetched_at": "2026-07-30T04:32:45.168141"
   },
   "VGS.AX": {
     "ticker": "VGS.AX",
@@ -9194,15 +9194,15 @@
   "6326.T": {
     "ticker": "6326.T",
     "pass": true,
-    "score": 6,
-    "max": 7,
+    "score": 7,
+    "max": 8,
     "breakdown": {
       "pe": 1,
       "revenue_growth": 1,
       "debt_equity": 1,
       "free_cashflow": 1,
       "profit_margin": 1,
-      "analyst": null,
+      "analyst": 1,
       "roe": 0,
       "current_ratio": 1
     },
@@ -9214,8 +9214,8 @@
     "debt_equity": 79.694,
     "free_cashflow": 63305748480,
     "profit_margin": 0.070149995,
-    "analyst_rating": null,
-    "analyst_label": "none",
+    "analyst_rating": 2.0,
+    "analyst_label": "buy",
     "return_on_equity": 0.08871,
     "current_ratio": 1.705,
     "dividend_yield": 1.85,
@@ -11554,10 +11554,10 @@
   "4661.T": {
     "ticker": "4661.T",
     "pass": true,
-    "score": 7,
+    "score": 8,
     "max": 8,
     "breakdown": {
-      "pe": 0,
+      "pe": 1,
       "revenue_growth": 1,
       "debt_equity": 1,
       "free_cashflow": 1,
@@ -11955,14 +11955,14 @@
     "ticker": "9501.T",
     "pass": true,
     "score": 3,
-    "max": 7,
+    "max": 8,
     "breakdown": {
       "pe": 1,
       "revenue_growth": 1,
       "debt_equity": 1,
       "free_cashflow": 0,
       "profit_margin": 0,
-      "analyst": null,
+      "analyst": 0,
       "roe": 0,
       "current_ratio": 0
     },
@@ -11974,8 +11974,8 @@
     "debt_equity": 202.314,
     "free_cashflow": -578732097536,
     "profit_margin": -0.071779996,
-    "analyst_rating": null,
-    "analyst_label": "none",
+    "analyst_rating": 5.0,
+    "analyst_label": "sell",
     "return_on_equity": -0.12622,
     "current_ratio": 0.502,
     "dividend_yield": null,
@@ -12198,7 +12198,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-30T12:00:49.539391"
+    "fetched_at": "2026-07-30T04:32:45.168692"
   },
   "1306.T": {
     "ticker": "1306.T",
@@ -12207,6 +12207,6 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-07-30T12:00:49.539486"
+    "fetched_at": "2026-07-30T04:32:45.168700"
   }
 }
