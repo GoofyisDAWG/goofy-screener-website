@@ -3829,16 +3829,24 @@ The leaderboard above updates automatically — the top 3 are the runs producing
 
         # ── investment simulator ─────────────────────────────────────────────────
         st.markdown(f"### {T('tr_sim_header', lang)}")
-        _sim_c1, _sim_c2 = st.columns([1, 3])
-        with _sim_c1:
+        _inp_col, _mode_col = st.columns([1, 2])
+        with _inp_col:
             _sim_amt = st.number_input(
                 T("tr_sim_label", lang),
                 min_value=100, max_value=10_000_000,
                 value=1000, step=100, key="tr_sim_amt",
             )
+        with _mode_col:
+            st.write("")
+            _sim_advanced = st.toggle(
+                "Advanced mode" if lang == "en" else "詳細モード",
+                value=False, key="sim_adv_mode",
+                help="Advanced: shows compounding per-trade. Simple: shows your portfolio value day by day."
+                     if lang == "en" else
+                     "詳細: 取引ごとの複利。シンプル: 日次ポートフォリオ価値を表示。",
+            )
 
-        # When "All Runs" is selected dc mixes trades from all runs which gives
-        # meaningless compounding. Use the top run by avg P&L instead.
+        # When "All Runs" selected, dc mixes all runs — use best run instead
         _sim_run_label = None
         if selected_run is None and not dc.empty:
             _sim_avgs = (df_history.groupby("run")["pnl_pct"]
@@ -3853,66 +3861,187 @@ The leaderboard above updates automatically — the top 3 are the runs producing
         else:
             _sim_dc = dc.copy()
 
+        if _sim_run_label:
+            st.caption(
+                f"Showing best run ({_sim_run_label}) — select a specific run above to compare any run."
+                if lang == "en" else
+                f"最優秀ラン（{_sim_run_label}）を表示中 — 上で任意のランを選択できます。"
+            )
+
         if not _sim_dc.empty:
-            if _sim_run_label:
-                st.caption(f"Showing best run ({_sim_run_label}) — select a specific run above to simulate any run."
-                           if lang == "en" else
-                           f"最優秀ラン（{_sim_run_label}）を表示中 — 上のセレクタで任意のランを選択できます。")
-            _sim_sorted = _sim_dc.dropna(subset=["exit_date"]).copy()
-            _sim_sorted["exit_date"] = pd.to_datetime(_sim_sorted["exit_date"], errors="coerce")
-            _sim_sorted = _sim_sorted.dropna(subset=["exit_date"]).sort_values("exit_date")
+            _sim_all = _sim_dc.dropna(subset=["exit_date"]).copy()
+            _sim_all["exit_date"] = pd.to_datetime(_sim_all["exit_date"], errors="coerce")
+            _sim_all = _sim_all.dropna(subset=["exit_date"]).sort_values("exit_date")
 
-            _sim_val = float(_sim_amt)
-            _sim_curve = [_sim_val]
-            for _p in _sim_sorted["pnl_pct"]:
-                _sim_val *= (1 + _p / 100)
-                _sim_curve.append(_sim_val)
+            if not _sim_advanced:
+                # ── SIMPLE MODE ───────────────────────────────────────────────────
+                # Build calendar-day portfolio curve (flat between trades, updates daily)
+                _s_val = float(_sim_amt)
+                _trade_events = []
+                for _, _row in _sim_all.iterrows():
+                    _s_val *= (1 + _row["pnl_pct"] / 100)
+                    _trade_events.append({
+                        "date": _row["exit_date"].normalize(),
+                        "value": round(_s_val, 2),
+                        "pnl_pct": float(_row["pnl_pct"]),
+                        "ticker": str(_row.get("asset", "?")),
+                        "win": float(_row["pnl_pct"]) > 0,
+                    })
 
-            _sim_ret  = (_sim_val / _sim_amt - 1) * 100
-            _sim_clr  = "#3fb950" if _sim_val >= _sim_amt else "#f85149"
-            _sim_icon = "📈" if _sim_val >= _sim_amt else "📉"
-            _sim_arrow = "▲" if _sim_val >= _sim_amt else "▼"
+                # If multiple trades close same day, last one wins (they're already sorted)
+                _vals_by_date = {}
+                for _ev in _trade_events:
+                    _vals_by_date[_ev["date"]] = _ev["value"]
 
-            _card_c, _chart_c = st.columns([1, 2])
-            with _card_c:
+                _first_dt = _sim_all["exit_date"].iloc[0].normalize() - pd.Timedelta(days=1)
+                _today_dt = pd.Timestamp.today().normalize()
+                _date_range = pd.date_range(_first_dt, _today_dt, freq="D")
+
+                _daily_dates, _daily_vals = [], []
+                _cur_val = float(_sim_amt)
+                for _d in _date_range:
+                    if _d in _vals_by_date:
+                        _cur_val = _vals_by_date[_d]
+                    _daily_dates.append(_d)
+                    _daily_vals.append(_cur_val)
+
+                _final_val  = _daily_vals[-1]
+                _net_dollars = _final_val - float(_sim_amt)
+                _net_pct    = (_final_val / float(_sim_amt) - 1) * 100
+                _s_clr      = "#3fb950" if _net_pct >= 0 else "#f85149"
+                _s_arrow    = "▲" if _net_pct >= 0 else "▼"
+                _s_word     = ("Profit" if lang == "en" else "利益") if _net_pct >= 0 else ("Loss" if lang == "en" else "損失")
+                _n_wins     = sum(1 for ev in _trade_events if ev["win"])
+                _n_losses   = len(_trade_events) - _n_wins
+                _days_total = (_today_dt - _first_dt).days
+
+                # Big result card
                 st.markdown(
-                    f"<div style='background:#161b22;border:2px solid {_sim_clr};"
-                    f"border-radius:12px;padding:22px 20px;text-align:center;margin-top:8px'>"
-                    f"<div style='font-size:30px'>{_sim_icon}</div>"
-                    f"<div style='font-size:13px;color:#8b949e;margin-top:6px'>"
-                    f"${_sim_amt:,.0f} {T('tr_sim_becomes', lang)}</div>"
-                    f"<div style='font-size:32px;font-weight:800;color:{_sim_clr};line-height:1.1'>"
-                    f"${_sim_val:,.2f}</div>"
-                    f"<div style='font-size:17px;color:{_sim_clr};font-weight:600;margin-top:2px'>"
-                    f"{_sim_arrow} {_sim_ret:+.2f}%</div>"
-                    f"<div style='font-size:11px;color:#8b949e;margin-top:6px'>"
-                    f"{len(_sim_sorted)} {'closed trades' if lang == 'en' else '決済済み取引'}</div>"
+                    f"<div style='background:#161b22;border:2px solid {_s_clr};"
+                    f"border-radius:14px;padding:24px 28px;margin-top:10px'>"
+                    f"<div style='font-size:13px;color:#8b949e'>"
+                    f"{'You started with' if lang == 'en' else '投資開始額'}</div>"
+                    f"<div style='font-size:26px;font-weight:700;color:#e6edf3;margin-bottom:10px'>"
+                    f"${float(_sim_amt):,.0f}</div>"
+                    f"<div style='font-size:13px;color:#8b949e'>"
+                    f"{'After' if lang == 'en' else ''} {len(_trade_events)} "
+                    f"{'trades over' if lang == 'en' else '取引 /'} {_days_total} "
+                    f"{'days, you now have' if lang == 'en' else '日間経過後'}</div>"
+                    f"<div style='font-size:44px;font-weight:800;color:{_s_clr};line-height:1.1;margin:6px 0'>"
+                    f"${_final_val:,.2f}</div>"
+                    f"<div style='font-size:20px;color:{_s_clr};font-weight:600'>"
+                    f"{_s_arrow} ${abs(_net_dollars):,.2f} {_s_word} &nbsp;·&nbsp; {_net_pct:+.1f}%</div>"
+                    f"<div style='font-size:13px;color:#8b949e;margin-top:10px'>"
+                    f"✅ {_n_wins} {'wins' if lang == 'en' else '勝ち'} &nbsp;·&nbsp; "
+                    f"❌ {_n_losses} {'losses' if lang == 'en' else '負け'}</div>"
                     f"</div>",
                     unsafe_allow_html=True,
                 )
-            with _chart_c:
-                _start_dt = _sim_sorted["exit_date"].iloc[0] - pd.Timedelta(days=20)
-                _x_dates  = [_start_dt] + list(_sim_sorted["exit_date"])
-                _fill_clr = "rgba(63,185,80,0.08)" if _sim_val >= _sim_amt else "rgba(248,81,73,0.08)"
-                _fig_sim  = go.Figure()
-                _fig_sim.add_trace(go.Scatter(
-                    x=_x_dates, y=_sim_curve,
-                    mode="lines", line=dict(color=_sim_clr, width=2),
-                    fill="tozeroy", fillcolor=_fill_clr, showlegend=False,
-                    hovertemplate="$%{y:,.2f}<extra></extra>",
+
+                # Daily portfolio value chart
+                _fill_s = "rgba(63,185,80,0.10)" if _net_pct >= 0 else "rgba(248,81,73,0.10)"
+                _fig_s  = go.Figure()
+                _fig_s.add_trace(go.Scatter(
+                    x=_daily_dates, y=_daily_vals,
+                    mode="lines", line=dict(color=_s_clr, width=2.5),
+                    fill="tozeroy", fillcolor=_fill_s, showlegend=False,
+                    hovertemplate="<b>%{x|%b %d, %Y}</b><br>$%{y:,.2f}<extra></extra>",
                 ))
-                _fig_sim.add_hline(y=float(_sim_amt), line_dash="dash",
-                                   line_color="#8b949e", opacity=0.5)
-                _fig_sim.update_layout(
-                    height=220, autosize=True,
+                _fig_s.add_hline(
+                    y=float(_sim_amt), line_dash="dash", line_color="#8b949e", opacity=0.4,
+                    annotation_text="Started here" if lang == "en" else "スタート",
+                    annotation_font_color="#8b949e", annotation_position="bottom right",
+                )
+                _fig_s.update_layout(
+                    height=260, autosize=True,
                     plot_bgcolor="#0d1117", paper_bgcolor="#0d1117",
                     font_color="#e6edf3",
-                    margin=dict(l=45, r=8, t=10, b=30),
-                    xaxis=dict(gridcolor="#21262d"),
+                    margin=dict(l=55, r=8, t=16, b=40),
+                    xaxis=dict(gridcolor="#21262d", tickformat="%b %d"),
                     yaxis=dict(gridcolor="#21262d", tickprefix="$"),
                 )
-                st.plotly_chart(_fig_sim, use_container_width=True)
-            st.caption(T("tr_sim_disc", lang))
+                st.plotly_chart(_fig_s, use_container_width=True)
+
+                # Trade-by-trade log
+                with st.expander("See every trade" if lang == "en" else "全取引を見る"):
+                    _log_rows = [{"Date" if lang == "en" else "日付": "Start" if lang == "en" else "開始",
+                                  "Stock" if lang == "en" else "銘柄": "—",
+                                  "Result" if lang == "en" else "結果": "—",
+                                  "Portfolio" if lang == "en" else "資産": f"${float(_sim_amt):,.2f}"}]
+                    _running = float(_sim_amt)
+                    for _ev in _trade_events:
+                        _old  = _running
+                        _running = _ev["value"]
+                        _chg  = _running - _old
+                        _sign = "✅ +" if _ev["win"] else "❌ "
+                        _log_rows.append({
+                            "Date" if lang == "en" else "日付":     _ev["date"].strftime("%b %d, %Y"),
+                            "Stock" if lang == "en" else "銘柄":    _ev["ticker"],
+                            "Result" if lang == "en" else "結果":   f"{_sign}{_ev['pnl_pct']:.1f}%  (${_chg:+,.2f})",
+                            "Portfolio" if lang == "en" else "資産": f"${_running:,.2f}",
+                        })
+                    st.dataframe(pd.DataFrame(_log_rows), use_container_width=True, hide_index=True)
+
+                st.caption(
+                    "Updates every day the screener runs. Flat line = no trades closed that day."
+                    if lang == "en" else
+                    "スクリーナー実行ごとに更新。横ばい = その日に決済した取引なし。"
+                )
+
+            else:
+                # ── ADVANCED MODE ─────────────────────────────────────────────────
+                _sim_sorted = _sim_all.copy()
+                _sim_val  = float(_sim_amt)
+                _sim_curve = [_sim_val]
+                for _p in _sim_sorted["pnl_pct"]:
+                    _sim_val *= (1 + _p / 100)
+                    _sim_curve.append(_sim_val)
+
+                _sim_ret   = (_sim_val / _sim_amt - 1) * 100
+                _sim_clr   = "#3fb950" if _sim_val >= _sim_amt else "#f85149"
+                _sim_icon  = "📈" if _sim_val >= _sim_amt else "📉"
+                _sim_arrow = "▲" if _sim_val >= _sim_amt else "▼"
+
+                _card_c, _chart_c = st.columns([1, 2])
+                with _card_c:
+                    st.markdown(
+                        f"<div style='background:#161b22;border:2px solid {_sim_clr};"
+                        f"border-radius:12px;padding:22px 20px;text-align:center;margin-top:8px'>"
+                        f"<div style='font-size:30px'>{_sim_icon}</div>"
+                        f"<div style='font-size:13px;color:#8b949e;margin-top:6px'>"
+                        f"${_sim_amt:,.0f} {T('tr_sim_becomes', lang)}</div>"
+                        f"<div style='font-size:32px;font-weight:800;color:{_sim_clr};line-height:1.1'>"
+                        f"${_sim_val:,.2f}</div>"
+                        f"<div style='font-size:17px;color:{_sim_clr};font-weight:600;margin-top:2px'>"
+                        f"{_sim_arrow} {_sim_ret:+.2f}%</div>"
+                        f"<div style='font-size:11px;color:#8b949e;margin-top:6px'>"
+                        f"{len(_sim_sorted)} {'closed trades' if lang == 'en' else '決済済み取引'}</div>"
+                        f"</div>",
+                        unsafe_allow_html=True,
+                    )
+                with _chart_c:
+                    _start_dt = _sim_sorted["exit_date"].iloc[0] - pd.Timedelta(days=20)
+                    _x_dates  = [_start_dt] + list(_sim_sorted["exit_date"])
+                    _fill_clr = "rgba(63,185,80,0.08)" if _sim_val >= _sim_amt else "rgba(248,81,73,0.08)"
+                    _fig_sim  = go.Figure()
+                    _fig_sim.add_trace(go.Scatter(
+                        x=_x_dates, y=_sim_curve,
+                        mode="lines", line=dict(color=_sim_clr, width=2),
+                        fill="tozeroy", fillcolor=_fill_clr, showlegend=False,
+                        hovertemplate="$%{y:,.2f}<extra></extra>",
+                    ))
+                    _fig_sim.add_hline(y=float(_sim_amt), line_dash="dash",
+                                       line_color="#8b949e", opacity=0.5)
+                    _fig_sim.update_layout(
+                        height=220, autosize=True,
+                        plot_bgcolor="#0d1117", paper_bgcolor="#0d1117",
+                        font_color="#e6edf3",
+                        margin=dict(l=45, r=8, t=10, b=30),
+                        xaxis=dict(gridcolor="#21262d"),
+                        yaxis=dict(gridcolor="#21262d", tickprefix="$"),
+                    )
+                    st.plotly_chart(_fig_sim, use_container_width=True)
+                st.caption(T("tr_sim_disc", lang))
         else:
             st.info("No closed trades yet — simulator will activate once trades close." if lang == "en"
                     else "まだ決済済み取引がありません。取引が決済されると有効になります。")
