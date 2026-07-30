@@ -1150,6 +1150,30 @@
       }
     },
     {
+      "asset": "WHC.AX",
+      "market": "ASX",
+      "entry_date": "2026-07-16",
+      "entry_price": 7.54,
+      "hold_days_target": 20,
+      "size_pct": 9.6,
+      "ml_score": 75.0,
+      "val_auc": 0.498,
+      "strategy": "Relative Strength",
+      "tier": "B",
+      "score": 61,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 1.459
+      },
+      "exit_date": "2026-07-29",
+      "exit_price": 7.13,
+      "days_held": 9,
+      "pnl_pct": -5.438,
+      "peak_pnl_pct": 1.459,
+      "win": false,
+      "exit_reason": "STOP_LOSS"
+    },
+    {
       "asset": "HPQ",
       "market": "US",
       "entry_date": "2026-07-17",

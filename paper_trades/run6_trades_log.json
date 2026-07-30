@@ -40,8 +40,8 @@
       "tier": "B",
       "score": 30,
       "p7_verdict": "TRADE",
-      "current_price": 24.22,
-      "unrealised_pnl_pct": 3.637,
+      "current_price": 24.38,
+      "unrealised_pnl_pct": 4.322,
       "days_held": 16,
       "peak_pnl_pct": 4.322,
       "checkpoints": {
@@ -106,8 +106,8 @@
       "tier": "B",
       "score": 40,
       "p7_verdict": "TRADE",
-      "current_price": 8028.0,
-      "unrealised_pnl_pct": 14.196,
+      "current_price": 7986.0,
+      "unrealised_pnl_pct": 13.599,
       "days_held": 13,
       "peak_pnl_pct": 14.196,
       "checkpoints": {
@@ -2136,7 +2136,7 @@
       "score": 52,
       "p7_verdict": "TRADE",
       "exit_date": "2026-07-29",
-      "exit_price": 178.66,
+      "exit_price": 178.78,
       "days_held": 20,
       "pnl_pct": 11.155,
       "peak_pnl_pct": 11.23,
@@ -2267,6 +2267,30 @@
       "checkpoints": {
         "4": 1.326
       }
+    },
+    {
+      "asset": "WHC.AX",
+      "market": "ASX",
+      "entry_date": "2026-07-16",
+      "entry_price": 7.54,
+      "hold_days_target": 20,
+      "size_pct": 9.6,
+      "ml_score": 75.0,
+      "val_auc": 0.498,
+      "strategy": "Relative Strength",
+      "tier": "B",
+      "score": 61,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 1.459
+      },
+      "exit_date": "2026-07-29",
+      "exit_price": 7.13,
+      "days_held": 9,
+      "pnl_pct": -5.438,
+      "peak_pnl_pct": 1.459,
+      "win": false,
+      "exit_reason": "STOP_LOSS"
     },
     {
       "asset": "HPQ",
@@ -2477,7 +2501,7 @@
       "p7_verdict": "TRADE",
       "reversal_verdict": "STAND DOWN (VOL SPIKE)",
       "exit_date": "2026-07-29",
-      "exit_price": 48.96,
+      "exit_price": 49.98,
       "days_held": 9,
       "pnl_pct": 2.965,
       "peak_pnl_pct": 10.242,
@@ -2511,6 +2535,31 @@
       "checkpoints": {
         "4": -7.017
       }
+    },
+    {
+      "asset": "CMG",
+      "market": "US",
+      "entry_date": "2026-07-16",
+      "entry_price": 34.63,
+      "hold_days_target": 20,
+      "size_pct": 2.4,
+      "ml_score": 85.1,
+      "val_auc": 0.569,
+      "strategy": "RSI(2)",
+      "tier": "B",
+      "score": 30,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": -3.783
+      },
+      "exit_date": "2026-07-29",
+      "exit_price": 33.51,
+      "days_held": 9,
+      "pnl_pct": -3.234,
+      "peak_pnl_pct": 0.0,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     },
     {
       "asset": "AMT",
