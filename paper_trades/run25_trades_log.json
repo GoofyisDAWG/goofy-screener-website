@@ -417,37 +417,36 @@
         "4": 2.803
       },
       "exit_date": "2026-07-29",
-      "exit_price": 164.66,
+      "exit_price": 173.17,
       "days_held": 9,
-      "pnl_pct": 20.172,
-      "peak_pnl_pct": 20.172,
+      "pnl_pct": 26.383,
+      "peak_pnl_pct": 26.383,
       "win": true,
       "exit_reason": "TAKE_PROFIT"
     },
     {
-      "asset": "CMG",
-      "market": "US",
+      "asset": "6702.T",
+      "market": "JPX",
       "entry_date": "2026-07-16",
-      "entry_price": 34.63,
+      "entry_price": 3252.0,
       "hold_days_target": 20,
-      "size_pct": 2.4,
-      "ml_score": 85.1,
-      "val_auc": 0.569,
-      "strategy": "RSI(2)",
+      "size_pct": 1.0,
+      "ml_score": 95.6,
+      "val_auc": 0.483,
+      "strategy": "Relative Strength",
       "tier": "B",
-      "score": 30,
+      "score": 29,
       "p7_verdict": "TRADE",
       "checkpoints": {
-        "4": -3.783
+        "4": 1.507
       },
       "exit_date": "2026-07-29",
-      "exit_price": 33.51,
+      "exit_price": 3844.0,
       "days_held": 9,
-      "pnl_pct": -3.234,
-      "peak_pnl_pct": 0.0,
-      "win": false,
-      "exit_reason": "SIGNAL_REVERSAL",
-      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
+      "pnl_pct": 18.204,
+      "peak_pnl_pct": 18.204,
+      "win": true,
+      "exit_reason": "TAKE_PROFIT"
     },
     {
       "asset": "AMC.AX",
@@ -466,10 +465,10 @@
         "4": -1.793
       },
       "exit_date": "2026-07-29",
-      "exit_price": 64.79,
+      "exit_price": 66.24,
       "days_held": 9,
-      "pnl_pct": 4.189,
-      "peak_pnl_pct": 4.189,
+      "pnl_pct": 6.521,
+      "peak_pnl_pct": 6.521,
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
@@ -491,10 +490,10 @@
         "4": 2.184
       },
       "exit_date": "2026-07-29",
-      "exit_price": 1998.5,
+      "exit_price": 2043.0,
       "days_held": 9,
-      "pnl_pct": 3.926,
-      "peak_pnl_pct": 3.926,
+      "pnl_pct": 6.24,
+      "peak_pnl_pct": 6.24,
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
