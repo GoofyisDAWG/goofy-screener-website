@@ -19,28 +19,6 @@
   },
   "open": [
     {
-      "asset": "MSFT",
-      "market": "US",
-      "entry_date": "2026-07-09",
-      "entry_price": 383.34,
-      "hold_days_target": 20,
-      "size_pct": 8.6,
-      "ml_score": 70.9,
-      "val_auc": 0.564,
-      "strategy": "RSI Divergence",
-      "tier": "B",
-      "score": 37,
-      "p7_verdict": "TRADE",
-      "current_price": 390.54,
-      "unrealised_pnl_pct": 1.878,
-      "days_held": 14,
-      "peak_pnl_pct": 4.943,
-      "checkpoints": {
-        "4": 3.206,
-        "10": -0.459
-      }
-    },
-    {
       "asset": "STO.AX",
       "market": "ASX",
       "entry_date": "2026-07-09",
@@ -206,12 +184,13 @@
       "tier": "A",
       "score": 46,
       "p7_verdict": "TRADE",
-      "current_price": 729.46,
-      "unrealised_pnl_pct": -3.358,
-      "days_held": 9,
+      "current_price": 741.69,
+      "unrealised_pnl_pct": -1.738,
+      "days_held": 10,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
-        "4": -0.98
+        "4": -0.98,
+        "10": -1.738
       }
     },
     {
@@ -227,12 +206,13 @@
       "tier": "B",
       "score": 61,
       "p7_verdict": "TRADE",
-      "current_price": 88.46,
-      "unrealised_pnl_pct": -0.718,
-      "days_held": 9,
+      "current_price": 87.93,
+      "unrealised_pnl_pct": -1.313,
+      "days_held": 10,
       "peak_pnl_pct": 0.774,
       "checkpoints": {
-        "4": 0.348
+        "4": 0.348,
+        "10": -1.313
       }
     },
     {
@@ -1562,6 +1542,31 @@
       "checkpoints": {
         "4": 3.755,
         "10": 5.704
+      }
+    },
+    {
+      "asset": "MSFT",
+      "market": "US",
+      "entry_date": "2026-07-09",
+      "entry_price": 383.34,
+      "hold_days_target": 20,
+      "size_pct": 8.6,
+      "ml_score": 70.9,
+      "val_auc": 0.564,
+      "strategy": "RSI Divergence",
+      "tier": "B",
+      "score": 37,
+      "p7_verdict": "TRADE",
+      "exit_date": "2026-07-30",
+      "exit_price": 451.1,
+      "days_held": 15,
+      "pnl_pct": 17.676,
+      "peak_pnl_pct": 17.676,
+      "win": true,
+      "exit_reason": "TAKE_PROFIT",
+      "checkpoints": {
+        "4": 3.206,
+        "10": -0.459
       }
     }
   ]
