@@ -55,10 +55,10 @@
       "score": 30,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 24.22,
-      "unrealised_pnl_pct": 3.593,
+      "current_price": 24.38,
+      "unrealised_pnl_pct": 4.277,
       "days_held": 8,
-      "peak_pnl_pct": 3.593
+      "peak_pnl_pct": 4.277
     },
     {
       "asset": "7733.T",
@@ -74,10 +74,10 @@
       "score": 59,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 1853.0,
-      "unrealised_pnl_pct": 7.358,
+      "current_price": 1862.5,
+      "unrealised_pnl_pct": 7.908,
       "days_held": 6,
-      "peak_pnl_pct": 7.358
+      "peak_pnl_pct": 7.908
     },
     {
       "asset": "4452.T",
@@ -93,10 +93,10 @@
       "score": 28,
       "p7_verdict": "TRADE",
       "checkpoints": {},
-      "current_price": 3377.0,
-      "unrealised_pnl_pct": 4.713,
+      "current_price": 3419.0,
+      "unrealised_pnl_pct": 6.016,
       "days_held": 6,
-      "peak_pnl_pct": 4.713
+      "peak_pnl_pct": 6.016
     }
   ],
   "closed": [
@@ -115,9 +115,9 @@
       "p7_verdict": "TRADE",
       "checkpoints": {},
       "exit_date": "2026-07-29",
-      "exit_price": 371.08,
+      "exit_price": 369.37,
       "days_held": 7,
-      "pnl_pct": 0.725,
+      "pnl_pct": 0.261,
       "peak_pnl_pct": 1.737,
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
@@ -138,10 +138,10 @@
       "p7_verdict": "TRADE",
       "checkpoints": {},
       "exit_date": "2026-07-29",
-      "exit_price": 66.24,
+      "exit_price": 64.79,
       "days_held": 6,
-      "pnl_pct": 7.393,
-      "peak_pnl_pct": 7.393,
+      "pnl_pct": 5.042,
+      "peak_pnl_pct": 5.042,
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
