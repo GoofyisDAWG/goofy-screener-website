@@ -4009,7 +4009,7 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                         "pnl_pct": float(_row["pnl_pct"]),
                         "ticker": str(_row.get("asset", "?")),
                         "win": float(_row["pnl_pct"]) > 0,
-                        "fee": _fee,
+                        "fee": _fee_per_trade,
                     })
 
                 # If multiple trades close same day, last one wins (they're already sorted)
