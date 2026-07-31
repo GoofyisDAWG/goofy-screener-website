@@ -17,10 +17,10 @@
       "tier": "A",
       "score": 54,
       "p7_verdict": "TRADE",
-      "current_price": 178.9,
-      "unrealised_pnl_pct": 7.164,
+      "current_price": 177.53,
+      "unrealised_pnl_pct": 6.344,
       "days_held": 17,
-      "peak_pnl_pct": 7.164,
+      "peak_pnl_pct": 7.092,
       "checkpoints": {
         "4": 1.414,
         "10": 2.845
@@ -39,10 +39,10 @@
       "tier": "B",
       "score": 34,
       "p7_verdict": "TRADE",
-      "current_price": 81.605,
-      "unrealised_pnl_pct": 5.134,
+      "current_price": 81.93,
+      "unrealised_pnl_pct": 5.553,
       "days_held": 11,
-      "peak_pnl_pct": 5.385,
+      "peak_pnl_pct": 5.553,
       "checkpoints": {
         "4": 0.67,
         "10": 3.723
@@ -71,6 +71,28 @@
       }
     },
     {
+      "asset": "VTI",
+      "market": "US",
+      "entry_date": "2026-07-16",
+      "entry_price": 372.42,
+      "hold_days_target": 20,
+      "size_pct": 2.5,
+      "ml_score": 82.3,
+      "val_auc": 0.436,
+      "strategy": "Relative Strength",
+      "tier": "A",
+      "score": 54,
+      "p7_verdict": "TRADE",
+      "current_price": 366.27,
+      "unrealised_pnl_pct": -1.651,
+      "days_held": 10,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {
+        "4": -0.953,
+        "10": -1.651
+      }
+    },
+    {
       "asset": "NHF.AX",
       "market": "ASX",
       "entry_date": "2026-07-16",
@@ -83,8 +105,8 @@
       "tier": "B",
       "score": 35,
       "p7_verdict": "TRADE",
-      "current_price": 7.45,
-      "unrealised_pnl_pct": 2.195,
+      "current_price": 7.5,
+      "unrealised_pnl_pct": 2.881,
       "days_held": 11,
       "peak_pnl_pct": 5.075,
       "checkpoints": {
@@ -105,8 +127,8 @@
       "tier": "B",
       "score": 30,
       "p7_verdict": "TRADE",
-      "current_price": 19.51,
-      "unrealised_pnl_pct": 3.446,
+      "current_price": 19.59,
+      "unrealised_pnl_pct": 3.871,
       "days_held": 11,
       "peak_pnl_pct": 5.355,
       "checkpoints": {
@@ -127,8 +149,8 @@
       "tier": "B",
       "score": 35,
       "p7_verdict": "TRADE",
-      "current_price": 158.82,
-      "unrealised_pnl_pct": -1.108,
+      "current_price": 158.99,
+      "unrealised_pnl_pct": -1.002,
       "days_held": 11,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
@@ -149,8 +171,8 @@
       "tier": "B",
       "score": 59,
       "p7_verdict": "TRADE",
-      "current_price": 1815.5,
-      "unrealised_pnl_pct": 5.185,
+      "current_price": 1820.0,
+      "unrealised_pnl_pct": 5.446,
       "days_held": 7,
       "peak_pnl_pct": 7.908,
       "checkpoints": {
@@ -170,8 +192,8 @@
       "tier": "B",
       "score": 28,
       "p7_verdict": "TRADE",
-      "current_price": 3235.0,
-      "unrealised_pnl_pct": 0.155,
+      "current_price": 3268.0,
+      "unrealised_pnl_pct": 1.176,
       "days_held": 7,
       "peak_pnl_pct": 5.851,
       "checkpoints": {
@@ -191,10 +213,10 @@
       "tier": "A",
       "score": 47,
       "p7_verdict": "TRADE",
-      "current_price": 23.35,
-      "unrealised_pnl_pct": 0.43,
+      "current_price": 23.32,
+      "unrealised_pnl_pct": 0.301,
       "days_held": 1,
-      "peak_pnl_pct": 0.43,
+      "peak_pnl_pct": 0.301,
       "checkpoints": {}
     }
   ],
@@ -930,9 +952,9 @@
       "score": 55,
       "p7_verdict": "TRADE",
       "exit_date": "2026-07-31",
-      "exit_price": 7.8,
+      "exit_price": 7.84,
       "days_held": 20,
-      "pnl_pct": 9.859,
+      "pnl_pct": 10.423,
       "peak_pnl_pct": 12.254,
       "win": true,
       "exit_reason": "HOLD_COMPLETE",
@@ -940,32 +962,6 @@
         "4": 7.746,
         "10": 8.169
       }
-    },
-    {
-      "asset": "VTI",
-      "market": "US",
-      "entry_date": "2026-07-16",
-      "entry_price": 372.42,
-      "hold_days_target": 20,
-      "size_pct": 2.5,
-      "ml_score": 82.3,
-      "val_auc": 0.436,
-      "strategy": "Relative Strength",
-      "tier": "A",
-      "score": 54,
-      "p7_verdict": "TRADE",
-      "checkpoints": {
-        "4": -0.953,
-        "10": -1.651
-      },
-      "exit_date": "2026-07-31",
-      "exit_price": 366.27,
-      "days_held": 11,
-      "pnl_pct": -1.651,
-      "peak_pnl_pct": 0.0,
-      "win": false,
-      "exit_reason": "SIGNAL_REVERSAL",
-      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     }
   ]
 }
