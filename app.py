@@ -121,6 +121,20 @@ RUN_CONFIGS = {
     46: "Extreme Conviction: All Strategies, ML≥90, Wide Stop",
     47: "Full Stack: Proven Trio + Blackout + Volume 1.5×, ML≥70",
     48: "Four Champions: RSI + BB + MA Crossover + Mean Rev ONLY, ML≥70, Blackout",
+    49: "BB Rehab: Bollinger Bands ONLY + MA200 Trend Filter",
+    50: "Regime Gate: R13 config + VIX/SPY regime filter",
+    51: "RSI Div Rehab: RSI Divergence ONLY + fundamental gate",
+    # Phase 14: Concentrated Portfolios (max 10 positions)
+    52: "🎯 Concentrated US — Tier S+A, US only, ML≥80, max 10",
+    53: "🎯 Concentrated ASX — Tier S+A, ASX only, ML≥80, max 10",
+    54: "🎯 Concentrated JPX — Tier S+A, JPX only, ML≥80, max 10",
+    55: "🎯 Ultra Concentrated — Tier S only, all markets, ML≥85, max 8",
+    56: "🎯 Concentrated Momentum — Trend/Breakout family, Tier S+A, max 10",
+    57: "🎯 Concentrated Mean Reversion — RSI + Mean Rev + RSI(2), Tier S+A, max 10",
+    58: "🎯 Concentrated Quality — Fund gate ≥5/8, ML≥80, Tier S+A, max 10",
+    59: "🎯 Concentrated US Quality — US only, Fund gate, ML≥80, Tier S+A, max 10",
+    60: "🎯 Concentrated Regime-Smart — Regime gate + R18 base, Tier S+A, max 10",
+    61: "🎯 Concentrated Champions — ML≥85, Proven trio, Fund gate, Tier S+A, max 10",
 }
 
 # Speculative / high-risk tickers — mirrored from paper_trader.py
