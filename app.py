@@ -3906,15 +3906,47 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                      "詳細: 取引ごとの複利。シンプル: 日次ポートフォリオ価値を表示。",
             )
 
-        _broker_options = {
-            "$0 (no brokerage)" if lang == "en" else "$0（手数料なし）": 0,
-            "$5 / trade (e.g. Stake)" if lang == "en" else "$5 / 取引（Stake等）": 5,
-            "$10 / trade (e.g. CommSec)" if lang == "en" else "$10 / 取引（CommSec等）": 10,
-            "$20 / trade (e.g. CommSec for large orders)" if lang == "en" else "$20 / 取引（大口）": 20,
-        }
-        _broker_label = "Brokerage cost (buy + sell per trade)" if lang == "en" else "取引手数料（売買1往復）"
-        _broker_choice = st.selectbox(_broker_label, list(_broker_options.keys()), index=0, key="sim_broker")
-        _broker_per_trade = _broker_options[_broker_choice]
+        _brk_col, _pos_col = st.columns([2, 1])
+        with _brk_col:
+            _broker_names = (
+                ["No brokerage ($0)", "CommSec (tiered: $10/$19.95/0.12%)",
+                 "Selfwealth ($9.50 flat)", "Stake (~$3 AUD flat)",
+                 "Interactive Brokers (0.1%, min $1.50)"]
+                if lang == "en" else
+                ["手数料なし ($0)", "CommSec（段階制: $10/$19.95/0.12%）",
+                 "Selfwealth（$9.50 定額）", "Stake（約$3 AUD 定額）",
+                 "Interactive Brokers（0.1%、最低$1.50）"]
+            )
+            _broker_lbl = "Broker" if lang == "en" else "ブローカー"
+            _broker_choice = st.selectbox(_broker_lbl, _broker_names, index=0, key="sim_broker")
+
+        with _pos_col:
+            _pos_pct = st.slider(
+                "% per trade" if lang == "en" else "1取引あたり%",
+                min_value=1, max_value=50, value=10, step=1, key="sim_pos_pct",
+                help=("How much of your portfolio you put into each trade. "
+                      "10% means each stock gets 10% of your total. Affects the fee calculation.")
+                     if lang == "en" else
+                     "各取引にポートフォリオの何%を投入するか。手数料計算に影響します。",
+            )
+
+        def _calc_brokerage(trade_value: float, broker: str) -> float:
+            """Return total round-trip brokerage (buy + sell) for a given trade value."""
+            if "No brokerage" in broker or "手数料なし" in broker:
+                return 0.0
+            if "CommSec" in broker:
+                def _one(v):
+                    if v <= 1_000:  return 10.00
+                    if v <= 10_000: return 19.95
+                    return v * 0.0012
+                return _one(trade_value) * 2  # buy + sell
+            if "Selfwealth" in broker:
+                return 9.50 * 2
+            if "Stake" in broker:
+                return 3.0 * 2
+            if "Interactive" in broker:
+                return max(1.50, trade_value * 0.001) * 2
+            return 0.0
 
         # When "All Runs" selected, dc mixes all runs — use best run instead
         _sim_run_label = None
@@ -3947,16 +3979,21 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                 # ── SIMPLE MODE ───────────────────────────────────────────────────
                 # Build calendar-day portfolio curve (flat between trades, updates daily)
                 _s_val = float(_sim_amt)
+                _total_comm = 0.0
                 _trade_events = []
                 for _, _row in _sim_all.iterrows():
+                    _trade_val = _s_val * (_pos_pct / 100)
+                    _fee = _calc_brokerage(_trade_val, _broker_choice)
                     _s_val *= (1 + _row["pnl_pct"] / 100)
-                    _s_val -= _broker_per_trade  # buy + sell commission per trade
+                    _s_val -= _fee
+                    _total_comm += _fee
                     _trade_events.append({
                         "date": _row["exit_date"].normalize(),
                         "value": round(_s_val, 2),
                         "pnl_pct": float(_row["pnl_pct"]),
                         "ticker": str(_row.get("asset", "?")),
                         "win": float(_row["pnl_pct"]) > 0,
+                        "fee": _fee,
                     })
 
                 # If multiple trades close same day, last one wins (they're already sorted)
@@ -3977,7 +4014,6 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                     _daily_vals.append(_cur_val)
 
                 _final_val   = _daily_vals[-1]
-                _total_comm  = _broker_per_trade * len(_trade_events)
                 _net_dollars = _final_val - float(_sim_amt)
                 _net_pct     = (_final_val / float(_sim_amt) - 1) * 100
                 _s_clr       = "#3fb950" if _net_pct >= 0 else "#f85149"
@@ -3989,12 +4025,14 @@ The leaderboard above updates automatically — the top 3 are the runs producing
 
                 # broker cost line (only shown when > $0)
                 _comm_html = ""
-                if _broker_per_trade > 0:
-                    _comm_lbl = "Brokerage paid" if lang == "en" else "手数料合計"
+                if _total_comm > 0:
+                    _avg_fee = _total_comm / len(_trade_events) if _trade_events else 0
+                    _comm_lbl  = "Brokerage paid" if lang == "en" else "手数料合計"
+                    _avg_lbl   = "avg per trade"  if lang == "en" else "平均/取引"
                     _comm_html = (
                         f"<div style='font-size:13px;color:#e6a31a;margin-top:6px'>"
-                        f"⚠️ {_comm_lbl}: <b>${_total_comm:,.0f}</b> "
-                        f"(${_broker_per_trade}/{'trade' if lang=='en' else '取引'} × {len(_trade_events)})</div>"
+                        f"⚠️ {_comm_lbl}: <b>${_total_comm:,.2f}</b> "
+                        f"(${_avg_fee:.2f} {_avg_lbl} × {len(_trade_events)})</div>"
                     )
 
                 # Big result card
@@ -4076,21 +4114,24 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                 _sim_sorted = _sim_all.copy()
                 _sim_val  = float(_sim_amt)
                 _sim_curve = [_sim_val]
+                _sim_total_comm = 0.0
                 for _p in _sim_sorted["pnl_pct"]:
+                    _trade_val = _sim_val * (_pos_pct / 100)
+                    _fee = _calc_brokerage(_trade_val, _broker_choice)
                     _sim_val *= (1 + _p / 100)
-                    _sim_val -= _broker_per_trade
+                    _sim_val -= _fee
+                    _sim_total_comm += _fee
                     _sim_curve.append(_sim_val)
-
-                _sim_total_comm = _broker_per_trade * len(_sim_sorted)
                 _sim_ret   = (_sim_val / _sim_amt - 1) * 100
                 _sim_clr   = "#3fb950" if _sim_val >= _sim_amt else "#f85149"
                 _sim_icon  = "📈" if _sim_val >= _sim_amt else "📉"
                 _sim_arrow = "▲" if _sim_val >= _sim_amt else "▼"
                 _adv_comm_html = ""
-                if _broker_per_trade > 0:
+                if _sim_total_comm > 0:
+                    _adv_avg_fee = _sim_total_comm / len(_sim_sorted)
                     _adv_comm_html = (
                         f"<div style='font-size:11px;color:#e6a31a;margin-top:6px'>"
-                        f"⚠️ ${_sim_total_comm:,.0f} in brokerage</div>"
+                        f"⚠️ ${_sim_total_comm:,.2f} brokerage (${_adv_avg_fee:.2f} avg/trade)</div>"
                     )
 
                 _card_c, _chart_c = st.columns([1, 2])
