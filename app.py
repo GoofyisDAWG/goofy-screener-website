@@ -1847,6 +1847,18 @@ body, [data-testid="stAppViewContainer"] { background: #0d1117; }
     padding: 6px 0; border-bottom: 1px solid #21262d; font-size: 14px;
 }
 .section-header { color: #e6edf3; font-size: 20px; font-weight: 700; margin: 24px 0 12px; }
+/* ── Custom tooltips ────────────────────────────────────── */
+.tip-wrap { position: relative; display: inline; cursor: help; }
+.tip-wrap .tip-box {
+    visibility: hidden; opacity: 0;
+    position: absolute; bottom: 135%; left: 50%; transform: translateX(-50%);
+    background: #21262d; color: #c9d1d9; border: 1px solid #58a6ff;
+    border-radius: 8px; padding: 9px 13px; font-size: 12px; line-height: 1.55;
+    width: 250px; text-align: left; z-index: 9999;
+    transition: opacity 0.18s; pointer-events: none; white-space: normal;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+.tip-wrap:hover .tip-box { visibility: visible; opacity: 1; }
 .disclaimer-box {
     background: #3d2600; border: 1px solid #d29922; border-radius: 8px;
     padding: 12px 16px; font-size: 12px; color: #d29922; margin-top: 8px;
@@ -3717,6 +3729,38 @@ The leaderboard above updates automatically — the top 3 are the runs producing
             selected_run = int(selected_label.split()[1])
             dc = dc[dc["run"] == selected_run].copy()
 
+        # ── run info strip (start date · active period · stocks traded) ───────────
+        if selected_run is not None and not dc.empty:
+            _ri_entry = pd.to_datetime(dc["entry_date"], errors="coerce").dropna()
+            _ri_exit  = pd.to_datetime(dc["exit_date"],  errors="coerce").dropna()
+            _ri_start = _ri_entry.min().strftime("%b %d, %Y") if not _ri_entry.empty else "—"
+            _ri_last  = _ri_exit.max().strftime("%b %d, %Y")  if not _ri_exit.empty  else "—"
+            _ri_days  = ((_ri_exit.max() - _ri_entry.min()).days if (not _ri_entry.empty and not _ri_exit.empty) else 0)
+            _ri_tickers = sorted(dc["asset"].dropna().unique().tolist()) if "asset" in dc.columns else []
+            _chips = " ".join(
+                f"<span style='background:#21262d;border:1px solid #30363d;border-radius:6px;"
+                f"padding:2px 8px;font-size:11px;color:#c9d1d9;margin:2px'>{t}</span>"
+                for t in _ri_tickers
+            )
+            _period_lbl = "Active period" if lang == "en" else "運用期間"
+            _stocks_lbl = "Stocks traded" if lang == "en" else "取引銘柄"
+            _days_lbl   = f"{_ri_days} days" if lang == "en" else f"{_ri_days}日間"
+            st.markdown(
+                f"<div style='background:#161b22;border:1px solid #30363d;border-radius:10px;"
+                f"padding:14px 18px;margin:10px 0 16px'>"
+                f"<div style='display:flex;gap:32px;flex-wrap:wrap;margin-bottom:10px'>"
+                f"<div><span style='color:#8b949e;font-size:11px'>{'Started' if lang=='en' else '開始日'}</span><br>"
+                f"<span style='color:#e6edf3;font-weight:600'>{_ri_start}</span></div>"
+                f"<div><span style='color:#8b949e;font-size:11px'>{_period_lbl}</span><br>"
+                f"<span style='color:#e6edf3;font-weight:600'>{_ri_start} → {_ri_last}</span> "
+                f"<span style='color:#8b949e;font-size:11px'>({_days_lbl})</span></div>"
+                f"</div>"
+                f"<div style='color:#8b949e;font-size:11px;margin-bottom:5px'>{_stocks_lbl} ({len(_ri_tickers)})</div>"
+                f"<div style='display:flex;flex-wrap:wrap;gap:4px'>{_chips}</div>"
+                f"</div>",
+                unsafe_allow_html=True,
+            )
+
         # handle runs with no closed trades yet
         if dc.empty and selected_run is not None:
             n_open = _open_by_run.get(selected_run, 0)
@@ -3731,7 +3775,7 @@ The leaderboard above updates automatically — the top 3 are the runs producing
             win_rate = avg_pnl = avg_win = avg_loss = pf = 0.0
             wl_str = "0W / 0L" if lang == "en" else "0勝 / 0敗"
             stops_sub = "—"
-            sortino_str = pf_str = "—"
+            sortino_str = sharpe_str = pf_str = "—"
         else:
             n_total  = len(dc)
             n_wins   = int(dc["win"].sum())
@@ -3744,25 +3788,30 @@ The leaderboard above updates automatically — the top 3 are the runs producing
             wl_str   = f"{n_wins}W / {n_total-n_wins}L" if lang == "en" else f"{n_wins}勝 / {n_total-n_wins}敗"
             stops_sub = f"{n_stops/n_total*100:.0f}% of trades" if lang == "en" else f"全体の{n_stops/n_total*100:.0f}%"
             pf_str   = f"{pf:.2f}" if not np.isinf(pf) else "∞"
-            # Sortino ratio: annualised return / downside deviation (only negative returns)
-            # Uses avg hold period to annualise; needs ≥5 closed trades to be meaningful.
+            # Sharpe + Sortino: annualised; uses avg hold period; needs ≥5 closed trades.
             if n_total >= 5:
                 _rets = dc["pnl_pct"].values / 100
-                _avg_hold = dc["days_held"].mean() if "days_held" in dc.columns else 20
+                _avg_hold   = dc["days_held"].mean() if "days_held" in dc.columns else 20
                 _ann_factor = 252 / max(float(_avg_hold), 1)
                 _ann_ret    = _rets.mean() * _ann_factor
+                _all_std    = _rets.std() * np.sqrt(_ann_factor)
+                _rf         = 0.04  # 4% risk-free rate
+                _sharpe     = (_ann_ret - _rf) / _all_std if _all_std and not np.isnan(_all_std) else np.nan
+                sharpe_str  = f"{_sharpe:.2f}" if not np.isnan(_sharpe) else "—"
                 _neg_rets   = _rets[_rets < 0]
                 _ds_std     = _neg_rets.std() * np.sqrt(_ann_factor) if len(_neg_rets) > 1 else np.nan
                 _sortino    = _ann_ret / _ds_std if _ds_std and not np.isnan(_ds_std) else np.nan
                 sortino_str = f"{_sortino:.2f}" if not np.isnan(_sortino) else "—"
             else:
-                sortino_str = "—"
+                sharpe_str = sortino_str = "—"
 
         # ── tooltip helper ──
         def _tip(text_en, text_ja):
-            t = text_en if lang == "en" else text_ja
-            return (f"<span title='{t}' style='cursor:help;color:#8b949e;"
-                    f"font-size:11px;margin-left:3px'>ⓘ</span>")
+            t = (text_en if lang == "en" else text_ja).replace("'", "&#39;")
+            return (f"<span class='tip-wrap'>"
+                    f"<span style='color:#8b949e;font-size:11px;margin-left:3px'>ⓘ</span>"
+                    f"<span class='tip-box'>{t}</span>"
+                    f"</span>")
 
         _tips = {
             "m1": _tip("Total number of completed trades in this run.",
@@ -3779,8 +3828,10 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                         "価格が大きく下落した際に損失を抑えるため自動決済した取引数。"),
             "pf":  _tip("For every $1 lost, how much was made. Above 1.0 = profitable. 1.30 means $1.30 earned per $1 lost.",
                          "1ドルの損失に対して何ドル稼いだか。1.0超＝利益あり。1.30は損失1ドルに対し1.30ドル獲得。"),
-            "so":  _tip("Risk-adjusted return score that only penalises losing trades (not winning volatility). Above 1.0 is good.",
-                         "損失のみを考慮したリスク調整済みリターン指標。1.0超が良好。"),
+            "sh":  _tip("(Annualised return − 4% risk-free rate) ÷ total volatility. Above 1.0 is strong; penalises all swings, up and down.",
+                         "（年率リターン − 4%無リスク金利）÷ 全ボラティリティ。1.0超が良好。上昇・下落の両方の変動を評価。"),
+            "so":  _tip("Same as Sharpe but only penalises downside moves — upside volatility is not counted against you. Above 1.0 is good.",
+                         "シャープ比と同様だが、下方リスクのみを評価。上昇変動はペナルティなし。1.0超が良好。"),
         }
 
         # ── summary metrics row 1 ──
@@ -3804,14 +3855,16 @@ The leaderboard above updates automatically — the top 3 are the runs producing
             )
 
         # ── summary metrics row 2: risk-adjusted metrics ──
-        _pf_label = "Profit Factor" if lang == "en" else "プロフィットファクター"
+        _pf_label = "Profit Factor"  if lang == "en" else "プロフィットファクター"
         _pf_sub   = "gross wins ÷ gross losses" if lang == "en" else "総利益 ÷ 総損失"
-        _so_label = "Sortino Ratio" if lang == "en" else "ソルティノレシオ"
-        _so_sub   = "ann. return ÷ downside vol" if lang == "en" else "年率リターン ÷ 下方ボラ"
-        _so_note  = "vs Sharpe (penalises all vol)" if lang == "en" else "シャープ比は全変動を評価"
-        _r2c1, _r2c2, _r2c3 = st.columns([1, 1, 4])
+        _sh_label = "Sharpe Ratio"   if lang == "en" else "シャープレシオ"
+        _sh_sub   = "ann. excess return ÷ total vol" if lang == "en" else "年率超過リターン ÷ 全ボラ"
+        _so_label = "Sortino Ratio"  if lang == "en" else "ソルティノレシオ"
+        _so_sub   = "ann. return ÷ downside vol only" if lang == "en" else "年率リターン ÷ 下方ボラのみ"
+        _r2c1, _r2c2, _r2c3, _r2c4 = st.columns([1, 1, 1, 3])
         _pf_color = "#3fb950" if pf_str not in ("—", "0.00") and pf != 0 and (pf == float("inf") or pf >= 1.0) else "#f85149"
-        _so_color = "#3fb950" if sortino_str not in ("—",) and float(sortino_str) > 0 else "#f85149" if sortino_str != "—" else "#e6edf3"
+        _sh_color = "#3fb950" if sharpe_str != "—" and float(sharpe_str) >= 1.0 else "#e6a31a" if sharpe_str != "—" and float(sharpe_str) > 0 else "#f85149" if sharpe_str != "—" else "#e6edf3"
+        _so_color = "#3fb950" if sortino_str != "—" and float(sortino_str) >= 1.0 else "#e6a31a" if sortino_str != "—" and float(sortino_str) > 0 else "#f85149" if sortino_str != "—" else "#e6edf3"
         _r2c1.markdown(
             f"<div class='metric-card'>"
             f"<div class='label'>{_pf_label}{_tips['pf']}</div>"
@@ -3821,9 +3874,16 @@ The leaderboard above updates automatically — the top 3 are the runs producing
         )
         _r2c2.markdown(
             f"<div class='metric-card'>"
+            f"<div class='label'>{_sh_label}{_tips['sh']}</div>"
+            f"<div class='value' style='color:{_sh_color}'>{sharpe_str}</div>"
+            f"<div class='sub'>{_sh_sub}</div>"
+            f"</div>", unsafe_allow_html=True,
+        )
+        _r2c3.markdown(
+            f"<div class='metric-card'>"
             f"<div class='label'>{_so_label}{_tips['so']}</div>"
             f"<div class='value' style='color:{_so_color}'>{sortino_str}</div>"
-            f"<div class='sub'>{_so_note}</div>"
+            f"<div class='sub'>{_so_sub}</div>"
             f"</div>", unsafe_allow_html=True,
         )
 
@@ -3845,6 +3905,16 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                      if lang == "en" else
                      "詳細: 取引ごとの複利。シンプル: 日次ポートフォリオ価値を表示。",
             )
+
+        _broker_options = {
+            "$0 (no brokerage)" if lang == "en" else "$0（手数料なし）": 0,
+            "$5 / trade (e.g. Stake)" if lang == "en" else "$5 / 取引（Stake等）": 5,
+            "$10 / trade (e.g. CommSec)" if lang == "en" else "$10 / 取引（CommSec等）": 10,
+            "$20 / trade (e.g. CommSec for large orders)" if lang == "en" else "$20 / 取引（大口）": 20,
+        }
+        _broker_label = "Brokerage cost (buy + sell per trade)" if lang == "en" else "取引手数料（売買1往復）"
+        _broker_choice = st.selectbox(_broker_label, list(_broker_options.keys()), index=0, key="sim_broker")
+        _broker_per_trade = _broker_options[_broker_choice]
 
         # When "All Runs" selected, dc mixes all runs — use best run instead
         _sim_run_label = None
@@ -3880,6 +3950,7 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                 _trade_events = []
                 for _, _row in _sim_all.iterrows():
                     _s_val *= (1 + _row["pnl_pct"] / 100)
+                    _s_val -= _broker_per_trade  # buy + sell commission per trade
                     _trade_events.append({
                         "date": _row["exit_date"].normalize(),
                         "value": round(_s_val, 2),
@@ -3905,15 +3976,26 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                     _daily_dates.append(_d)
                     _daily_vals.append(_cur_val)
 
-                _final_val  = _daily_vals[-1]
+                _final_val   = _daily_vals[-1]
+                _total_comm  = _broker_per_trade * len(_trade_events)
                 _net_dollars = _final_val - float(_sim_amt)
-                _net_pct    = (_final_val / float(_sim_amt) - 1) * 100
-                _s_clr      = "#3fb950" if _net_pct >= 0 else "#f85149"
-                _s_arrow    = "▲" if _net_pct >= 0 else "▼"
-                _s_word     = ("Profit" if lang == "en" else "利益") if _net_pct >= 0 else ("Loss" if lang == "en" else "損失")
-                _n_wins     = sum(1 for ev in _trade_events if ev["win"])
-                _n_losses   = len(_trade_events) - _n_wins
-                _days_total = (_today_dt - _first_dt).days
+                _net_pct     = (_final_val / float(_sim_amt) - 1) * 100
+                _s_clr       = "#3fb950" if _net_pct >= 0 else "#f85149"
+                _s_arrow     = "▲" if _net_pct >= 0 else "▼"
+                _s_word      = ("Profit" if lang == "en" else "利益") if _net_pct >= 0 else ("Loss" if lang == "en" else "損失")
+                _n_wins      = sum(1 for ev in _trade_events if ev["win"])
+                _n_losses    = len(_trade_events) - _n_wins
+                _days_total  = (_today_dt - _first_dt).days
+
+                # broker cost line (only shown when > $0)
+                _comm_html = ""
+                if _broker_per_trade > 0:
+                    _comm_lbl = "Brokerage paid" if lang == "en" else "手数料合計"
+                    _comm_html = (
+                        f"<div style='font-size:13px;color:#e6a31a;margin-top:6px'>"
+                        f"⚠️ {_comm_lbl}: <b>${_total_comm:,.0f}</b> "
+                        f"(${_broker_per_trade}/{'trade' if lang=='en' else '取引'} × {len(_trade_events)})</div>"
+                    )
 
                 # Big result card
                 st.markdown(
@@ -3934,6 +4016,7 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                     f"<div style='font-size:13px;color:#8b949e;margin-top:10px'>"
                     f"✅ {_n_wins} {'wins' if lang == 'en' else '勝ち'} &nbsp;·&nbsp; "
                     f"❌ {_n_losses} {'losses' if lang == 'en' else '負け'}</div>"
+                    f"{_comm_html}"
                     f"</div>",
                     unsafe_allow_html=True,
                 )
@@ -3995,12 +4078,20 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                 _sim_curve = [_sim_val]
                 for _p in _sim_sorted["pnl_pct"]:
                     _sim_val *= (1 + _p / 100)
+                    _sim_val -= _broker_per_trade
                     _sim_curve.append(_sim_val)
 
+                _sim_total_comm = _broker_per_trade * len(_sim_sorted)
                 _sim_ret   = (_sim_val / _sim_amt - 1) * 100
                 _sim_clr   = "#3fb950" if _sim_val >= _sim_amt else "#f85149"
                 _sim_icon  = "📈" if _sim_val >= _sim_amt else "📉"
                 _sim_arrow = "▲" if _sim_val >= _sim_amt else "▼"
+                _adv_comm_html = ""
+                if _broker_per_trade > 0:
+                    _adv_comm_html = (
+                        f"<div style='font-size:11px;color:#e6a31a;margin-top:6px'>"
+                        f"⚠️ ${_sim_total_comm:,.0f} in brokerage</div>"
+                    )
 
                 _card_c, _chart_c = st.columns([1, 2])
                 with _card_c:
@@ -4016,6 +4107,7 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                         f"{_sim_arrow} {_sim_ret:+.2f}%</div>"
                         f"<div style='font-size:11px;color:#8b949e;margin-top:6px'>"
                         f"{len(_sim_sorted)} {'closed trades' if lang == 'en' else '決済済み取引'}</div>"
+                        f"{_adv_comm_html}"
                         f"</div>",
                         unsafe_allow_html=True,
                     )
