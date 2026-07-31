@@ -3,7 +3,7 @@
     "run": 50,
     "label": "Regime Gate: R13 config + VIX/SPY regime filter \u2014 risk-off allows RSI+BB+MeanRev only (Run 50)",
     "created": "2026-07-29",
-    "total_logged": 5,
+    "total_logged": 6,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
@@ -45,8 +45,8 @@
       "tier": "S",
       "score": 71,
       "p7_verdict": "TRADE",
-      "current_price": 4423.0,
-      "unrealised_pnl_pct": -1.228,
+      "current_price": 4450.0,
+      "unrealised_pnl_pct": -0.625,
       "days_held": 2,
       "peak_pnl_pct": 1.697,
       "checkpoints": {}
@@ -64,10 +64,10 @@
       "tier": "A",
       "score": 47,
       "p7_verdict": "TRADE",
-      "current_price": 23.35,
-      "unrealised_pnl_pct": 0.43,
+      "current_price": 23.46,
+      "unrealised_pnl_pct": 0.903,
       "days_held": 1,
-      "peak_pnl_pct": 0.43,
+      "peak_pnl_pct": 0.903,
       "checkpoints": {}
     },
     {
@@ -101,7 +101,12 @@
       "strategy": "Bollinger Bands",
       "tier": "A",
       "score": 56,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "4452.T",
@@ -115,6 +120,25 @@
       "strategy": "Mean Reversion",
       "tier": "B",
       "score": 29,
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
+    },
+    {
+      "asset": "6702.T",
+      "market": "JPX",
+      "entry_date": "2026-07-31",
+      "entry_price": 3627.0,
+      "hold_days_target": 20,
+      "size_pct": 3.2,
+      "ml_score": 80.0,
+      "val_auc": 0.483,
+      "strategy": "RSI(2)",
+      "tier": "B",
+      "score": 31,
       "p7_verdict": "TRADE"
     }
   ],

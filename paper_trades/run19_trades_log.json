@@ -3,7 +3,7 @@
     "run": 19,
     "label": "Volume Confirmation: Run 17 + Volume \u2265 20d Avg (Run 19)",
     "created": "2026-07-12",
-    "total_logged": 12,
+    "total_logged": 13,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
@@ -44,8 +44,8 @@
       "tier": "B",
       "score": 30,
       "p7_verdict": "TRADE",
-      "current_price": 24.09,
-      "unrealised_pnl_pct": 4.196,
+      "current_price": 24.1,
+      "unrealised_pnl_pct": 4.239,
       "days_held": 14,
       "peak_pnl_pct": 5.45,
       "checkpoints": {
@@ -66,8 +66,8 @@
       "tier": "A",
       "score": 54,
       "p7_verdict": "TRADE",
-      "current_price": 160.3,
-      "unrealised_pnl_pct": 0.514,
+      "current_price": 159.71,
+      "unrealised_pnl_pct": 0.144,
       "days_held": 11,
       "peak_pnl_pct": 4.697,
       "checkpoints": {
@@ -88,8 +88,8 @@
       "tier": "B",
       "score": 59,
       "p7_verdict": "TRADE",
-      "current_price": 1815.5,
-      "unrealised_pnl_pct": 5.185,
+      "current_price": 1825.5,
+      "unrealised_pnl_pct": 5.765,
       "days_held": 7,
       "peak_pnl_pct": 7.908,
       "checkpoints": {
@@ -109,11 +109,25 @@
       "tier": "S",
       "score": 71,
       "p7_verdict": "TRADE",
-      "current_price": 4423.0,
-      "unrealised_pnl_pct": -1.228,
+      "current_price": 4450.0,
+      "unrealised_pnl_pct": -0.625,
       "days_held": 2,
       "peak_pnl_pct": 1.697,
       "checkpoints": {}
+    },
+    {
+      "asset": "6702.T",
+      "market": "JPX",
+      "entry_date": "2026-07-31",
+      "entry_price": 3627.0,
+      "hold_days_target": 20,
+      "size_pct": 3.2,
+      "ml_score": 80.0,
+      "val_auc": 0.483,
+      "strategy": "RSI(2)",
+      "tier": "B",
+      "score": 31,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
