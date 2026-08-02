@@ -42,28 +42,6 @@
       }
     },
     {
-      "asset": "COL.AX",
-      "market": "ASX",
-      "entry_date": "2026-07-08",
-      "entry_price": 23.37,
-      "hold_days_target": 20,
-      "size_pct": 3.1,
-      "ml_score": 70.9,
-      "val_auc": 0.614,
-      "strategy": "Mean Reversion",
-      "tier": "B",
-      "score": 30,
-      "p7_verdict": "TRADE",
-      "current_price": 24.09,
-      "unrealised_pnl_pct": 3.081,
-      "days_held": 17,
-      "peak_pnl_pct": 4.322,
-      "checkpoints": {
-        "4": -2.097,
-        "10": 0.128
-      }
-    },
-    {
       "asset": "STO.AX",
       "market": "ASX",
       "entry_date": "2026-07-09",
@@ -448,11 +426,11 @@
       "asset": "1928.T",
       "market": "JPX",
       "entry_date": "2026-07-31",
-      "entry_price": 3469.0,
+      "entry_price": 3488.0,
       "hold_days_target": 20,
-      "size_pct": 12.8,
-      "ml_score": 80.9,
-      "val_auc": 0.461,
+      "size_pct": 13.4,
+      "ml_score": 79.1,
+      "val_auc": 0.47,
       "strategy": "Bollinger Bands",
       "tier": "A",
       "score": 56,
@@ -1938,6 +1916,32 @@
       "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     },
     {
+      "asset": "COL.AX",
+      "market": "ASX",
+      "entry_date": "2026-07-08",
+      "entry_price": 23.37,
+      "hold_days_target": 20,
+      "size_pct": 3.1,
+      "ml_score": 70.9,
+      "val_auc": 0.614,
+      "strategy": "Mean Reversion",
+      "tier": "B",
+      "score": 30,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": -2.097,
+        "10": 0.128
+      },
+      "exit_date": "2026-07-31",
+      "exit_price": 24.09,
+      "days_held": 17,
+      "pnl_pct": 3.081,
+      "peak_pnl_pct": 4.322,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
+    },
+    {
       "asset": "7974.T",
       "market": "JPX",
       "entry_date": "2026-07-17",
@@ -1952,12 +1956,12 @@
       "p7_verdict": "TRADE",
       "checkpoints": {
         "4": -3.991,
-        "10": 5.856
+        "10": 5.307
       },
       "exit_date": "2026-07-31",
-      "exit_price": 7719.0,
+      "exit_price": 7679.0,
       "days_held": 10,
-      "pnl_pct": 5.856,
+      "pnl_pct": 5.307,
       "peak_pnl_pct": 11.698,
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",

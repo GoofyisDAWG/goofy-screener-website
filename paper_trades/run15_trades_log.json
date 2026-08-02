@@ -129,28 +129,6 @@
       }
     },
     {
-      "asset": "COL.AX",
-      "market": "ASX",
-      "entry_date": "2026-07-10",
-      "entry_price": 23.49,
-      "hold_days_target": 20,
-      "size_pct": 4.0,
-      "ml_score": 87.0,
-      "val_auc": 0.614,
-      "strategy": "Mean Reversion",
-      "tier": "B",
-      "score": 30,
-      "p7_verdict": "TRADE",
-      "current_price": 24.09,
-      "unrealised_pnl_pct": 2.554,
-      "days_held": 15,
-      "peak_pnl_pct": 3.789,
-      "checkpoints": {
-        "4": -3.959,
-        "10": -0.255
-      }
-    },
-    {
       "asset": "1306.T",
       "market": "JPX",
       "entry_date": "2026-07-14",
@@ -169,6 +147,28 @@
       "peak_pnl_pct": 1.021,
       "checkpoints": {
         "10": -1.994
+      }
+    },
+    {
+      "asset": "SPY",
+      "market": "US",
+      "entry_date": "2026-07-16",
+      "entry_price": 754.81,
+      "hold_days_target": 20,
+      "size_pct": 9.3,
+      "ml_score": 75.6,
+      "val_auc": 0.441,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 46,
+      "p7_verdict": "TRADE",
+      "current_price": 747.03,
+      "unrealised_pnl_pct": -1.031,
+      "days_held": 11,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {
+        "4": -0.98,
+        "10": -1.738
       }
     },
     {
@@ -359,14 +359,14 @@
       "checkpoints": {}
     },
     {
-      "asset": "AAPL",
+      "asset": "AVGO",
       "market": "US",
       "entry_date": "2026-07-31",
-      "entry_price": 333.43,
+      "entry_price": 387.84,
       "hold_days_target": 20,
-      "size_pct": 6.3,
-      "ml_score": 69.4,
-      "val_auc": 0.527,
+      "size_pct": 2.6,
+      "ml_score": 60.9,
+      "val_auc": 0.458,
       "strategy": "MACD",
       "tier": "A",
       "score": 68,
@@ -381,11 +381,11 @@
       "asset": "1928.T",
       "market": "JPX",
       "entry_date": "2026-07-31",
-      "entry_price": 3469.0,
+      "entry_price": 3488.0,
       "hold_days_target": 20,
-      "size_pct": 12.8,
-      "ml_score": 80.9,
-      "val_auc": 0.461,
+      "size_pct": 13.4,
+      "ml_score": 79.1,
+      "val_auc": 0.47,
       "strategy": "Bollinger Bands",
       "tier": "A",
       "score": 56,
@@ -1577,30 +1577,30 @@
       }
     },
     {
-      "asset": "SPY",
-      "market": "US",
-      "entry_date": "2026-07-16",
-      "entry_price": 754.81,
+      "asset": "COL.AX",
+      "market": "ASX",
+      "entry_date": "2026-07-10",
+      "entry_price": 23.49,
       "hold_days_target": 20,
-      "size_pct": 9.3,
-      "ml_score": 75.6,
-      "val_auc": 0.441,
-      "strategy": "MACD",
-      "tier": "A",
-      "score": 46,
+      "size_pct": 4.0,
+      "ml_score": 87.0,
+      "val_auc": 0.614,
+      "strategy": "Mean Reversion",
+      "tier": "B",
+      "score": 30,
       "p7_verdict": "TRADE",
       "checkpoints": {
-        "4": -0.98,
-        "10": -1.738
+        "4": -3.959,
+        "10": -0.255
       },
       "exit_date": "2026-07-31",
-      "exit_price": 741.69,
-      "days_held": 11,
-      "pnl_pct": -1.738,
-      "peak_pnl_pct": 0.0,
-      "win": false,
+      "exit_price": 24.09,
+      "days_held": 15,
+      "pnl_pct": 2.554,
+      "peak_pnl_pct": 3.789,
+      "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
-      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
+      "reversal_verdict": "ML HOLD"
     },
     {
       "asset": "BHP.AX",
@@ -1617,12 +1617,12 @@
       "p7_verdict": "TRADE",
       "checkpoints": {
         "4": 5.535,
-        "10": 4.769
+        "10": 4.978
       },
       "exit_date": "2026-07-31",
-      "exit_price": 60.19,
+      "exit_price": 60.31,
       "days_held": 10,
-      "pnl_pct": 4.769,
+      "pnl_pct": 4.978,
       "peak_pnl_pct": 5.535,
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",

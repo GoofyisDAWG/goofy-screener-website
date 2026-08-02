@@ -232,14 +232,14 @@
       "checkpoints": {}
     },
     {
-      "asset": "AAPL",
+      "asset": "AVGO",
       "market": "US",
       "entry_date": "2026-07-31",
-      "entry_price": 333.43,
+      "entry_price": 387.84,
       "hold_days_target": 20,
-      "size_pct": 6.3,
-      "ml_score": 69.4,
-      "val_auc": 0.527,
+      "size_pct": 2.6,
+      "ml_score": 60.9,
+      "val_auc": 0.458,
       "strategy": "MACD",
       "tier": "A",
       "score": 68,
@@ -254,11 +254,11 @@
       "asset": "1928.T",
       "market": "JPX",
       "entry_date": "2026-07-31",
-      "entry_price": 3469.0,
+      "entry_price": 3488.0,
       "hold_days_target": 20,
-      "size_pct": 12.8,
-      "ml_score": 80.9,
-      "val_auc": 0.461,
+      "size_pct": 13.4,
+      "ml_score": 79.1,
+      "val_auc": 0.47,
       "strategy": "Bollinger Bands",
       "tier": "A",
       "score": 56,
@@ -1901,15 +1901,15 @@
       "score": 27,
       "p7_verdict": "TRADE",
       "exit_date": "2026-07-31",
-      "exit_price": 60.19,
+      "exit_price": 60.31,
       "days_held": 10,
-      "pnl_pct": 4.769,
+      "pnl_pct": 4.978,
       "peak_pnl_pct": 5.535,
       "win": true,
       "exit_reason": "HOLD_COMPLETE",
       "checkpoints": {
         "4": 5.535,
-        "10": 4.769
+        "10": 4.978
       }
     },
     {
@@ -1926,15 +1926,15 @@
       "score": 49,
       "p7_verdict": "TRADE",
       "exit_date": "2026-07-31",
-      "exit_price": 5.145,
+      "exit_price": 5.14,
       "days_held": 10,
-      "pnl_pct": 3.939,
+      "pnl_pct": 3.838,
       "peak_pnl_pct": 5.657,
       "win": true,
       "exit_reason": "HOLD_COMPLETE",
       "checkpoints": {
         "4": -0.606,
-        "10": 3.939
+        "10": 3.838
       }
     },
     {

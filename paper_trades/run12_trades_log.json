@@ -185,28 +185,6 @@
       }
     },
     {
-      "asset": "COL.AX",
-      "market": "ASX",
-      "entry_date": "2026-07-10",
-      "entry_price": 23.49,
-      "hold_days_target": 20,
-      "size_pct": 4.0,
-      "ml_score": 87.0,
-      "val_auc": 0.614,
-      "strategy": "Mean Reversion",
-      "tier": "B",
-      "score": 30,
-      "p7_verdict": "TRADE",
-      "current_price": 24.09,
-      "unrealised_pnl_pct": 2.554,
-      "days_held": 15,
-      "peak_pnl_pct": 3.789,
-      "checkpoints": {
-        "4": -3.959,
-        "10": -0.255
-      }
-    },
-    {
       "asset": "NEE",
       "market": "US",
       "entry_date": "2026-07-16",
@@ -226,6 +204,28 @@
       "checkpoints": {
         "4": 0.348,
         "10": -1.313
+      }
+    },
+    {
+      "asset": "VTI",
+      "market": "US",
+      "entry_date": "2026-07-16",
+      "entry_price": 372.42,
+      "hold_days_target": 20,
+      "size_pct": 2.5,
+      "ml_score": 82.3,
+      "val_auc": 0.436,
+      "strategy": "Relative Strength",
+      "tier": "A",
+      "score": 54,
+      "p7_verdict": "TRADE",
+      "current_price": 368.21,
+      "unrealised_pnl_pct": -1.13,
+      "days_held": 11,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {
+        "4": -0.953,
+        "10": -1.651
       }
     },
     {
@@ -849,30 +849,30 @@
       "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     },
     {
-      "asset": "VTI",
-      "market": "US",
-      "entry_date": "2026-07-16",
-      "entry_price": 372.42,
+      "asset": "COL.AX",
+      "market": "ASX",
+      "entry_date": "2026-07-10",
+      "entry_price": 23.49,
       "hold_days_target": 20,
-      "size_pct": 2.5,
-      "ml_score": 82.3,
-      "val_auc": 0.436,
-      "strategy": "Relative Strength",
-      "tier": "A",
-      "score": 54,
+      "size_pct": 4.0,
+      "ml_score": 87.0,
+      "val_auc": 0.614,
+      "strategy": "Mean Reversion",
+      "tier": "B",
+      "score": 30,
       "p7_verdict": "TRADE",
       "checkpoints": {
-        "4": -0.953,
-        "10": -1.651
+        "4": -3.959,
+        "10": -0.255
       },
       "exit_date": "2026-07-31",
-      "exit_price": 366.27,
-      "days_held": 11,
-      "pnl_pct": -1.651,
-      "peak_pnl_pct": 0.0,
-      "win": false,
+      "exit_price": 24.09,
+      "days_held": 15,
+      "pnl_pct": 2.554,
+      "peak_pnl_pct": 3.789,
+      "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
-      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
+      "reversal_verdict": "ML HOLD"
     }
   ]
 }
