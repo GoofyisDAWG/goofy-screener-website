@@ -10,11 +10,11 @@
       "trail_trigger_pct": 12.0,
       "trail_floor_pct": 6.0,
       "blocked_strategies": [
-        "Bollinger Bands",
-        "Relative Strength",
-        "MACD",
         "Institutional Momentum",
-        "RSI Divergence"
+        "Bollinger Bands",
+        "RSI Divergence",
+        "Relative Strength",
+        "MACD"
       ],
       "mid_term_checkpoint_days": null,
       "mid_term_max_loss_pct": null,

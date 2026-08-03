@@ -3,7 +3,7 @@
     "run": 18,
     "label": "Full Quality Block: No MACD/BB/RSI-Div/RS, ML\u226580, Tiered Floor (Run 18)",
     "created": "2026-07-12",
-    "total_logged": 12,
+    "total_logged": 13,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
@@ -33,6 +33,28 @@
   },
   "open": [
     {
+      "asset": "COL.AX",
+      "market": "ASX",
+      "entry_date": "2026-07-13",
+      "entry_price": 23.12,
+      "hold_days_target": 20,
+      "size_pct": 3.9,
+      "ml_score": 88.2,
+      "val_auc": 0.612,
+      "strategy": "Mean Reversion",
+      "tier": "B",
+      "score": 30,
+      "p7_verdict": "TRADE",
+      "current_price": 24.21,
+      "unrealised_pnl_pct": 4.715,
+      "days_held": 15,
+      "peak_pnl_pct": 5.45,
+      "checkpoints": {
+        "4": 0.389,
+        "10": 1.773
+      }
+    },
+    {
       "asset": "7733.T",
       "market": "JPX",
       "entry_date": "2026-07-22",
@@ -45,33 +67,12 @@
       "tier": "B",
       "score": 59,
       "p7_verdict": "TRADE",
-      "current_price": 1820.0,
-      "unrealised_pnl_pct": 5.446,
-      "days_held": 7,
+      "current_price": 1817.0,
+      "unrealised_pnl_pct": 5.272,
+      "days_held": 8,
       "peak_pnl_pct": 7.908,
       "checkpoints": {
         "4": 4.403
-      }
-    },
-    {
-      "asset": "4452.T",
-      "market": "JPX",
-      "entry_date": "2026-07-22",
-      "entry_price": 3230.0,
-      "hold_days_target": 20,
-      "size_pct": 1.1,
-      "ml_score": 80.9,
-      "val_auc": 0.516,
-      "strategy": "Mean Reversion",
-      "tier": "B",
-      "score": 28,
-      "p7_verdict": "TRADE",
-      "current_price": 3268.0,
-      "unrealised_pnl_pct": 1.176,
-      "days_held": 7,
-      "peak_pnl_pct": 5.851,
-      "checkpoints": {
-        "4": 2.786
       }
     },
     {
@@ -87,10 +88,10 @@
       "tier": "A",
       "score": 47,
       "p7_verdict": "TRADE",
-      "current_price": 23.32,
-      "unrealised_pnl_pct": 0.301,
-      "days_held": 1,
-      "peak_pnl_pct": 0.301,
+      "current_price": 23.41,
+      "unrealised_pnl_pct": 0.688,
+      "days_held": 2,
+      "peak_pnl_pct": 0.688,
       "checkpoints": {}
     },
     {
@@ -106,11 +107,25 @@
       "tier": "B",
       "score": 31,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 3497.0,
+      "unrealised_pnl_pct": -3.584,
       "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
+    },
+    {
+      "asset": "4452.T",
+      "market": "JPX",
+      "entry_date": "2026-08-03",
+      "entry_price": 3193.0,
+      "hold_days_target": 20,
+      "size_pct": 1.7,
+      "ml_score": 88.5,
+      "val_auc": 0.517,
+      "strategy": "Mean Reversion",
+      "tier": "B",
+      "score": 29,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -288,30 +303,28 @@
       }
     },
     {
-      "asset": "COL.AX",
-      "market": "ASX",
-      "entry_date": "2026-07-13",
-      "entry_price": 23.12,
+      "asset": "4452.T",
+      "market": "JPX",
+      "entry_date": "2026-07-22",
+      "entry_price": 3230.0,
       "hold_days_target": 20,
-      "size_pct": 3.9,
-      "ml_score": 88.2,
-      "val_auc": 0.612,
+      "size_pct": 1.1,
+      "ml_score": 80.9,
+      "val_auc": 0.516,
       "strategy": "Mean Reversion",
       "tier": "B",
-      "score": 30,
+      "score": 28,
       "p7_verdict": "TRADE",
+      "exit_date": "2026-08-03",
+      "exit_price": 3193.0,
+      "days_held": 8,
+      "pnl_pct": -1.146,
+      "peak_pnl_pct": 5.851,
+      "win": false,
+      "exit_reason": "TRAILING_STOP",
       "checkpoints": {
-        "4": 0.389,
-        "10": 1.773
-      },
-      "exit_date": "2026-07-31",
-      "exit_price": 24.09,
-      "days_held": 14,
-      "pnl_pct": 4.196,
-      "peak_pnl_pct": 5.45,
-      "win": true,
-      "exit_reason": "SIGNAL_REVERSAL",
-      "reversal_verdict": "ML HOLD"
+        "4": 2.786
+      }
     }
   ]
 }
