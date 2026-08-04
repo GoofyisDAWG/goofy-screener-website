@@ -1,4 +1,6 @@
 {
+  "open": [],
+  "closed": [],
   "metadata": {
     "run": 37,
     "label": "\u26a1 Speculative Momentum \u2014 Quantum/Space/AI/Nuclear Only, RSI+MA, Wide Stop 20% (Run 37)",
@@ -32,7 +34,5 @@
       "ml_thresh_override": null,
       "tiered_floors": null
     }
-  },
-  "open": [],
-  "closed": []
+  }
 }

@@ -1,4 +1,6 @@
 {
+  "open": [],
+  "closed": [],
   "metadata": {
     "run": 60,
     "label": "Concentrated Regime-Smart \u2014 Regime gate + R18 base, Tier S+A, max 10 (Run 60)",
@@ -10,11 +12,11 @@
       "trail_trigger_pct": 12.0,
       "trail_floor_pct": 6.0,
       "blocked_strategies": [
-        "Institutional Momentum",
         "Bollinger Bands",
-        "RSI Divergence",
         "Relative Strength",
-        "MACD"
+        "MACD",
+        "Institutional Momentum",
+        "RSI Divergence"
       ],
       "mid_term_checkpoint_days": null,
       "mid_term_max_loss_pct": null,
@@ -31,7 +33,5 @@
         ]
       ]
     }
-  },
-  "open": [],
-  "closed": []
+  }
 }

@@ -1,4 +1,6 @@
 {
+  "open": [],
+  "closed": [],
   "metadata": {
     "run": 61,
     "label": "Concentrated Champions \u2014 ML\u226585, Proven trio, Fund gate, Tier S+A, max 10 (Run 61)",
@@ -10,18 +12,18 @@
       "trail_trigger_pct": 12.0,
       "trail_floor_pct": 6.0,
       "blocked_strategies": [
-        "Supertrend",
-        "Donchian",
-        "Bollinger Bands",
-        "Ichimoku",
-        "ADX",
-        "RSI Divergence",
-        "MACD",
-        "Institutional Momentum",
-        "Gap Momentum",
-        "Volume Breakout",
+        "BB Squeeze",
         "Relative Strength",
-        "BB Squeeze"
+        "Institutional Momentum",
+        "Volume Breakout",
+        "Supertrend",
+        "Bollinger Bands",
+        "Donchian",
+        "Ichimoku",
+        "MACD",
+        "Gap Momentum",
+        "ADX",
+        "RSI Divergence"
       ],
       "mid_term_checkpoint_days": null,
       "mid_term_max_loss_pct": null,
@@ -38,7 +40,5 @@
         ]
       ]
     }
-  },
-  "open": [],
-  "closed": []
+  }
 }

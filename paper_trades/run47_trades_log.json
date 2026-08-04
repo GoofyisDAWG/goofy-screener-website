@@ -1,4 +1,6 @@
 {
+  "open": [],
+  "closed": [],
   "metadata": {
     "run": 47,
     "label": "Full Stack: Proven Trio + Blackout + Volume 1.5\u00d7, ML\u226570 (Run 47)",
@@ -37,7 +39,5 @@
         ]
       ]
     }
-  },
-  "open": [],
-  "closed": []
+  }
 }

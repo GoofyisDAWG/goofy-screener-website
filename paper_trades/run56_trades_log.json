@@ -1,4 +1,6 @@
 {
+  "open": [],
+  "closed": [],
   "metadata": {
     "run": 56,
     "label": "Concentrated Momentum \u2014 Trend/Breakout family only, Tier S+A, max 10 (Run 56)",
@@ -10,17 +12,17 @@
       "trail_trigger_pct": 12.0,
       "trail_floor_pct": 6.0,
       "blocked_strategies": [
-        "Bollinger Bands",
+        "BB Squeeze",
+        "Relative Strength",
+        "Institutional Momentum",
         "Stochastic",
         "RSI",
-        "RSI Divergence",
-        "Mean Reversion",
-        "MACD",
-        "Institutional Momentum",
+        "Bollinger Bands",
         "RSI(2)",
         "Gap Momentum",
-        "Relative Strength",
-        "BB Squeeze"
+        "MACD",
+        "Mean Reversion",
+        "RSI Divergence"
       ],
       "mid_term_checkpoint_days": null,
       "mid_term_max_loss_pct": null,
@@ -37,7 +39,5 @@
         ]
       ]
     }
-  },
-  "open": [],
-  "closed": []
+  }
 }

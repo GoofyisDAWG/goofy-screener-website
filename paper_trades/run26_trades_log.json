@@ -1,4 +1,6 @@
 {
+  "open": [],
+  "closed": [],
   "metadata": {
     "run": 26,
     "label": "Volume Surge + Proven Winners: Block 4 Losers + Vol\u22651.5\u00d7, ML\u226575 (Run 26)",
@@ -30,7 +32,5 @@
         ]
       ]
     }
-  },
-  "open": [],
-  "closed": []
+  }
 }
