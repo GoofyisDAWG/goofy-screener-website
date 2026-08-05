@@ -13,12 +13,13 @@
       "tier": "B",
       "score": 68,
       "p7_verdict": "TRADE",
-      "current_price": 61.95,
-      "unrealised_pnl_pct": 1.11,
-      "days_held": 9,
-      "peak_pnl_pct": 2.203,
+      "current_price": 62.9,
+      "unrealised_pnl_pct": 2.66,
+      "days_held": 11,
+      "peak_pnl_pct": 2.66,
       "checkpoints": {
-        "4": 1.273
+        "4": 1.273,
+        "10": 1.975
       }
     },
     {
@@ -34,10 +35,10 @@
       "tier": "A",
       "score": 58,
       "p7_verdict": "TRADE",
-      "current_price": 49.59,
-      "unrealised_pnl_pct": 1.287,
-      "days_held": 1,
-      "peak_pnl_pct": 1.287,
+      "current_price": 50.81,
+      "unrealised_pnl_pct": 3.779,
+      "days_held": 3,
+      "peak_pnl_pct": 3.779,
       "checkpoints": {}
     },
     {
@@ -53,10 +54,10 @@
       "tier": "B",
       "score": 36,
       "p7_verdict": "TRADE",
-      "current_price": 524.32,
-      "unrealised_pnl_pct": 1.729,
-      "days_held": 1,
-      "peak_pnl_pct": 1.729,
+      "current_price": 540.43,
+      "unrealised_pnl_pct": 4.854,
+      "days_held": 3,
+      "peak_pnl_pct": 4.854,
       "checkpoints": {}
     },
     {
@@ -72,9 +73,9 @@
       "tier": "S",
       "score": 82,
       "p7_verdict": "TRADE",
-      "current_price": 59.55,
-      "unrealised_pnl_pct": 1.535,
-      "days_held": 1,
+      "current_price": 58.52,
+      "unrealised_pnl_pct": -0.222,
+      "days_held": 3,
       "peak_pnl_pct": 1.535,
       "checkpoints": {}
     },
@@ -91,10 +92,10 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 389.28,
-      "unrealised_pnl_pct": 5.12,
-      "days_held": 1,
-      "peak_pnl_pct": 5.12,
+      "current_price": 418.16,
+      "unrealised_pnl_pct": 12.919,
+      "days_held": 3,
+      "peak_pnl_pct": 12.919,
       "checkpoints": {}
     },
     {
@@ -110,11 +111,13 @@
       "tier": "A",
       "score": 50,
       "p7_verdict": "TRADE",
-      "current_price": 38.04,
-      "unrealised_pnl_pct": 1.413,
-      "days_held": 3,
-      "peak_pnl_pct": 1.413,
-      "checkpoints": {}
+      "current_price": 37.89,
+      "unrealised_pnl_pct": 1.013,
+      "days_held": 4,
+      "peak_pnl_pct": 1.76,
+      "checkpoints": {
+        "4": 1.013
+      }
     }
   ],
   "closed": [

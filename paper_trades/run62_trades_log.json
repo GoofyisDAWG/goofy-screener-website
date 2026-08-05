@@ -3,7 +3,7 @@
     "run": 62,
     "label": "Hold Test: Run 9 config (Wide Stop + No MACD + Tiered Floor) + 10-Day Hold (Run 62)",
     "created": "2026-08-04",
-    "total_logged": 5,
+    "total_logged": 6,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
@@ -44,7 +44,12 @@
       "strategy": "RSI",
       "tier": "B",
       "score": 57,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": 2908.5,
+      "unrealised_pnl_pct": -0.086,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "4543.T",
@@ -58,7 +63,12 @@
       "strategy": "Mean Reversion",
       "tier": "A",
       "score": 53,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": 2295.0,
+      "unrealised_pnl_pct": -0.992,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "1928.T",
@@ -72,7 +82,12 @@
       "strategy": "Bollinger Bands",
       "tier": "A",
       "score": 56,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": 3344.0,
+      "unrealised_pnl_pct": -0.06,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "4452.T",
@@ -86,7 +101,12 @@
       "strategy": "Mean Reversion",
       "tier": "B",
       "score": 29,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": 3169.0,
+      "unrealised_pnl_pct": -1.369,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "9020.T",
@@ -100,6 +120,25 @@
       "strategy": "RSI",
       "tier": "A",
       "score": 57,
+      "p7_verdict": "TRADE",
+      "current_price": 3396.0,
+      "unrealised_pnl_pct": -0.527,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
+    },
+    {
+      "asset": "6702.T",
+      "market": "JPX",
+      "entry_date": "2026-08-05",
+      "entry_price": 3481.0,
+      "hold_days_target": 20,
+      "size_pct": 3.1,
+      "ml_score": 79.4,
+      "val_auc": 0.485,
+      "strategy": "RSI(2)",
+      "tier": "B",
+      "score": 31,
       "p7_verdict": "TRADE"
     }
   ],

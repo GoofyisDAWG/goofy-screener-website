@@ -13,12 +13,13 @@
       "tier": "B",
       "score": 59,
       "p7_verdict": "TRADE",
-      "current_price": 1809.5,
-      "unrealised_pnl_pct": 4.838,
-      "days_held": 9,
+      "current_price": 1807.5,
+      "unrealised_pnl_pct": 4.722,
+      "days_held": 10,
       "peak_pnl_pct": 7.908,
       "checkpoints": {
-        "4": 4.403
+        "4": 4.403,
+        "10": 4.722
       }
     },
     {
@@ -34,11 +35,13 @@
       "tier": "A",
       "score": 47,
       "p7_verdict": "TRADE",
-      "current_price": 23.76,
-      "unrealised_pnl_pct": 2.194,
-      "days_held": 3,
-      "peak_pnl_pct": 2.194,
-      "checkpoints": {}
+      "current_price": 23.95,
+      "unrealised_pnl_pct": 3.011,
+      "days_held": 4,
+      "peak_pnl_pct": 3.011,
+      "checkpoints": {
+        "4": 3.011
+      }
     },
     {
       "asset": "4452.T",
@@ -53,33 +56,11 @@
       "tier": "B",
       "score": 29,
       "p7_verdict": "TRADE",
-      "current_price": 3213.0,
-      "unrealised_pnl_pct": 0.156,
-      "days_held": 1,
-      "peak_pnl_pct": 0.156,
+      "current_price": 3169.0,
+      "unrealised_pnl_pct": -1.216,
+      "days_held": 2,
+      "peak_pnl_pct": 0.249,
       "checkpoints": {}
-    },
-    {
-      "asset": "SPOT",
-      "market": "US",
-      "entry_date": "2026-07-16",
-      "entry_price": 485.38,
-      "hold_days_target": 20,
-      "size_pct": 10.6,
-      "ml_score": 84.2,
-      "val_auc": 0.397,
-      "strategy": "Institutional Momentum",
-      "tier": "B",
-      "score": 59,
-      "p7_verdict": "TRADE",
-      "current_price": 499.94,
-      "unrealised_pnl_pct": 3.0,
-      "days_held": 11,
-      "peak_pnl_pct": 7.959,
-      "checkpoints": {
-        "4": -2.312,
-        "10": 7.67
-      }
     },
     {
       "asset": "COL.AX",
@@ -94,9 +75,9 @@
       "tier": "B",
       "score": 30,
       "p7_verdict": "TRADE",
-      "current_price": 24.23,
-      "unrealised_pnl_pct": 4.801,
-      "days_held": 16,
+      "current_price": 24.3,
+      "unrealised_pnl_pct": 5.104,
+      "days_held": 17,
       "peak_pnl_pct": 5.45,
       "checkpoints": {
         "4": 0.389,
@@ -116,9 +97,9 @@
       "tier": "B",
       "score": 31,
       "p7_verdict": "TRADE",
-      "current_price": 3426.0,
-      "unrealised_pnl_pct": -5.542,
-      "days_held": 2,
+      "current_price": 3481.0,
+      "unrealised_pnl_pct": -4.025,
+      "days_held": 3,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -134,7 +115,12 @@
       "strategy": "RSI",
       "tier": "A",
       "score": 57,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": 3396.0,
+      "unrealised_pnl_pct": -0.527,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     }
   ],
   "closed": [
@@ -308,6 +294,31 @@
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "SPOT",
+      "market": "US",
+      "entry_date": "2026-07-16",
+      "entry_price": 485.38,
+      "hold_days_target": 20,
+      "size_pct": 10.6,
+      "ml_score": 84.2,
+      "val_auc": 0.397,
+      "strategy": "Institutional Momentum",
+      "tier": "B",
+      "score": 59,
+      "p7_verdict": "TRADE",
+      "exit_date": "2026-08-04",
+      "exit_price": 478.17,
+      "days_held": 13,
+      "pnl_pct": -1.485,
+      "peak_pnl_pct": 7.959,
+      "win": false,
+      "exit_reason": "TRAILING_STOP",
+      "checkpoints": {
+        "4": -2.312,
+        "10": 7.67
+      }
     }
   ],
   "metadata": {
