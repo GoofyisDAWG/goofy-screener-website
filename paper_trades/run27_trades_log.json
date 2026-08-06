@@ -13,13 +13,13 @@
       "tier": "B",
       "score": 59,
       "p7_verdict": "TRADE",
-      "current_price": 1807.5,
-      "unrealised_pnl_pct": 4.722,
+      "current_price": 1807.0,
+      "unrealised_pnl_pct": 4.693,
       "days_held": 10,
       "peak_pnl_pct": 7.908,
       "checkpoints": {
         "4": 4.403,
-        "10": 4.722
+        "10": 4.693
       }
     },
     {
@@ -35,14 +35,12 @@
       "tier": "B",
       "score": 29,
       "p7_verdict": "TRADE",
-      "current_price": 3169.0,
-      "unrealised_pnl_pct": -1.216,
+      "current_price": 3188.0,
+      "unrealised_pnl_pct": -0.623,
       "days_held": 2,
       "peak_pnl_pct": 0.249,
       "checkpoints": {}
-    }
-  ],
-  "closed": [
+    },
     {
       "asset": "9020.T",
       "market": "JPX",
@@ -56,14 +54,31 @@
       "tier": "A",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
-      "days_held": 0,
+      "current_price": 3369.0,
+      "unrealised_pnl_pct": -1.144,
+      "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
-    }
-  ],
-  "closed": [
+    },
+    {
+      "asset": "7203.T",
+      "market": "JPX",
+      "entry_date": "2026-08-05",
+      "entry_price": 2914.5,
+      "hold_days_target": 20,
+      "size_pct": 5.4,
+      "ml_score": 82.0,
+      "val_auc": 0.539,
+      "strategy": "RSI",
+      "tier": "B",
+      "score": 57,
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
+    },
     {
       "asset": "AMC.AX",
       "market": "ASX",
@@ -77,25 +92,22 @@
       "tier": "A",
       "score": 54,
       "p7_verdict": "TRADE",
+      "current_price": 66.82,
+      "unrealised_pnl_pct": 8.333,
+      "days_held": 11,
+      "peak_pnl_pct": 8.333,
       "checkpoints": {
         "4": 2.659,
-        "10": 6.047
-      },
-      "exit_date": "2026-08-04",
-      "exit_price": 65.41,
-      "days_held": 10,
-      "pnl_pct": 6.047,
-      "peak_pnl_pct": 7.393,
-      "win": true,
-      "exit_reason": "SIGNAL_REVERSAL",
-      "reversal_verdict": "ML HOLD"
+        "10": 5.934
+      }
     }
   ],
+  "closed": [],
   "metadata": {
     "run": 27,
     "label": "All-In Premium: Proven Trio + Fund Gate + Vol\u22651.0\u00d7 + ML\u226580 (Run 27)",
     "created": "2026-07-16",
-    "total_logged": 4,
+    "total_logged": 5,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,

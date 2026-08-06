@@ -13,8 +13,8 @@
       "tier": "B",
       "score": 32,
       "p7_verdict": "TRADE",
-      "current_price": 91.47,
-      "unrealised_pnl_pct": -0.251,
+      "current_price": 91.28,
+      "unrealised_pnl_pct": -0.458,
       "days_held": 11,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
@@ -35,13 +35,13 @@
       "tier": "B",
       "score": 59,
       "p7_verdict": "TRADE",
-      "current_price": 1807.5,
-      "unrealised_pnl_pct": 4.722,
+      "current_price": 1807.0,
+      "unrealised_pnl_pct": 4.693,
       "days_held": 10,
       "peak_pnl_pct": 7.908,
       "checkpoints": {
         "4": 4.403,
-        "10": 4.722
+        "10": 4.693
       }
     },
     {
@@ -57,8 +57,8 @@
       "tier": "B",
       "score": 30,
       "p7_verdict": "TRADE",
-      "current_price": 24.3,
-      "unrealised_pnl_pct": 4.741,
+      "current_price": 24.22,
+      "unrealised_pnl_pct": 4.397,
       "days_held": 11,
       "peak_pnl_pct": 5.086,
       "checkpoints": {
@@ -70,20 +70,42 @@
       "asset": "4452.T",
       "market": "JPX",
       "entry_date": "2026-08-04",
-      "entry_price": 3213.0,
+      "entry_price": 3216.0,
       "hold_days_target": 20,
       "size_pct": 1.8,
-      "ml_score": 92.5,
-      "val_auc": 0.511,
+      "ml_score": 90.7,
+      "val_auc": 0.514,
       "strategy": "Mean Reversion",
       "tier": "B",
       "score": 29,
       "p7_verdict": "TRADE",
-      "current_price": 3169.0,
-      "unrealised_pnl_pct": -1.369,
+      "current_price": 3188.0,
+      "unrealised_pnl_pct": -0.871,
       "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
+    },
+    {
+      "asset": "SPY",
+      "market": "US",
+      "entry_date": "2026-07-20",
+      "entry_price": 743.29,
+      "hold_days_target": 20,
+      "size_pct": 4.3,
+      "ml_score": 93.1,
+      "val_auc": 0.438,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 45,
+      "p7_verdict": "TRADE",
+      "current_price": 769.79,
+      "unrealised_pnl_pct": 3.565,
+      "days_held": 12,
+      "peak_pnl_pct": 3.772,
+      "checkpoints": {
+        "4": -0.587,
+        "10": 1.935
+      }
     }
   ],
   "closed": [
@@ -134,31 +156,6 @@
       "checkpoints": {
         "4": 4.158
       }
-    },
-    {
-      "asset": "SPY",
-      "market": "US",
-      "entry_date": "2026-07-20",
-      "entry_price": 743.29,
-      "hold_days_target": 20,
-      "size_pct": 4.3,
-      "ml_score": 93.1,
-      "val_auc": 0.438,
-      "strategy": "MACD",
-      "tier": "A",
-      "score": 45,
-      "p7_verdict": "TRADE",
-      "checkpoints": {
-        "4": -0.587
-      },
-      "exit_date": "2026-08-04",
-      "exit_price": 747.03,
-      "days_held": 11,
-      "pnl_pct": 0.503,
-      "peak_pnl_pct": 0.671,
-      "win": true,
-      "exit_reason": "SIGNAL_REVERSAL",
-      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     }
   ],
   "metadata": {
