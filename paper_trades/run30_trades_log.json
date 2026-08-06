@@ -13,10 +13,10 @@
       "tier": "B",
       "score": 29,
       "p7_verdict": "TRADE",
-      "current_price": 3188.0,
-      "unrealised_pnl_pct": -0.623,
-      "days_held": 2,
-      "peak_pnl_pct": 0.249,
+      "current_price": 3597.0,
+      "unrealised_pnl_pct": 12.126,
+      "days_held": 3,
+      "peak_pnl_pct": 12.126,
       "checkpoints": {}
     },
     {
@@ -51,9 +51,9 @@
       "tier": "B",
       "score": 30,
       "p7_verdict": "TRADE",
-      "current_price": 24.22,
-      "unrealised_pnl_pct": 4.712,
-      "days_held": 13,
+      "current_price": 24.36,
+      "unrealised_pnl_pct": 5.318,
+      "days_held": 14,
       "peak_pnl_pct": 5.404,
       "checkpoints": {
         "4": 1.297,
@@ -73,11 +73,13 @@
       "tier": "B",
       "score": 29,
       "p7_verdict": "TRADE",
-      "current_price": 3188.0,
-      "unrealised_pnl_pct": -1.453,
-      "days_held": 3,
-      "peak_pnl_pct": 0.0,
-      "checkpoints": {}
+      "current_price": 3597.0,
+      "unrealised_pnl_pct": 11.19,
+      "days_held": 4,
+      "peak_pnl_pct": 11.19,
+      "checkpoints": {
+        "4": 11.19
+      }
     },
     {
       "asset": "7203.T",
@@ -92,10 +94,10 @@
       "tier": "B",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 2914.5,
-      "unrealised_pnl_pct": -0.137,
-      "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "current_price": 2983.5,
+      "unrealised_pnl_pct": 2.227,
+      "days_held": 2,
+      "peak_pnl_pct": 2.227,
       "checkpoints": {}
     },
     {
@@ -111,10 +113,10 @@
       "tier": "A",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 3369.0,
-      "unrealised_pnl_pct": -1.144,
-      "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "current_price": 3428.0,
+      "unrealised_pnl_pct": 0.587,
+      "days_held": 2,
+      "peak_pnl_pct": 0.587,
       "checkpoints": {}
     },
     {
@@ -138,7 +140,9 @@
         "4": 1.797,
         "10": 1.803
       }
-    },
+    }
+  ],
+  "closed": [
     {
       "asset": "AMC.AX",
       "market": "ASX",
@@ -152,17 +156,20 @@
       "tier": "A",
       "score": 54,
       "p7_verdict": "TRADE",
-      "current_price": 66.82,
-      "unrealised_pnl_pct": 9.415,
-      "days_held": 10,
-      "peak_pnl_pct": 9.415,
       "checkpoints": {
         "4": 6.091,
         "10": 9.415
-      }
+      },
+      "exit_date": "2026-08-06",
+      "exit_price": 68.04,
+      "days_held": 11,
+      "pnl_pct": 11.413,
+      "peak_pnl_pct": 11.413,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
     }
   ],
-  "closed": [],
   "metadata": {
     "run": 30,
     "label": "Phase 10C: Full Combo \u2014 Proven Trio + All Phase 10 Filters (Run 30)",

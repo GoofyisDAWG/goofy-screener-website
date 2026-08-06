@@ -23,48 +23,6 @@
       }
     },
     {
-      "asset": "SLB",
-      "market": "US",
-      "entry_date": "2026-07-30",
-      "entry_price": 48.96,
-      "hold_days_target": 20,
-      "size_pct": 1.2,
-      "ml_score": 89.7,
-      "val_auc": 0.561,
-      "strategy": "MACD",
-      "tier": "A",
-      "score": 58,
-      "p7_verdict": "TRADE",
-      "current_price": 49.91,
-      "unrealised_pnl_pct": 1.94,
-      "days_held": 4,
-      "peak_pnl_pct": 3.779,
-      "checkpoints": {
-        "4": 1.94
-      }
-    },
-    {
-      "asset": "DIA",
-      "market": "US",
-      "entry_date": "2026-07-30",
-      "entry_price": 515.41,
-      "hold_days_target": 20,
-      "size_pct": 2.4,
-      "ml_score": 82.8,
-      "val_auc": 0.451,
-      "strategy": "MACD",
-      "tier": "B",
-      "score": 36,
-      "p7_verdict": "TRADE",
-      "current_price": 542.81,
-      "unrealised_pnl_pct": 5.316,
-      "days_held": 4,
-      "peak_pnl_pct": 5.316,
-      "checkpoints": {
-        "4": 5.316
-      }
-    },
-    {
       "asset": "XLE",
       "market": "US",
       "entry_date": "2026-07-30",
@@ -119,9 +77,9 @@
       "tier": "A",
       "score": 50,
       "p7_verdict": "TRADE",
-      "current_price": 38.01,
-      "unrealised_pnl_pct": 1.333,
-      "days_held": 4,
+      "current_price": 38.11,
+      "unrealised_pnl_pct": 1.6,
+      "days_held": 5,
       "peak_pnl_pct": 1.76,
       "checkpoints": {
         "4": 1.333
@@ -178,35 +136,13 @@
       "tier": "A",
       "score": 49,
       "p7_verdict": "TRADE",
-      "current_price": 38.01,
-      "unrealised_pnl_pct": 5.029,
-      "days_held": 12,
+      "current_price": 38.11,
+      "unrealised_pnl_pct": 5.305,
+      "days_held": 13,
       "peak_pnl_pct": 5.471,
       "checkpoints": {
         "4": 0.774,
         "10": 3.04
-      }
-    },
-    {
-      "asset": "SPY",
-      "market": "US",
-      "entry_date": "2026-07-20",
-      "entry_price": 743.29,
-      "hold_days_target": 20,
-      "size_pct": 4.3,
-      "ml_score": 93.1,
-      "val_auc": 0.438,
-      "strategy": "MACD",
-      "tier": "A",
-      "score": 45,
-      "p7_verdict": "TRADE",
-      "current_price": 769.79,
-      "unrealised_pnl_pct": 3.565,
-      "days_held": 12,
-      "peak_pnl_pct": 3.772,
-      "checkpoints": {
-        "4": -0.587,
-        "10": 1.935
       }
     }
   ],
@@ -305,6 +241,82 @@
       "win": false,
       "exit_reason": "STOP_LOSS",
       "checkpoints": {}
+    },
+    {
+      "asset": "SLB",
+      "market": "US",
+      "entry_date": "2026-07-30",
+      "entry_price": 48.96,
+      "hold_days_target": 20,
+      "size_pct": 1.2,
+      "ml_score": 89.7,
+      "val_auc": 0.561,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 58,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 1.94
+      },
+      "exit_date": "2026-08-06",
+      "exit_price": 49.91,
+      "days_held": 5,
+      "pnl_pct": 1.94,
+      "peak_pnl_pct": 3.779,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
+    },
+    {
+      "asset": "DIA",
+      "market": "US",
+      "entry_date": "2026-07-30",
+      "entry_price": 515.41,
+      "hold_days_target": 20,
+      "size_pct": 2.4,
+      "ml_score": 82.8,
+      "val_auc": 0.451,
+      "strategy": "MACD",
+      "tier": "B",
+      "score": 36,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 5.316
+      },
+      "exit_date": "2026-08-06",
+      "exit_price": 542.81,
+      "days_held": 5,
+      "pnl_pct": 5.316,
+      "peak_pnl_pct": 5.316,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
+    },
+    {
+      "asset": "SPY",
+      "market": "US",
+      "entry_date": "2026-07-20",
+      "entry_price": 743.29,
+      "hold_days_target": 20,
+      "size_pct": 4.3,
+      "ml_score": 93.1,
+      "val_auc": 0.438,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 45,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": -0.587,
+        "10": 1.935
+      },
+      "exit_date": "2026-08-06",
+      "exit_price": 769.79,
+      "days_held": 13,
+      "pnl_pct": 3.565,
+      "peak_pnl_pct": 3.772,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     }
   ],
   "metadata": {
