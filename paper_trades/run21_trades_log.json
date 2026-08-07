@@ -22,27 +22,6 @@
       }
     },
     {
-      "asset": "ANZ.AX",
-      "market": "ASX",
-      "entry_date": "2026-07-29",
-      "entry_price": 37.22,
-      "hold_days_target": 20,
-      "size_pct": 1.8,
-      "ml_score": 72.3,
-      "val_auc": 0.497,
-      "strategy": "MACD",
-      "tier": "A",
-      "score": 50,
-      "p7_verdict": "TRADE",
-      "current_price": 38.11,
-      "unrealised_pnl_pct": 2.391,
-      "days_held": 6,
-      "peak_pnl_pct": 2.552,
-      "checkpoints": {
-        "4": 2.552
-      }
-    },
-    {
       "asset": "XLE",
       "market": "US",
       "entry_date": "2026-07-30",
@@ -97,12 +76,12 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 420.565,
-      "unrealised_pnl_pct": 8.438,
+      "current_price": 420.57,
+      "unrealised_pnl_pct": 8.439,
       "days_held": 4,
-      "peak_pnl_pct": 8.438,
+      "peak_pnl_pct": 8.439,
       "checkpoints": {
-        "4": 8.438
+        "4": 8.439
       }
     },
     {
@@ -118,9 +97,9 @@
       "tier": "A",
       "score": 56,
       "p7_verdict": "TRADE",
-      "current_price": 3415.0,
-      "unrealised_pnl_pct": -2.093,
-      "days_held": 4,
+      "current_price": 3427.0,
+      "unrealised_pnl_pct": -1.749,
+      "days_held": 5,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -2.093
@@ -139,11 +118,13 @@
       "tier": "A",
       "score": 53,
       "p7_verdict": "TRADE",
-      "current_price": 2312.0,
-      "unrealised_pnl_pct": 0.022,
-      "days_held": 3,
-      "peak_pnl_pct": 0.498,
-      "checkpoints": {}
+      "current_price": 2373.0,
+      "unrealised_pnl_pct": 2.661,
+      "days_held": 4,
+      "peak_pnl_pct": 2.661,
+      "checkpoints": {
+        "4": 2.661
+      }
     },
     {
       "asset": "9020.T",
@@ -158,11 +139,13 @@
       "tier": "A",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 3428.0,
-      "unrealised_pnl_pct": 0.175,
-      "days_held": 3,
-      "peak_pnl_pct": 0.175,
-      "checkpoints": {}
+      "current_price": 3461.0,
+      "unrealised_pnl_pct": 1.14,
+      "days_held": 4,
+      "peak_pnl_pct": 1.14,
+      "checkpoints": {
+        "4": 1.14
+      }
     },
     {
       "asset": "AVGO",
@@ -177,10 +160,10 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 420.565,
-      "unrealised_pnl_pct": 8.037,
+      "current_price": 420.57,
+      "unrealised_pnl_pct": 8.038,
       "days_held": 3,
-      "peak_pnl_pct": 8.037,
+      "peak_pnl_pct": 8.038,
       "checkpoints": {}
     },
     {
@@ -196,9 +179,9 @@
       "tier": "B",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 2983.5,
-      "unrealised_pnl_pct": 2.227,
-      "days_held": 2,
+      "current_price": 2980.0,
+      "unrealised_pnl_pct": 2.107,
+      "days_held": 3,
       "peak_pnl_pct": 2.227,
       "checkpoints": {}
     },
@@ -215,10 +198,10 @@
       "tier": "B",
       "score": 29,
       "p7_verdict": "TRADE",
-      "current_price": 3597.0,
-      "unrealised_pnl_pct": 12.829,
-      "days_held": 1,
-      "peak_pnl_pct": 12.829,
+      "current_price": 3654.0,
+      "unrealised_pnl_pct": 14.617,
+      "days_held": 2,
+      "peak_pnl_pct": 14.617,
       "checkpoints": {}
     },
     {
@@ -2136,6 +2119,31 @@
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "ANZ.AX",
+      "market": "ASX",
+      "entry_date": "2026-07-29",
+      "entry_price": 37.22,
+      "hold_days_target": 20,
+      "size_pct": 1.8,
+      "ml_score": 72.3,
+      "val_auc": 0.497,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 50,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 2.552
+      },
+      "exit_date": "2026-08-07",
+      "exit_price": 37.73,
+      "days_held": 7,
+      "pnl_pct": 1.37,
+      "peak_pnl_pct": 2.552,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN"
     }
   ],
   "metadata": {
