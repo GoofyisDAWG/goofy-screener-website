@@ -1,50 +1,6 @@
 {
   "open": [
     {
-      "asset": "F",
-      "market": "US",
-      "entry_date": "2026-07-16",
-      "entry_price": 14.18,
-      "hold_days_target": 20,
-      "size_pct": 13.1,
-      "ml_score": 71.2,
-      "val_auc": 0.431,
-      "strategy": "RSI Divergence",
-      "tier": "B",
-      "score": 51,
-      "p7_verdict": "TRADE",
-      "current_price": 14.13,
-      "unrealised_pnl_pct": -0.353,
-      "days_held": 14,
-      "peak_pnl_pct": 7.757,
-      "checkpoints": {
-        "4": 1.693,
-        "10": 4.795
-      }
-    },
-    {
-      "asset": "NEE",
-      "market": "US",
-      "entry_date": "2026-07-16",
-      "entry_price": 89.1,
-      "hold_days_target": 20,
-      "size_pct": 27.1,
-      "ml_score": 85.2,
-      "val_auc": 0.566,
-      "strategy": "RSI Divergence",
-      "tier": "B",
-      "score": 61,
-      "p7_verdict": "TRADE",
-      "current_price": 85.91,
-      "unrealised_pnl_pct": -3.58,
-      "days_held": 14,
-      "peak_pnl_pct": 0.774,
-      "checkpoints": {
-        "4": 0.348,
-        "10": -1.313
-      }
-    },
-    {
       "asset": "NHF.AX",
       "market": "ASX",
       "entry_date": "2026-07-16",
@@ -133,27 +89,6 @@
       }
     },
     {
-      "asset": "ORI.AX",
-      "market": "ASX",
-      "entry_date": "2026-07-30",
-      "entry_price": 23.34,
-      "hold_days_target": 20,
-      "size_pct": 14.8,
-      "ml_score": 72.3,
-      "val_auc": 0.607,
-      "strategy": "RSI(2)",
-      "tier": "A",
-      "score": 47,
-      "p7_verdict": "TRADE",
-      "current_price": 23.52,
-      "unrealised_pnl_pct": 0.771,
-      "days_held": 5,
-      "peak_pnl_pct": 2.271,
-      "checkpoints": {
-        "4": 2.271
-      }
-    },
-    {
       "asset": "XLE",
       "market": "US",
       "entry_date": "2026-07-30",
@@ -166,9 +101,9 @@
       "tier": "S",
       "score": 82,
       "p7_verdict": "TRADE",
-      "current_price": 57.31,
-      "unrealised_pnl_pct": -2.285,
-      "days_held": 4,
+      "current_price": 58.16,
+      "unrealised_pnl_pct": -0.835,
+      "days_held": 5,
       "peak_pnl_pct": 1.535,
       "checkpoints": {
         "4": -2.285
@@ -208,9 +143,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 359.24,
-      "unrealised_pnl_pct": 2.391,
-      "days_held": 4,
+      "current_price": 356.3,
+      "unrealised_pnl_pct": 1.553,
+      "days_held": 5,
       "peak_pnl_pct": 2.391,
       "checkpoints": {
         "4": 2.391
@@ -229,11 +164,13 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 418.28,
-      "unrealised_pnl_pct": 7.849,
-      "days_held": 3,
-      "peak_pnl_pct": 7.849,
-      "checkpoints": {}
+      "current_price": 420.565,
+      "unrealised_pnl_pct": 8.438,
+      "days_held": 4,
+      "peak_pnl_pct": 8.438,
+      "checkpoints": {
+        "4": 8.438
+      }
     },
     {
       "asset": "1928.T",
@@ -295,28 +232,6 @@
       "checkpoints": {}
     },
     {
-      "asset": "PH",
-      "market": "US",
-      "entry_date": "2026-07-16",
-      "entry_price": 952.95,
-      "hold_days_target": 20,
-      "size_pct": 7.7,
-      "ml_score": 87.4,
-      "val_auc": 0.446,
-      "strategy": "RSI Divergence",
-      "tier": "A",
-      "score": 62,
-      "p7_verdict": "TRADE",
-      "current_price": 996.9,
-      "unrealised_pnl_pct": 4.612,
-      "days_held": 14,
-      "peak_pnl_pct": 4.677,
-      "checkpoints": {
-        "4": 1.87,
-        "10": 1.033
-      }
-    },
-    {
       "asset": "AVGO",
       "market": "US",
       "entry_date": "2026-08-03",
@@ -329,10 +244,10 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 418.28,
-      "unrealised_pnl_pct": 7.45,
-      "days_held": 2,
-      "peak_pnl_pct": 7.45,
+      "current_price": 420.565,
+      "unrealised_pnl_pct": 8.037,
+      "days_held": 3,
+      "peak_pnl_pct": 8.037,
       "checkpoints": {}
     },
     {
@@ -367,9 +282,9 @@
       "tier": "B",
       "score": 67,
       "p7_verdict": "TRADE",
-      "current_price": 63.25,
-      "unrealised_pnl_pct": 0.556,
-      "days_held": 1,
+      "current_price": 63.0,
+      "unrealised_pnl_pct": 0.159,
+      "days_held": 2,
       "peak_pnl_pct": 0.556,
       "checkpoints": {}
     },
@@ -386,10 +301,10 @@
       "tier": "A",
       "score": 56,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 189.23,
+      "unrealised_pnl_pct": 1.513,
       "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "peak_pnl_pct": 1.513,
       "checkpoints": {}
     },
     {
@@ -405,8 +320,8 @@
       "tier": "B",
       "score": 40,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 156.91,
+      "unrealised_pnl_pct": -3.422,
       "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
@@ -424,35 +339,13 @@
       "tier": "A",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 389.64,
-      "unrealised_pnl_pct": 6.762,
-      "days_held": 13,
-      "peak_pnl_pct": 6.762,
+      "current_price": 389.67,
+      "unrealised_pnl_pct": 6.771,
+      "days_held": 14,
+      "peak_pnl_pct": 6.771,
       "checkpoints": {
         "4": 1.797,
         "10": 1.803
-      }
-    },
-    {
-      "asset": "ORI.AX",
-      "market": "ASX",
-      "entry_date": "2026-07-22",
-      "entry_price": 22.98,
-      "hold_days_target": 20,
-      "size_pct": 15.7,
-      "ml_score": 61.6,
-      "val_auc": 0.61,
-      "strategy": "RSI(2)",
-      "tier": "B",
-      "score": 45,
-      "p7_verdict": "TRADE",
-      "current_price": 23.52,
-      "unrealised_pnl_pct": 2.35,
-      "days_held": 11,
-      "peak_pnl_pct": 3.873,
-      "checkpoints": {
-        "4": 3.003,
-        "10": 3.873
       }
     },
     {
@@ -490,10 +383,10 @@
       "tier": "B",
       "score": 67,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 63.0,
+      "unrealised_pnl_pct": 0.159,
       "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "peak_pnl_pct": 0.159,
       "checkpoints": {}
     }
   ],
@@ -2344,6 +2237,134 @@
       "days_held": 6,
       "pnl_pct": 1.094,
       "peak_pnl_pct": 1.697,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "NEE",
+      "market": "US",
+      "entry_date": "2026-07-16",
+      "entry_price": 89.1,
+      "hold_days_target": 20,
+      "size_pct": 27.1,
+      "ml_score": 85.2,
+      "val_auc": 0.566,
+      "strategy": "RSI Divergence",
+      "tier": "B",
+      "score": 61,
+      "p7_verdict": "TRADE",
+      "exit_date": "2026-08-06",
+      "exit_price": 84.6,
+      "days_held": 15,
+      "pnl_pct": -5.051,
+      "peak_pnl_pct": 0.774,
+      "win": false,
+      "exit_reason": "STOP_LOSS",
+      "checkpoints": {
+        "4": 0.348,
+        "10": -1.313
+      }
+    },
+    {
+      "asset": "F",
+      "market": "US",
+      "entry_date": "2026-07-16",
+      "entry_price": 14.18,
+      "hold_days_target": 20,
+      "size_pct": 13.1,
+      "ml_score": 71.2,
+      "val_auc": 0.431,
+      "strategy": "RSI Divergence",
+      "tier": "B",
+      "score": 51,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 1.693,
+        "10": 4.795
+      },
+      "exit_date": "2026-08-07",
+      "exit_price": 13.79,
+      "days_held": 16,
+      "pnl_pct": -2.75,
+      "peak_pnl_pct": 7.757,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "ORI.AX",
+      "market": "ASX",
+      "entry_date": "2026-07-30",
+      "entry_price": 23.34,
+      "hold_days_target": 20,
+      "size_pct": 14.8,
+      "ml_score": 72.3,
+      "val_auc": 0.607,
+      "strategy": "RSI(2)",
+      "tier": "A",
+      "score": 47,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 2.271
+      },
+      "exit_date": "2026-08-07",
+      "exit_price": 23.52,
+      "days_held": 6,
+      "pnl_pct": 0.771,
+      "peak_pnl_pct": 2.271,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "PH",
+      "market": "US",
+      "entry_date": "2026-07-16",
+      "entry_price": 952.95,
+      "hold_days_target": 20,
+      "size_pct": 7.7,
+      "ml_score": 87.4,
+      "val_auc": 0.446,
+      "strategy": "RSI Divergence",
+      "tier": "A",
+      "score": 62,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 1.87,
+        "10": 1.033
+      },
+      "exit_date": "2026-08-07",
+      "exit_price": 1069.8,
+      "days_held": 16,
+      "pnl_pct": 12.262,
+      "peak_pnl_pct": 12.262,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
+    },
+    {
+      "asset": "ORI.AX",
+      "market": "ASX",
+      "entry_date": "2026-07-22",
+      "entry_price": 22.98,
+      "hold_days_target": 20,
+      "size_pct": 15.7,
+      "ml_score": 61.6,
+      "val_auc": 0.61,
+      "strategy": "RSI(2)",
+      "tier": "B",
+      "score": 45,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 3.003,
+        "10": 3.873
+      },
+      "exit_date": "2026-08-07",
+      "exit_price": 23.52,
+      "days_held": 12,
+      "pnl_pct": 2.35,
+      "peak_pnl_pct": 3.873,
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"

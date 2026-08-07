@@ -18,6 +18,20 @@
       "days_held": 2,
       "peak_pnl_pct": 0.587,
       "checkpoints": {}
+    },
+    {
+      "asset": "JPM",
+      "market": "US",
+      "entry_date": "2026-08-07",
+      "entry_price": 356.3,
+      "hold_days_target": 20,
+      "size_pct": 5.0,
+      "ml_score": 85.9,
+      "val_auc": 0.535,
+      "strategy": "MA Crossover",
+      "tier": "A",
+      "score": 66,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [],
@@ -25,7 +39,7 @@
     "run": 61,
     "label": "Concentrated Champions \u2014 ML\u226585, Proven trio, Fund gate, Tier S+A, max 10 (Run 61)",
     "created": "2026-07-31",
-    "total_logged": 1,
+    "total_logged": 2,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
