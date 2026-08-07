@@ -229,7 +229,7 @@ def load_trade_history() -> pd.DataFrame:
         s = re.sub(r'\bInfinity\b', 'null', s)
         return s
     rows = []
-    for run in range(1, 50):
+    for run in range(1, 64):
         p = TRADES_DIR / f"run{run}_trades_log.json"
         if not p.exists():
             continue
@@ -265,7 +265,7 @@ def load_open_positions() -> pd.DataFrame:
         s = re.sub(r'\bInfinity\b', 'null', s)
         return s
     rows = []
-    for run in range(1, 50):
+    for run in range(1, 64):
         p = TRADES_DIR / f"run{run}_trades_log.json"
         if not p.exists():
             continue
