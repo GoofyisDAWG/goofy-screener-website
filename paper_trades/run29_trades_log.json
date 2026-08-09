@@ -13,9 +13,9 @@
       "tier": "B",
       "score": 68,
       "p7_verdict": "TRADE",
-      "current_price": 63.0,
-      "unrealised_pnl_pct": 2.456,
-      "days_held": 14,
+      "current_price": 63.17,
+      "unrealised_pnl_pct": 2.732,
+      "days_held": 15,
       "peak_pnl_pct": 2.862,
       "checkpoints": {
         "4": -0.342,
@@ -35,9 +35,9 @@
       "tier": "B",
       "score": 61,
       "p7_verdict": "TRADE",
-      "current_price": 84.6,
-      "unrealised_pnl_pct": -5.316,
-      "days_held": 14,
+      "current_price": 84.65,
+      "unrealised_pnl_pct": -5.26,
+      "days_held": 15,
       "peak_pnl_pct": 0.492,
       "checkpoints": {
         "4": 0.492,
@@ -385,11 +385,13 @@
       "tier": "B",
       "score": 45,
       "p7_verdict": "TRADE",
-      "current_price": 420.57,
-      "unrealised_pnl_pct": 7.225,
-      "days_held": 3,
-      "peak_pnl_pct": 7.225,
-      "checkpoints": {}
+      "current_price": 427.76,
+      "unrealised_pnl_pct": 9.058,
+      "days_held": 4,
+      "peak_pnl_pct": 9.058,
+      "checkpoints": {
+        "4": 9.058
+      }
     },
     {
       "asset": "JPM",
@@ -404,11 +406,13 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 356.3,
-      "unrealised_pnl_pct": 1.038,
-      "days_held": 3,
+      "current_price": 357.52,
+      "unrealised_pnl_pct": 1.384,
+      "days_held": 4,
       "peak_pnl_pct": 1.872,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": 1.384
+      }
     },
     {
       "asset": "COL.AX",
@@ -504,9 +508,9 @@
       "tier": "B",
       "score": 40,
       "p7_verdict": "TRADE",
-      "current_price": 156.91,
-      "unrealised_pnl_pct": -3.422,
-      "days_held": 1,
+      "current_price": 158.26,
+      "unrealised_pnl_pct": -2.591,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -545,10 +549,10 @@
       "tier": "A",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 389.67,
-      "unrealised_pnl_pct": 6.771,
-      "days_held": 14,
-      "peak_pnl_pct": 6.771,
+      "current_price": 398.47,
+      "unrealised_pnl_pct": 9.182,
+      "days_held": 15,
+      "peak_pnl_pct": 9.182,
       "checkpoints": {
         "4": 1.797,
         "10": 1.803

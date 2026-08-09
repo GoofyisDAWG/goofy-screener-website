@@ -13,9 +13,9 @@
       "tier": "B",
       "score": 68,
       "p7_verdict": "TRADE",
-      "current_price": 63.0,
-      "unrealised_pnl_pct": 2.456,
-      "days_held": 14,
+      "current_price": 63.17,
+      "unrealised_pnl_pct": 2.732,
+      "days_held": 15,
       "peak_pnl_pct": 2.862,
       "checkpoints": {
         "4": -0.342,
@@ -189,9 +189,9 @@
       "tier": "S",
       "score": 82,
       "p7_verdict": "TRADE",
-      "current_price": 58.16,
-      "unrealised_pnl_pct": -0.835,
-      "days_held": 5,
+      "current_price": 57.5,
+      "unrealised_pnl_pct": -1.961,
+      "days_held": 6,
       "peak_pnl_pct": 1.535,
       "checkpoints": {
         "4": -2.285
@@ -210,9 +210,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 356.3,
-      "unrealised_pnl_pct": 1.553,
-      "days_held": 5,
+      "current_price": 357.52,
+      "unrealised_pnl_pct": 1.901,
+      "days_held": 6,
       "peak_pnl_pct": 2.391,
       "checkpoints": {
         "4": 2.391
@@ -316,11 +316,13 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 420.57,
-      "unrealised_pnl_pct": 8.038,
-      "days_held": 3,
-      "peak_pnl_pct": 8.038,
-      "checkpoints": {}
+      "current_price": 427.76,
+      "unrealised_pnl_pct": 9.885,
+      "days_held": 4,
+      "peak_pnl_pct": 9.885,
+      "checkpoints": {
+        "4": 9.885
+      }
     },
     {
       "asset": "7203.T",
@@ -354,9 +356,9 @@
       "tier": "A",
       "score": 56,
       "p7_verdict": "TRADE",
-      "current_price": 189.23,
-      "unrealised_pnl_pct": 1.513,
-      "days_held": 1,
+      "current_price": 186.56,
+      "unrealised_pnl_pct": 0.08,
+      "days_held": 2,
       "peak_pnl_pct": 1.513,
       "checkpoints": {}
     },
@@ -373,9 +375,9 @@
       "tier": "B",
       "score": 40,
       "p7_verdict": "TRADE",
-      "current_price": 156.91,
-      "unrealised_pnl_pct": -3.422,
-      "days_held": 1,
+      "current_price": 158.26,
+      "unrealised_pnl_pct": -2.591,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -414,36 +416,28 @@
       "tier": "A",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 389.67,
-      "unrealised_pnl_pct": 6.771,
-      "days_held": 14,
-      "peak_pnl_pct": 6.771,
+      "current_price": 398.47,
+      "unrealised_pnl_pct": 9.182,
+      "days_held": 15,
+      "peak_pnl_pct": 9.182,
       "checkpoints": {
         "4": 1.797,
         "10": 1.803
       }
     },
     {
-      "asset": "AVGO",
+      "asset": "PANW",
       "market": "US",
-      "entry_date": "2026-07-20",
-      "entry_price": 370.83,
+      "entry_date": "2026-08-09",
+      "entry_price": 363.86,
       "hold_days_target": 20,
-      "size_pct": 2.5,
-      "ml_score": 76.2,
-      "val_auc": 0.441,
+      "size_pct": 3.0,
+      "ml_score": 56.4,
+      "val_auc": 0.496,
       "strategy": "MACD",
       "tier": "B",
-      "score": 44,
-      "p7_verdict": "TRADE",
-      "current_price": 420.57,
-      "unrealised_pnl_pct": 13.413,
-      "days_held": 13,
-      "peak_pnl_pct": 13.413,
-      "checkpoints": {
-        "4": 2.991,
-        "10": 5.771
-      }
+      "score": 47,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -1784,13 +1778,38 @@
       "win": false,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "AVGO",
+      "market": "US",
+      "entry_date": "2026-07-20",
+      "entry_price": 370.83,
+      "hold_days_target": 20,
+      "size_pct": 2.5,
+      "ml_score": 76.2,
+      "val_auc": 0.441,
+      "strategy": "MACD",
+      "tier": "B",
+      "score": 44,
+      "p7_verdict": "TRADE",
+      "exit_date": "2026-08-07",
+      "exit_price": 427.76,
+      "days_held": 14,
+      "pnl_pct": 15.352,
+      "peak_pnl_pct": 15.352,
+      "win": true,
+      "exit_reason": "TAKE_PROFIT",
+      "checkpoints": {
+        "4": 2.991,
+        "10": 5.771
+      }
     }
   ],
   "metadata": {
     "run": 32,
     "label": "Phase 11A: Tight Trailing \u2014 Trigger +8%, Floor +3% (Run 32)",
     "created": "2026-07-18",
-    "total_logged": 72,
+    "total_logged": 73,
     "config": {
       "stop_loss_pct": 5.0,
       "take_profit_pct": 15.0,
