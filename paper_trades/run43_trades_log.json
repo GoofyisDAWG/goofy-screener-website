@@ -35,35 +35,13 @@
       "tier": "B",
       "score": 35,
       "p7_verdict": "TRADE",
-      "current_price": 7.52,
-      "unrealised_pnl_pct": 1.897,
-      "days_held": 14,
+      "current_price": 7.41,
+      "unrealised_pnl_pct": 0.407,
+      "days_held": 15,
       "peak_pnl_pct": 3.794,
       "checkpoints": {
         "4": 1.084,
         "10": 1.626
-      }
-    },
-    {
-      "asset": "7733.T",
-      "market": "JPX",
-      "entry_date": "2026-07-22",
-      "entry_price": 1726.0,
-      "hold_days_target": 20,
-      "size_pct": 12.4,
-      "ml_score": 92.3,
-      "val_auc": 0.481,
-      "strategy": "RSI",
-      "tier": "B",
-      "score": 59,
-      "p7_verdict": "TRADE",
-      "current_price": 1906.0,
-      "unrealised_pnl_pct": 10.429,
-      "days_held": 12,
-      "peak_pnl_pct": 10.429,
-      "checkpoints": {
-        "4": 4.403,
-        "10": 4.693
       }
     },
     {
@@ -121,9 +99,9 @@
       "tier": "A",
       "score": 56,
       "p7_verdict": "TRADE",
-      "current_price": 3427.0,
-      "unrealised_pnl_pct": -1.749,
-      "days_held": 5,
+      "current_price": 3425.0,
+      "unrealised_pnl_pct": -1.806,
+      "days_held": 6,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -2.093
@@ -142,10 +120,10 @@
       "tier": "A",
       "score": 53,
       "p7_verdict": "TRADE",
-      "current_price": 2373.0,
-      "unrealised_pnl_pct": 2.661,
-      "days_held": 4,
-      "peak_pnl_pct": 2.661,
+      "current_price": 2575.5,
+      "unrealised_pnl_pct": 11.421,
+      "days_held": 5,
+      "peak_pnl_pct": 11.421,
       "checkpoints": {
         "4": 2.661
       }
@@ -163,9 +141,9 @@
       "tier": "A",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 3461.0,
-      "unrealised_pnl_pct": 1.14,
-      "days_held": 4,
+      "current_price": 3453.0,
+      "unrealised_pnl_pct": 0.906,
+      "days_held": 5,
       "peak_pnl_pct": 1.14,
       "checkpoints": {
         "4": 1.14
@@ -184,9 +162,9 @@
       "tier": "B",
       "score": 30,
       "p7_verdict": "TRADE",
-      "current_price": 24.19,
-      "unrealised_pnl_pct": 3.465,
-      "days_held": 14,
+      "current_price": 23.9,
+      "unrealised_pnl_pct": 2.224,
+      "days_held": 15,
       "peak_pnl_pct": 4.277,
       "checkpoints": {
         "4": 0.214,
@@ -227,11 +205,13 @@
       "tier": "B",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 2980.0,
-      "unrealised_pnl_pct": 2.107,
-      "days_held": 3,
+      "current_price": 2981.0,
+      "unrealised_pnl_pct": 2.142,
+      "days_held": 4,
       "peak_pnl_pct": 2.227,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": 2.142
+      }
     },
     {
       "asset": "CVX",
@@ -305,6 +285,39 @@
       "strategy": "MACD",
       "tier": "B",
       "score": 47,
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
+    },
+    {
+      "asset": "IAG.AX",
+      "market": "ASX",
+      "entry_date": "2026-08-10",
+      "entry_price": 8.35,
+      "hold_days_target": 20,
+      "size_pct": NaN,
+      "ml_score": 56.8,
+      "val_auc": 0.479,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 58,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "SUN.AX",
+      "market": "ASX",
+      "entry_date": "2026-08-10",
+      "entry_price": 18.78,
+      "hold_days_target": 20,
+      "size_pct": NaN,
+      "ml_score": 85.5,
+      "val_auc": 0.532,
+      "strategy": "Bollinger Bands",
+      "tier": "B",
+      "score": 38,
       "p7_verdict": "TRADE"
     }
   ],
@@ -969,13 +982,38 @@
         "4": 2.991,
         "10": 5.771
       }
+    },
+    {
+      "asset": "7733.T",
+      "market": "JPX",
+      "entry_date": "2026-07-22",
+      "entry_price": 1726.0,
+      "hold_days_target": 20,
+      "size_pct": 12.4,
+      "ml_score": 92.3,
+      "val_auc": 0.481,
+      "strategy": "RSI",
+      "tier": "B",
+      "score": 59,
+      "p7_verdict": "TRADE",
+      "exit_date": "2026-08-10",
+      "exit_price": 2098.5,
+      "days_held": 13,
+      "pnl_pct": 21.582,
+      "peak_pnl_pct": 21.582,
+      "win": true,
+      "exit_reason": "TAKE_PROFIT",
+      "checkpoints": {
+        "4": 4.403,
+        "10": 4.693
+      }
     }
   ],
   "metadata": {
     "run": 43,
     "label": "Earnings Blackout: Baseline R1 + Skip Within 5d of Earnings (Run 43)",
     "created": "2026-07-20",
-    "total_logged": 40,
+    "total_logged": 42,
     "config": {
       "stop_loss_pct": 5.0,
       "take_profit_pct": 15.0,
