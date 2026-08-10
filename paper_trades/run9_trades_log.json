@@ -79,9 +79,9 @@
       "tier": "B",
       "score": 61,
       "p7_verdict": "TRADE",
-      "current_price": 84.65,
-      "unrealised_pnl_pct": -4.994,
-      "days_held": 16,
+      "current_price": 84.7,
+      "unrealised_pnl_pct": -4.938,
+      "days_held": 17,
       "peak_pnl_pct": 0.774,
       "checkpoints": {
         "4": 0.348,
@@ -189,10 +189,10 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 357.52,
-      "unrealised_pnl_pct": 1.901,
-      "days_held": 6,
-      "peak_pnl_pct": 2.391,
+      "current_price": 359.79,
+      "unrealised_pnl_pct": 2.548,
+      "days_held": 7,
+      "peak_pnl_pct": 2.548,
       "checkpoints": {
         "4": 2.391
       }
@@ -273,9 +273,9 @@
       "tier": "A",
       "score": 63,
       "p7_verdict": "TRADE",
-      "current_price": 135.0,
-      "unrealised_pnl_pct": 0.082,
-      "days_held": 16,
+      "current_price": 135.22,
+      "unrealised_pnl_pct": 0.245,
+      "days_held": 17,
       "peak_pnl_pct": 2.039,
       "checkpoints": {
         "4": -2.453,
@@ -359,10 +359,10 @@
       "tier": "A",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 398.47,
-      "unrealised_pnl_pct": 9.182,
-      "days_held": 15,
-      "peak_pnl_pct": 9.182,
+      "current_price": 402.54,
+      "unrealised_pnl_pct": 10.297,
+      "days_held": 16,
+      "peak_pnl_pct": 10.297,
       "checkpoints": {
         "4": 1.797,
         "10": 1.803
@@ -380,7 +380,12 @@
       "strategy": "RSI",
       "tier": "A",
       "score": 58,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "SUN.AX",
@@ -394,7 +399,12 @@
       "strategy": "Bollinger Bands",
       "tier": "B",
       "score": 38,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     }
   ],
   "closed": [

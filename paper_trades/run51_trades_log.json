@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 63,
       "p7_verdict": "TRADE",
-      "current_price": 135.0,
-      "unrealised_pnl_pct": 6.191,
-      "days_held": 6,
+      "current_price": 135.22,
+      "unrealised_pnl_pct": 6.364,
+      "days_held": 7,
       "peak_pnl_pct": 8.267,
       "checkpoints": {
         "4": 8.267
@@ -34,9 +34,9 @@
       "tier": "A",
       "score": 49,
       "p7_verdict": "TRADE",
-      "current_price": 111.85,
-      "unrealised_pnl_pct": -2.075,
-      "days_held": 6,
+      "current_price": 112.66,
+      "unrealised_pnl_pct": -1.366,
+      "days_held": 7,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -1.646
@@ -55,9 +55,9 @@
       "tier": "B",
       "score": 61,
       "p7_verdict": "TRADE",
-      "current_price": 84.65,
-      "unrealised_pnl_pct": -4.307,
-      "days_held": 6,
+      "current_price": 84.7,
+      "unrealised_pnl_pct": -4.251,
+      "days_held": 7,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -2.883
@@ -286,9 +286,9 @@
       "tier": "A",
       "score": 52,
       "p7_verdict": "TRADE",
-      "current_price": 340.91,
-      "unrealised_pnl_pct": 1.386,
-      "days_held": 5,
+      "current_price": 338.86,
+      "unrealised_pnl_pct": 0.776,
+      "days_held": 6,
       "peak_pnl_pct": 3.789,
       "checkpoints": {
         "4": 1.888
@@ -349,11 +349,13 @@
       "tier": "B",
       "score": 52,
       "p7_verdict": "TRADE",
-      "current_price": 398.8,
-      "unrealised_pnl_pct": 4.936,
-      "days_held": 3,
-      "peak_pnl_pct": 4.936,
-      "checkpoints": {}
+      "current_price": 416.67,
+      "unrealised_pnl_pct": 9.638,
+      "days_held": 4,
+      "peak_pnl_pct": 9.638,
+      "checkpoints": {
+        "4": 9.638
+      }
     },
     {
       "asset": "7272.T",
@@ -425,9 +427,9 @@
       "tier": "B",
       "score": 59,
       "p7_verdict": "TRADE",
-      "current_price": 101.65,
-      "unrealised_pnl_pct": 0.584,
-      "days_held": 2,
+      "current_price": 97.52,
+      "unrealised_pnl_pct": -3.503,
+      "days_held": 3,
       "peak_pnl_pct": 0.584,
       "checkpoints": {}
     },
@@ -444,9 +446,9 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 95.7,
-      "unrealised_pnl_pct": -3.45,
-      "days_held": 2,
+      "current_price": 95.67,
+      "unrealised_pnl_pct": -3.481,
+      "days_held": 3,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -463,10 +465,10 @@
       "tier": "B",
       "score": 52,
       "p7_verdict": "TRADE",
-      "current_price": 398.8,
-      "unrealised_pnl_pct": 4.936,
-      "days_held": 2,
-      "peak_pnl_pct": 4.936,
+      "current_price": 416.67,
+      "unrealised_pnl_pct": 9.638,
+      "days_held": 3,
+      "peak_pnl_pct": 9.638,
       "checkpoints": {}
     },
     {
@@ -519,7 +521,12 @@
       "strategy": "RSI Divergence",
       "tier": "B",
       "score": 36,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "5401.T",
@@ -533,6 +540,25 @@
       "strategy": "RSI Divergence",
       "tier": "A",
       "score": 49,
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
+    },
+    {
+      "asset": "CSX",
+      "market": "US",
+      "entry_date": "2026-08-10",
+      "entry_price": 50.12,
+      "hold_days_target": 20,
+      "size_pct": 8.8,
+      "ml_score": 65.4,
+      "val_auc": 0.556,
+      "strategy": "RSI Divergence",
+      "tier": "A",
+      "score": 40,
       "p7_verdict": "TRADE"
     }
   ],
@@ -1315,7 +1341,7 @@
     "run": 51,
     "label": "RSI Div Rehab: RSI Divergence ONLY + fundamental gate \u2014 can it work with quality filters? (Run 51)",
     "created": "2026-07-30",
-    "total_logged": 54,
+    "total_logged": 55,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
