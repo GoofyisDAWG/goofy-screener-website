@@ -6,7 +6,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-08-10T23:19:26.351124"
+    "fetched_at": "2026-08-11T10:21:57.860068"
   },
   "QQQ": {
     "ticker": "QQQ",
@@ -15,7 +15,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-08-10T23:19:26.351155"
+    "fetched_at": "2026-08-11T10:21:57.860075"
   },
   "GLD": {
     "ticker": "GLD",
@@ -24,7 +24,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-08-10T23:19:26.351163"
+    "fetched_at": "2026-08-11T10:21:57.860078"
   },
   "TLT": {
     "ticker": "TLT",
@@ -33,7 +33,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-08-10T23:19:26.351171"
+    "fetched_at": "2026-08-11T10:21:57.860080"
   },
   "IWM": {
     "ticker": "IWM",
@@ -42,7 +42,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-08-10T23:19:26.351176"
+    "fetched_at": "2026-08-11T10:21:57.860082"
   },
   "IOZ.AX": {
     "ticker": "IOZ.AX",
@@ -51,7 +51,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-08-10T23:19:53.712372"
+    "fetched_at": "2026-08-11T10:21:57.860312"
   },
   "STW.AX": {
     "ticker": "STW.AX",
@@ -60,7 +60,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-08-10T23:19:53.712403"
+    "fetched_at": "2026-08-11T10:21:57.860317"
   },
   "VAS.AX": {
     "ticker": "VAS.AX",
@@ -69,7 +69,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-08-10T23:19:53.712410"
+    "fetched_at": "2026-08-11T10:21:57.860320"
   },
   "1321.T": {
     "ticker": "1321.T",
@@ -78,7 +78,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-08-10T23:20:43.969100"
+    "fetched_at": "2026-08-11T10:21:57.860794"
   },
   "1306.T": {
     "ticker": "1306.T",
@@ -87,7 +87,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-08-10T23:20:43.969129"
+    "fetched_at": "2026-08-11T10:21:57.860798"
   },
   "AAPL": {
     "ticker": "AAPL",
