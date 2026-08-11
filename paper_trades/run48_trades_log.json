@@ -34,10 +34,10 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 359.79,
-      "unrealised_pnl_pct": 2.028,
-      "days_held": 5,
-      "peak_pnl_pct": 2.028,
+      "current_price": 362.04,
+      "unrealised_pnl_pct": 2.666,
+      "days_held": 6,
+      "peak_pnl_pct": 2.666,
       "checkpoints": {
         "4": 1.384
       }
@@ -94,7 +94,12 @@
       "strategy": "RSI",
       "tier": "A",
       "score": 58,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "COL.AX",
@@ -108,7 +113,12 @@
       "strategy": "Mean Reversion",
       "tier": "B",
       "score": 30,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     }
   ],
   "closed": [

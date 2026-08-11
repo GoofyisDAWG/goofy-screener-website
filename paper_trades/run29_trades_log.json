@@ -13,9 +13,9 @@
       "tier": "B",
       "score": 61,
       "p7_verdict": "TRADE",
-      "current_price": 84.7,
-      "unrealised_pnl_pct": -5.204,
-      "days_held": 16,
+      "current_price": 85.74,
+      "unrealised_pnl_pct": -4.04,
+      "days_held": 17,
       "peak_pnl_pct": 0.492,
       "checkpoints": {
         "4": 0.492,
@@ -276,9 +276,9 @@
       "tier": "B",
       "score": 45,
       "p7_verdict": "TRADE",
-      "current_price": 422.4,
-      "unrealised_pnl_pct": 7.692,
-      "days_held": 5,
+      "current_price": 416.08,
+      "unrealised_pnl_pct": 6.081,
+      "days_held": 6,
       "peak_pnl_pct": 9.058,
       "checkpoints": {
         "4": 9.058
@@ -297,10 +297,10 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 359.79,
-      "unrealised_pnl_pct": 2.028,
-      "days_held": 5,
-      "peak_pnl_pct": 2.028,
+      "current_price": 362.04,
+      "unrealised_pnl_pct": 2.666,
+      "days_held": 6,
+      "peak_pnl_pct": 2.666,
       "checkpoints": {
         "4": 1.384
       }
@@ -382,11 +382,13 @@
       "tier": "B",
       "score": 40,
       "p7_verdict": "TRADE",
-      "current_price": 158.71,
-      "unrealised_pnl_pct": -2.314,
-      "days_held": 3,
-      "peak_pnl_pct": 0.0,
-      "checkpoints": {}
+      "current_price": 164.38,
+      "unrealised_pnl_pct": 1.176,
+      "days_held": 4,
+      "peak_pnl_pct": 1.176,
+      "checkpoints": {
+        "4": 1.176
+      }
     },
     {
       "asset": "WDS.AX",
@@ -423,9 +425,9 @@
       "tier": "A",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 402.54,
-      "unrealised_pnl_pct": 10.297,
-      "days_held": 16,
+      "current_price": 400.96,
+      "unrealised_pnl_pct": 9.864,
+      "days_held": 17,
       "peak_pnl_pct": 10.297,
       "checkpoints": {
         "4": 1.797,
@@ -464,8 +466,8 @@
       "tier": "B",
       "score": 37,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 537.28,
+      "unrealised_pnl_pct": -0.317,
       "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
@@ -482,7 +484,12 @@
       "strategy": "RSI",
       "tier": "A",
       "score": 58,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "ORI.AX",
@@ -496,7 +503,12 @@
       "strategy": "RSI(2)",
       "tier": "A",
       "score": 47,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     }
   ],
   "closed": [

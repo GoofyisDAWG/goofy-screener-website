@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 63,
       "p7_verdict": "TRADE",
-      "current_price": 135.22,
-      "unrealised_pnl_pct": 6.364,
-      "days_held": 7,
+      "current_price": 135.77,
+      "unrealised_pnl_pct": 6.796,
+      "days_held": 8,
       "peak_pnl_pct": 8.267,
       "checkpoints": {
         "4": 8.267
@@ -34,9 +34,9 @@
       "tier": "A",
       "score": 49,
       "p7_verdict": "TRADE",
-      "current_price": 112.66,
-      "unrealised_pnl_pct": -1.366,
-      "days_held": 7,
+      "current_price": 113.26,
+      "unrealised_pnl_pct": -0.84,
+      "days_held": 8,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -1.646
@@ -55,9 +55,9 @@
       "tier": "B",
       "score": 61,
       "p7_verdict": "TRADE",
-      "current_price": 84.7,
-      "unrealised_pnl_pct": -4.251,
-      "days_held": 7,
+      "current_price": 85.74,
+      "unrealised_pnl_pct": -3.075,
+      "days_held": 8,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -2.883
@@ -286,9 +286,9 @@
       "tier": "A",
       "score": 52,
       "p7_verdict": "TRADE",
-      "current_price": 338.86,
-      "unrealised_pnl_pct": 0.776,
-      "days_held": 6,
+      "current_price": 340.81,
+      "unrealised_pnl_pct": 1.356,
+      "days_held": 7,
       "peak_pnl_pct": 3.789,
       "checkpoints": {
         "4": 1.888
@@ -334,27 +334,6 @@
       "peak_pnl_pct": 3.843,
       "checkpoints": {
         "4": 3.843
-      }
-    },
-    {
-      "asset": "MDB",
-      "market": "US",
-      "entry_date": "2026-08-04",
-      "entry_price": 380.04,
-      "hold_days_target": 20,
-      "size_pct": 6.0,
-      "ml_score": 90.7,
-      "val_auc": 0.49,
-      "strategy": "RSI Divergence",
-      "tier": "B",
-      "score": 52,
-      "p7_verdict": "TRADE",
-      "current_price": 416.67,
-      "unrealised_pnl_pct": 9.638,
-      "days_held": 4,
-      "peak_pnl_pct": 9.638,
-      "checkpoints": {
-        "4": 9.638
       }
     },
     {
@@ -427,11 +406,13 @@
       "tier": "B",
       "score": 59,
       "p7_verdict": "TRADE",
-      "current_price": 97.52,
-      "unrealised_pnl_pct": -3.503,
-      "days_held": 3,
+      "current_price": 97.71,
+      "unrealised_pnl_pct": -3.315,
+      "days_held": 4,
       "peak_pnl_pct": 0.584,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": -3.315
+      }
     },
     {
       "asset": "CVS",
@@ -446,30 +427,13 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 95.67,
-      "unrealised_pnl_pct": -3.481,
-      "days_held": 3,
+      "current_price": 93.5,
+      "unrealised_pnl_pct": -5.67,
+      "days_held": 4,
       "peak_pnl_pct": 0.0,
-      "checkpoints": {}
-    },
-    {
-      "asset": "MDB",
-      "market": "US",
-      "entry_date": "2026-08-05",
-      "entry_price": 380.04,
-      "hold_days_target": 20,
-      "size_pct": 6.0,
-      "ml_score": 91.7,
-      "val_auc": 0.493,
-      "strategy": "RSI Divergence",
-      "tier": "B",
-      "score": 52,
-      "p7_verdict": "TRADE",
-      "current_price": 416.67,
-      "unrealised_pnl_pct": 9.638,
-      "days_held": 3,
-      "peak_pnl_pct": 9.638,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": -5.67
+      }
     },
     {
       "asset": "VGS.AX",
@@ -560,11 +524,25 @@
       "tier": "A",
       "score": 40,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 49.94,
+      "unrealised_pnl_pct": -0.359,
       "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
+    },
+    {
+      "asset": "MDB",
+      "market": "US",
+      "entry_date": "2026-08-11",
+      "entry_price": 439.16,
+      "hold_days_target": 20,
+      "size_pct": 5.5,
+      "ml_score": 91.3,
+      "val_auc": 0.494,
+      "strategy": "RSI Divergence",
+      "tier": "B",
+      "score": 52,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -1340,13 +1318,61 @@
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "STAND DOWN (VOL SPIKE)"
+    },
+    {
+      "asset": "MDB",
+      "market": "US",
+      "entry_date": "2026-08-04",
+      "entry_price": 380.04,
+      "hold_days_target": 20,
+      "size_pct": 6.0,
+      "ml_score": 90.7,
+      "val_auc": 0.49,
+      "strategy": "RSI Divergence",
+      "tier": "B",
+      "score": 52,
+      "p7_verdict": "TRADE",
+      "exit_date": "2026-08-11",
+      "exit_price": 439.16,
+      "days_held": 5,
+      "pnl_pct": 15.556,
+      "peak_pnl_pct": 15.556,
+      "win": true,
+      "exit_reason": "TAKE_PROFIT",
+      "checkpoints": {
+        "4": 9.638
+      }
+    },
+    {
+      "asset": "MDB",
+      "market": "US",
+      "entry_date": "2026-08-05",
+      "entry_price": 380.04,
+      "hold_days_target": 20,
+      "size_pct": 6.0,
+      "ml_score": 91.7,
+      "val_auc": 0.493,
+      "strategy": "RSI Divergence",
+      "tier": "B",
+      "score": 52,
+      "p7_verdict": "TRADE",
+      "exit_date": "2026-08-11",
+      "exit_price": 439.16,
+      "days_held": 4,
+      "pnl_pct": 15.556,
+      "peak_pnl_pct": 15.556,
+      "win": true,
+      "exit_reason": "TAKE_PROFIT",
+      "checkpoints": {
+        "4": 15.556
+      }
     }
   ],
   "metadata": {
     "run": 51,
     "label": "RSI Div Rehab: RSI Divergence ONLY + fundamental gate \u2014 can it work with quality filters? (Run 51)",
     "created": "2026-07-30",
-    "total_logged": 55,
+    "total_logged": 56,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,

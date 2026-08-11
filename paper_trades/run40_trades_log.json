@@ -119,9 +119,9 @@
       "tier": "A",
       "score": 45,
       "p7_verdict": "TRADE",
-      "current_price": 402.54,
-      "unrealised_pnl_pct": 9.264,
-      "days_held": 15,
+      "current_price": 400.96,
+      "unrealised_pnl_pct": 8.835,
+      "days_held": 16,
       "peak_pnl_pct": 9.264,
       "checkpoints": {
         "4": 0.947,
@@ -178,7 +178,12 @@
       "strategy": "RSI(2)",
       "tier": "A",
       "score": 47,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     }
   ],
   "closed": [
