@@ -123,10 +123,10 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 362.04,
-      "unrealised_pnl_pct": 3.189,
-      "days_held": 8,
-      "peak_pnl_pct": 3.189,
+      "current_price": 365.18,
+      "unrealised_pnl_pct": 4.084,
+      "days_held": 9,
+      "peak_pnl_pct": 4.084,
       "checkpoints": {
         "4": 2.391
       }
@@ -144,9 +144,9 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 416.08,
-      "unrealised_pnl_pct": 7.281,
-      "days_held": 7,
+      "current_price": 416.05,
+      "unrealised_pnl_pct": 7.274,
+      "days_held": 8,
       "peak_pnl_pct": 10.293,
       "checkpoints": {
         "4": 8.439
@@ -228,9 +228,9 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 416.08,
-      "unrealised_pnl_pct": 6.885,
-      "days_held": 6,
+      "current_price": 416.05,
+      "unrealised_pnl_pct": 6.877,
+      "days_held": 7,
       "peak_pnl_pct": 9.885,
       "checkpoints": {
         "4": 9.885
@@ -249,9 +249,9 @@
       "tier": "B",
       "score": 40,
       "p7_verdict": "TRADE",
-      "current_price": 164.38,
-      "unrealised_pnl_pct": 1.176,
-      "days_held": 4,
+      "current_price": 163.8,
+      "unrealised_pnl_pct": 0.819,
+      "days_held": 5,
       "peak_pnl_pct": 1.176,
       "checkpoints": {
         "4": 1.176
@@ -292,10 +292,10 @@
       "tier": "A",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 400.96,
-      "unrealised_pnl_pct": 9.864,
-      "days_held": 17,
-      "peak_pnl_pct": 10.297,
+      "current_price": 404.92,
+      "unrealised_pnl_pct": 10.949,
+      "days_held": 18,
+      "peak_pnl_pct": 10.949,
       "checkpoints": {
         "4": 1.797,
         "10": 1.803
@@ -314,10 +314,10 @@
       "tier": "B",
       "score": 47,
       "p7_verdict": "TRADE",
-      "current_price": 383.8,
-      "unrealised_pnl_pct": 5.48,
-      "days_held": 1,
-      "peak_pnl_pct": 5.821,
+      "current_price": 387.01,
+      "unrealised_pnl_pct": 6.362,
+      "days_held": 2,
+      "peak_pnl_pct": 6.362,
       "checkpoints": {}
     },
     {
@@ -371,10 +371,10 @@
       "tier": "B",
       "score": 67,
       "p7_verdict": "TRADE",
-      "current_price": 64.0,
-      "unrealised_pnl_pct": 0.219,
-      "days_held": 1,
-      "peak_pnl_pct": 0.219,
+      "current_price": 64.81,
+      "unrealised_pnl_pct": 1.488,
+      "days_held": 2,
+      "peak_pnl_pct": 1.488,
       "checkpoints": {}
     },
     {
@@ -390,9 +390,9 @@
       "tier": "A",
       "score": 46,
       "p7_verdict": "TRADE",
-      "current_price": 770.56,
-      "unrealised_pnl_pct": -0.32,
-      "days_held": 1,
+      "current_price": 772.49,
+      "unrealised_pnl_pct": -0.07,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -409,9 +409,9 @@
       "tier": "B",
       "score": 37,
       "p7_verdict": "TRADE",
-      "current_price": 537.28,
-      "unrealised_pnl_pct": -0.317,
-      "days_held": 1,
+      "current_price": 537.15,
+      "unrealised_pnl_pct": -0.341,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -466,11 +466,25 @@
       "tier": "A",
       "score": 64,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 855.6,
+      "unrealised_pnl_pct": 1.45,
       "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "peak_pnl_pct": 1.45,
       "checkpoints": {}
+    },
+    {
+      "asset": "SCHW",
+      "market": "US",
+      "entry_date": "2026-08-12",
+      "entry_price": 109.34,
+      "hold_days_target": 20,
+      "size_pct": 2.7,
+      "ml_score": 57.0,
+      "val_auc": 0.486,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 60,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -3403,7 +3417,7 @@
     "run": 6,
     "label": "Tiered Floor: +5%->Breakeven, +10%->+4% (Run 6)",
     "created": "2026-06-17",
-    "total_logged": 139,
+    "total_logged": 140,
     "config": {
       "stop_loss_pct": 5.0,
       "take_profit_pct": 15.0,
