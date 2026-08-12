@@ -13,9 +13,9 @@
       "tier": "B",
       "score": 34,
       "p7_verdict": "TRADE",
-      "current_price": 83.61,
-      "unrealised_pnl_pct": 7.717,
-      "days_held": 18,
+      "current_price": 83.39,
+      "unrealised_pnl_pct": 7.434,
+      "days_held": 19,
       "peak_pnl_pct": 8.98,
       "checkpoints": {
         "4": 0.67,
@@ -35,9 +35,9 @@
       "tier": "A",
       "score": 53,
       "p7_verdict": "TRADE",
-      "current_price": 37.08,
-      "unrealised_pnl_pct": 4.775,
-      "days_held": 18,
+      "current_price": 36.86,
+      "unrealised_pnl_pct": 4.154,
+      "days_held": 19,
       "peak_pnl_pct": 4.86,
       "checkpoints": {
         "4": -0.17,
@@ -57,9 +57,9 @@
       "tier": "A",
       "score": 51,
       "p7_verdict": "TRADE",
-      "current_price": 82.63,
-      "unrealised_pnl_pct": 4.754,
-      "days_held": 18,
+      "current_price": 82.2,
+      "unrealised_pnl_pct": 4.209,
+      "days_held": 19,
       "peak_pnl_pct": 4.906,
       "checkpoints": {
         "4": -0.127,
@@ -79,9 +79,9 @@
       "tier": "B",
       "score": 35,
       "p7_verdict": "TRADE",
-      "current_price": 7.39,
-      "unrealised_pnl_pct": 1.372,
-      "days_held": 18,
+      "current_price": 7.32,
+      "unrealised_pnl_pct": 0.412,
+      "days_held": 19,
       "peak_pnl_pct": 5.075,
       "checkpoints": {
         "4": 1.372,
@@ -101,9 +101,9 @@
       "tier": "B",
       "score": 30,
       "p7_verdict": "TRADE",
-      "current_price": 20.18,
-      "unrealised_pnl_pct": 6.999,
-      "days_held": 18,
+      "current_price": 19.89,
+      "unrealised_pnl_pct": 5.461,
+      "days_held": 19,
       "peak_pnl_pct": 8.324,
       "checkpoints": {
         "4": 1.113,
@@ -165,9 +165,9 @@
       "tier": "A",
       "score": 56,
       "p7_verdict": "TRADE",
-      "current_price": 3425.0,
-      "unrealised_pnl_pct": -1.806,
-      "days_held": 6,
+      "current_price": 3422.0,
+      "unrealised_pnl_pct": -1.892,
+      "days_held": 8,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -2.093
@@ -186,10 +186,10 @@
       "tier": "A",
       "score": 53,
       "p7_verdict": "TRADE",
-      "current_price": 2575.5,
-      "unrealised_pnl_pct": 11.421,
-      "days_held": 5,
-      "peak_pnl_pct": 11.421,
+      "current_price": 2598.5,
+      "unrealised_pnl_pct": 12.416,
+      "days_held": 7,
+      "peak_pnl_pct": 12.416,
       "checkpoints": {
         "4": 2.661
       }
@@ -207,9 +207,9 @@
       "tier": "A",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 3453.0,
-      "unrealised_pnl_pct": 0.906,
-      "days_held": 5,
+      "current_price": 3454.0,
+      "unrealised_pnl_pct": 0.935,
+      "days_held": 7,
       "peak_pnl_pct": 1.14,
       "checkpoints": {
         "4": 1.14
@@ -234,27 +234,6 @@
       "peak_pnl_pct": 9.885,
       "checkpoints": {
         "4": 9.885
-      }
-    },
-    {
-      "asset": "CVX",
-      "market": "US",
-      "entry_date": "2026-08-05",
-      "entry_price": 186.41,
-      "hold_days_target": 20,
-      "size_pct": 1.3,
-      "ml_score": 71.1,
-      "val_auc": 0.55,
-      "strategy": "MACD",
-      "tier": "A",
-      "score": 56,
-      "p7_verdict": "TRADE",
-      "current_price": 196.66,
-      "unrealised_pnl_pct": 5.499,
-      "days_held": 4,
-      "peak_pnl_pct": 5.499,
-      "checkpoints": {
-        "4": 5.499
       }
     },
     {
@@ -291,9 +270,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 33.01,
-      "unrealised_pnl_pct": 10.291,
-      "days_held": 18,
+      "current_price": 32.78,
+      "unrealised_pnl_pct": 9.522,
+      "days_held": 19,
       "peak_pnl_pct": 10.291,
       "checkpoints": {
         "4": 5.747,
@@ -354,9 +333,9 @@
       "tier": "A",
       "score": 58,
       "p7_verdict": "TRADE",
-      "current_price": 8.02,
-      "unrealised_pnl_pct": -3.952,
-      "days_held": 1,
+      "current_price": 8.23,
+      "unrealised_pnl_pct": -1.437,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -373,10 +352,10 @@
       "tier": "B",
       "score": 38,
       "p7_verdict": "TRADE",
-      "current_price": 18.56,
-      "unrealised_pnl_pct": -1.171,
-      "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "current_price": 19.18,
+      "unrealised_pnl_pct": 2.13,
+      "days_held": 2,
+      "peak_pnl_pct": 2.13,
       "checkpoints": {}
     },
     {
@@ -449,9 +428,9 @@
       "tier": "A",
       "score": 47,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
-      "days_held": 0,
+      "current_price": 22.96,
+      "unrealised_pnl_pct": -0.606,
+      "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -468,9 +447,9 @@
       "tier": "B",
       "score": 30,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
-      "days_held": 0,
+      "current_price": 23.44,
+      "unrealised_pnl_pct": -0.846,
+      "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -486,7 +465,12 @@
       "strategy": "MACD",
       "tier": "A",
       "score": 64,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     }
   ],
   "closed": [
@@ -3388,6 +3372,31 @@
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "CVX",
+      "market": "US",
+      "entry_date": "2026-08-05",
+      "entry_price": 186.41,
+      "hold_days_target": 20,
+      "size_pct": 1.3,
+      "ml_score": 71.1,
+      "val_auc": 0.55,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 56,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 5.499
+      },
+      "exit_date": "2026-08-12",
+      "exit_price": 196.66,
+      "days_held": 5,
+      "pnl_pct": 5.499,
+      "peak_pnl_pct": 5.499,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     }
   ],
   "metadata": {
