@@ -70,6 +70,15 @@ STRATEGY_PLAIN_JA = {
     "Gap Momentum":      "ギャップ + 出来高 — 高出来高を伴うギャップアップ銘柄を買い",
 }
 
+# Which strategies the screener allows in each market regime — must be kept in
+# sync with _REGIME_ALLOWED in paper_trader.py (the source of truth; this repo
+# only displays the outcome, it doesn't decide it). None = all strategies allowed.
+REGIME_ALLOWED_STRATEGIES = {
+    "risk_off": ["RSI", "Bollinger Bands", "Mean Reversion"],
+    "caution":  ["RSI", "Bollinger Bands", "Mean Reversion", "MA Crossover"],
+    "calm":     None,
+}
+
 RUN_CONFIGS = {
     1:  "Base momentum",
     2:  "Vol filter",
@@ -754,6 +763,19 @@ _TR = {
         # ── home ──
         "home_sub":       "Free quantitative stock screener — United States · Australia · Japan",
         "home_expander":  "👋 New here? Start here — what is this and how do I use it?",
+        "regime_title":        "Market Conditions Right Now",
+        "regime_calm_headline":     "🟢 Calm markets",
+        "regime_caution_headline":  "🟡 Choppy markets",
+        "regime_risk_off_headline": "🔴 Risk-off markets",
+        "regime_calm_body":     "Volatility is low and the market is trending up. The system is trading all {n} strategies as normal.",
+        "regime_caution_body":  "Volatility has picked up. The system has already narrowed down to the {n} strategies below that have historically held up best in choppy conditions — you don't need to do anything.",
+        "regime_risk_off_body": "Volatility is high or the market is trending down. The system has already switched to defensive mode, trading only the {n} strategies below that have historically survived downturns best — you don't need to do anything.",
+        "regime_unknown_body":  "Market condition data isn't available right now.",
+        "regime_active_label":  "Active strategies right now:",
+        "regime_all_active":    "All 15 strategies active",
+        "regime_detail":        "VIX {vix} · SPY {ma_state} 200-day average",
+        "regime_above":         "above",
+        "regime_below":         "below",
         "stat_screened":  "Stocks screened",   "stat_screened_s": "US + ASX + JPX",
         "stat_signals":   "Buy signals today", "stat_signals_s":  "across {n} markets",
         "stat_markets":   "Markets covered",   "stat_markets_s":  "US · ASX · JPX",
@@ -998,6 +1020,19 @@ _TR = {
         # ── home ──
         "home_sub":       "無料クオンツ株スクリーナー — 米国・オーストラリア・日本",
         "home_expander":  "👋 初めての方へ — これは何？どう使う？",
+        "regime_title":        "現在の市場状況",
+        "regime_calm_headline":     "🟢 市場は安定しています",
+        "regime_caution_headline":  "🟡 市場はやや不安定です",
+        "regime_risk_off_headline": "🔴 市場はリスクオフです",
+        "regime_calm_body":     "ボラティリティは低く、市場は上昇トレンドです。システムは通常通り、全{n}戦略でトレードしています。",
+        "regime_caution_body":  "ボラティリティが上昇しています。システムはすでに、不安定な相場で過去に最も安定していた以下の{n}戦略に絞り込んでいます — あなたが何かする必要はありません。",
+        "regime_risk_off_body": "ボラティリティが高いか、市場が下降トレンドです。システムはすでに防御モードに切り替わり、過去の下落相場で最も持ちこたえた以下の{n}戦略のみをトレードしています — あなたが何かする必要はありません。",
+        "regime_unknown_body":  "現在、市場状況データを取得できません。",
+        "regime_active_label":  "現在アクティブな戦略:",
+        "regime_all_active":    "全15戦略がアクティブ",
+        "regime_detail":        "VIX {vix} · SPYは200日平均線を{ma_state}",
+        "regime_above":         "上回っています",
+        "regime_below":         "下回っています",
         "stat_screened":  "スクリーニング銘柄数", "stat_screened_s": "US + ASX + JPX",
         "stat_signals":   "本日の買いシグナル",  "stat_signals_s":  "{n}市場合計",
         "stat_markets":   "対象市場数",          "stat_markets_s":  "US · ASX · JPX",
@@ -2063,6 +2098,67 @@ if page == "🏠 Home":
   </div>
 </div>
 """, unsafe_allow_html=True)
+
+    # ── market regime — what's happening + what the system already did about it ──
+    # Deliberately shows the outcome ("here's what's active"), not just a status
+    # light — a bare warning is what pushes people toward the emotional, manual
+    # decisions this site is trying to remove from investing.
+    _regime = load_market_regime()
+    _rs = _regime.get("status", "unknown")
+    _r_palette = {
+        "calm":     ("#3fb950", "#0f2a1a"),
+        "caution":  ("#d29922", "#1a1a0f"),
+        "risk_off": ("#f85149", "#1a0f0f"),
+        "unknown":  ("#8b949e", "#0d1117"),
+    }
+    _r_color, _r_bg = _r_palette.get(_rs, _r_palette["unknown"])
+    _r_headline = T(f"regime_{_rs}_headline", lang) if _rs in ("calm", "caution", "risk_off") else T("regime_calm_headline", lang)
+
+    _allowed = REGIME_ALLOWED_STRATEGIES.get(_rs, None) if _rs != "unknown" else None
+
+    if _rs == "unknown":
+        _r_body = T("regime_unknown_body", lang)
+    else:
+        _n = len(_allowed) if _allowed is not None else 15
+        _r_body = T(f"regime_{_rs}_body", lang, n=_n)
+
+    st.markdown(
+        f"<div style='background:{_r_bg};border:1px solid {_r_color};border-radius:10px;padding:18px 20px;margin-bottom:8px'>"
+        f"<div style='font-size:12px;color:#8b949e;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px'>{T('regime_title', lang)}</div>"
+        f"<div style='font-size:20px;font-weight:800;color:{_r_color};margin-bottom:6px'>{_r_headline}</div>"
+        f"<div style='font-size:14px;color:#e6edf3;line-height:1.5'>{_r_body}</div>"
+        "</div>",
+        unsafe_allow_html=True,
+    )
+
+    if _rs != "unknown":
+        _strat_plain = STRATEGY_PLAIN_JA if lang == "ja" else STRATEGY_PLAIN
+        if _allowed is None:
+            st.markdown(
+                f"<div style='font-size:13px;color:#8b949e;margin:4px 0 14px'>✅ {T('regime_all_active', lang)}</div>",
+                unsafe_allow_html=True,
+            )
+        else:
+            _pills = "".join(
+                f"<span style='display:inline-block;background:#161b22;border:1px solid #30363d;"
+                f"border-radius:16px;padding:5px 12px;margin:0 6px 6px 0;font-size:12px;color:#e6edf3' "
+                f"title='{_strat_plain.get(s, s)}'>{s}</span>"
+                for s in _allowed
+            )
+            st.markdown(
+                f"<div style='font-size:12px;color:#8b949e;margin:4px 0 4px'>{T('regime_active_label', lang)}</div>"
+                f"<div style='margin-bottom:10px'>{_pills}</div>",
+                unsafe_allow_html=True,
+            )
+
+        if _regime.get("vix") is not None:
+            _ma_state = T("regime_above", lang) if _regime.get("above_ma") else T("regime_below", lang)
+            st.markdown(
+                f"<div style='font-size:11px;color:#6e7681;margin-bottom:16px'>"
+                f"{T('regime_detail', lang, vix=_regime['vix'], ma_state=_ma_state)}</div>",
+                unsafe_allow_html=True,
+            )
+    st.markdown("")
 
     # ── new visitor guide ──────────────────────────────────────────────────────
     with st.expander(T("home_expander", lang), expanded=False):
