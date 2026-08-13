@@ -13,12 +13,13 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 365.18,
-      "unrealised_pnl_pct": 4.084,
-      "days_held": 9,
+      "current_price": 363.11,
+      "unrealised_pnl_pct": 3.494,
+      "days_held": 10,
       "peak_pnl_pct": 4.084,
       "checkpoints": {
-        "4": 2.391
+        "4": 2.391,
+        "10": 3.494
       }
     },
     {
@@ -34,9 +35,9 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 416.05,
-      "unrealised_pnl_pct": 7.274,
-      "days_held": 8,
+      "current_price": 417.82,
+      "unrealised_pnl_pct": 7.73,
+      "days_held": 9,
       "peak_pnl_pct": 10.293,
       "checkpoints": {
         "4": 8.439
@@ -118,9 +119,9 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 416.05,
-      "unrealised_pnl_pct": 6.877,
-      "days_held": 7,
+      "current_price": 417.82,
+      "unrealised_pnl_pct": 7.331,
+      "days_held": 8,
       "peak_pnl_pct": 9.885,
       "checkpoints": {
         "4": 9.885
@@ -139,9 +140,9 @@
       "tier": "B",
       "score": 40,
       "p7_verdict": "TRADE",
-      "current_price": 163.8,
-      "unrealised_pnl_pct": 0.819,
-      "days_held": 5,
+      "current_price": 164.21,
+      "unrealised_pnl_pct": 1.071,
+      "days_held": 6,
       "peak_pnl_pct": 1.176,
       "checkpoints": {
         "4": 1.176
@@ -160,9 +161,9 @@
       "tier": "A",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 404.92,
-      "unrealised_pnl_pct": 10.949,
-      "days_held": 18,
+      "current_price": 398.96,
+      "unrealised_pnl_pct": 9.316,
+      "days_held": 19,
       "peak_pnl_pct": 10.949,
       "checkpoints": {
         "4": 1.797,
@@ -182,10 +183,10 @@
       "tier": "B",
       "score": 47,
       "p7_verdict": "TRADE",
-      "current_price": 387.01,
-      "unrealised_pnl_pct": 6.362,
-      "days_held": 2,
-      "peak_pnl_pct": 6.362,
+      "current_price": 396.0,
+      "unrealised_pnl_pct": 8.833,
+      "days_held": 3,
+      "peak_pnl_pct": 8.833,
       "checkpoints": {}
     },
     {
@@ -220,10 +221,10 @@
       "tier": "A",
       "score": 46,
       "p7_verdict": "TRADE",
-      "current_price": 772.49,
-      "unrealised_pnl_pct": -0.07,
-      "days_held": 2,
-      "peak_pnl_pct": 0.0,
+      "current_price": 777.88,
+      "unrealised_pnl_pct": 0.627,
+      "days_held": 3,
+      "peak_pnl_pct": 0.627,
       "checkpoints": {}
     },
     {
@@ -239,9 +240,9 @@
       "tier": "B",
       "score": 37,
       "p7_verdict": "TRADE",
-      "current_price": 537.15,
-      "unrealised_pnl_pct": -0.341,
-      "days_held": 2,
+      "current_price": 537.91,
+      "unrealised_pnl_pct": -0.2,
+      "days_held": 3,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -296,9 +297,9 @@
       "tier": "A",
       "score": 64,
       "p7_verdict": "TRADE",
-      "current_price": 855.6,
-      "unrealised_pnl_pct": 1.45,
-      "days_held": 1,
+      "current_price": 854.6,
+      "unrealised_pnl_pct": 1.332,
+      "days_held": 2,
       "peak_pnl_pct": 1.45,
       "checkpoints": {}
     },
@@ -315,11 +316,25 @@
       "tier": "A",
       "score": 60,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 110.06,
+      "unrealised_pnl_pct": 0.658,
       "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "peak_pnl_pct": 0.658,
       "checkpoints": {}
+    },
+    {
+      "asset": "BAC",
+      "market": "US",
+      "entry_date": "2026-08-13",
+      "entry_price": 64.09,
+      "hold_days_target": 20,
+      "size_pct": 2.6,
+      "ml_score": 65.2,
+      "val_auc": 0.539,
+      "strategy": "MACD",
+      "tier": "B",
+      "score": 67,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -2603,7 +2618,7 @@
     "run": 14,
     "label": "Fund Gate: Original Quant + Fundamentals Only (Run 14)",
     "created": "2026-07-07",
-    "total_logged": 104,
+    "total_logged": 105,
     "config": {
       "stop_loss_pct": 5.0,
       "take_profit_pct": 15.0,
