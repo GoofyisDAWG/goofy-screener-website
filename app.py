@@ -263,6 +263,7 @@ def load_trade_history() -> pd.DataFrame:
                 "entry_date":  t.get("entry_date", ""),
                 "ml_score":    t.get("ml_score"),
                 "tier":        t.get("tier", "?"),
+                "size_pct":    t.get("size_pct"),
             })
     return pd.DataFrame(rows)
 
@@ -812,7 +813,7 @@ _TR = {
         "tr_m5":  "Avg loser",     "tr_m5s": "when wrong",
         "tr_m6":  "Stop-losses hit",
         "tr_equity":   "#### Cumulative P&L over time",
-        "tr_eq_sub":   "Each step = one closed trade, sorted by exit date.",
+        "tr_eq_sub":   "Each step = one closed trade, sorted by exit date. Compounded — each trade's return is applied to the running total, as if reinvested. Excludes brokerage; use the Investment Simulator above for a fee-adjusted, dollar-based estimate.",
         "tr_strategy": "#### By strategy",
         "tr_exit":     "#### How trades ended",
         "tr_market":   "#### By market",
@@ -1069,7 +1070,7 @@ _TR = {
         "tr_m5":  "平均損失",       "tr_m5s": "負けトレード平均",
         "tr_m6":  "損切り回数",
         "tr_equity":   "#### 累積損益の推移",
-        "tr_eq_sub":   "各ステップ = 1つのクローズドトレード（決済日順）",
+        "tr_eq_sub":   "各ステップ = 1つのクローズドトレード（決済日順）。複利計算 — 各取引のリターンを再投資したものとして累積に反映。手数料は含みません。手数料込みのドルベース試算は上の投資シミュレーターをご利用ください。",
         "tr_strategy": "#### 戦略別",
         "tr_exit":     "#### 決済理由",
         "tr_market":   "#### 市場別",
@@ -2311,7 +2312,13 @@ It does NOT tell you what to buy. It tells you which stocks are showing interest
                         .dropna(subset=["exit_date"]).copy())
                 _bdf["exit_date"] = pd.to_datetime(_bdf["exit_date"], errors="coerce")
                 _bdf = _bdf.dropna(subset=["exit_date"]).sort_values("exit_date")
-                _bdf["cum"] = _bdf["pnl_pct"].cumsum()
+                # Compounded AND position-sized. Trades only use their recorded
+                # size_pct of capital, not the whole account — compounding the raw
+                # pnl_pct as if every trade bet 100% of capital produces numbers far
+                # more extreme than reality (worse than the plain-sum bug this
+                # replaces). Missing/invalid size_pct contributes 0, not a guess.
+                _bsz = pd.to_numeric(_bdf.get("size_pct"), errors="coerce").fillna(0) / 100
+                _bdf["cum"] = ((1 + (_bdf["pnl_pct"] / 100) * _bsz).cumprod() - 1) * 100
                 _end_val    = float(_bdf["cum"].iloc[-1])
                 _eq_clr     = "#3fb950" if _end_val >= 0 else "#f85149"
                 _fill_clr   = "rgba(63,185,80,0.08)" if _end_val >= 0 else "rgba(248,81,73,0.08)"
@@ -3691,9 +3698,9 @@ The leaderboard above updates automatically — the top 3 are the runs producing
         _mr_label = ("📈 Run Comparison — Equity Curves" if lang == "en"
                      else "📈 ラン比較 — 資産曲線")
         with st.expander(_mr_label, expanded=True):
-            _mr_sub = ("Equity curves for the top runs by trade count. Each line shows cumulative P&L% across closed trades over time."
+            _mr_sub = ("Equity curves for the top runs by trade count. Each line shows compounded (reinvested) P&L% across closed trades over time — brokerage/fees not included."
                        if lang == "en" else
-                       "取引数の多い上位ランの資産曲線。各ラインは決済済み取引の累積損益%の推移を示します。")
+                       "取引数の多い上位ランの資産曲線。各ラインは決済済み取引の複利（再投資）損益%の推移を示します。手数料は含みません。")
             st.caption(_mr_sub)
             if not df_history.empty:
                 _mr_fig = go.Figure()
@@ -3745,7 +3752,9 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                     _rdf = _rdf.dropna(subset=["exit_date"]).sort_values("exit_date")
                     if len(_rdf) < 3:
                         continue
-                    _rdf["cum"] = _rdf["pnl_pct"].cumsum()
+                    # Compounded and position-sized — see comment on the Home page equity curve.
+                    _rsz = pd.to_numeric(_rdf.get("size_pct"), errors="coerce").fillna(0) / 100
+                    _rdf["cum"] = ((1 + (_rdf["pnl_pct"] / 100) * _rsz).cumprod() - 1) * 100
 
                     if _r in _top4_runs:
                         _rank  = _top4_runs.index(_r)
@@ -4021,11 +4030,13 @@ The leaderboard above updates automatically — the top 3 are the runs producing
             _broker_names = (
                 ["No brokerage ($0)", "CommSec (tiered: $10/$19.95/0.12%)",
                  "Selfwealth ($9.50 flat)", "Stake (~$3 AUD flat)",
-                 "Interactive Brokers (0.1%, min $1.50)"]
+                 "Interactive Brokers (0.1%, min $1.50)",
+                 "Moomoo ($3 AUD or 0.03%, whichever is greater)"]
                 if lang == "en" else
                 ["手数料なし ($0)", "CommSec（段階制: $10/$19.95/0.12%）",
                  "Selfwealth（$9.50 定額）", "Stake（約$3 AUD 定額）",
-                 "Interactive Brokers（0.1%、最低$1.50）"]
+                 "Interactive Brokers（0.1%、最低$1.50）",
+                 "Moomoo（$3 AUDまたは0.03%の高い方）"]
             )
             _broker_lbl = "Broker" if lang == "en" else "ブローカー"
             _broker_choice = st.selectbox(_broker_lbl, _broker_names, index=0, key="sim_broker")
@@ -4033,12 +4044,17 @@ The leaderboard above updates automatically — the top 3 are the runs producing
         with _pos_col:
             _trade_size = st.number_input(
                 "$ per trade" if lang == "en" else "1取引の金額 ($)",
-                min_value=100, max_value=100_000, value=1_000, step=100,
+                min_value=100, max_value=100_000, value=100, step=100,
                 key="sim_trade_size",
-                help=("How many dollars you invest in each stock signal. "
-                      "CommSec charges based on this amount — $1,000 → $10 fee, $10,001+ → 0.12%.")
+                help=("Your position size, set as a fraction of your starting amount "
+                      "(e.g. $1,000 per trade on a $10,000 start = 10% per trade). As your "
+                      "balance grows or shrinks, each trade's actual dollar size scales with "
+                      "it — this is what makes it genuinely compound. "
+                      "CommSec's fee is based on this amount — $1,000 → $10 fee, $10,001+ → 0.12%.")
                      if lang == "en" else
-                     "各シグナルに投入するドル額。CommSecはこの金額を基に手数料を決定します。",
+                     "投資開始額に対する割合としてのポジションサイズ（例: 開始額$10,000に対し1取引$1,000 = 10%）。"
+                     "残高が増減すると各取引の実際の金額もそれに応じて変化します — これが複利として機能する理由です。"
+                     "CommSecの手数料はこの金額を基に決定されます。",
             )
 
         def _calc_brokerage(trade_value: float, broker: str) -> float:
@@ -4057,10 +4073,27 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                 return 3.0 * 2
             if "Interactive" in broker:
                 return max(1.50, trade_value * 0.001) * 2
+            if "Moomoo" in broker:
+                # AU rate ($3 flat or 0.03%, whichever is greater) used as the
+                # representative figure — this simulator applies one flat fee
+                # schedule to every trade regardless of market, same simplification
+                # already used for the other brokers above. Moomoo's actual US-stock
+                # rate is cheaper (flat US$0.99/trade), so this slightly overstates
+                # fees for a US-heavy trade mix.
+                return max(3.0, trade_value * 0.0003) * 2
             return 0.0
 
         # Fee per trade is fixed to the chosen trade size — broker schedule does the rest
         _fee_per_trade = _calc_brokerage(float(_trade_size), _broker_choice)
+
+        # Position size as a fraction of the starting portfolio — e.g. $1,000 per
+        # trade on a $10,000 start = 10%. Applying this fraction (not the raw
+        # per-trade pnl_pct) to the running balance means each trade only risks its
+        # proper slice of capital, while the dollar size of that slice still grows
+        # as the portfolio grows — real reinvestment/compounding, not "every trade
+        # bets the entire account," which is what caused the previous, much more
+        # extreme numbers.
+        _sim_position_pct = float(_trade_size) / float(_sim_amt) if float(_sim_amt) > 0 else 0.0
 
         # When "All Runs" selected, dc mixes all runs — use best run instead
         _sim_run_label = None
@@ -4096,7 +4129,7 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                 _total_comm = 0.0
                 _trade_events = []
                 for _, _row in _sim_all.iterrows():
-                    _s_val *= (1 + _row["pnl_pct"] / 100)
+                    _s_val *= (1 + _sim_position_pct * _row["pnl_pct"] / 100)
                     _s_val -= _fee_per_trade
                     _total_comm += _fee_per_trade
                     _trade_events.append({
@@ -4227,7 +4260,7 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                 _sim_curve = [_sim_val]
                 _sim_total_comm = 0.0
                 for _p in _sim_sorted["pnl_pct"]:
-                    _sim_val *= (1 + _p / 100)
+                    _sim_val *= (1 + _sim_position_pct * _p / 100)
                     _sim_val -= _fee_per_trade
                     _sim_total_comm += _fee_per_trade
                     _sim_curve.append(_sim_val)
@@ -4333,7 +4366,9 @@ The leaderboard above updates automatically — the top 3 are the runs producing
             dc_sorted = dc.dropna(subset=["exit_date"]).copy()
             dc_sorted["exit_date"] = pd.to_datetime(dc_sorted["exit_date"], errors="coerce")
             dc_sorted = dc_sorted.dropna(subset=["exit_date"]).sort_values("exit_date")
-            dc_sorted["cumulative"] = dc_sorted["pnl_pct"].cumsum()
+            # Compounded and position-sized — see comment on the Home page equity curve.
+            _dsz = pd.to_numeric(dc_sorted.get("size_pct"), errors="coerce").fillna(0) / 100
+            dc_sorted["cumulative"] = ((1 + (dc_sorted["pnl_pct"] / 100) * _dsz).cumprod() - 1) * 100
             dc_sorted["trade_num"]  = range(1, len(dc_sorted) + 1)
 
             dot_colors = ["#3fb950" if p > 0 else "#f85149" for p in dc_sorted["pnl_pct"]]
