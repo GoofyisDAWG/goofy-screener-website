@@ -883,6 +883,10 @@ _TR = {
         "sb_by_mkt":   "### 🌍 Champions by Market",
         "sb_blocked":  "### 🚫 Permanently Blocked",
         "sb_blocked_sub": "Blocked after live data confirmed consistent losses. Not just backtested — these failed on real forward trades.",
+        "sb_recovering":     "### 🔵 Recovering — Under Review",
+        "sb_recovering_sub": "Previously blocked, now showing a real turnaround since an exit-tracking bug fix on 2026-07-30 (stop-losses could silently misfire before then). Shown split before/after so you can judge the trend yourself — not yet promoted to Champion status until the post-fix sample grows further.",
+        "sb_before_fix": "Before fix",
+        "sb_after_fix":  "After fix",
         # ── about ──
         "ab_title":    "### About Goofy Screener",
         "ab_method":   "### Methodology",
@@ -1140,6 +1144,10 @@ _TR = {
         "sb_by_mkt":   "### 🌍 市場別チャンピオン成績",
         "sb_blocked":  "### 🚫 永久ブロック済み戦略",
         "sb_blocked_sub": "ライブデータで一貫した損失が確認されたためブロック。バックテストだけでなく、実際のフォワードトレードで失敗した戦略です。",
+        "sb_recovering":     "### 🔵 回復中 — 再検討中",
+        "sb_recovering_sub": "以前はブロックされていましたが、2026年7月30日の決済ロジック修正（それ以前は損切りが正しく発動しないことがありました）以降、明確な回復が見られます。修正前後で分けて表示するので、傾向をご自身で判断できます — 修正後のサンプル数がさらに増えるまではチャンピオンには昇格していません。",
+        "sb_before_fix": "修正前",
+        "sb_after_fix":  "修正後",
         # ── about ──
         "ab_title":    "### Goofy Screenerについて",
         "ab_method":   "### 方法論",
@@ -5716,9 +5724,14 @@ elif page == "🎯 Strategy Breakdown":
     st.markdown(T("sb_title", lang))
     st.caption(T("sb_sub", lang))
 
-    _CHAMPIONS  = ["RSI", "Bollinger Bands", "MA Crossover", "Mean Reversion"]
-    _BLOCKED    = ["RSI Divergence", "Institutional Momentum", "Relative Strength"]
-    _WATCHLIST  = ["RSI(2)"]   # bad early stats but still accumulating data
+    _CHAMPIONS   = ["RSI", "Bollinger Bands", "MA Crossover", "Mean Reversion"]
+    _BLOCKED     = ["Institutional Momentum", "Relative Strength"]
+    _WATCHLIST   = ["RSI(2)"]   # bad early stats but still accumulating data
+    _RECOVERING  = ["RSI Divergence"]  # was blocked; turned around after the
+    # 2026-07-30 exit-tracking fix (see sb_recovering_sub) — not yet a Champion,
+    # tracked separately with a live before/after split rather than a single
+    # blended number, so the page can't misrepresent it in either direction.
+    _RECOVERING_FIX_DATE = pd.Timestamp("2026-07-30")
 
     if df_history.empty:
         st.info("No trade history found. Run the screener first." if lang == "en"
@@ -5743,7 +5756,8 @@ elif page == "🎯 Strategy Breakdown":
                 "is_blocked":   _strat in _BLOCKED,
             })
         _sb_df = pd.DataFrame(_sb_rows).sort_values("avg_pnl", ascending=False)
-        _sb_df["is_watchlist"] = _sb_df["strategy"].isin(_WATCHLIST)
+        _sb_df["is_watchlist"]  = _sb_df["strategy"].isin(_WATCHLIST)
+        _sb_df["is_recovering"] = _sb_df["strategy"].isin(_RECOVERING)
 
         # ── champion cards ─────────────────────────────────────────────────────
         st.markdown(T("sb_champs", lang))
@@ -5819,8 +5833,8 @@ elif page == "🎯 Strategy Breakdown":
         _leg_col2.markdown("<span style='color:#f85149'>■</span> Permanently blocked" if lang == "en"
                            else "<span style='color:#f85149'>■</span> 永久ブロック済み",
                            unsafe_allow_html=True)
-        _leg_col3.markdown("<span style='color:#58a6ff'>■</span> Other / limited data" if lang == "en"
-                           else "<span style='color:#58a6ff'>■</span> その他 / データ少",
+        _leg_col3.markdown("<span style='color:#58a6ff'>■</span> Recovering / other / limited data" if lang == "en"
+                           else "<span style='color:#58a6ff'>■</span> 回復中 / その他 / データ少",
                            unsafe_allow_html=True)
 
         st.markdown("")
@@ -5856,20 +5870,17 @@ elif page == "🎯 Strategy Breakdown":
         st.markdown(T("sb_blocked", lang))
         st.caption(T("sb_blocked_sub", lang))
         _blocked_descs = {
-            "RSI Divergence": (
-                "High trade volume but near-breakeven — blocked in selective runs to reduce noise."
-                if lang == "en" else
-                "取引量は多いがほぼ損益ゼロ。ノイズ低減のため選択的なランでブロック。"
-            ),
             "Relative Strength": (
-                "Negative expectancy — wins not large enough to cover losses."
+                "Near-zero expectancy — wins aren't reliably large enough to cover losses."
                 if lang == "en" else
-                "期待値がマイナス。勝ちが損失をカバーできない。"
+                "期待値がほぼゼロ。勝ちが損失を安定してカバーできていない。"
             ),
             "Institutional Momentum": (
-                "0% win rate — every closed trade was a loss."
+                "Blocked after early live trades showed heavy losses. Now marginally positive "
+                "(125 trades, 39% win rate) but still below the bar for reinstatement."
                 if lang == "en" else
-                "勝率0%。全決済トレードが損失。"
+                "初期のライブトレードで大きな損失が確認されブロック。現在はわずかにプラス"
+                "（125取引、勝率39%）だが、復活の基準にはまだ達していない。"
             ),
         }
         for _bn in _BLOCKED:
@@ -5889,6 +5900,43 @@ elif page == "🎯 Strategy Breakdown":
                 unsafe_allow_html=True,
             )
 
+        # ── recovering — live before/after split, not a single blended number ──
+        _recovering_rows = _sb_df[_sb_df["strategy"].isin(_RECOVERING)]
+        if not _recovering_rows.empty:
+            st.markdown("")
+            st.markdown(T("sb_recovering", lang))
+            st.caption(T("sb_recovering_sub", lang))
+            for _rec_strat in _RECOVERING:
+                _rec_hist = df_history[df_history["strategy"] == _rec_strat].copy()
+                if _rec_hist.empty:
+                    continue
+                _rec_hist["exit_date"] = pd.to_datetime(_rec_hist["exit_date"], errors="coerce")
+                _rec_hist = _rec_hist.dropna(subset=["exit_date"])
+                _before = _rec_hist[_rec_hist["exit_date"] < _RECOVERING_FIX_DATE]
+                _after  = _rec_hist[_rec_hist["exit_date"] >= _RECOVERING_FIX_DATE]
+
+                def _period_html(_label, _pdf):
+                    if _pdf.empty:
+                        return f"<div style='color:#8b949e;font-size:12px'>{_label}: —</div>"
+                    _pwr  = _pdf["win"].mean() * 100
+                    _pavg = _pdf["pnl_pct"].mean()
+                    _pclr = "#3fb950" if _pavg >= 0 else "#f85149"
+                    return (
+                        f"<div style='font-size:12px;color:#8b949e'>{_label}: "
+                        f"<b style='color:{_pclr}'>{len(_pdf)} trades · avg {_pavg:+.2f}% · "
+                        f"WR {_pwr:.0f}%</b></div>"
+                    )
+
+                st.markdown(
+                    f"<div style='background:#0a1420;border:1px solid #58a6ff;border-radius:8px;"
+                    f"padding:12px 16px;margin:6px 0'>"
+                    f"<b style='color:#58a6ff'>🔵 {_rec_strat}</b><br>"
+                    f"{_period_html(T('sb_before_fix', lang), _before)}"
+                    f"{_period_html(T('sb_after_fix', lang), _after)}"
+                    f"</div>",
+                    unsafe_allow_html=True,
+                )
+
         # ── under watch (early bad data, still accumulating) ───────────────────
         _watch_rows = _sb_df[_sb_df["strategy"].isin(_WATCHLIST)]
         if not _watch_rows.empty:
@@ -5901,9 +5949,11 @@ elif page == "🎯 Strategy Breakdown":
             st.caption(_wcap)
             _watch_descs = {
                 "RSI(2)": (
-                    "Larry Connors 2-period RSI strategy. 0% win rate so far — all closed trades lost. Too early to permanently block; watching R22 for more data."
+                    "Larry Connors 2-period RSI strategy. Win rate has recovered to 63%, but avg P&L is "
+                    "still slightly negative — wins are too small to offset losses. Watching R22 for more data."
                     if lang == "en" else
-                    "ラリー・コナーズの2期間RSI戦略。勝率0%（全決済トレードが損失）。永久ブロックには早すぎる。R22で追加データ収集中。"
+                    "ラリー・コナーズの2期間RSI戦略。勝率は63%まで回復しましたが、平均損益はまだ僅かにマイナスです"
+                    " — 勝ちトレードが損失を相殺するには小さすぎます。R22で追加データ収集中。"
                 ),
             }
             for _, _wr_row in _watch_rows.iterrows():

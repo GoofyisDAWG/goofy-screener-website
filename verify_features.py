@@ -26,6 +26,11 @@ REQUIRED = {
          "_sim_val *= (1 + _sim_position_pct"],
     "Moomoo broker option":
         ['"Moomoo ($3 AUD or 0.03%, whichever is greater)"'],
+    "RSI Divergence reclassified to Recovering (not Permanently Blocked)":
+        ["_RECOVERING  = [\"RSI Divergence\"]", "sb_recovering", "_RECOVERING_FIX_DATE"],
+    "Institutional Momentum / RSI(2) descriptions reflect real current stats":
+        ["Blocked after early live trades showed heavy losses. Now marginally positive",
+         "Win rate has recovered to 63%, but avg P&L is"],
 }
 
 def main():
