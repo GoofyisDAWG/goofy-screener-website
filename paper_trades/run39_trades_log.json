@@ -13,32 +13,13 @@
       "tier": "B",
       "score": 40,
       "p7_verdict": "TRADE",
-      "current_price": 164.21,
-      "unrealised_pnl_pct": 1.071,
-      "days_held": 6,
-      "peak_pnl_pct": 1.176,
+      "current_price": 163.17,
+      "unrealised_pnl_pct": 0.431,
+      "days_held": 7,
+      "peak_pnl_pct": 0.834,
       "checkpoints": {
-        "4": 1.176
+        "4": 0.834
       }
-    },
-    {
-      "asset": "AVGO",
-      "market": "US",
-      "entry_date": "2026-08-09",
-      "entry_price": 427.76,
-      "hold_days_target": 20,
-      "size_pct": 2.8,
-      "ml_score": 75.5,
-      "val_auc": 0.463,
-      "strategy": "MACD",
-      "tier": "A",
-      "score": 49,
-      "p7_verdict": "TRADE",
-      "current_price": 417.82,
-      "unrealised_pnl_pct": -2.324,
-      "days_held": 3,
-      "peak_pnl_pct": 0.0,
-      "checkpoints": {}
     },
     {
       "asset": "SPY",
@@ -53,11 +34,13 @@
       "tier": "A",
       "score": 46,
       "p7_verdict": "TRADE",
-      "current_price": 777.88,
-      "unrealised_pnl_pct": 0.627,
-      "days_held": 3,
+      "current_price": 776.34,
+      "unrealised_pnl_pct": 0.428,
+      "days_held": 4,
       "peak_pnl_pct": 0.627,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": 0.428
+      }
     },
     {
       "asset": "DIA",
@@ -72,11 +55,13 @@
       "tier": "B",
       "score": 37,
       "p7_verdict": "TRADE",
-      "current_price": 537.91,
-      "unrealised_pnl_pct": -0.2,
-      "days_held": 3,
+      "current_price": 536.8,
+      "unrealised_pnl_pct": -0.406,
+      "days_held": 4,
       "peak_pnl_pct": 0.0,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": -0.406
+      }
     },
     {
       "asset": "CAT",
@@ -91,10 +76,10 @@
       "tier": "A",
       "score": 64,
       "p7_verdict": "TRADE",
-      "current_price": 854.6,
-      "unrealised_pnl_pct": 1.332,
-      "days_held": 2,
-      "peak_pnl_pct": 1.45,
+      "current_price": 856.57,
+      "unrealised_pnl_pct": 1.565,
+      "days_held": 3,
+      "peak_pnl_pct": 1.565,
       "checkpoints": {}
     },
     {
@@ -110,10 +95,10 @@
       "tier": "A",
       "score": 60,
       "p7_verdict": "TRADE",
-      "current_price": 110.06,
-      "unrealised_pnl_pct": 0.658,
-      "days_held": 1,
-      "peak_pnl_pct": 0.658,
+      "current_price": 111.09,
+      "unrealised_pnl_pct": 1.601,
+      "days_held": 2,
+      "peak_pnl_pct": 1.601,
       "checkpoints": {}
     },
     {
@@ -129,10 +114,10 @@
       "tier": "B",
       "score": 67,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 64.49,
+      "unrealised_pnl_pct": 0.624,
       "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "peak_pnl_pct": 0.624,
       "checkpoints": {}
     }
   ],
@@ -458,6 +443,30 @@
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "STAND DOWN (VOL SPIKE)"
+    },
+    {
+      "asset": "AVGO",
+      "market": "US",
+      "entry_date": "2026-08-09",
+      "entry_price": 427.76,
+      "hold_days_target": 20,
+      "size_pct": 2.8,
+      "ml_score": 75.5,
+      "val_auc": 0.463,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 49,
+      "p7_verdict": "TRADE",
+      "exit_date": "2026-08-14",
+      "exit_price": 392.99,
+      "days_held": 4,
+      "pnl_pct": -8.128,
+      "peak_pnl_pct": 0.0,
+      "win": false,
+      "exit_reason": "STOP_LOSS",
+      "checkpoints": {
+        "4": -8.128
+      }
     }
   ],
   "metadata": {
