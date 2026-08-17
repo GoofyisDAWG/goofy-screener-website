@@ -35,12 +35,13 @@
       "tier": "B",
       "score": 45,
       "p7_verdict": "TRADE",
-      "current_price": 392.99,
-      "unrealised_pnl_pct": 0.194,
-      "days_held": 9,
+      "current_price": 392.43,
+      "unrealised_pnl_pct": 0.051,
+      "days_held": 10,
       "peak_pnl_pct": 9.058,
       "checkpoints": {
-        "4": 9.058
+        "4": 9.058,
+        "10": 0.051
       }
     },
     {
@@ -56,12 +57,13 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 362.84,
-      "unrealised_pnl_pct": 2.892,
-      "days_held": 9,
+      "current_price": 360.96,
+      "unrealised_pnl_pct": 2.359,
+      "days_held": 10,
       "peak_pnl_pct": 3.556,
       "checkpoints": {
-        "4": 1.384
+        "4": 1.384,
+        "10": 2.359
       }
     },
     {
@@ -120,9 +122,9 @@
       "tier": "B",
       "score": 40,
       "p7_verdict": "TRADE",
-      "current_price": 163.17,
-      "unrealised_pnl_pct": 0.431,
-      "days_held": 7,
+      "current_price": 162.05,
+      "unrealised_pnl_pct": -0.259,
+      "days_held": 8,
       "peak_pnl_pct": 0.834,
       "checkpoints": {
         "4": 0.834
@@ -141,9 +143,9 @@
       "tier": "B",
       "score": 37,
       "p7_verdict": "TRADE",
-      "current_price": 536.8,
-      "unrealised_pnl_pct": -0.406,
-      "days_held": 4,
+      "current_price": 534.19,
+      "unrealised_pnl_pct": -0.891,
+      "days_held": 5,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -0.406
@@ -162,11 +164,13 @@
       "tier": "A",
       "score": 58,
       "p7_verdict": "TRADE",
-      "current_price": 8.14,
-      "unrealised_pnl_pct": 1.496,
-      "days_held": 3,
+      "current_price": 8.13,
+      "unrealised_pnl_pct": 1.372,
+      "days_held": 4,
       "peak_pnl_pct": 2.618,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": 1.372
+      }
     },
     {
       "asset": "ORI.AX",
@@ -181,11 +185,13 @@
       "tier": "A",
       "score": 47,
       "p7_verdict": "TRADE",
-      "current_price": 22.2,
-      "unrealised_pnl_pct": -3.896,
-      "days_held": 3,
+      "current_price": 22.32,
+      "unrealised_pnl_pct": -3.377,
+      "days_held": 4,
       "peak_pnl_pct": 0.0,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": -3.377
+      }
     },
     {
       "asset": "SPY",
@@ -200,9 +206,9 @@
       "tier": "A",
       "score": 46,
       "p7_verdict": "TRADE",
-      "current_price": 776.34,
-      "unrealised_pnl_pct": 0.498,
-      "days_held": 2,
+      "current_price": 772.67,
+      "unrealised_pnl_pct": 0.023,
+      "days_held": 3,
       "peak_pnl_pct": 0.698,
       "checkpoints": {}
     },
@@ -219,8 +225,8 @@
       "tier": "A",
       "score": 54,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 64.95,
+      "unrealised_pnl_pct": -0.749,
       "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
@@ -276,11 +282,39 @@
       "tier": "A",
       "score": 64,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 881.65,
+      "unrealised_pnl_pct": 2.928,
       "days_held": 0,
-      "peak_pnl_pct": 0.0,
+      "peak_pnl_pct": 2.928,
       "checkpoints": {}
+    },
+    {
+      "asset": "TSCO",
+      "market": "US",
+      "entry_date": "2026-08-17",
+      "entry_price": 34.68,
+      "hold_days_target": 20,
+      "size_pct": 5.9,
+      "ml_score": 84.6,
+      "val_auc": 0.544,
+      "strategy": "RSI(2)",
+      "tier": "B",
+      "score": 36,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "COL.AX",
+      "market": "ASX",
+      "entry_date": "2026-08-17",
+      "entry_price": 23.44,
+      "hold_days_target": 20,
+      "size_pct": 6.0,
+      "ml_score": 75.1,
+      "val_auc": 0.61,
+      "strategy": "Mean Reversion",
+      "tier": "B",
+      "score": 30,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -1649,7 +1683,7 @@
     "run": 29,
     "label": "Phase 10B: All Strats ML\u226570 + Breakout MA20 Confirmation (Run 29)",
     "created": "2026-07-18",
-    "total_logged": 67,
+    "total_logged": 69,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,

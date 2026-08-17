@@ -34,9 +34,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 362.84,
-      "unrealised_pnl_pct": 1.488,
-      "days_held": 8,
+      "current_price": 360.96,
+      "unrealised_pnl_pct": 0.962,
+      "days_held": 9,
       "peak_pnl_pct": 2.143,
       "checkpoints": {
         "4": 0.635
@@ -74,9 +74,9 @@
       "tier": "A",
       "score": 58,
       "p7_verdict": "TRADE",
-      "current_price": 8.14,
-      "unrealised_pnl_pct": -2.515,
-      "days_held": 4,
+      "current_price": 8.13,
+      "unrealised_pnl_pct": -2.635,
+      "days_held": 5,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -2.515
@@ -95,11 +95,13 @@
       "tier": "A",
       "score": 47,
       "p7_verdict": "TRADE",
-      "current_price": 22.2,
-      "unrealised_pnl_pct": -3.896,
-      "days_held": 3,
+      "current_price": 22.32,
+      "unrealised_pnl_pct": -3.377,
+      "days_held": 4,
       "peak_pnl_pct": 0.0,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": -3.377
+      }
     },
     {
       "asset": "COL.AX",
@@ -114,11 +116,13 @@
       "tier": "B",
       "score": 30,
       "p7_verdict": "TRADE",
-      "current_price": 23.54,
-      "unrealised_pnl_pct": -0.423,
-      "days_held": 3,
+      "current_price": 23.44,
+      "unrealised_pnl_pct": -0.846,
+      "days_held": 4,
       "peak_pnl_pct": 0.127,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": -0.846
+      }
     },
     {
       "asset": "AMC.AX",
@@ -133,8 +137,8 @@
       "tier": "A",
       "score": 54,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 64.95,
+      "unrealised_pnl_pct": -0.749,
       "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
@@ -176,6 +180,34 @@
       "days_held": 1,
       "peak_pnl_pct": 2.561,
       "checkpoints": {}
+    },
+    {
+      "asset": "PG",
+      "market": "US",
+      "entry_date": "2026-08-17",
+      "entry_price": 143.12,
+      "hold_days_target": 20,
+      "size_pct": 22.3,
+      "ml_score": 56.7,
+      "val_auc": 0.575,
+      "strategy": "Bollinger Bands",
+      "tier": "S",
+      "score": 65,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "TSCO",
+      "market": "US",
+      "entry_date": "2026-08-17",
+      "entry_price": 34.68,
+      "hold_days_target": 20,
+      "size_pct": 5.9,
+      "ml_score": 84.6,
+      "val_auc": 0.544,
+      "strategy": "RSI(2)",
+      "tier": "B",
+      "score": 36,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -307,7 +339,7 @@
     "run": 63,
     "label": "Hold Test: Run 4 config (Wide Stop + No MACD) + 10-Day Hold (Run 63)",
     "created": "2026-08-04",
-    "total_logged": 13,
+    "total_logged": 15,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
