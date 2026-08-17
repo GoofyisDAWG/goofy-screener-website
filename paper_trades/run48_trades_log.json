@@ -1,28 +1,6 @@
 {
   "open": [
     {
-      "asset": "1928.T",
-      "market": "JPX",
-      "entry_date": "2026-07-31",
-      "entry_price": 3488.0,
-      "hold_days_target": 20,
-      "size_pct": 13.4,
-      "ml_score": 79.1,
-      "val_auc": 0.47,
-      "strategy": "Bollinger Bands",
-      "tier": "A",
-      "score": 56,
-      "p7_verdict": "TRADE",
-      "current_price": 3444.0,
-      "unrealised_pnl_pct": -1.261,
-      "days_held": 10,
-      "peak_pnl_pct": 0.0,
-      "checkpoints": {
-        "4": -2.093,
-        "10": -1.261
-      }
-    },
-    {
       "asset": "JPM",
       "market": "US",
       "entry_date": "2026-08-03",
@@ -56,33 +34,12 @@
       "tier": "A",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 3511.0,
-      "unrealised_pnl_pct": 3.022,
-      "days_held": 8,
+      "current_price": 3460.0,
+      "unrealised_pnl_pct": 1.526,
+      "days_held": 9,
       "peak_pnl_pct": 3.022,
       "checkpoints": {
         "4": 1.32
-      }
-    },
-    {
-      "asset": "SUN.AX",
-      "market": "ASX",
-      "entry_date": "2026-08-10",
-      "entry_price": 18.78,
-      "hold_days_target": 20,
-      "size_pct": NaN,
-      "ml_score": 85.5,
-      "val_auc": 0.532,
-      "strategy": "Bollinger Bands",
-      "tier": "B",
-      "score": 38,
-      "p7_verdict": "TRADE",
-      "current_price": 19.08,
-      "unrealised_pnl_pct": 1.597,
-      "days_held": 4,
-      "peak_pnl_pct": 2.165,
-      "checkpoints": {
-        "4": 1.597
       }
     },
     {
@@ -138,7 +95,7 @@
       "p7_verdict": "TRADE",
       "current_price": null,
       "unrealised_pnl_pct": null,
-      "days_held": 0,
+      "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -155,9 +112,9 @@
       "tier": "B",
       "score": 38,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
-      "days_held": 0,
+      "current_price": 3242.0,
+      "unrealised_pnl_pct": -2.613,
+      "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -174,10 +131,10 @@
       "tier": "A",
       "score": 71,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
-      "days_held": 0,
-      "peak_pnl_pct": 0.0,
+      "current_price": 5886.0,
+      "unrealised_pnl_pct": 2.561,
+      "days_held": 1,
+      "peak_pnl_pct": 2.561,
       "checkpoints": {}
     }
   ],
@@ -302,6 +259,57 @@
       "days_held": 5,
       "pnl_pct": 2.142,
       "peak_pnl_pct": 2.227,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "1928.T",
+      "market": "JPX",
+      "entry_date": "2026-07-31",
+      "entry_price": 3488.0,
+      "hold_days_target": 20,
+      "size_pct": 13.4,
+      "ml_score": 79.1,
+      "val_auc": 0.47,
+      "strategy": "Bollinger Bands",
+      "tier": "A",
+      "score": 56,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": -2.093,
+        "10": -1.261
+      },
+      "exit_date": "2026-08-17",
+      "exit_price": 3406.0,
+      "days_held": 11,
+      "pnl_pct": -2.351,
+      "peak_pnl_pct": 0.0,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "SUN.AX",
+      "market": "ASX",
+      "entry_date": "2026-08-10",
+      "entry_price": 18.78,
+      "hold_days_target": 20,
+      "size_pct": NaN,
+      "ml_score": 85.5,
+      "val_auc": 0.532,
+      "strategy": "Bollinger Bands",
+      "tier": "B",
+      "score": 38,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 1.597
+      },
+      "exit_date": "2026-08-17",
+      "exit_price": 19.08,
+      "days_held": 5,
+      "pnl_pct": 1.597,
+      "peak_pnl_pct": 2.165,
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
