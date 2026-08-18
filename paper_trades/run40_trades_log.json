@@ -35,9 +35,9 @@
       "tier": "A",
       "score": 58,
       "p7_verdict": "TRADE",
-      "current_price": 8.13,
-      "unrealised_pnl_pct": -2.635,
-      "days_held": 5,
+      "current_price": 8.08,
+      "unrealised_pnl_pct": -3.234,
+      "days_held": 6,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -2.515
@@ -58,7 +58,7 @@
       "p7_verdict": "TRADE",
       "current_price": 22.32,
       "unrealised_pnl_pct": -3.377,
-      "days_held": 4,
+      "days_held": 5,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -3.377
@@ -77,9 +77,9 @@
       "tier": "A",
       "score": 54,
       "p7_verdict": "TRADE",
-      "current_price": 64.95,
-      "unrealised_pnl_pct": -0.749,
-      "days_held": 1,
+      "current_price": 64.28,
+      "unrealised_pnl_pct": -1.773,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -134,10 +134,10 @@
       "tier": "S",
       "score": 65,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 143.45,
+      "unrealised_pnl_pct": 0.231,
       "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "peak_pnl_pct": 0.231,
       "checkpoints": {}
     },
     {
@@ -153,10 +153,10 @@
       "tier": "B",
       "score": 36,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 34.72,
+      "unrealised_pnl_pct": 0.115,
       "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "peak_pnl_pct": 0.115,
       "checkpoints": {}
     },
     {
@@ -172,8 +172,8 @@
       "tier": "B",
       "score": 30,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 23.15,
+      "unrealised_pnl_pct": -1.237,
       "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
@@ -190,7 +190,12 @@
       "strategy": "RSI(2)",
       "tier": "B",
       "score": 31,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "4543.T",
@@ -204,6 +209,39 @@
       "strategy": "Mean Reversion",
       "tier": "A",
       "score": 53,
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
+    },
+    {
+      "asset": "SUN.AX",
+      "market": "ASX",
+      "entry_date": "2026-08-18",
+      "entry_price": 18.35,
+      "hold_days_target": 20,
+      "size_pct": NaN,
+      "ml_score": 90.3,
+      "val_auc": 0.534,
+      "strategy": "Bollinger Bands",
+      "tier": "B",
+      "score": 38,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "MPL.AX",
+      "market": "ASX",
+      "entry_date": "2026-08-18",
+      "entry_price": 5.02,
+      "hold_days_target": 20,
+      "size_pct": 28.7,
+      "ml_score": 62.0,
+      "val_auc": 0.611,
+      "strategy": "Mean Reversion",
+      "tier": "S",
+      "score": 90,
       "p7_verdict": "TRADE"
     }
   ],
@@ -614,7 +652,7 @@
     "run": 40,
     "label": "Family C: Mean Reversion Only \u2014 RSI, BB, Mean Rev, Stochastic, RSI(2) (Run 40)",
     "created": "2026-07-20",
-    "total_logged": 26,
+    "total_logged": 28,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
