@@ -13,35 +13,13 @@
       "tier": "A",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 3460.0,
-      "unrealised_pnl_pct": 1.11,
-      "days_held": 10,
+      "current_price": 3453.0,
+      "unrealised_pnl_pct": 0.906,
+      "days_held": 11,
       "peak_pnl_pct": 2.601,
       "checkpoints": {
         "4": 1.14,
         "10": 1.11
-      }
-    },
-    {
-      "asset": "6702.T",
-      "market": "JPX",
-      "entry_date": "2026-07-31",
-      "entry_price": 3627.0,
-      "hold_days_target": 20,
-      "size_pct": 3.2,
-      "ml_score": 80.0,
-      "val_auc": 0.483,
-      "strategy": "RSI(2)",
-      "tier": "B",
-      "score": 31,
-      "p7_verdict": "TRADE",
-      "current_price": 3664.0,
-      "unrealised_pnl_pct": 1.02,
-      "days_held": 11,
-      "peak_pnl_pct": 5.9,
-      "checkpoints": {
-        "4": -1.323,
-        "10": 5.9
       }
     },
     {
@@ -118,9 +96,9 @@
       "tier": "B",
       "score": 38,
       "p7_verdict": "TRADE",
-      "current_price": 3242.0,
-      "unrealised_pnl_pct": -2.613,
-      "days_held": 1,
+      "current_price": 3182.0,
+      "unrealised_pnl_pct": -4.416,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -137,9 +115,9 @@
       "tier": "A",
       "score": 71,
       "p7_verdict": "TRADE",
-      "current_price": 5886.0,
-      "unrealised_pnl_pct": 2.561,
-      "days_held": 1,
+      "current_price": 5830.0,
+      "unrealised_pnl_pct": 1.586,
+      "days_held": 2,
       "peak_pnl_pct": 2.561,
       "checkpoints": {}
     },
@@ -155,7 +133,12 @@
       "strategy": "Bollinger Bands",
       "tier": "S",
       "score": 65,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "TSCO",
@@ -169,7 +152,12 @@
       "strategy": "RSI(2)",
       "tier": "B",
       "score": 36,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "COL.AX",
@@ -183,6 +171,39 @@
       "strategy": "Mean Reversion",
       "tier": "B",
       "score": 30,
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
+    },
+    {
+      "asset": "6702.T",
+      "market": "JPX",
+      "entry_date": "2026-08-18",
+      "entry_price": 3601.0,
+      "hold_days_target": 20,
+      "size_pct": 3.0,
+      "ml_score": 73.1,
+      "val_auc": 0.499,
+      "strategy": "RSI(2)",
+      "tier": "B",
+      "score": 31,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "4543.T",
+      "market": "JPX",
+      "entry_date": "2026-08-18",
+      "entry_price": 2578.0,
+      "hold_days_target": 20,
+      "size_pct": 6.9,
+      "ml_score": 67.5,
+      "val_auc": 0.575,
+      "strategy": "Mean Reversion",
+      "tier": "A",
+      "score": 53,
       "p7_verdict": "TRADE"
     }
   ],
@@ -562,13 +583,38 @@
         "4": 0.947,
         "10": 0.896
       }
+    },
+    {
+      "asset": "6702.T",
+      "market": "JPX",
+      "entry_date": "2026-07-31",
+      "entry_price": 3627.0,
+      "hold_days_target": 20,
+      "size_pct": 3.2,
+      "ml_score": 80.0,
+      "val_auc": 0.483,
+      "strategy": "RSI(2)",
+      "tier": "B",
+      "score": 31,
+      "p7_verdict": "TRADE",
+      "exit_date": "2026-08-18",
+      "exit_price": 3601.0,
+      "days_held": 12,
+      "pnl_pct": -0.717,
+      "peak_pnl_pct": 5.9,
+      "win": false,
+      "exit_reason": "TRAILING_STOP",
+      "checkpoints": {
+        "4": -1.323,
+        "10": 5.9
+      }
     }
   ],
   "metadata": {
     "run": 40,
     "label": "Family C: Mean Reversion Only \u2014 RSI, BB, Mean Rev, Stochastic, RSI(2) (Run 40)",
     "created": "2026-07-20",
-    "total_logged": 24,
+    "total_logged": 26,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
