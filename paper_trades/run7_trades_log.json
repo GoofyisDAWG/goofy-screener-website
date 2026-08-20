@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 357.26,
-      "unrealised_pnl_pct": 1.827,
-      "days_held": 14,
+      "current_price": 351.55,
+      "unrealised_pnl_pct": 0.2,
+      "days_held": 15,
       "peak_pnl_pct": 4.084,
       "checkpoints": {
         "4": 2.391,
@@ -57,9 +57,9 @@
       "tier": "A",
       "score": 58,
       "p7_verdict": "TRADE",
-      "current_price": 8.14,
-      "unrealised_pnl_pct": -2.515,
-      "days_held": 7,
+      "current_price": 7.8,
+      "unrealised_pnl_pct": -6.587,
+      "days_held": 8,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -2.515
@@ -78,11 +78,13 @@
       "tier": "A",
       "score": 54,
       "p7_verdict": "TRADE",
-      "current_price": 65.06,
-      "unrealised_pnl_pct": -0.581,
-      "days_held": 3,
-      "peak_pnl_pct": 0.0,
-      "checkpoints": {}
+      "current_price": 66.36,
+      "unrealised_pnl_pct": 1.406,
+      "days_held": 4,
+      "peak_pnl_pct": 1.406,
+      "checkpoints": {
+        "4": 1.406
+      }
     },
     {
       "asset": "1928.T",
@@ -116,9 +118,9 @@
       "tier": "B",
       "score": 36,
       "p7_verdict": "TRADE",
-      "current_price": 35.44,
-      "unrealised_pnl_pct": 2.191,
-      "days_held": 2,
+      "current_price": 35.05,
+      "unrealised_pnl_pct": 1.067,
+      "days_held": 3,
       "peak_pnl_pct": 2.191,
       "checkpoints": {}
     },
@@ -191,7 +193,12 @@
       "strategy": "RSI(2)",
       "tier": "B",
       "score": 28,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "9020.T",
@@ -205,7 +212,12 @@
       "strategy": "RSI",
       "tier": "A",
       "score": 59,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     }
   ],
   "closed": [
