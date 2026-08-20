@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 3400.0,
-      "unrealised_pnl_pct": -0.643,
-      "days_held": 12,
+      "current_price": 3503.0,
+      "unrealised_pnl_pct": 2.367,
+      "days_held": 13,
       "peak_pnl_pct": 2.601,
       "checkpoints": {
         "4": 1.14,
@@ -96,11 +96,13 @@
       "tier": "B",
       "score": 38,
       "p7_verdict": "TRADE",
-      "current_price": 3138.0,
-      "unrealised_pnl_pct": -5.737,
-      "days_held": 3,
+      "current_price": 3220.0,
+      "unrealised_pnl_pct": -3.274,
+      "days_held": 4,
       "peak_pnl_pct": 0.0,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": -3.274
+      }
     },
     {
       "asset": "PG",
@@ -172,10 +174,10 @@
       "tier": "B",
       "score": 31,
       "p7_verdict": "TRADE",
-      "current_price": 3607.0,
-      "unrealised_pnl_pct": 0.167,
-      "days_held": 1,
-      "peak_pnl_pct": 0.167,
+      "current_price": 3743.0,
+      "unrealised_pnl_pct": 3.943,
+      "days_held": 2,
+      "peak_pnl_pct": 3.943,
       "checkpoints": {}
     },
     {
@@ -191,9 +193,9 @@
       "tier": "A",
       "score": 53,
       "p7_verdict": "TRADE",
-      "current_price": 2472.0,
-      "unrealised_pnl_pct": -4.112,
-      "days_held": 1,
+      "current_price": 2576.5,
+      "unrealised_pnl_pct": -0.058,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -248,11 +250,25 @@
       "tier": "B",
       "score": 56,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
-      "days_held": 0,
-      "peak_pnl_pct": 0.0,
+      "current_price": 3066.0,
+      "unrealised_pnl_pct": 4.25,
+      "days_held": 1,
+      "peak_pnl_pct": 4.25,
       "checkpoints": {}
+    },
+    {
+      "asset": "5020.T",
+      "market": "JPX",
+      "entry_date": "2026-08-20",
+      "entry_price": 1303.0,
+      "hold_days_target": 20,
+      "size_pct": 5.6,
+      "ml_score": 67.5,
+      "val_auc": 0.492,
+      "strategy": "RSI(2)",
+      "tier": "B",
+      "score": 28,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -684,7 +700,7 @@
     "run": 40,
     "label": "Family C: Mean Reversion Only \u2014 RSI, BB, Mean Rev, Stochastic, RSI(2) (Run 40)",
     "created": "2026-07-20",
-    "total_logged": 29,
+    "total_logged": 30,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,

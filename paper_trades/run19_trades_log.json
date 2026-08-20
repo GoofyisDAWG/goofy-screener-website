@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 3400.0,
-      "unrealised_pnl_pct": -0.643,
-      "days_held": 12,
+      "current_price": 3503.0,
+      "unrealised_pnl_pct": 2.367,
+      "days_held": 13,
       "peak_pnl_pct": 2.601,
       "checkpoints": {
         "4": 1.14,
@@ -96,11 +96,13 @@
       "tier": "B",
       "score": 38,
       "p7_verdict": "TRADE",
-      "current_price": 3138.0,
-      "unrealised_pnl_pct": -5.737,
-      "days_held": 3,
+      "current_price": 3220.0,
+      "unrealised_pnl_pct": -3.274,
+      "days_held": 4,
       "peak_pnl_pct": 0.0,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": -3.274
+      }
     },
     {
       "asset": "COL.AX",
@@ -134,9 +136,9 @@
       "tier": "A",
       "score": 53,
       "p7_verdict": "TRADE",
-      "current_price": 2472.0,
-      "unrealised_pnl_pct": -4.112,
-      "days_held": 1,
+      "current_price": 2576.5,
+      "unrealised_pnl_pct": -0.058,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -174,7 +176,7 @@
       "p7_verdict": "TRADE",
       "current_price": null,
       "unrealised_pnl_pct": null,
-      "days_held": 0,
+      "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -191,11 +193,25 @@
       "tier": "A",
       "score": 71,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
-      "days_held": 0,
-      "peak_pnl_pct": 0.0,
+      "current_price": 5387.0,
+      "unrealised_pnl_pct": 3.061,
+      "days_held": 1,
+      "peak_pnl_pct": 3.061,
       "checkpoints": {}
+    },
+    {
+      "asset": "JPM",
+      "market": "US",
+      "entry_date": "2026-08-20",
+      "entry_price": 357.26,
+      "hold_days_target": 20,
+      "size_pct": 4.1,
+      "ml_score": 90.2,
+      "val_auc": 0.52,
+      "strategy": "MA Crossover",
+      "tier": "A",
+      "score": 66,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -703,7 +719,7 @@
     "run": 19,
     "label": "Volume Confirmation: Run 17 + Volume \u2265 20d Avg (Run 19)",
     "created": "2026-07-12",
-    "total_logged": 27,
+    "total_logged": 28,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
