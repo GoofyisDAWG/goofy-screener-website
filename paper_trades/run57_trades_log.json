@@ -13,10 +13,10 @@
       "tier": "A",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 3503.0,
-      "unrealised_pnl_pct": 2.788,
-      "days_held": 12,
-      "peak_pnl_pct": 3.022,
+      "current_price": 3535.0,
+      "unrealised_pnl_pct": 3.727,
+      "days_held": 13,
+      "peak_pnl_pct": 3.727,
       "checkpoints": {
         "4": 1.32,
         "10": 1.32
@@ -26,7 +26,7 @@
       "asset": "IAG.AX",
       "market": "ASX",
       "entry_date": "2026-08-11",
-      "entry_price": 8.02,
+      "entry_price": 7.97,
       "hold_days_target": 20,
       "size_pct": NaN,
       "ml_score": 94.4,
@@ -35,68 +35,42 @@
       "tier": "A",
       "score": 58,
       "p7_verdict": "TRADE",
-      "current_price": 7.8,
-      "unrealised_pnl_pct": -2.743,
-      "days_held": 7,
-      "peak_pnl_pct": 2.618,
+      "current_price": 7.89,
+      "unrealised_pnl_pct": -1.004,
+      "days_held": 8,
+      "peak_pnl_pct": 3.262,
       "checkpoints": {
-        "4": 1.372
+        "4": 2.008
       }
     },
     {
       "asset": "AMC.AX",
       "market": "ASX",
-      "entry_date": "2026-08-14",
-      "entry_price": 65.44,
+      "entry_date": "2026-08-17",
+      "entry_price": 64.78,
       "hold_days_target": 20,
-      "size_pct": 13.0,
-      "ml_score": 80.7,
-      "val_auc": 0.504,
+      "size_pct": 13.7,
+      "ml_score": 85.9,
+      "val_auc": 0.503,
       "strategy": "RSI",
       "tier": "A",
       "score": 54,
       "p7_verdict": "TRADE",
-      "current_price": 66.36,
-      "unrealised_pnl_pct": 1.406,
+      "current_price": 66.94,
+      "unrealised_pnl_pct": 3.334,
       "days_held": 4,
-      "peak_pnl_pct": 1.406,
+      "peak_pnl_pct": 3.334,
       "checkpoints": {
-        "4": 1.406
+        "4": 3.334
       }
     }
   ],
-  "closed": [
-    {
-      "asset": "ORI.AX",
-      "market": "ASX",
-      "entry_date": "2026-08-11",
-      "entry_price": 23.1,
-      "hold_days_target": 20,
-      "size_pct": 15.6,
-      "ml_score": 77.6,
-      "val_auc": 0.607,
-      "strategy": "RSI(2)",
-      "tier": "A",
-      "score": 47,
-      "p7_verdict": "TRADE",
-      "checkpoints": {
-        "4": -3.377
-      },
-      "exit_date": "2026-08-20",
-      "exit_price": 22.16,
-      "days_held": 7,
-      "pnl_pct": -4.069,
-      "peak_pnl_pct": 0.0,
-      "win": false,
-      "exit_reason": "SIGNAL_REVERSAL",
-      "reversal_verdict": "ML HOLD"
-    }
-  ],
+  "closed": [],
   "metadata": {
     "run": 57,
     "label": "Concentrated Mean Reversion \u2014 RSI + Mean Rev + RSI(2), Tier S+A, max 10 (Run 57)",
     "created": "2026-07-31",
-    "total_logged": 4,
+    "total_logged": 3,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,

@@ -13,41 +13,20 @@
       "tier": "A",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 3503.0,
-      "unrealised_pnl_pct": 2.788,
-      "days_held": 12,
-      "peak_pnl_pct": 3.022,
+      "current_price": 3535.0,
+      "unrealised_pnl_pct": 3.727,
+      "days_held": 13,
+      "peak_pnl_pct": 3.727,
       "checkpoints": {
         "4": 1.32,
         "10": 1.32
       }
     },
     {
-      "asset": "JPM",
-      "market": "US",
-      "entry_date": "2026-08-07",
-      "entry_price": 356.3,
-      "hold_days_target": 20,
-      "size_pct": 5.0,
-      "ml_score": 85.9,
-      "val_auc": 0.535,
-      "strategy": "MA Crossover",
-      "tier": "A",
-      "score": 66,
-      "p7_verdict": "TRADE",
-      "current_price": 351.55,
-      "unrealised_pnl_pct": -1.333,
-      "days_held": 9,
-      "peak_pnl_pct": 2.492,
-      "checkpoints": {
-        "4": 1.911
-      }
-    },
-    {
       "asset": "IAG.AX",
       "market": "ASX",
       "entry_date": "2026-08-11",
-      "entry_price": 8.02,
+      "entry_price": 7.97,
       "hold_days_target": 20,
       "size_pct": NaN,
       "ml_score": 94.4,
@@ -56,32 +35,34 @@
       "tier": "A",
       "score": 58,
       "p7_verdict": "TRADE",
-      "current_price": 7.8,
-      "unrealised_pnl_pct": -2.743,
-      "days_held": 7,
-      "peak_pnl_pct": 2.618,
+      "current_price": 7.89,
+      "unrealised_pnl_pct": -1.004,
+      "days_held": 8,
+      "peak_pnl_pct": 3.262,
       "checkpoints": {
-        "4": 1.372
+        "4": 2.008
       }
     },
     {
       "asset": "AMC.AX",
       "market": "ASX",
-      "entry_date": "2026-08-19",
-      "entry_price": 64.28,
+      "entry_date": "2026-08-17",
+      "entry_price": 64.78,
       "hold_days_target": 20,
-      "size_pct": 13.9,
-      "ml_score": 85.7,
+      "size_pct": 13.7,
+      "ml_score": 85.9,
       "val_auc": 0.503,
       "strategy": "RSI",
       "tier": "A",
       "score": 54,
       "p7_verdict": "TRADE",
-      "current_price": 66.36,
-      "unrealised_pnl_pct": 3.236,
-      "days_held": 1,
-      "peak_pnl_pct": 3.236,
-      "checkpoints": {}
+      "current_price": 66.94,
+      "unrealised_pnl_pct": 3.334,
+      "days_held": 4,
+      "peak_pnl_pct": 3.334,
+      "checkpoints": {
+        "4": 3.334
+      }
     }
   ],
   "closed": [],
@@ -89,7 +70,7 @@
     "run": 61,
     "label": "Concentrated Champions \u2014 ML\u226585, Proven trio, Fund gate, Tier S+A, max 10 (Run 61)",
     "created": "2026-07-31",
-    "total_logged": 4,
+    "total_logged": 3,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
