@@ -13,10 +13,10 @@
       "tier": "A",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 3503.0,
-      "unrealised_pnl_pct": 2.788,
-      "days_held": 12,
-      "peak_pnl_pct": 3.022,
+      "current_price": 3539.0,
+      "unrealised_pnl_pct": 3.844,
+      "days_held": 13,
+      "peak_pnl_pct": 3.844,
       "checkpoints": {
         "4": 1.32,
         "10": 1.32
@@ -87,27 +87,6 @@
       }
     },
     {
-      "asset": "AMC.AX",
-      "market": "ASX",
-      "entry_date": "2026-08-14",
-      "entry_price": 65.44,
-      "hold_days_target": 20,
-      "size_pct": 13.0,
-      "ml_score": 80.7,
-      "val_auc": 0.504,
-      "strategy": "RSI",
-      "tier": "A",
-      "score": 54,
-      "p7_verdict": "TRADE",
-      "current_price": 66.36,
-      "unrealised_pnl_pct": 1.406,
-      "days_held": 4,
-      "peak_pnl_pct": 1.406,
-      "checkpoints": {
-        "4": 1.406
-      }
-    },
-    {
       "asset": "TSCO",
       "market": "US",
       "entry_date": "2026-08-17",
@@ -139,10 +118,10 @@
       "tier": "B",
       "score": 56,
       "p7_verdict": "TRADE",
-      "current_price": 3066.0,
-      "unrealised_pnl_pct": 4.25,
-      "days_held": 1,
-      "peak_pnl_pct": 4.25,
+      "current_price": 3132.0,
+      "unrealised_pnl_pct": 6.494,
+      "days_held": 2,
+      "peak_pnl_pct": 6.494,
       "checkpoints": {}
     }
   ],
@@ -540,6 +519,31 @@
       "win": false,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "AMC.AX",
+      "market": "ASX",
+      "entry_date": "2026-08-14",
+      "entry_price": 65.44,
+      "hold_days_target": 20,
+      "size_pct": 13.0,
+      "ml_score": 80.7,
+      "val_auc": 0.504,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 54,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 1.406
+      },
+      "exit_date": "2026-08-21",
+      "exit_price": 66.36,
+      "days_held": 5,
+      "pnl_pct": 1.406,
+      "peak_pnl_pct": 1.406,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN"
     }
   ],
   "metadata": {
