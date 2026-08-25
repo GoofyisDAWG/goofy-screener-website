@@ -35,10 +35,10 @@
       "tier": "B",
       "score": 30,
       "p7_verdict": "TRADE",
-      "current_price": 22.64,
-      "unrealised_pnl_pct": -3.413,
-      "days_held": 5,
-      "peak_pnl_pct": 0.0,
+      "current_price": 23.75,
+      "unrealised_pnl_pct": 1.323,
+      "days_held": 6,
+      "peak_pnl_pct": 1.323,
       "checkpoints": {
         "4": -2.645
       }
@@ -65,27 +65,6 @@
       }
     },
     {
-      "asset": "SUN.AX",
-      "market": "ASX",
-      "entry_date": "2026-08-18",
-      "entry_price": 18.35,
-      "hold_days_target": 20,
-      "size_pct": NaN,
-      "ml_score": 90.3,
-      "val_auc": 0.534,
-      "strategy": "Bollinger Bands",
-      "tier": "B",
-      "score": 38,
-      "p7_verdict": "TRADE",
-      "current_price": 17.94,
-      "unrealised_pnl_pct": -2.234,
-      "days_held": 4,
-      "peak_pnl_pct": 0.0,
-      "checkpoints": {
-        "4": -2.234
-      }
-    },
-    {
       "asset": "PG",
       "market": "US",
       "entry_date": "2026-08-19",
@@ -98,11 +77,13 @@
       "tier": "S",
       "score": 65,
       "p7_verdict": "TRADE",
-      "current_price": 146.6,
-      "unrealised_pnl_pct": 2.196,
-      "days_held": 3,
+      "current_price": 145.4,
+      "unrealised_pnl_pct": 1.359,
+      "days_held": 4,
       "peak_pnl_pct": 2.196,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": 1.359
+      }
     },
     {
       "asset": "9984.T",
@@ -138,9 +119,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 356.39,
-      "unrealised_pnl_pct": -0.244,
-      "days_held": 2,
+      "current_price": 356.69,
+      "unrealised_pnl_pct": -0.16,
+      "days_held": 3,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -157,9 +138,9 @@
       "tier": "S",
       "score": 89,
       "p7_verdict": "TRADE",
-      "current_price": 4.76,
-      "unrealised_pnl_pct": 1.062,
-      "days_held": 2,
+      "current_price": 4.83,
+      "unrealised_pnl_pct": 2.548,
+      "days_held": 3,
       "peak_pnl_pct": 5.096,
       "checkpoints": {}
     }
@@ -760,6 +741,31 @@
       "win": false,
       "exit_reason": "STOP_LOSS",
       "checkpoints": {}
+    },
+    {
+      "asset": "SUN.AX",
+      "market": "ASX",
+      "entry_date": "2026-08-18",
+      "entry_price": 18.35,
+      "hold_days_target": 20,
+      "size_pct": NaN,
+      "ml_score": 90.3,
+      "val_auc": 0.534,
+      "strategy": "Bollinger Bands",
+      "tier": "B",
+      "score": 38,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": -2.234
+      },
+      "exit_date": "2026-08-25",
+      "exit_price": 19.37,
+      "days_held": 5,
+      "pnl_pct": 5.559,
+      "peak_pnl_pct": 5.559,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
     }
   ],
   "metadata": {
