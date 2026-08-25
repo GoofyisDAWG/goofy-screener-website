@@ -35,10 +35,10 @@
       "tier": "A",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 3537.0,
-      "unrealised_pnl_pct": 3.361,
-      "days_held": 15,
-      "peak_pnl_pct": 3.419,
+      "current_price": 3625.0,
+      "unrealised_pnl_pct": 5.932,
+      "days_held": 16,
+      "peak_pnl_pct": 5.932,
       "checkpoints": {
         "4": 1.14,
         "10": 1.11
@@ -169,7 +169,7 @@
       "days_held": 5,
       "peak_pnl_pct": 3.576,
       "checkpoints": {
-        "4": 0.865
+        "4": 0.173
       }
     },
     {
@@ -185,9 +185,9 @@
       "tier": "B",
       "score": 31,
       "p7_verdict": "TRADE",
-      "current_price": 3700.0,
-      "unrealised_pnl_pct": 2.749,
-      "days_held": 4,
+      "current_price": 3728.0,
+      "unrealised_pnl_pct": 3.527,
+      "days_held": 5,
       "peak_pnl_pct": 3.943,
       "checkpoints": {
         "4": 2.749
@@ -206,10 +206,10 @@
       "tier": "A",
       "score": 53,
       "p7_verdict": "TRADE",
-      "current_price": 2595.5,
-      "unrealised_pnl_pct": 0.679,
-      "days_held": 4,
-      "peak_pnl_pct": 0.679,
+      "current_price": 2596.5,
+      "unrealised_pnl_pct": 0.718,
+      "days_held": 5,
+      "peak_pnl_pct": 0.718,
       "checkpoints": {
         "4": 0.679
       }
@@ -248,11 +248,13 @@
       "tier": "B",
       "score": 56,
       "p7_verdict": "TRADE",
-      "current_price": 3125.0,
-      "unrealised_pnl_pct": 6.256,
-      "days_held": 3,
+      "current_price": 3082.0,
+      "unrealised_pnl_pct": 4.794,
+      "days_held": 4,
       "peak_pnl_pct": 6.494,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": 4.794
+      }
     },
     {
       "asset": "BAC",
@@ -324,10 +326,10 @@
       "tier": "B",
       "score": 28,
       "p7_verdict": "TRADE",
-      "current_price": 1340.5,
-      "unrealised_pnl_pct": 2.878,
-      "days_held": 2,
-      "peak_pnl_pct": 2.878,
+      "current_price": 1341.5,
+      "unrealised_pnl_pct": 2.955,
+      "days_held": 3,
+      "peak_pnl_pct": 2.955,
       "checkpoints": {}
     },
     {
@@ -381,10 +383,10 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
-      "days_held": 0,
-      "peak_pnl_pct": 0.0,
+      "current_price": 3073.0,
+      "unrealised_pnl_pct": 0.13,
+      "days_held": 1,
+      "peak_pnl_pct": 0.13,
       "checkpoints": {}
     }
   ],
