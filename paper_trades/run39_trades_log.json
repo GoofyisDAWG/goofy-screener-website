@@ -67,48 +67,6 @@
       }
     },
     {
-      "asset": "EMR",
-      "market": "US",
-      "entry_date": "2026-08-19",
-      "entry_price": 157.6,
-      "hold_days_target": 20,
-      "size_pct": 0.9,
-      "ml_score": 59.8,
-      "val_auc": 0.584,
-      "strategy": "MACD",
-      "tier": "B",
-      "score": 36,
-      "p7_verdict": "TRADE",
-      "current_price": 154.96,
-      "unrealised_pnl_pct": -1.675,
-      "days_held": 4,
-      "peak_pnl_pct": 0.0,
-      "checkpoints": {
-        "4": -1.675
-      }
-    },
-    {
-      "asset": "XLE",
-      "market": "US",
-      "entry_date": "2026-08-19",
-      "entry_price": 63.58,
-      "hold_days_target": 20,
-      "size_pct": 2.9,
-      "ml_score": 64.7,
-      "val_auc": 0.499,
-      "strategy": "MACD",
-      "tier": "S",
-      "score": 84,
-      "p7_verdict": "TRADE",
-      "current_price": 62.06,
-      "unrealised_pnl_pct": -2.391,
-      "days_held": 4,
-      "peak_pnl_pct": 0.267,
-      "checkpoints": {
-        "4": -2.391
-      }
-    },
-    {
       "asset": "SCHW",
       "market": "US",
       "entry_date": "2026-08-23",
@@ -140,9 +98,9 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 3073.0,
-      "unrealised_pnl_pct": 0.13,
-      "days_held": 1,
+      "current_price": 3030.0,
+      "unrealised_pnl_pct": -1.271,
+      "days_held": 2,
       "peak_pnl_pct": 0.13,
       "checkpoints": {}
     },
@@ -158,7 +116,12 @@
       "strategy": "MACD",
       "tier": "A",
       "score": 64,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "SLB",
@@ -172,7 +135,12 @@
       "strategy": "MACD",
       "tier": "A",
       "score": 60,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     }
   ],
   "closed": [
@@ -620,6 +588,56 @@
       "checkpoints": {
         "4": -6.212
       }
+    },
+    {
+      "asset": "EMR",
+      "market": "US",
+      "entry_date": "2026-08-19",
+      "entry_price": 157.6,
+      "hold_days_target": 20,
+      "size_pct": 0.9,
+      "ml_score": 59.8,
+      "val_auc": 0.584,
+      "strategy": "MACD",
+      "tier": "B",
+      "score": 36,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": -1.675
+      },
+      "exit_date": "2026-08-26",
+      "exit_price": 154.96,
+      "days_held": 5,
+      "pnl_pct": -1.675,
+      "peak_pnl_pct": 0.0,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "XLE",
+      "market": "US",
+      "entry_date": "2026-08-19",
+      "entry_price": 63.58,
+      "hold_days_target": 20,
+      "size_pct": 2.9,
+      "ml_score": 64.7,
+      "val_auc": 0.499,
+      "strategy": "MACD",
+      "tier": "S",
+      "score": 84,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": -2.391
+      },
+      "exit_date": "2026-08-26",
+      "exit_price": 62.06,
+      "days_held": 5,
+      "pnl_pct": -2.391,
+      "peak_pnl_pct": 0.267,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
     }
   ],
   "metadata": {

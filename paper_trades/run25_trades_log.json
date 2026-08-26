@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 3625.0,
-      "unrealised_pnl_pct": 6.367,
-      "days_held": 15,
+      "current_price": 3584.0,
+      "unrealised_pnl_pct": 5.164,
+      "days_held": 16,
       "peak_pnl_pct": 6.367,
       "checkpoints": {
         "4": 1.32,
@@ -67,48 +67,6 @@
       }
     },
     {
-      "asset": "AMC.AX",
-      "market": "ASX",
-      "entry_date": "2026-08-19",
-      "entry_price": 64.28,
-      "hold_days_target": 20,
-      "size_pct": 13.9,
-      "ml_score": 85.7,
-      "val_auc": 0.503,
-      "strategy": "RSI",
-      "tier": "A",
-      "score": 54,
-      "p7_verdict": "TRADE",
-      "current_price": 67.28,
-      "unrealised_pnl_pct": 4.667,
-      "days_held": 4,
-      "peak_pnl_pct": 4.932,
-      "checkpoints": {
-        "4": 4.667
-      }
-    },
-    {
-      "asset": "7203.T",
-      "market": "JPX",
-      "entry_date": "2026-08-19",
-      "entry_price": 2941.0,
-      "hold_days_target": 20,
-      "size_pct": 5.4,
-      "ml_score": 90.0,
-      "val_auc": 0.543,
-      "strategy": "RSI",
-      "tier": "B",
-      "score": 56,
-      "p7_verdict": "TRADE",
-      "current_price": 3082.0,
-      "unrealised_pnl_pct": 4.794,
-      "days_held": 4,
-      "peak_pnl_pct": 6.494,
-      "checkpoints": {
-        "4": 4.794
-      }
-    },
-    {
       "asset": "9843.T",
       "market": "JPX",
       "entry_date": "2026-08-24",
@@ -121,9 +79,9 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 3073.0,
-      "unrealised_pnl_pct": 0.13,
-      "days_held": 1,
+      "current_price": 3030.0,
+      "unrealised_pnl_pct": -1.271,
+      "days_held": 2,
       "peak_pnl_pct": 0.13,
       "checkpoints": {}
     },
@@ -139,7 +97,12 @@
       "strategy": "MACD",
       "tier": "A",
       "score": 64,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "CAT",
@@ -153,7 +116,12 @@
       "strategy": "MACD",
       "tier": "A",
       "score": 63,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     }
   ],
   "closed": [
@@ -922,6 +890,56 @@
       "days_held": 5,
       "pnl_pct": 5.559,
       "peak_pnl_pct": 5.559,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "AMC.AX",
+      "market": "ASX",
+      "entry_date": "2026-08-19",
+      "entry_price": 64.28,
+      "hold_days_target": 20,
+      "size_pct": 13.9,
+      "ml_score": 85.7,
+      "val_auc": 0.503,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 54,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 4.667
+      },
+      "exit_date": "2026-08-26",
+      "exit_price": 67.28,
+      "days_held": 5,
+      "pnl_pct": 4.667,
+      "peak_pnl_pct": 4.932,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN"
+    },
+    {
+      "asset": "7203.T",
+      "market": "JPX",
+      "entry_date": "2026-08-19",
+      "entry_price": 2941.0,
+      "hold_days_target": 20,
+      "size_pct": 5.4,
+      "ml_score": 90.0,
+      "val_auc": 0.543,
+      "strategy": "RSI",
+      "tier": "B",
+      "score": 56,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 4.794
+      },
+      "exit_date": "2026-08-26",
+      "exit_price": 3070.0,
+      "days_held": 5,
+      "pnl_pct": 4.386,
+      "peak_pnl_pct": 6.494,
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
