@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 356.69,
-      "unrealised_pnl_pct": 1.148,
-      "days_held": 16,
+      "current_price": 356.5,
+      "unrealised_pnl_pct": 1.095,
+      "days_held": 17,
       "peak_pnl_pct": 3.556,
       "checkpoints": {
         "4": 1.384,
@@ -57,9 +57,9 @@
       "tier": "B",
       "score": 37,
       "p7_verdict": "TRADE",
-      "current_price": 535.24,
-      "unrealised_pnl_pct": -0.696,
-      "days_held": 11,
+      "current_price": 534.23,
+      "unrealised_pnl_pct": -0.883,
+      "days_held": 12,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -0.489,
@@ -79,9 +79,9 @@
       "tier": "A",
       "score": 58,
       "p7_verdict": "TRADE",
-      "current_price": 7.86,
-      "unrealised_pnl_pct": -1.995,
-      "days_held": 10,
+      "current_price": 7.77,
+      "unrealised_pnl_pct": -3.117,
+      "days_held": 11,
       "peak_pnl_pct": 0.011,
       "checkpoints": {
         "4": -1.205,
@@ -101,12 +101,13 @@
       "tier": "A",
       "score": 46,
       "p7_verdict": "TRADE",
-      "current_price": 765.91,
-      "unrealised_pnl_pct": -0.852,
-      "days_held": 9,
+      "current_price": 766.08,
+      "unrealised_pnl_pct": -0.83,
+      "days_held": 10,
       "peak_pnl_pct": 0.698,
       "checkpoints": {
-        "4": -0.652
+        "4": -0.652,
+        "10": -0.83
       }
     },
     {
@@ -122,9 +123,9 @@
       "tier": "A",
       "score": 64,
       "p7_verdict": "TRADE",
-      "current_price": 811.29,
-      "unrealised_pnl_pct": -5.286,
-      "days_held": 6,
+      "current_price": 821.93,
+      "unrealised_pnl_pct": -4.044,
+      "days_held": 7,
       "peak_pnl_pct": 2.928,
       "checkpoints": {
         "4": -3.347
@@ -143,33 +144,12 @@
       "tier": "B",
       "score": 36,
       "p7_verdict": "TRADE",
-      "current_price": 35.38,
-      "unrealised_pnl_pct": 2.018,
-      "days_held": 6,
+      "current_price": 35.01,
+      "unrealised_pnl_pct": 0.952,
+      "days_held": 7,
       "peak_pnl_pct": 3.576,
       "checkpoints": {
         "4": 0.173
-      }
-    },
-    {
-      "asset": "COL.AX",
-      "market": "ASX",
-      "entry_date": "2026-08-17",
-      "entry_price": 23.44,
-      "hold_days_target": 20,
-      "size_pct": 6.0,
-      "ml_score": 75.1,
-      "val_auc": 0.61,
-      "strategy": "Mean Reversion",
-      "tier": "B",
-      "score": 30,
-      "p7_verdict": "TRADE",
-      "current_price": 23.75,
-      "unrealised_pnl_pct": 1.323,
-      "days_held": 6,
-      "peak_pnl_pct": 1.323,
-      "checkpoints": {
-        "4": -2.645
       }
     },
     {
@@ -206,9 +186,9 @@
       "tier": "S",
       "score": 65,
       "p7_verdict": "TRADE",
-      "current_price": 145.4,
-      "unrealised_pnl_pct": 1.359,
-      "days_held": 5,
+      "current_price": 145.0,
+      "unrealised_pnl_pct": 1.081,
+      "days_held": 6,
       "peak_pnl_pct": 2.196,
       "checkpoints": {
         "4": 2.196
@@ -232,6 +212,34 @@
       "days_held": 2,
       "peak_pnl_pct": 0.13,
       "checkpoints": {}
+    },
+    {
+      "asset": "AAPL",
+      "market": "US",
+      "entry_date": "2026-08-27",
+      "entry_price": 313.45,
+      "hold_days_target": 20,
+      "size_pct": 1.2,
+      "ml_score": 77.6,
+      "val_auc": 0.529,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 64,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "MPL.AX",
+      "market": "ASX",
+      "entry_date": "2026-08-27",
+      "entry_price": 4.79,
+      "hold_days_target": 20,
+      "size_pct": 10.4,
+      "ml_score": 70.7,
+      "val_auc": 0.606,
+      "strategy": "Mean Reversion",
+      "tier": "S",
+      "score": 88,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -1841,13 +1849,38 @@
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "COL.AX",
+      "market": "ASX",
+      "entry_date": "2026-08-17",
+      "entry_price": 23.44,
+      "hold_days_target": 20,
+      "size_pct": 6.0,
+      "ml_score": 75.1,
+      "val_auc": 0.61,
+      "strategy": "Mean Reversion",
+      "tier": "B",
+      "score": 30,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": -2.645
+      },
+      "exit_date": "2026-08-27",
+      "exit_price": 24.03,
+      "days_held": 8,
+      "pnl_pct": 2.517,
+      "peak_pnl_pct": 2.517,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
     }
   ],
   "metadata": {
     "run": 29,
     "label": "Phase 10B: All Strats ML\u226570 + Breakout MA20 Confirmation (Run 29)",
     "created": "2026-07-18",
-    "total_logged": 74,
+    "total_logged": 76,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,

@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 356.69,
-      "unrealised_pnl_pct": 1.148,
-      "days_held": 16,
+      "current_price": 356.5,
+      "unrealised_pnl_pct": 1.095,
+      "days_held": 17,
       "peak_pnl_pct": 3.556,
       "checkpoints": {
         "4": 1.384,
@@ -57,9 +57,9 @@
       "tier": "A",
       "score": 58,
       "p7_verdict": "TRADE",
-      "current_price": 7.86,
-      "unrealised_pnl_pct": -1.995,
-      "days_held": 10,
+      "current_price": 7.77,
+      "unrealised_pnl_pct": -3.117,
+      "days_held": 11,
       "peak_pnl_pct": 0.011,
       "checkpoints": {
         "4": -1.205,
@@ -67,25 +67,18 @@
       }
     },
     {
-      "asset": "COL.AX",
+      "asset": "MPL.AX",
       "market": "ASX",
-      "entry_date": "2026-08-18",
-      "entry_price": 23.15,
+      "entry_date": "2026-08-27",
+      "entry_price": 4.79,
       "hold_days_target": 20,
-      "size_pct": 5.8,
-      "ml_score": 76.7,
-      "val_auc": 0.611,
+      "size_pct": 10.4,
+      "ml_score": 70.7,
+      "val_auc": 0.606,
       "strategy": "Mean Reversion",
-      "tier": "B",
-      "score": 30,
-      "p7_verdict": "TRADE",
-      "current_price": 23.75,
-      "unrealised_pnl_pct": 2.592,
-      "days_held": 5,
-      "peak_pnl_pct": 2.592,
-      "checkpoints": {
-        "4": -2.203
-      }
+      "tier": "S",
+      "score": 88,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -288,13 +281,38 @@
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "COL.AX",
+      "market": "ASX",
+      "entry_date": "2026-08-18",
+      "entry_price": 23.15,
+      "hold_days_target": 20,
+      "size_pct": 5.8,
+      "ml_score": 76.7,
+      "val_auc": 0.611,
+      "strategy": "Mean Reversion",
+      "tier": "B",
+      "score": 30,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": -2.203
+      },
+      "exit_date": "2026-08-27",
+      "exit_price": 24.03,
+      "days_held": 7,
+      "pnl_pct": 3.801,
+      "peak_pnl_pct": 3.801,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
     }
   ],
   "metadata": {
     "run": 28,
     "label": "Phase 10A: Proven Trio + Tight Pullback 5% + RSI-65 Gate + 15d Cooldown (Run 28)",
     "created": "2026-07-18",
-    "total_logged": 11,
+    "total_logged": 12,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,

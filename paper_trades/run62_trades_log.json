@@ -13,9 +13,9 @@
       "tier": "S",
       "score": 65,
       "p7_verdict": "TRADE",
-      "current_price": 145.4,
-      "unrealised_pnl_pct": 1.593,
-      "days_held": 6,
+      "current_price": 145.0,
+      "unrealised_pnl_pct": 1.314,
+      "days_held": 7,
       "peak_pnl_pct": 2.432,
       "checkpoints": {
         "4": 1.09
@@ -34,9 +34,9 @@
       "tier": "B",
       "score": 36,
       "p7_verdict": "TRADE",
-      "current_price": 35.38,
-      "unrealised_pnl_pct": 2.018,
-      "days_held": 6,
+      "current_price": 35.01,
+      "unrealised_pnl_pct": 0.952,
+      "days_held": 7,
       "peak_pnl_pct": 3.576,
       "checkpoints": {
         "4": 0.173
@@ -118,9 +118,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 356.69,
-      "unrealised_pnl_pct": -1.806,
-      "days_held": 5,
+      "current_price": 356.5,
+      "unrealised_pnl_pct": -1.858,
+      "days_held": 6,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -1.889
@@ -139,9 +139,9 @@
       "tier": "S",
       "score": 90,
       "p7_verdict": "TRADE",
-      "current_price": 4.83,
-      "unrealised_pnl_pct": -3.785,
-      "days_held": 5,
+      "current_price": 4.79,
+      "unrealised_pnl_pct": -4.582,
+      "days_held": 6,
       "peak_pnl_pct": 0.199,
       "checkpoints": {
         "4": -5.179
@@ -181,11 +181,25 @@
       "tier": "B",
       "score": 45,
       "p7_verdict": "TRADE",
-      "current_price": 22.31,
-      "unrealised_pnl_pct": 0.677,
-      "days_held": 1,
+      "current_price": 22.3,
+      "unrealised_pnl_pct": 0.632,
+      "days_held": 2,
       "peak_pnl_pct": 0.677,
       "checkpoints": {}
+    },
+    {
+      "asset": "IAG.AX",
+      "market": "ASX",
+      "entry_date": "2026-08-27",
+      "entry_price": 7.77,
+      "hold_days_target": 20,
+      "size_pct": NaN,
+      "ml_score": 60.5,
+      "val_auc": 0.473,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 58,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -583,7 +597,7 @@
     "run": 62,
     "label": "Hold Test: Run 9 config (Wide Stop + No MACD + Tiered Floor) + 10-Day Hold (Run 62)",
     "created": "2026-08-04",
-    "total_logged": 24,
+    "total_logged": 25,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
