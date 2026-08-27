@@ -1,11 +1,26 @@
 {
-  "open": [],
+  "open": [
+    {
+      "asset": "MPL.AX",
+      "market": "ASX",
+      "entry_date": "2026-08-27",
+      "entry_price": 4.72,
+      "hold_days_target": 20,
+      "size_pct": 10.5,
+      "ml_score": 85.0,
+      "val_auc": 0.602,
+      "strategy": "Mean Reversion",
+      "tier": "S",
+      "score": 88,
+      "p7_verdict": "TRADE"
+    }
+  ],
   "closed": [],
   "metadata": {
     "run": 55,
     "label": "Ultra Concentrated \u2014 Tier S only, all markets, ML\u226585, max 8 positions (Run 55)",
     "created": "2026-07-31",
-    "total_logged": 0,
+    "total_logged": 1,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,

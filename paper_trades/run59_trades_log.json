@@ -15,14 +15,15 @@
       "score": 66,
       "p7_verdict": "TRADE",
       "checkpoints": {
-        "4": 0.779
+        "4": 0.779,
+        "10": -0.551
       },
-      "exit_date": "2026-08-13",
-      "exit_price": 365.18,
-      "days_held": 6,
-      "pnl_pct": 1.653,
+      "exit_date": "2026-08-27",
+      "exit_price": 356.5,
+      "days_held": 16,
+      "pnl_pct": -0.763,
       "peak_pnl_pct": 1.653,
-      "win": true,
+      "win": false,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     }

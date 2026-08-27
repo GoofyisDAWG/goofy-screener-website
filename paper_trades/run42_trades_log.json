@@ -14,18 +14,17 @@
       "tier": "A",
       "score": 45,
       "p7_verdict": "TRADE",
+      "exit_date": "2026-08-17",
+      "exit_price": 405.49,
+      "days_held": 20,
+      "pnl_pct": 10.065,
+      "peak_pnl_pct": 10.065,
+      "win": true,
+      "exit_reason": "HOLD_COMPLETE",
       "checkpoints": {
         "4": 0.947,
         "10": 0.896
-      },
-      "exit_date": "2026-08-06",
-      "exit_price": 389.64,
-      "days_held": 13,
-      "pnl_pct": 5.763,
-      "peak_pnl_pct": 5.763,
-      "win": true,
-      "exit_reason": "SIGNAL_REVERSAL",
-      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
+      }
     },
     {
       "asset": "JPM",
@@ -41,13 +40,14 @@
       "score": 66,
       "p7_verdict": "TRADE",
       "checkpoints": {
-        "4": 1.384
+        "4": 1.384,
+        "10": 2.359
       },
-      "exit_date": "2026-08-10",
-      "exit_price": 357.52,
-      "days_held": 5,
-      "pnl_pct": 1.384,
-      "peak_pnl_pct": 1.872,
+      "exit_date": "2026-08-27",
+      "exit_price": 356.5,
+      "days_held": 18,
+      "pnl_pct": 1.095,
+      "peak_pnl_pct": 3.556,
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "STAND DOWN (VOL SPIKE)"
