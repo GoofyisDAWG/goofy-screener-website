@@ -1,28 +1,6 @@
 {
   "open": [
     {
-      "asset": "JPM",
-      "market": "US",
-      "entry_date": "2026-07-30",
-      "entry_price": 350.85,
-      "hold_days_target": 20,
-      "size_pct": 4.2,
-      "ml_score": 61.4,
-      "val_auc": 0.542,
-      "strategy": "MA Crossover",
-      "tier": "A",
-      "score": 66,
-      "p7_verdict": "TRADE",
-      "current_price": 356.5,
-      "unrealised_pnl_pct": 1.61,
-      "days_held": 19,
-      "peak_pnl_pct": 4.084,
-      "checkpoints": {
-        "4": 2.391,
-        "10": 3.494
-      }
-    },
-    {
       "asset": "1928.T",
       "market": "JPX",
       "entry_date": "2026-08-17",
@@ -56,9 +34,9 @@
       "tier": "B",
       "score": 36,
       "p7_verdict": "TRADE",
-      "current_price": 35.01,
-      "unrealised_pnl_pct": 0.952,
-      "days_held": 7,
+      "current_price": 34.565,
+      "unrealised_pnl_pct": -0.332,
+      "days_held": 8,
       "peak_pnl_pct": 3.576,
       "checkpoints": {
         "4": 0.173
@@ -147,6 +125,34 @@
       "checkpoints": {
         "4": 2.312
       }
+    },
+    {
+      "asset": "JPM",
+      "market": "US",
+      "entry_date": "2026-08-27",
+      "entry_price": 353.64,
+      "hold_days_target": 20,
+      "size_pct": 4.7,
+      "ml_score": 87.7,
+      "val_auc": 0.513,
+      "strategy": "MA Crossover",
+      "tier": "A",
+      "score": 66,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "MDLZ",
+      "market": "US",
+      "entry_date": "2026-08-27",
+      "entry_price": 62.65,
+      "hold_days_target": 20,
+      "size_pct": 9.4,
+      "ml_score": 50.8,
+      "val_auc": 0.535,
+      "strategy": "RSI",
+      "tier": "B",
+      "score": 34,
+      "p7_verdict": "ML HOLD"
     }
   ],
   "closed": [
@@ -2388,13 +2394,38 @@
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "JPM",
+      "market": "US",
+      "entry_date": "2026-07-30",
+      "entry_price": 350.85,
+      "hold_days_target": 20,
+      "size_pct": 4.2,
+      "ml_score": 61.4,
+      "val_auc": 0.542,
+      "strategy": "MA Crossover",
+      "tier": "A",
+      "score": 66,
+      "p7_verdict": "TRADE",
+      "exit_date": "2026-08-27",
+      "exit_price": 353.64,
+      "days_held": 20,
+      "pnl_pct": 0.795,
+      "peak_pnl_pct": 4.084,
+      "win": true,
+      "exit_reason": "HOLD_COMPLETE",
+      "checkpoints": {
+        "4": 2.391,
+        "10": 3.494
+      }
     }
   ],
   "metadata": {
     "run": 10,
     "label": "New: All Ideas + Tiered Floor (Run 10)",
     "created": "2026-06-17",
-    "total_logged": 96,
+    "total_logged": 98,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
