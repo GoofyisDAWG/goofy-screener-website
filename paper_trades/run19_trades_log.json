@@ -13,34 +13,13 @@
       "tier": "A",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 3584.0,
-      "unrealised_pnl_pct": 4.734,
-      "days_held": 17,
+      "current_price": 3604.0,
+      "unrealised_pnl_pct": 5.319,
+      "days_held": 18,
       "peak_pnl_pct": 5.932,
       "checkpoints": {
         "4": 1.14,
         "10": 1.11
-      }
-    },
-    {
-      "asset": "4543.T",
-      "market": "JPX",
-      "entry_date": "2026-08-18",
-      "entry_price": 2578.0,
-      "hold_days_target": 20,
-      "size_pct": 6.9,
-      "ml_score": 67.5,
-      "val_auc": 0.575,
-      "strategy": "Mean Reversion",
-      "tier": "A",
-      "score": 53,
-      "p7_verdict": "TRADE",
-      "current_price": 2572.0,
-      "unrealised_pnl_pct": -0.233,
-      "days_held": 6,
-      "peak_pnl_pct": 0.718,
-      "checkpoints": {
-        "4": 0.679
       }
     },
     {
@@ -56,8 +35,8 @@
       "tier": "S",
       "score": 65,
       "p7_verdict": "TRADE",
-      "current_price": 143.55,
-      "unrealised_pnl_pct": 0.07,
+      "current_price": 143.14,
+      "unrealised_pnl_pct": -0.216,
       "days_held": 6,
       "peak_pnl_pct": 2.196,
       "checkpoints": {
@@ -77,9 +56,9 @@
       "tier": "A",
       "score": 71,
       "p7_verdict": "TRADE",
-      "current_price": 5163.0,
-      "unrealised_pnl_pct": -1.224,
-      "days_held": 5,
+      "current_price": 5200.0,
+      "unrealised_pnl_pct": -0.517,
+      "days_held": 6,
       "peak_pnl_pct": 3.061,
       "checkpoints": {
         "4": -2.678
@@ -98,8 +77,8 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 353.64,
-      "unrealised_pnl_pct": -1.013,
+      "current_price": 354.22,
+      "unrealised_pnl_pct": -0.851,
       "days_held": 5,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
@@ -107,25 +86,18 @@
       }
     },
     {
-      "asset": "MPL.AX",
+      "asset": "HUB.AX",
       "market": "ASX",
-      "entry_date": "2026-08-20",
-      "entry_price": 4.71,
+      "entry_date": "2026-08-28",
+      "entry_price": 76.05,
       "hold_days_target": 20,
-      "size_pct": 14.2,
-      "ml_score": 64.5,
-      "val_auc": 0.609,
-      "strategy": "Mean Reversion",
-      "tier": "S",
-      "score": 89,
-      "p7_verdict": "TRADE",
-      "current_price": 4.73,
-      "unrealised_pnl_pct": 0.425,
-      "days_held": 5,
-      "peak_pnl_pct": 5.096,
-      "checkpoints": {
-        "4": 1.699
-      }
+      "size_pct": 10.2,
+      "ml_score": 86.1,
+      "val_auc": 0.506,
+      "strategy": "RSI(2)",
+      "tier": "A",
+      "score": 64,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -774,13 +746,63 @@
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "4543.T",
+      "market": "JPX",
+      "entry_date": "2026-08-18",
+      "entry_price": 2578.0,
+      "hold_days_target": 20,
+      "size_pct": 6.9,
+      "ml_score": 67.5,
+      "val_auc": 0.575,
+      "strategy": "Mean Reversion",
+      "tier": "A",
+      "score": 53,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 0.679
+      },
+      "exit_date": "2026-08-28",
+      "exit_price": 2560.0,
+      "days_held": 8,
+      "pnl_pct": -0.698,
+      "peak_pnl_pct": 0.718,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "MPL.AX",
+      "market": "ASX",
+      "entry_date": "2026-08-20",
+      "entry_price": 4.71,
+      "hold_days_target": 20,
+      "size_pct": 14.2,
+      "ml_score": 64.5,
+      "val_auc": 0.609,
+      "strategy": "Mean Reversion",
+      "tier": "S",
+      "score": 89,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 1.699
+      },
+      "exit_date": "2026-08-28",
+      "exit_price": 4.73,
+      "days_held": 6,
+      "pnl_pct": 0.425,
+      "peak_pnl_pct": 5.096,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
     }
   ],
   "metadata": {
     "run": 19,
     "label": "Volume Confirmation: Run 17 + Volume \u2265 20d Avg (Run 19)",
     "created": "2026-07-12",
-    "total_logged": 29,
+    "total_logged": 30,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
