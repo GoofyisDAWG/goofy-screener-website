@@ -35,9 +35,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 354.22,
-      "unrealised_pnl_pct": -1.397,
-      "days_held": 16,
+      "current_price": 357.62,
+      "unrealised_pnl_pct": -0.451,
+      "days_held": 17,
       "peak_pnl_pct": 1.653,
       "checkpoints": {
         "4": 0.779,
@@ -57,10 +57,10 @@
       "tier": "S",
       "score": 88,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 4.78,
+      "unrealised_pnl_pct": 1.057,
       "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "peak_pnl_pct": 1.057,
       "checkpoints": {}
     },
     {
@@ -75,6 +75,25 @@
       "strategy": "RSI(2)",
       "tier": "A",
       "score": 64,
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
+    },
+    {
+      "asset": "WEC",
+      "market": "US",
+      "entry_date": "2026-08-28",
+      "entry_price": 106.22,
+      "hold_days_target": 20,
+      "size_pct": 14.7,
+      "ml_score": 82.1,
+      "val_auc": 0.516,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 50,
       "p7_verdict": "TRADE"
     }
   ],
@@ -160,7 +179,7 @@
     "run": 58,
     "label": "Concentrated Quality \u2014 Fund gate \u22655/8, ML\u226580, Tier S+A, max 10 (Run 58)",
     "created": "2026-07-31",
-    "total_logged": 7,
+    "total_logged": 8,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,

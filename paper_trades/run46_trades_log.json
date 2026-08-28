@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 354.22,
-      "unrealised_pnl_pct": -1.548,
-      "days_held": 13,
+      "current_price": 357.62,
+      "unrealised_pnl_pct": -0.603,
+      "days_held": 14,
       "peak_pnl_pct": 1.498,
       "checkpoints": {
         "4": 0.848,
@@ -41,27 +41,6 @@
       "peak_pnl_pct": 4.981,
       "checkpoints": {
         "4": 2.433
-      }
-    },
-    {
-      "asset": "AVGO",
-      "market": "US",
-      "entry_date": "2026-08-19",
-      "entry_price": 362.48,
-      "hold_days_target": 20,
-      "size_pct": 0.6,
-      "ml_score": 91.6,
-      "val_auc": 0.457,
-      "strategy": "MACD",
-      "tier": "B",
-      "score": 45,
-      "p7_verdict": "TRADE",
-      "current_price": 371.54,
-      "unrealised_pnl_pct": 2.499,
-      "days_held": 6,
-      "peak_pnl_pct": 2.499,
-      "checkpoints": {
-        "4": -1.584
       }
     },
     {
@@ -115,8 +94,8 @@
       "tier": "A",
       "score": 63,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 800.25,
+      "unrealised_pnl_pct": -2.638,
       "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
@@ -133,7 +112,12 @@
       "strategy": "MACD",
       "tier": "A",
       "score": 64,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "5713.T",
@@ -147,7 +131,12 @@
       "strategy": "MA Crossover",
       "tier": "B",
       "score": 60,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "6305.T",
@@ -161,7 +150,12 @@
       "strategy": "MACD",
       "tier": "B",
       "score": 34,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     }
   ],
   "closed": [
@@ -413,6 +407,31 @@
       "win": false,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "AVGO",
+      "market": "US",
+      "entry_date": "2026-08-19",
+      "entry_price": 362.48,
+      "hold_days_target": 20,
+      "size_pct": 0.6,
+      "ml_score": 91.6,
+      "val_auc": 0.457,
+      "strategy": "MACD",
+      "tier": "B",
+      "score": 45,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": -1.584
+      },
+      "exit_date": "2026-08-28",
+      "exit_price": 368.79,
+      "days_held": 7,
+      "pnl_pct": 1.741,
+      "peak_pnl_pct": 2.499,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN"
     }
   ],
   "metadata": {

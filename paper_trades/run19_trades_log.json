@@ -35,9 +35,9 @@
       "tier": "S",
       "score": 65,
       "p7_verdict": "TRADE",
-      "current_price": 143.14,
-      "unrealised_pnl_pct": -0.216,
-      "days_held": 6,
+      "current_price": 143.78,
+      "unrealised_pnl_pct": 0.23,
+      "days_held": 7,
       "peak_pnl_pct": 2.196,
       "checkpoints": {
         "4": 1.359
@@ -77,10 +77,10 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 354.22,
-      "unrealised_pnl_pct": -0.851,
-      "days_held": 5,
-      "peak_pnl_pct": 0.0,
+      "current_price": 357.62,
+      "unrealised_pnl_pct": 0.101,
+      "days_held": 6,
+      "peak_pnl_pct": 0.101,
       "checkpoints": {
         "4": -0.213
       }
@@ -97,6 +97,53 @@
       "strategy": "RSI(2)",
       "tier": "A",
       "score": 64,
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 0,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
+    },
+    {
+      "asset": "MDLZ",
+      "market": "US",
+      "entry_date": "2026-08-28",
+      "entry_price": 62.36,
+      "hold_days_target": 20,
+      "size_pct": 10.5,
+      "ml_score": 66.4,
+      "val_auc": 0.527,
+      "strategy": "RSI",
+      "tier": "B",
+      "score": 34,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "AME",
+      "market": "US",
+      "entry_date": "2026-08-28",
+      "entry_price": 236.25,
+      "hold_days_target": 20,
+      "size_pct": 1.1,
+      "ml_score": 75.4,
+      "val_auc": 0.566,
+      "strategy": "MA Crossover",
+      "tier": "B",
+      "score": 30,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "GLD",
+      "market": "US",
+      "entry_date": "2026-08-28",
+      "entry_price": 408.89,
+      "hold_days_target": 20,
+      "size_pct": 13.5,
+      "ml_score": 78.6,
+      "val_auc": 0.46,
+      "strategy": "Mean Reversion",
+      "tier": "A",
+      "score": 49,
       "p7_verdict": "TRADE"
     }
   ],
@@ -802,7 +849,7 @@
     "run": 19,
     "label": "Volume Confirmation: Run 17 + Volume \u2265 20d Avg (Run 19)",
     "created": "2026-07-12",
-    "total_logged": 30,
+    "total_logged": 33,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
