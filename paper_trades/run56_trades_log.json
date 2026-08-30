@@ -1,6 +1,5 @@
 {
-  "open": [],
-  "closed": [
+  "open": [
     {
       "asset": "JPM",
       "market": "US",
@@ -14,20 +13,17 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
+      "current_price": 357.62,
+      "unrealised_pnl_pct": 0.028,
+      "days_held": 18,
+      "peak_pnl_pct": 2.143,
       "checkpoints": {
         "4": 0.635,
         "10": 1.603
-      },
-      "exit_date": "2026-08-27",
-      "exit_price": 356.5,
-      "days_held": 17,
-      "pnl_pct": -0.285,
-      "peak_pnl_pct": 2.143,
-      "win": false,
-      "exit_reason": "SIGNAL_REVERSAL",
-      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
+      }
     }
   ],
+  "closed": [],
   "metadata": {
     "run": 56,
     "label": "Concentrated Momentum \u2014 Trend/Breakout family only, Tier S+A, max 10 (Run 56)",
