@@ -34,33 +34,12 @@
       "tier": "B",
       "score": 31,
       "p7_verdict": "TRADE",
-      "current_price": 3753.0,
-      "unrealised_pnl_pct": 4.221,
-      "days_held": 7,
-      "peak_pnl_pct": 4.221,
+      "current_price": 3904.0,
+      "unrealised_pnl_pct": 8.414,
+      "days_held": 8,
+      "peak_pnl_pct": 8.414,
       "checkpoints": {
         "4": 2.749
-      }
-    },
-    {
-      "asset": "9020.T",
-      "market": "JPX",
-      "entry_date": "2026-08-20",
-      "entry_price": 3503.0,
-      "hold_days_target": 20,
-      "size_pct": 12.5,
-      "ml_score": 92.5,
-      "val_auc": 0.548,
-      "strategy": "RSI",
-      "tier": "A",
-      "score": 59,
-      "p7_verdict": "TRADE",
-      "current_price": 3604.0,
-      "unrealised_pnl_pct": 2.883,
-      "days_held": 5,
-      "peak_pnl_pct": 3.483,
-      "checkpoints": {
-        "4": 2.312
       }
     },
     {
@@ -116,7 +95,7 @@
       "p7_verdict": "TRADE",
       "current_price": null,
       "unrealised_pnl_pct": null,
-      "days_held": 0,
+      "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -135,7 +114,7 @@
       "p7_verdict": "TRADE",
       "current_price": null,
       "unrealised_pnl_pct": null,
-      "days_held": 0,
+      "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -154,7 +133,7 @@
       "p7_verdict": "TRADE",
       "current_price": null,
       "unrealised_pnl_pct": null,
-      "days_held": 0,
+      "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -170,7 +149,12 @@
       "strategy": "Mean Reversion",
       "tier": "A",
       "score": 49,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     }
   ],
   "closed": [
@@ -2533,6 +2517,31 @@
       "days_held": 6,
       "pnl_pct": 2.149,
       "peak_pnl_pct": 2.955,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "9020.T",
+      "market": "JPX",
+      "entry_date": "2026-08-20",
+      "entry_price": 3503.0,
+      "hold_days_target": 20,
+      "size_pct": 12.5,
+      "ml_score": 92.5,
+      "val_auc": 0.548,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 59,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 2.312
+      },
+      "exit_date": "2026-08-31",
+      "exit_price": 3578.0,
+      "days_held": 7,
+      "pnl_pct": 2.141,
+      "peak_pnl_pct": 3.483,
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
