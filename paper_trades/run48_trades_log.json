@@ -13,12 +13,13 @@
       "tier": "S",
       "score": 65,
       "p7_verdict": "TRADE",
-      "current_price": 144.9278,
-      "unrealised_pnl_pct": 1.03,
-      "days_held": 9,
-      "peak_pnl_pct": 2.196,
+      "current_price": 147.74,
+      "unrealised_pnl_pct": 2.991,
+      "days_held": 10,
+      "peak_pnl_pct": 2.991,
       "checkpoints": {
-        "4": 2.196
+        "4": 2.196,
+        "10": 2.991
       }
     },
     {
@@ -34,9 +35,9 @@
       "tier": "S",
       "score": 88,
       "p7_verdict": "TRADE",
-      "current_price": 4.78,
-      "unrealised_pnl_pct": -0.209,
-      "days_held": 1,
+      "current_price": 4.701,
+      "unrealised_pnl_pct": -1.858,
+      "days_held": 3,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -53,9 +54,9 @@
       "tier": "B",
       "score": 32,
       "p7_verdict": "TRADE",
-      "current_price": 235.03,
-      "unrealised_pnl_pct": -3.546,
-      "days_held": 1,
+      "current_price": 232.802,
+      "unrealised_pnl_pct": -4.46,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -72,10 +73,10 @@
       "tier": "B",
       "score": 39,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
-      "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "current_price": 3021.0,
+      "unrealised_pnl_pct": 1.461,
+      "days_held": 2,
+      "peak_pnl_pct": 1.461,
       "checkpoints": {}
     },
     {
@@ -91,10 +92,10 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
-      "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "current_price": 5016.0,
+      "unrealised_pnl_pct": 3.937,
+      "days_held": 2,
+      "peak_pnl_pct": 3.937,
       "checkpoints": {}
     },
     {
@@ -110,9 +111,9 @@
       "tier": "B",
       "score": 60,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
-      "days_held": 1,
+      "current_price": 11345.0,
+      "unrealised_pnl_pct": -0.482,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -129,10 +130,10 @@
       "tier": "A",
       "score": 50,
       "p7_verdict": "TRADE",
-      "current_price": 106.34,
-      "unrealised_pnl_pct": 0.113,
-      "days_held": 1,
-      "peak_pnl_pct": 0.113,
+      "current_price": 106.49,
+      "unrealised_pnl_pct": 0.254,
+      "days_held": 2,
+      "peak_pnl_pct": 0.254,
       "checkpoints": {}
     },
     {
@@ -148,9 +149,9 @@
       "tier": "A",
       "score": 49,
       "p7_verdict": "TRADE",
-      "current_price": 406.6,
-      "unrealised_pnl_pct": -0.56,
-      "days_held": 1,
+      "current_price": 399.34,
+      "unrealised_pnl_pct": -2.336,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -166,7 +167,12 @@
       "strategy": "MA Crossover",
       "tier": "A",
       "score": 66,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": 356.785,
+      "unrealised_pnl_pct": 0.229,
+      "days_held": 1,
+      "peak_pnl_pct": 0.229,
+      "checkpoints": {}
     },
     {
       "asset": "MDLZ",
@@ -180,6 +186,39 @@
       "strategy": "RSI",
       "tier": "B",
       "score": 34,
+      "p7_verdict": "TRADE",
+      "current_price": 62.475,
+      "unrealised_pnl_pct": 0.499,
+      "days_held": 1,
+      "peak_pnl_pct": 0.499,
+      "checkpoints": {}
+    },
+    {
+      "asset": "AMC.AX",
+      "market": "ASX",
+      "entry_date": "2026-09-01",
+      "entry_price": 64.72,
+      "hold_days_target": 20,
+      "size_pct": 16.8,
+      "ml_score": 70.7,
+      "val_auc": 0.537,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 54,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "7741.T",
+      "market": "JPX",
+      "entry_date": "2026-09-01",
+      "entry_price": 24890.0,
+      "hold_days_target": 20,
+      "size_pct": 5.5,
+      "ml_score": 73.9,
+      "val_auc": 0.557,
+      "strategy": "Mean Reversion",
+      "tier": "B",
+      "score": 35,
       "p7_verdict": "TRADE"
     }
   ],
@@ -582,7 +621,7 @@
     "run": 48,
     "label": "Four Champions: RSI + BB + MA Crossover + Mean Rev ONLY, ML\u226570, Blackout (Run 48)",
     "created": "2026-07-22",
-    "total_logged": 26,
+    "total_logged": 28,
     "config": {
       "stop_loss_pct": 5.0,
       "take_profit_pct": 15.0,
