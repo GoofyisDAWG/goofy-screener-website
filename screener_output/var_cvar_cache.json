@@ -1,0 +1,87 @@
+{
+  "generated_at": "2026-09-02T23:21:23",
+  "individual": {
+    "AAPL": {
+      "market": "US",
+      "var_95": 3.02,
+      "cvar_95": 4.48,
+      "var_99": 5.17,
+      "cvar_99": 7.1,
+      "n_obs": 2008
+    },
+    "MSFT": {
+      "market": "US",
+      "var_95": 2.84,
+      "cvar_95": 4.09,
+      "var_99": 4.45,
+      "cvar_99": 6.41,
+      "n_obs": 2008
+    },
+    "JPM": {
+      "market": "US",
+      "var_95": 2.65,
+      "cvar_95": 4.13,
+      "var_99": 4.66,
+      "cvar_99": 6.98,
+      "n_obs": 2007
+    },
+    "XOM": {
+      "market": "US",
+      "var_95": 2.88,
+      "cvar_95": 4.34,
+      "var_99": 4.91,
+      "cvar_99": 6.86,
+      "n_obs": 2007
+    },
+    "CBA.AX": {
+      "market": "ASX",
+      "var_95": 2.07,
+      "cvar_95": 3.4,
+      "var_99": 3.78,
+      "cvar_99": 6.37,
+      "n_obs": 2025
+    },
+    "BHP.AX": {
+      "market": "ASX",
+      "var_95": 2.59,
+      "cvar_95": 3.8,
+      "var_99": 4.24,
+      "cvar_99": 5.97,
+      "n_obs": 2025
+    },
+    "7203.T": {
+      "market": "JPX",
+      "var_95": 2.83,
+      "cvar_95": 3.89,
+      "var_99": 4.38,
+      "cvar_99": 5.73,
+      "n_obs": 1954
+    },
+    "6758.T": {
+      "market": "JPX",
+      "var_95": 2.96,
+      "cvar_95": 4.23,
+      "var_99": 4.96,
+      "cvar_99": 6.9,
+      "n_obs": 1954
+    }
+  },
+  "portfolio_equal_weight": {
+    "tickers": [
+      "AAPL",
+      "MSFT",
+      "JPM",
+      "XOM",
+      "CBA.AX",
+      "BHP.AX",
+      "7203.T",
+      "6758.T"
+    ],
+    "var_95": 1.42,
+    "cvar_95": 2.41,
+    "var_99": 2.64,
+    "cvar_99": 4.51,
+    "naive_avg_var_95": 2.73,
+    "n_obs": 1843
+  }
+}

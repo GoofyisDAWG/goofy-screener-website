@@ -722,6 +722,63 @@ def fetch_stock_health(ticker: str) -> dict:
 
 _TR = {
     "en": {
+        "var_title": "📉 Risk (VaR / CVaR)",
+        "var_sub": "How much could this actually lose on a bad day? Two honest answers, not one.",
+        "var_guide_title": "❓ What is VaR and CVaR, in plain terms",
+        "var_guide_body": (
+            "**Value at Risk (VaR)** answers: \"on a normal bad day (not a crash, just the "
+            "5% worst days), how much could this lose?\" A 95% 1-day VaR of 3% means: on 95% "
+            "of days, the loss won't exceed 3%.\n\n"
+            "**Conditional VaR (CVaR)**, also called Expected Shortfall, answers the question "
+            "VaR leaves out: \"and when it IS one of those bad days, how bad does it usually "
+            "get?\" CVaR is always higher than VaR — it's the average loss once you're already "
+            "past the VaR line, not just the line itself.\n\n"
+            "**Why both numbers matter:** two assets can have the same VaR but very different "
+            "CVaR — one has a hard floor, the other has a long ugly tail. CVaR is the number "
+            "that tells you which is which.\n\n"
+            "Both are calculated from **actual historical returns**, not a theoretical bell-curve "
+            "assumption — real market returns have fatter tails than a normal distribution predicts, "
+            "so using the real historical data is the more honest approach."
+        ),
+        "var_no_cache": "No risk data yet — run build_var_cvar_cache.py first.",
+        "var_individual_hdr": "Individual Assets",
+        "var_portfolio_hdr": "Combined Portfolio (equal-weighted across all assets above)",
+        "var_col_95": "95% Confidence", "var_col_99": "99% Confidence",
+        "var_col_var": "VaR", "var_col_cvar": "CVaR",
+        "var_diversification_note": (
+            "**Diversification in action:** a naive average of the individual VaRs above would "
+            "suggest {naive}% risk. The actual combined portfolio VaR is {actual}% — lower, "
+            "because these assets don't all have bad days at the same time. This is the same "
+            "correlation logic behind the portfolio construction elsewhere on this site, shown "
+            "here as a direct before/after number."
+        ),
+        "pcv_title": "🔬 Model Validation",
+        "pcv_sub": "How reliable is the ML signal, really? A more honest check than a single train/test split.",
+        "pcv_guide_title": "❓ What is this and why does it matter",
+        "pcv_guide_body": (
+            "**The short version:** the ML signal is trained to predict 20 days ahead. That means "
+            "the \"answer\" for one day and the \"answer\" for the next day overlap by up to 19 days. "
+            "If you split training and test data carelessly, the model can accidentally peek at "
+            "information it shouldn't have yet, making it look more accurate than it really is.\n\n"
+            "**Purged Cross-Validation** fixes this. It removes any training example whose 20-day "
+            "answer window overlaps with the test period, then adds an extra buffer (\"embargo\") "
+            "on top for safety. The model is then tested 5 separate times on 5 different unseen "
+            "time periods instead of just once.\n\n"
+            "**How to read the numbers below:** the *Single Split* score is the old, simpler check — "
+            "one score from one train/test split. The *Purged CV Mean* is the average across all 5 "
+            "properly-separated folds, and *Std Dev* shows how much that score swings between folds. "
+            "A high single-split score with a much lower purged mean is a sign the original number "
+            "was too optimistic — exactly the kind of thing this check exists to catch."
+        ),
+        "pcv_no_cache": "No validation data yet — run build_purged_cv_cache.py first.",
+        "pcv_generated": "Last computed",
+        "pcv_col_ticker": "Ticker", "pcv_col_market": "Market",
+        "pcv_col_single": "Single Split AUC", "pcv_col_mean": "Purged CV Mean",
+        "pcv_col_std": "Std Dev (stability)", "pcv_col_folds": "Folds",
+        "pcv_flag_optimistic": "⚠️ Single-split score looks optimistic vs. purged CV",
+        "pcv_flag_consistent": "✅ Purged CV broadly agrees with single split",
+        "pcv_auc_note": "AUC = 0.50 is random guessing, 1.00 is a perfect predictor. Real market prediction "
+                        "AUCs are usually modest (0.52–0.60) — that's expected, not a bug.",
         "fund_title":    "🌏 Fundamental Rankings",
         "fund_sub":      "All {n} stocks ranked by financial health — no jargon, just the numbers that matter.",
         "filter_market": "Filter by market",
@@ -984,6 +1041,61 @@ _TR = {
         "disclaimer":  "This website is for educational purposes only and does not constitute financial advice. Past performance does not guarantee future results. Always do your own research before investing.",
     },
     "ja": {
+        "var_title": "📉 リスク（VaR / CVaR）",
+        "var_sub": "調子の悪い日に、実際どれくらい損をする可能性があるか。1つではなく2つの誠実な答え。",
+        "var_guide_title": "❓ VaRとCVaRとは、分かりやすく",
+        "var_guide_body": (
+            "**バリュー・アット・リスク（VaR）** はこう答えます：「普通に調子の悪い日（暴落では"
+            "なく、単に悪い方から5%の日）で、どれくらい損をする可能性があるか？」95%・1日VaRが"
+            "3%であれば、95%の日は損失が3%を超えないという意味です。\n\n"
+            "**コンディショナルVaR（CVaR）**、期待ショートフォールとも呼ばれるこの指標は、VaRが"
+            "答えない部分に答えます：「実際に調子の悪い日になった場合、通常どれくらいひどいのか？」"
+            "CVaRは常にVaRより大きくなります — VaRのラインそのものではなく、そのラインを超えた"
+            "場合の平均損失だからです。\n\n"
+            "**両方の数字が重要な理由：** 2つの銘柄が同じVaRでも、CVaRは大きく異なることがあり"
+            "ます。片方は損失に下限があり、もう片方は長く厳しい裾（テール）を持っています。どちら"
+            "であるかを教えてくれるのがCVaRです。\n\n"
+            "どちらも**実際の過去のリターン**から計算しており、理論上の正規分布を仮定していません"
+            "— 実際の市場リターンは正規分布が予測するより裾が厚いため、実データを使う方が誠実な"
+            "アプローチです。"
+        ),
+        "var_no_cache": "リスクデータがまだありません — 先に build_var_cvar_cache.py を実行してください。",
+        "var_individual_hdr": "個別銘柄",
+        "var_portfolio_hdr": "統合ポートフォリオ（上記全銘柄を均等配分）",
+        "var_col_95": "信頼水準95%", "var_col_99": "信頼水準99%",
+        "var_col_var": "VaR", "var_col_cvar": "CVaR",
+        "var_diversification_note": (
+            "**分散投資の効果：** 上記の個別VaRを単純平均すると{naive}%のリスクになります。"
+            "実際の統合ポートフォリオVaRは{actual}%と、それより低くなっています。これは、これらの"
+            "銘柄が同じタイミングで一斉に悪化するわけではないためです。このサイトの他の場所にある"
+            "ポートフォリオ構築と同じ相関ロジックを、ここでは直接的な前後比較の数字として示しています。"
+        ),
+        "pcv_title": "🔬 モデル検証",
+        "pcv_sub": "AIシグナルは本当に信頼できるか？1回だけの検証より誠実なチェック方法。",
+        "pcv_guide_title": "❓ これは何か、なぜ重要か",
+        "pcv_guide_body": (
+            "**簡単に言うと：** AIシグナルは20日先を予測するように学習しています。つまり、ある日の"
+            "「正解」と翌日の「正解」は最大19日分重なっています。学習用データとテスト用データを"
+            "不用意に分けると、モデルが本来知らないはずの情報を少し覗き見てしまい、実際より賢く"
+            "見えてしまうことがあります。\n\n"
+            "**パージド・クロスバリデーション（Purged CV）** はこれを防ぐ手法です。テスト期間と"
+            "「正解」期間が重なる学習データを取り除き、さらに安全のため追加の緩衝期間（エンバーゴ）"
+            "を設けます。そのうえで、1回ではなく5つの異なる未知の期間でモデルを検証します。\n\n"
+            "**下の数字の見方：** 「単一分割」は従来のシンプルな方法、1回の分割から出したスコアです。"
+            "「Purged CV平均」は正しく分離された5つの検証すべての平均、「標準偏差」はそのスコアが"
+            "検証ごとにどれだけばらつくかを示します。単一分割のスコアが高いのにPurged CV平均が"
+            "大きく下がっている場合、元のスコアが楽観的すぎた可能性があります。まさにこのチェックが"
+            "見つけるべきものです。"
+        ),
+        "pcv_no_cache": "検証データがまだありません — 先に build_purged_cv_cache.py を実行してください。",
+        "pcv_generated": "最終計算日時",
+        "pcv_col_ticker": "銘柄", "pcv_col_market": "市場",
+        "pcv_col_single": "単一分割AUC", "pcv_col_mean": "Purged CV平均",
+        "pcv_col_std": "標準偏差（安定性）", "pcv_col_folds": "検証回数",
+        "pcv_flag_optimistic": "⚠️ 単一分割のスコアはPurged CVより楽観的に見えます",
+        "pcv_flag_consistent": "✅ Purged CVは単一分割とおおむね一致しています",
+        "pcv_auc_note": "AUC = 0.50はランダム予測、1.00は完璧な予測を意味します。実際の市場予測では"
+                        "0.52〜0.60程度が一般的で、これは想定内の数値です。",
         "fund_title":    "🌏 ファンダメンタル ランキング",
         "fund_sub":      "{n}銘柄を財務健全性でランク付け — 専門用語なし、重要な数字だけ。",
         "filter_market": "市場でフィルター",
@@ -1264,6 +1376,38 @@ def _safe_float(val) -> float | None:
         return None if (f != f) else f  # NaN check
     except (TypeError, ValueError):
         return None
+
+@st.cache_data(ttl=3600)
+def load_var_cvar_results() -> dict:
+    """Read the Historical VaR/CVaR cache. See build_var_cvar_cache.py."""
+    cache_paths = [
+        Path("screener_output/var_cvar_cache.json"),
+        Path(__file__).parent / "screener_output" / "var_cvar_cache.json",
+    ]
+    for p in cache_paths:
+        if p.exists():
+            try:
+                return json.loads(p.read_text())
+            except Exception:
+                pass
+    return {}
+
+
+@st.cache_data(ttl=3600)
+def load_purged_cv_results() -> dict:
+    """Read the purged K-fold cross-validation cache. See build_purged_cv_cache.py."""
+    cache_paths = [
+        Path("screener_output/purged_cv_cache.json"),
+        Path(__file__).parent / "screener_output" / "purged_cv_cache.json",
+    ]
+    for p in cache_paths:
+        if p.exists():
+            try:
+                return json.loads(p.read_text())
+            except Exception:
+                pass
+    return {}
+
 
 @st.cache_data(ttl=3600)
 def load_fundamental_rankings() -> list[dict]:
@@ -2001,17 +2145,17 @@ with st.sidebar:
         ["🏠 ホーム", "🔍 ポートフォリオ健全性チェック", "🌏 ファンダメンタルランキング",
          "📊 スクリーナーランキング", "📈 株価チャート", "🏆 トラックレコード",
          "📋 オープンポジション", "🌡️ セクターヒートマップ", "📜 取引ログ",
-         "🎯 戦略分析", "ℹ️ 概要と免責事項"]
+         "🎯 戦略分析", "🔬 モデル検証", "📉 リスク（VaR/CVaR）", "ℹ️ 概要と免責事項"]
         if lang == "ja" else
         ["🏠 Home", "🔍 Portfolio Health Check", "🌏 Fundamental Rankings",
          "📊 Screener Rankings", "📈 Stock Chart", "🏆 Track Record",
          "📋 Open Positions", "🌡️ Sector Heat Map", "📜 Closed Trades Log",
-         "🎯 Strategy Breakdown", "ℹ️ About & Disclaimer"]
+         "🎯 Strategy Breakdown", "🔬 Model Validation", "📉 Risk (VaR/CVaR)", "ℹ️ About & Disclaimer"]
     )
     _nav_en = ["🏠 Home", "🔍 Portfolio Health Check", "🌏 Fundamental Rankings",
                "📊 Screener Rankings", "📈 Stock Chart", "🏆 Track Record",
                "📋 Open Positions", "🌡️ Sector Heat Map", "📜 Closed Trades Log",
-               "🎯 Strategy Breakdown", "ℹ️ About & Disclaimer"]
+               "🎯 Strategy Breakdown", "🔬 Model Validation", "📉 Risk (VaR/CVaR)", "ℹ️ About & Disclaimer"]
     _nav_sel = st.radio("nav", _nav_opts, label_visibility="collapsed")
     # always resolve to English key for page routing
     page = _nav_en[_nav_opts.index(_nav_sel)]
@@ -2501,6 +2645,10 @@ elif page == "🔍 Portfolio Health Check":
     if "phc_saved_portfolios" not in st.session_state:
         st.session_state["phc_saved_portfolios"] = {}
 
+    # apply any pending load before widgets are instantiated
+    if st.session_state.get("phc_load_pending"):
+        st.session_state["phc_custom_input"] = st.session_state.pop("phc_load_pending")
+
     selected_from_list = st.multiselect(
         T("phc_pick_label", lang),
         options=_universe_tickers,
@@ -2552,7 +2700,7 @@ elif page == "🔍 Portfolio Health Check":
                 _lc1, _lc2, _lc3 = st.columns([4, 1, 1])
                 _lc1.markdown(f"**{_pname}** — `{_ptickers}`")
                 if _lc2.button(T("phc_load_btn", lang), key=f"phc_load_{_pname}"):
-                    st.session_state["phc_custom_input"] = _ptickers
+                    st.session_state["phc_load_pending"] = _ptickers
                     st.rerun()
                 if _lc3.button(T("phc_delete_btn", lang), key=f"phc_del_{_pname}"):
                     del _saved[_pname]
@@ -3887,6 +4035,53 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                 f"</div>",
                 unsafe_allow_html=True,
             )
+
+        # ── run position drill-down (open + closed tables) ──────────────────
+        if selected_run is not None:
+            def _pnl_color(v):
+                if v > 0:   return "color:#3fb950;font-weight:bold"
+                if v < 0:   return "color:#f85149;font-weight:bold"
+                return "color:#e6edf3"
+
+            # open positions for this run
+            _run_open = (
+                df_open[df_open["run"] == selected_run].copy()
+                if not df_open.empty and "run" in df_open.columns
+                else pd.DataFrame()
+            )
+            if not _run_open.empty:
+                _open_hdr = (f"📂 Open Positions ({len(_run_open)})"
+                             if lang == "en" else f"📂 保有中 ({len(_run_open)}件)")
+                st.markdown(f"**{_open_hdr}**")
+                _od = _run_open[["asset","market","strategy","entry_date","days_held","pnl_pct","tier","ml_score"]].copy()
+                _od.columns = (
+                    ["Stock","Market","Strategy","Entry Date","Days Held","P&L %","Tier","ML"]
+                    if lang == "en" else
+                    ["銘柄","市場","戦略","エントリー日","保有日数","損益%","ティア","ML"]
+                )
+                _od["P&L %"] = _od["P&L %"].round(2)
+                st.dataframe(
+                    _od.style.map(_pnl_color, subset=["P&L %"]),
+                    use_container_width=True, hide_index=True,
+                )
+
+            # closed trades for this run
+            if not dc.empty:
+                _closed_hdr = (f"📋 Closed Trades ({len(dc)})"
+                               if lang == "en" else f"📋 決済済みトレード ({len(dc)}件)")
+                with st.expander(_closed_hdr, expanded=False):
+                    _cd = dc[["asset","market","strategy","entry_date","exit_date","days_held","pnl_pct","exit_reason","tier","ml_score"]].copy()
+                    _cd = _cd.sort_values("exit_date", ascending=False)
+                    _cd.columns = (
+                        ["Stock","Market","Strategy","Entry","Exit","Days","P&L %","Exit Reason","Tier","ML"]
+                        if lang == "en" else
+                        ["銘柄","市場","戦略","エントリー","決済日","日数","損益%","決済理由","ティア","ML"]
+                    )
+                    _cd["P&L %"] = _cd["P&L %"].round(2)
+                    st.dataframe(
+                        _cd.style.map(_pnl_color, subset=["P&L %"]),
+                        use_container_width=True, hide_index=True, height=400,
+                    )
 
         # handle runs with no closed trades yet
         if dc.empty and selected_run is not None:
@@ -5972,6 +6167,125 @@ elif page == "🎯 Strategy Breakdown":
     st.markdown("---")
     st.markdown(f"<div class='disclaimer-box'>{T('disclaimer', lang)}</div>",
                 unsafe_allow_html=True)
+
+
+elif page == "🔬 Model Validation":
+    st.markdown(f"# {T('pcv_title', lang)}")
+    st.caption(T("pcv_sub", lang))
+
+    with st.expander(T("pcv_guide_title", lang), expanded=False):
+        st.markdown(T("pcv_guide_body", lang))
+
+    _pcv = load_purged_cv_results()
+    _pcv_results = _pcv.get("results", {})
+
+    if not _pcv_results:
+        st.info(T("pcv_no_cache", lang))
+    else:
+        st.caption(f"{T('pcv_generated', lang)}: {_pcv.get('generated_at', '—')}")
+        st.markdown("---")
+
+        for _ticker, _r in _pcv_results.items():
+            _single = _r.get("single_split_auc")
+            _mean = _r.get("mean_auc")
+            _std = _r.get("std_auc")
+            _folds = _r.get("n_folds")
+            _market = _r.get("market", "—")
+
+            # Flag when the single-split score looks materially more optimistic
+            # than the purged CV mean (gap > 0.08 AUC is a meaningful divergence,
+            # not just fold-to-fold noise).
+            _optimistic = (
+                _single is not None and _mean is not None
+                and (_single - _mean) > 0.08
+            )
+            _flag_color = "#d29922" if _optimistic else "#3fb950"
+            _flag_text = T("pcv_flag_optimistic", lang) if _optimistic else T("pcv_flag_consistent", lang)
+
+            with st.container():
+                st.markdown(
+                    f"<div style='background:#161b22;border:1px solid #30363d;border-radius:8px;"
+                    f"padding:14px 18px;margin-bottom:10px'>"
+                    f"<div style='display:flex;justify-content:space-between;align-items:center'>"
+                    f"<span style='font-size:16px;font-weight:600;color:#e6edf3'>{_ticker}"
+                    f"<span style='color:#8b949e;font-size:12px;font-weight:400'> · {_market}</span></span>"
+                    f"<span style='color:{_flag_color};font-size:12px'>{_flag_text}</span>"
+                    f"</div>",
+                    unsafe_allow_html=True,
+                )
+                _c1, _c2, _c3, _c4 = st.columns(4)
+                _c1.metric(T("pcv_col_single", lang), f"{_single:.3f}" if _single is not None else "—")
+                _c2.metric(T("pcv_col_mean", lang), f"{_mean:.3f}" if _mean is not None else "—")
+                _c3.metric(T("pcv_col_std", lang), f"±{_std:.3f}" if _std is not None else "—")
+                _c4.metric(T("pcv_col_folds", lang), _folds if _folds is not None else "—")
+                st.markdown("</div>", unsafe_allow_html=True)
+
+        st.markdown("---")
+        st.caption(T("pcv_auc_note", lang))
+
+
+elif page == "📉 Risk (VaR/CVaR)":
+    st.markdown(f"# {T('var_title', lang)}")
+    st.caption(T("var_sub", lang))
+
+    with st.expander(T("var_guide_title", lang), expanded=False):
+        st.markdown(T("var_guide_body", lang))
+
+    _var = load_var_cvar_results()
+    _individual = _var.get("individual", {})
+    _portfolio = _var.get("portfolio_equal_weight", {})
+
+    if not _individual:
+        st.info(T("var_no_cache", lang))
+    else:
+        st.caption(f"{T('pcv_generated', lang)}: {_var.get('generated_at', '—')}")
+        st.markdown("---")
+
+        st.markdown(f"### {T('var_individual_hdr', lang)}")
+        for _ticker, _r in _individual.items():
+            _market = _r.get("market", "—")
+            with st.container():
+                st.markdown(
+                    f"<div style='background:#161b22;border:1px solid #30363d;border-radius:8px;"
+                    f"padding:14px 18px;margin-bottom:10px'>"
+                    f"<span style='font-size:16px;font-weight:600;color:#e6edf3'>{_ticker}"
+                    f"<span style='color:#8b949e;font-size:12px;font-weight:400'> · {_market}</span></span>",
+                    unsafe_allow_html=True,
+                )
+                _c1, _c2, _c3, _c4 = st.columns(4)
+                _c1.metric(f"{T('var_col_var', lang)} ({T('var_col_95', lang)})",
+                           f"{_r['var_95']}%" if _r.get('var_95') is not None else "—")
+                _c2.metric(f"{T('var_col_cvar', lang)} ({T('var_col_95', lang)})",
+                           f"{_r['cvar_95']}%" if _r.get('cvar_95') is not None else "—")
+                _c3.metric(f"{T('var_col_var', lang)} ({T('var_col_99', lang)})",
+                           f"{_r['var_99']}%" if _r.get('var_99') is not None else "—")
+                _c4.metric(f"{T('var_col_cvar', lang)} ({T('var_col_99', lang)})",
+                           f"{_r['cvar_99']}%" if _r.get('cvar_99') is not None else "—")
+                st.markdown("</div>", unsafe_allow_html=True)
+
+        st.markdown("---")
+        st.markdown(f"### {T('var_portfolio_hdr', lang)}")
+
+        if _portfolio.get("var_95") is not None:
+            st.markdown(
+                f"<div style='background:#0f2a1a;border:1px solid #3fb950;border-radius:8px;"
+                f"padding:14px 18px;margin-bottom:10px'>"
+                f"<span style='font-size:16px;font-weight:600;color:#e6edf3'>"
+                f"{', '.join(_portfolio.get('tickers', []))}</span>",
+                unsafe_allow_html=True,
+            )
+            _p1, _p2, _p3, _p4 = st.columns(4)
+            _p1.metric(f"{T('var_col_var', lang)} ({T('var_col_95', lang)})", f"{_portfolio['var_95']}%")
+            _p2.metric(f"{T('var_col_cvar', lang)} ({T('var_col_95', lang)})", f"{_portfolio['cvar_95']}%")
+            _p3.metric(f"{T('var_col_var', lang)} ({T('var_col_99', lang)})", f"{_portfolio['var_99']}%")
+            _p4.metric(f"{T('var_col_cvar', lang)} ({T('var_col_99', lang)})", f"{_portfolio['cvar_99']}%")
+            st.markdown("</div>", unsafe_allow_html=True)
+
+            st.markdown(
+                T("var_diversification_note", lang,
+                  naive=_portfolio.get("naive_avg_var_95", "—"),
+                  actual=_portfolio.get("var_95", "—"))
+            )
 
 
 elif page == "ℹ️ About & Disclaimer":

@@ -1,0 +1,118 @@
+{
+  "generated_at": "2026-09-02T23:03:32",
+  "n_splits": 5,
+  "results": {
+    "AAPL": {
+      "market": "US",
+      "n_folds": 5,
+      "fold_aucs": [
+        0.5324,
+        0.6801,
+        0.6329,
+        0.4542,
+        0.6786
+      ],
+      "mean_auc": 0.5956,
+      "std_auc": 0.0888,
+      "single_split_auc": 0.7390524967989756
+    },
+    "MSFT": {
+      "market": "US",
+      "n_folds": 5,
+      "fold_aucs": [
+        0.6211,
+        0.6286,
+        0.4502,
+        0.5526,
+        0.4563
+      ],
+      "mean_auc": 0.5418,
+      "std_auc": 0.077,
+      "single_split_auc": 0.3845122360040228
+    },
+    "JPM": {
+      "market": "US",
+      "n_folds": 5,
+      "fold_aucs": [
+        0.4136,
+        0.417,
+        0.5453,
+        0.6051,
+        0.427
+      ],
+      "mean_auc": 0.4816,
+      "std_auc": 0.0789,
+      "single_split_auc": 0.2763478038161096
+    },
+    "XOM": {
+      "market": "US",
+      "n_folds": 5,
+      "fold_aucs": [
+        0.4653,
+        0.5414,
+        0.5435,
+        0.5038,
+        0.4018
+      ],
+      "mean_auc": 0.4912,
+      "std_auc": 0.0531,
+      "single_split_auc": 0.4816106097894449
+    },
+    "CBA.AX": {
+      "market": "ASX",
+      "n_folds": 5,
+      "fold_aucs": [
+        0.4528,
+        0.6062,
+        0.5325,
+        0.2955,
+        0.4206
+      ],
+      "mean_auc": 0.4615,
+      "std_auc": 0.1052,
+      "single_split_auc": 0.48546440009854647
+    },
+    "BHP.AX": {
+      "market": "ASX",
+      "n_folds": 5,
+      "fold_aucs": [
+        0.4984,
+        0.511,
+        0.5079,
+        0.4914,
+        0.5921
+      ],
+      "mean_auc": 0.5202,
+      "std_auc": 0.0366,
+      "single_split_auc": 0.6557465477560415
+    },
+    "7203.T": {
+      "market": "JPX",
+      "n_folds": 5,
+      "fold_aucs": [
+        0.5763,
+        0.4887,
+        0.4701,
+        0.5711,
+        0.5658
+      ],
+      "mean_auc": 0.5344,
+      "std_auc": 0.0454,
+      "single_split_auc": 0.5918010752688172
+    },
+    "6758.T": {
+      "market": "JPX",
+      "n_folds": 5,
+      "fold_aucs": [
+        0.2949,
+        0.4194,
+        0.5935,
+        0.4185,
+        0.4041
+      ],
+      "mean_auc": 0.4261,
+      "std_auc": 0.0957,
+      "single_split_auc": 0.39512261028169965
+    }
+  }
+}
