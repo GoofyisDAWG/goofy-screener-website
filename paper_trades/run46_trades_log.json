@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 354.95,
-      "unrealised_pnl_pct": -1.345,
-      "days_held": 16,
+      "current_price": 356.22,
+      "unrealised_pnl_pct": -0.992,
+      "days_held": 17,
       "peak_pnl_pct": 1.498,
       "checkpoints": {
         "4": 0.848,
@@ -35,32 +35,13 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 3021.0,
-      "unrealised_pnl_pct": -1.692,
-      "days_held": 6,
-      "peak_pnl_pct": 0.0,
+      "current_price": 3275.0,
+      "unrealised_pnl_pct": 6.573,
+      "days_held": 7,
+      "peak_pnl_pct": 6.573,
       "checkpoints": {
         "4": -0.814
       }
-    },
-    {
-      "asset": "CAT",
-      "market": "US",
-      "entry_date": "2026-08-27",
-      "entry_price": 821.93,
-      "hold_days_target": 20,
-      "size_pct": 4.3,
-      "ml_score": 92.7,
-      "val_auc": 0.6,
-      "strategy": "MACD",
-      "tier": "A",
-      "score": 63,
-      "p7_verdict": "TRADE",
-      "current_price": 779.16,
-      "unrealised_pnl_pct": -5.204,
-      "days_held": 3,
-      "peak_pnl_pct": 0.0,
-      "checkpoints": {}
     },
     {
       "asset": "AAPL",
@@ -75,9 +56,9 @@
       "tier": "A",
       "score": 64,
       "p7_verdict": "TRADE",
-      "current_price": 325.13,
-      "unrealised_pnl_pct": 3.354,
-      "days_held": 2,
+      "current_price": 324.96,
+      "unrealised_pnl_pct": 3.3,
+      "days_held": 3,
       "peak_pnl_pct": 3.354,
       "checkpoints": {}
     },
@@ -94,11 +75,13 @@
       "tier": "B",
       "score": 34,
       "p7_verdict": "TRADE",
-      "current_price": 5814.0,
-      "unrealised_pnl_pct": -0.086,
-      "days_held": 3,
-      "peak_pnl_pct": 1.976,
-      "checkpoints": {}
+      "current_price": 6030.0,
+      "unrealised_pnl_pct": 3.626,
+      "days_held": 4,
+      "peak_pnl_pct": 3.626,
+      "checkpoints": {
+        "4": 3.626
+      }
     },
     {
       "asset": "A2M.AX",
@@ -113,9 +96,9 @@
       "tier": "B",
       "score": 39,
       "p7_verdict": "TRADE",
-      "current_price": 6.79,
-      "unrealised_pnl_pct": -1.02,
-      "days_held": 2,
+      "current_price": 6.56,
+      "unrealised_pnl_pct": -4.373,
+      "days_held": 3,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -132,10 +115,10 @@
       "tier": "A",
       "score": 46,
       "p7_verdict": "TRADE",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 765.16,
+      "unrealised_pnl_pct": 0.402,
       "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "peak_pnl_pct": 0.402,
       "checkpoints": {}
     }
   ],
@@ -485,6 +468,31 @@
       "win": false,
       "exit_reason": "STOP_LOSS",
       "checkpoints": {}
+    },
+    {
+      "asset": "CAT",
+      "market": "US",
+      "entry_date": "2026-08-27",
+      "entry_price": 821.93,
+      "hold_days_target": 20,
+      "size_pct": 4.3,
+      "ml_score": 92.7,
+      "val_auc": 0.6,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 63,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": -3.607
+      },
+      "exit_date": "2026-09-03",
+      "exit_price": 792.28,
+      "days_held": 5,
+      "pnl_pct": -3.607,
+      "peak_pnl_pct": 0.0,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
     }
   ],
   "metadata": {

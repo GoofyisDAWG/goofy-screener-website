@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 46,
       "p7_verdict": "TRADE",
-      "current_price": 761.78,
-      "unrealised_pnl_pct": -1.455,
-      "days_held": 16,
+      "current_price": 765.16,
+      "unrealised_pnl_pct": -1.018,
+      "days_held": 17,
       "peak_pnl_pct": 0.627,
       "checkpoints": {
         "4": 0.428,
@@ -35,9 +35,9 @@
       "tier": "B",
       "score": 37,
       "p7_verdict": "TRADE",
-      "current_price": 527.75,
-      "unrealised_pnl_pct": -2.085,
-      "days_held": 16,
+      "current_price": 530.62,
+      "unrealised_pnl_pct": -1.553,
+      "days_held": 17,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -0.489,
@@ -57,10 +57,10 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 3021.0,
-      "unrealised_pnl_pct": -1.564,
-      "days_held": 7,
-      "peak_pnl_pct": 0.13,
+      "current_price": 3275.0,
+      "unrealised_pnl_pct": 6.712,
+      "days_held": 8,
+      "peak_pnl_pct": 6.712,
       "checkpoints": {
         "4": -0.033
       }
@@ -78,32 +78,13 @@
       "tier": "A",
       "score": 64,
       "p7_verdict": "TRADE",
-      "current_price": 325.13,
-      "unrealised_pnl_pct": 4.914,
-      "days_held": 5,
+      "current_price": 324.96,
+      "unrealised_pnl_pct": 4.86,
+      "days_held": 6,
       "peak_pnl_pct": 4.914,
       "checkpoints": {
         "4": 2.243
       }
-    },
-    {
-      "asset": "BAC",
-      "market": "US",
-      "entry_date": "2026-08-27",
-      "entry_price": 61.325,
-      "hold_days_target": 20,
-      "size_pct": 2.2,
-      "ml_score": 66.5,
-      "val_auc": 0.545,
-      "strategy": "MACD",
-      "tier": "B",
-      "score": 67,
-      "p7_verdict": "TRADE",
-      "current_price": 61.99,
-      "unrealised_pnl_pct": 1.084,
-      "days_held": 3,
-      "peak_pnl_pct": 1.084,
-      "checkpoints": {}
     },
     {
       "asset": "AVGO",
@@ -118,9 +99,9 @@
       "tier": "B",
       "score": 45,
       "p7_verdict": "TRADE",
-      "current_price": 369.68,
-      "unrealised_pnl_pct": -0.501,
-      "days_held": 2,
+      "current_price": 367.24,
+      "unrealised_pnl_pct": -1.157,
+      "days_held": 3,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -137,9 +118,9 @@
       "tier": "B",
       "score": 38,
       "p7_verdict": "TRADE",
-      "current_price": 147.63,
-      "unrealised_pnl_pct": -6.391,
-      "days_held": 2,
+      "current_price": 148.98,
+      "unrealised_pnl_pct": -5.535,
+      "days_held": 3,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -156,11 +137,13 @@
       "tier": "B",
       "score": 34,
       "p7_verdict": "TRADE",
-      "current_price": 5814.0,
-      "unrealised_pnl_pct": -0.086,
-      "days_held": 3,
-      "peak_pnl_pct": 1.976,
-      "checkpoints": {}
+      "current_price": 6030.0,
+      "unrealised_pnl_pct": 3.626,
+      "days_held": 4,
+      "peak_pnl_pct": 3.626,
+      "checkpoints": {
+        "4": 3.626
+      }
     },
     {
       "asset": "8015.T",
@@ -175,9 +158,9 @@
       "tier": "A",
       "score": 62,
       "p7_verdict": "TRADE",
-      "current_price": 7538.0,
-      "unrealised_pnl_pct": -2.193,
-      "days_held": 1,
+      "current_price": 7673.0,
+      "unrealised_pnl_pct": -0.441,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     }
@@ -750,6 +733,31 @@
       "days_held": 5,
       "pnl_pct": 11.259,
       "peak_pnl_pct": 12.779,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "BAC",
+      "market": "US",
+      "entry_date": "2026-08-27",
+      "entry_price": 61.325,
+      "hold_days_target": 20,
+      "size_pct": 2.2,
+      "ml_score": 66.5,
+      "val_auc": 0.545,
+      "strategy": "MACD",
+      "tier": "B",
+      "score": 67,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 2.079
+      },
+      "exit_date": "2026-09-03",
+      "exit_price": 62.6,
+      "days_held": 5,
+      "pnl_pct": 2.079,
+      "peak_pnl_pct": 2.079,
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"

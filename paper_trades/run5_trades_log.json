@@ -13,30 +13,13 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 354.95,
-      "unrealised_pnl_pct": 0.37,
-      "days_held": 3,
-      "peak_pnl_pct": 0.673,
-      "checkpoints": {}
-    },
-    {
-      "asset": "MDLZ",
-      "market": "US",
-      "entry_date": "2026-08-27",
-      "entry_price": 62.65,
-      "hold_days_target": 20,
-      "size_pct": 9.4,
-      "ml_score": 50.8,
-      "val_auc": 0.535,
-      "strategy": "RSI",
-      "tier": "B",
-      "score": 34,
-      "p7_verdict": "ML HOLD",
-      "current_price": 61.61,
-      "unrealised_pnl_pct": -1.66,
-      "days_held": 3,
-      "peak_pnl_pct": 0.0,
-      "checkpoints": {}
+      "current_price": 356.22,
+      "unrealised_pnl_pct": 0.73,
+      "days_held": 4,
+      "peak_pnl_pct": 0.73,
+      "checkpoints": {
+        "4": 0.73
+      }
     },
     {
       "asset": "AME",
@@ -51,9 +34,9 @@
       "tier": "B",
       "score": 32,
       "p7_verdict": "TRADE",
-      "current_price": 231.32,
-      "unrealised_pnl_pct": -5.068,
-      "days_held": 2,
+      "current_price": 233.19,
+      "unrealised_pnl_pct": -4.301,
+      "days_held": 3,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -70,11 +53,13 @@
       "tier": "B",
       "score": 39,
       "p7_verdict": "TRADE",
-      "current_price": 3028.0,
-      "unrealised_pnl_pct": 1.696,
-      "days_held": 3,
+      "current_price": 2997.5,
+      "unrealised_pnl_pct": 0.672,
+      "days_held": 4,
       "peak_pnl_pct": 1.696,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": 0.672
+      }
     },
     {
       "asset": "GLD",
@@ -89,9 +74,9 @@
       "tier": "A",
       "score": 49,
       "p7_verdict": "TRADE",
-      "current_price": 396.75,
-      "unrealised_pnl_pct": -2.969,
-      "days_held": 2,
+      "current_price": 402.78,
+      "unrealised_pnl_pct": -1.494,
+      "days_held": 3,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -108,8 +93,8 @@
       "tier": "B",
       "score": 36,
       "p7_verdict": "ML HOLD",
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 34.86,
+      "unrealised_pnl_pct": -0.641,
       "days_held": 1,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
@@ -127,11 +112,39 @@
       "tier": "A",
       "score": 54,
       "p7_verdict": "TRADE",
-      "current_price": 64.15,
-      "unrealised_pnl_pct": -0.881,
-      "days_held": 1,
+      "current_price": 63.59,
+      "unrealised_pnl_pct": -1.746,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
+    },
+    {
+      "asset": "MDLZ",
+      "market": "US",
+      "entry_date": "2026-09-03",
+      "entry_price": 62.45,
+      "hold_days_target": 20,
+      "size_pct": 10.4,
+      "ml_score": 51.2,
+      "val_auc": 0.523,
+      "strategy": "RSI",
+      "tier": "B",
+      "score": 34,
+      "p7_verdict": "ML HOLD"
+    },
+    {
+      "asset": "7203.T",
+      "market": "JPX",
+      "entry_date": "2026-09-03",
+      "entry_price": 3117.0,
+      "hold_days_target": 20,
+      "size_pct": 3.8,
+      "ml_score": 50.6,
+      "val_auc": 0.511,
+      "strategy": "RSI",
+      "tier": "B",
+      "score": 58,
+      "p7_verdict": "ML HOLD"
     }
   ],
   "closed": [
@@ -2559,13 +2572,38 @@
       "win": false,
       "exit_reason": "STOP_LOSS",
       "checkpoints": {}
+    },
+    {
+      "asset": "MDLZ",
+      "market": "US",
+      "entry_date": "2026-08-27",
+      "entry_price": 62.65,
+      "hold_days_target": 20,
+      "size_pct": 9.4,
+      "ml_score": 50.8,
+      "val_auc": 0.535,
+      "strategy": "RSI",
+      "tier": "B",
+      "score": 34,
+      "p7_verdict": "ML HOLD",
+      "checkpoints": {
+        "4": -0.319
+      },
+      "exit_date": "2026-09-03",
+      "exit_price": 62.45,
+      "days_held": 5,
+      "pnl_pct": -0.319,
+      "peak_pnl_pct": 0.0,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
     }
   ],
   "metadata": {
     "run": 5,
     "label": "All 5 Ideas: Stop + No MACD + Day-10 Cut + MA50 + ML Off (Run 5)",
     "created": "2026-06-13",
-    "total_logged": 103,
+    "total_logged": 105,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
