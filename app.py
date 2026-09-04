@@ -235,13 +235,13 @@ def load_trade_history() -> pd.DataFrame:
     """Load all closed trades across all runs for track record."""
     def fix_nan(s):
         s = re.sub(r'\bNaN\b', 'null', s)
+        s = re.sub(r'-Infinity\b', 'null', s)   # must run before the bare Infinity pattern below
         s = re.sub(r'\bInfinity\b', 'null', s)
         return s
     rows = []
-    for run in range(1, 64):
-        p = TRADES_DIR / f"run{run}_trades_log.json"
-        if not p.exists():
-            continue
+    for p in sorted(TRADES_DIR.glob("run*_trades_log.json"),
+                     key=lambda f: int(re.search(r'\d+', f.stem).group())):
+        run = int(re.search(r'\d+', p.stem).group())
         try:
             data = json.loads(fix_nan(p.read_text()))
         except Exception:
@@ -272,13 +272,13 @@ def load_open_positions() -> pd.DataFrame:
     """Load all open trades with current unrealised P&L and full metadata."""
     def fix_nan(s):
         s = re.sub(r'\bNaN\b', 'null', s)
+        s = re.sub(r'-Infinity\b', 'null', s)   # must run before the bare Infinity pattern below
         s = re.sub(r'\bInfinity\b', 'null', s)
         return s
     rows = []
-    for run in range(1, 64):
-        p = TRADES_DIR / f"run{run}_trades_log.json"
-        if not p.exists():
-            continue
+    for p in sorted(TRADES_DIR.glob("run*_trades_log.json"),
+                     key=lambda f: int(re.search(r'\d+', f.stem).group())):
+        run = int(re.search(r'\d+', p.stem).group())
         try:
             data = json.loads(fix_nan(p.read_text()))
         except Exception:
@@ -846,7 +846,7 @@ _TR = {
         "exp_level":      "**Your experience level**",
         "tip_beginner":   "💡 <b>New here?</b> Start with <b>Fundamental Rankings</b> — see all stocks ranked by financial health, no jargon. Then use <b>Portfolio Health Check</b> to analyse stocks you already own.",
         "tip_inter":      "💡 <b>Tip:</b> Check <b>Screener Rankings</b> for today's signals, then use <b>Stock Chart</b> to see the strategy driving each signal.",
-        "tip_advanced":   "💡 <b>Tip:</b> <b>Track Record</b> shows all 37 live paper trade runs. Compare win rates across runs to see which config is outperforming.",
+        "tip_advanced":   "💡 <b>Tip:</b> <b>Track Record</b> shows all live paper trade runs. Compare win rates across runs to see which config is outperforming.",
         "footer_note":    "Signals & fundamentals: computed nightly via yfinance, cached as JSON · Charts: live yfinance · Not financial advice.",
         # ── screener rankings ──
         "sr_title":       "### 📊 Screener Rankings",
@@ -1162,7 +1162,7 @@ _TR = {
         "exp_level":      "**あなたのレベル**",
         "tip_beginner":   "💡 <b>初めての方へ：</b>まず<b>ファンダメンタルランキング</b>をチェック — 財務健全性でランク付けされた全銘柄が一目でわかります。次に<b>ポートフォリオ健全性チェック</b>で保有銘柄を分析しましょう。",
         "tip_inter":      "💡 <b>ヒント：</b><b>スクリーナーランキング</b>で本日のシグナルを確認し、<b>株価チャート</b>で各シグナルの背景にある戦略を見てみましょう。",
-        "tip_advanced":   "💡 <b>ヒント：</b><b>トラックレコード</b>では16本のライブペーパートレード実績を確認できます。各ランの勝率を比較して、どの設定が優れているか分析しましょう。",
+        "tip_advanced":   "💡 <b>ヒント：</b><b>トラックレコード</b>では全ライブペーパートレード実績を確認できます。各ランの勝率を比較して、どの設定が優れているか分析しましょう。",
         "footer_note":    "シグナル・ファンダメンタルズ: yfinanceで毎晩計算しJSONにキャッシュ · チャート: yfinanceリアルタイム取得 · 投資アドバイスではありません。",
         # ── screener rankings ──
         "sr_title":       "### 📊 スクリーナー ランキング",
@@ -3582,7 +3582,8 @@ elif page == "📊 Screener Rankings":
     st.markdown("")
 
     if df_universe.empty:
-        st.warning("No screener data found. Run the screener first.")
+        st.warning("No screener data found. Run the screener first." if lang == "en"
+                   else "スクリーナーのデータが見つかりません。スクリーナーを実行してください。")
     else:
         verdict_col = "P7 Verdict" if "P7 Verdict" in df_universe.columns else "Today's Verdict"
 
@@ -4184,7 +4185,9 @@ The leaderboard above updates automatically — the top 3 are the runs producing
         _so_label = "Sortino Ratio"  if lang == "en" else "ソルティノレシオ"
         _so_sub   = "ann. return ÷ downside vol only" if lang == "en" else "年率リターン ÷ 下方ボラのみ"
         _r2c1, _r2c2, _r2c3, _r2c4 = st.columns([1, 1, 1, 3])
-        _pf_color = "#3fb950" if pf_str not in ("—", "0.00") and pf != 0 and (pf == float("inf") or pf >= 1.0) else "#f85149"
+        _pf_color = ("#e6edf3" if pf_str == "—" else
+                     "#3fb950" if pf_str != "0.00" and pf != 0 and (pf == float("inf") or pf >= 1.0) else
+                     "#f85149")
         _sh_color = "#3fb950" if sharpe_str != "—" and float(sharpe_str) >= 1.0 else "#e6a31a" if sharpe_str != "—" and float(sharpe_str) > 0 else "#f85149" if sharpe_str != "—" else "#e6edf3"
         _so_color = "#3fb950" if sortino_str != "—" and float(sortino_str) >= 1.0 else "#e6a31a" if sortino_str != "—" and float(sortino_str) > 0 else "#f85149" if sortino_str != "—" else "#e6edf3"
         _r2c1.markdown(
@@ -5956,7 +5959,15 @@ elif page == "🎯 Strategy Breakdown":
 
         # ── champion cards ─────────────────────────────────────────────────────
         st.markdown(T("sb_champs", lang))
-        st.caption(T("sb_champs_sub", lang))
+        _champ_trade_total = int(_sb_df[_sb_df["is_champion"]]["trades"].sum())
+        _champs_sub = (
+            f"These 4 strategies show consistent positive results across {_champ_trade_total:,}+ live trades. "
+            f"All other strategies have been blocked from new runs."
+            if lang == "en" else
+            f"これら4戦略は{_champ_trade_total:,}件超のライブトレードで一貫したプラス結果を示しています。"
+            f"他の全戦略は新規ランからブロックされています。"
+        )
+        st.caption(_champs_sub)
         st.markdown("")
 
         _champ_rows = _sb_df[_sb_df["is_champion"]]
@@ -6064,6 +6075,9 @@ elif page == "🎯 Strategy Breakdown":
         # ── blocked strategies (live from df_history) ──────────────────────────
         st.markdown(T("sb_blocked", lang))
         st.caption(T("sb_blocked_sub", lang))
+        _im_row = _sb_df[_sb_df["strategy"] == "Institutional Momentum"]
+        _im_n   = int(_im_row.iloc[0]["trades"]) if not _im_row.empty else 0
+        _im_wr  = _im_row.iloc[0]["win_rate"] if not _im_row.empty else 0
         _blocked_descs = {
             "Relative Strength": (
                 "Near-zero expectancy — wins aren't reliably large enough to cover losses."
@@ -6071,11 +6085,11 @@ elif page == "🎯 Strategy Breakdown":
                 "期待値がほぼゼロ。勝ちが損失を安定してカバーできていない。"
             ),
             "Institutional Momentum": (
-                "Blocked after early live trades showed heavy losses. Now marginally positive "
-                "(125 trades, 39% win rate) but still below the bar for reinstatement."
+                f"Blocked after early live trades showed heavy losses. Now marginally positive "
+                f"({_im_n} trades, {_im_wr:.0f}% win rate) but still below the bar for reinstatement."
                 if lang == "en" else
-                "初期のライブトレードで大きな損失が確認されブロック。現在はわずかにプラス"
-                "（125取引、勝率39%）だが、復活の基準にはまだ達していない。"
+                f"初期のライブトレードで大きな損失が確認されブロック。現在はわずかにプラス"
+                f"（{_im_n}取引、勝率{_im_wr:.0f}%）だが、復活の基準にはまだ達していない。"
             ),
         }
         for _bn in _BLOCKED:
@@ -6142,12 +6156,14 @@ elif page == "🎯 Strategy Breakdown":
                      "初期結果はマイナスだが、サンプルが少なく判断保留。データ収集のため限定的な設定で継続稼働中。")
             st.markdown(f"**{_wlbl}**")
             st.caption(_wcap)
+            _rsi2_row = _sb_df[_sb_df["strategy"] == "RSI(2)"]
+            _rsi2_wr  = _rsi2_row.iloc[0]["win_rate"] if not _rsi2_row.empty else 0
             _watch_descs = {
                 "RSI(2)": (
-                    "Larry Connors 2-period RSI strategy. Win rate has recovered to 63%, but avg P&L is "
-                    "still slightly negative — wins are too small to offset losses. Watching R22 for more data."
+                    f"Larry Connors 2-period RSI strategy. Win rate has recovered to {_rsi2_wr:.0f}%, but avg P&L is "
+                    f"still slightly negative — wins are too small to offset losses. Watching R22 for more data."
                     if lang == "en" else
-                    "ラリー・コナーズの2期間RSI戦略。勝率は63%まで回復しましたが、平均損益はまだ僅かにマイナスです"
+                    f"ラリー・コナーズの2期間RSI戦略。勝率は{_rsi2_wr:.0f}%まで回復しましたが、平均損益はまだ僅かにマイナスです"
                     " — 勝ちトレードが損失を相殺するには小さすぎます。R22で追加データ収集中。"
                 ),
             }
@@ -6384,7 +6400,7 @@ take-profit, or signal reversal.
 このスクリーナーはプロの取引システムではなく、**学習プロジェクト**です。
 以下の制限事項をご理解ください：
 
-- **サンプル蓄積中** — 全ランで600件超のクローズドトレード。古いランほどデータが多く、新しいランは初期指標として扱ってください。
+- **サンプル蓄積中** — 全ランで3,000件超のクローズドトレード。古いランほどデータが多く、新しいランは初期指標として扱ってください。
 - **無料データ** — yfinance（Yahoo Finance）を使用。データにはギャップ、誤り、遅延が生じる場合があります。
 - **ファンダメンタルデータなし** — 純粋にテクニカル/統計シグナル。業績・バリュエーション・ニュースは考慮しない。
 - **ペーパートレード** — 結果はシミュレーション。スリッページ・手数料・税金は含まない。
@@ -6397,7 +6413,7 @@ take-profit, or signal reversal.
 This screener is a **learning project**, not a professional trading system.
 Be aware of its limitations:
 
-- **Growing sample size** — 600+ closed trades across all runs, with newer runs still accumulating data. Early runs have the most data; treat newer runs as indicators only.
+- **Growing sample size** — 3,000+ closed trades across all runs, with newer runs still accumulating data. Early runs have the most data; treat newer runs as indicators only.
 - **Free data** — uses yfinance (Yahoo Finance). Data can have gaps, errors, and delays.
 - **No fundamental data** — purely technical/statistical signals. Ignores earnings, valuation, news.
 - **Paper trading** — results are simulated, not real. Slippage, brokerage, and taxes are not modelled.
