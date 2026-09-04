@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 356.22,
-      "unrealised_pnl_pct": -0.992,
-      "days_held": 17,
+      "current_price": 362.06,
+      "unrealised_pnl_pct": 0.631,
+      "days_held": 18,
       "peak_pnl_pct": 1.498,
       "checkpoints": {
         "4": 0.848,
@@ -35,9 +35,9 @@
       "tier": "B",
       "score": 44,
       "p7_verdict": "TRADE",
-      "current_price": 3275.0,
-      "unrealised_pnl_pct": 6.573,
-      "days_held": 7,
+      "current_price": 3254.0,
+      "unrealised_pnl_pct": 5.89,
+      "days_held": 8,
       "peak_pnl_pct": 6.573,
       "checkpoints": {
         "4": -0.814
@@ -56,11 +56,13 @@
       "tier": "A",
       "score": 64,
       "p7_verdict": "TRADE",
-      "current_price": 324.96,
-      "unrealised_pnl_pct": 3.3,
-      "days_held": 3,
-      "peak_pnl_pct": 3.354,
-      "checkpoints": {}
+      "current_price": 328.21,
+      "unrealised_pnl_pct": 4.333,
+      "days_held": 4,
+      "peak_pnl_pct": 4.333,
+      "checkpoints": {
+        "4": 4.333
+      }
     },
     {
       "asset": "6305.T",
@@ -75,9 +77,9 @@
       "tier": "B",
       "score": 34,
       "p7_verdict": "TRADE",
-      "current_price": 6030.0,
-      "unrealised_pnl_pct": 3.626,
-      "days_held": 4,
+      "current_price": 5977.0,
+      "unrealised_pnl_pct": 2.715,
+      "days_held": 5,
       "peak_pnl_pct": 3.626,
       "checkpoints": {
         "4": 3.626
@@ -96,11 +98,13 @@
       "tier": "B",
       "score": 39,
       "p7_verdict": "TRADE",
-      "current_price": 6.56,
-      "unrealised_pnl_pct": -4.373,
-      "days_held": 3,
+      "current_price": 6.59,
+      "unrealised_pnl_pct": -3.936,
+      "days_held": 4,
       "peak_pnl_pct": 0.0,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": -3.936
+      }
     },
     {
       "asset": "SPY",
@@ -115,11 +119,39 @@
       "tier": "A",
       "score": 46,
       "p7_verdict": "TRADE",
-      "current_price": 765.16,
-      "unrealised_pnl_pct": 0.402,
-      "days_held": 1,
-      "peak_pnl_pct": 0.402,
+      "current_price": 773.17,
+      "unrealised_pnl_pct": 1.453,
+      "days_held": 2,
+      "peak_pnl_pct": 1.453,
       "checkpoints": {}
+    },
+    {
+      "asset": "NST.AX",
+      "market": "ASX",
+      "entry_date": "2026-09-04",
+      "entry_price": 23.17,
+      "hold_days_target": 20,
+      "size_pct": 3.4,
+      "ml_score": 93.8,
+      "val_auc": 0.527,
+      "strategy": "RSI(2)",
+      "tier": "B",
+      "score": 27,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "2897.T",
+      "market": "JPX",
+      "entry_date": "2026-09-04",
+      "entry_price": 2980.5,
+      "hold_days_target": 20,
+      "size_pct": 8.7,
+      "ml_score": 92.1,
+      "val_auc": 0.44,
+      "strategy": "RSI",
+      "tier": "B",
+      "score": 39,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -499,7 +531,7 @@
     "run": 46,
     "label": "Extreme Conviction: All Strategies, ML\u226590, Wide Stop (Run 46)",
     "created": "2026-07-20",
-    "total_logged": 21,
+    "total_logged": 23,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
