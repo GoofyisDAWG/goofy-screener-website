@@ -13,9 +13,9 @@
       "tier": "B",
       "score": 32,
       "p7_verdict": "TRADE",
-      "current_price": 234.2,
-      "unrealised_pnl_pct": -3.886,
-      "days_held": 4,
+      "current_price": 237.72,
+      "unrealised_pnl_pct": -2.442,
+      "days_held": 5,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -3.886
@@ -34,11 +34,13 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 362.06,
-      "unrealised_pnl_pct": 1.711,
-      "days_held": 3,
+      "current_price": 358.64,
+      "unrealised_pnl_pct": 0.75,
+      "days_held": 4,
       "peak_pnl_pct": 1.711,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": 0.75
+      }
     },
     {
       "asset": "GLD",
@@ -53,11 +55,13 @@
       "tier": "A",
       "score": 49,
       "p7_verdict": "TRADE",
-      "current_price": 410.22,
-      "unrealised_pnl_pct": 0.89,
-      "days_held": 3,
+      "current_price": 406.77,
+      "unrealised_pnl_pct": 0.042,
+      "days_held": 4,
       "peak_pnl_pct": 0.89,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": 0.042
+      }
     },
     {
       "asset": "7741.T",
@@ -72,11 +76,41 @@
       "tier": "B",
       "score": 35,
       "p7_verdict": "TRADE",
-      "current_price": 24140.0,
-      "unrealised_pnl_pct": -3.013,
-      "days_held": 3,
+      "current_price": 24145.0,
+      "unrealised_pnl_pct": -2.993,
+      "days_held": 4,
       "peak_pnl_pct": 0.0,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": -2.993
+      }
+    },
+    {
+      "asset": "NST.AX",
+      "market": "ASX",
+      "entry_date": "2026-09-07",
+      "entry_price": 23.29,
+      "hold_days_target": 20,
+      "size_pct": 10.2,
+      "ml_score": 94.1,
+      "val_auc": 0.524,
+      "strategy": "RSI",
+      "tier": "B",
+      "score": 52,
+      "p7_verdict": "TRADE"
+    },
+    {
+      "asset": "2897.T",
+      "market": "JPX",
+      "entry_date": "2026-09-07",
+      "entry_price": 2931.0,
+      "hold_days_target": 20,
+      "size_pct": 10.0,
+      "ml_score": 88.4,
+      "val_auc": 0.44,
+      "strategy": "RSI",
+      "tier": "B",
+      "score": 39,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -434,7 +468,7 @@
     "run": 28,
     "label": "Phase 10A: Proven Trio + Tight Pullback 5% + RSI-65 Gate + 15d Cooldown (Run 28)",
     "created": "2026-07-18",
-    "total_logged": 17,
+    "total_logged": 19,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,

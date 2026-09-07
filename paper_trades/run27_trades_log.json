@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 362.06,
-      "unrealised_pnl_pct": 1.344,
-      "days_held": 10,
+      "current_price": 358.64,
+      "unrealised_pnl_pct": 0.386,
+      "days_held": 11,
       "peak_pnl_pct": 1.344,
       "checkpoints": {
         "4": -0.213,
@@ -35,9 +35,9 @@
       "tier": "B",
       "score": 39,
       "p7_verdict": "TRADE",
-      "current_price": 2980.5,
-      "unrealised_pnl_pct": -0.401,
-      "days_held": 4,
+      "current_price": 2931.0,
+      "unrealised_pnl_pct": -2.055,
+      "days_held": 5,
       "peak_pnl_pct": 1.186,
       "checkpoints": {
         "4": -0.401
@@ -56,9 +56,9 @@
       "tier": "B",
       "score": 34,
       "p7_verdict": "TRADE",
-      "current_price": 61.45,
-      "unrealised_pnl_pct": -0.26,
-      "days_held": 1,
+      "current_price": 61.28,
+      "unrealised_pnl_pct": -0.536,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -75,11 +75,25 @@
       "tier": "A",
       "score": 49,
       "p7_verdict": "TRADE",
-      "current_price": 410.22,
-      "unrealised_pnl_pct": 3.395,
-      "days_held": 1,
+      "current_price": 406.77,
+      "unrealised_pnl_pct": 2.526,
+      "days_held": 2,
       "peak_pnl_pct": 3.395,
       "checkpoints": {}
+    },
+    {
+      "asset": "AME",
+      "market": "US",
+      "entry_date": "2026-09-07",
+      "entry_price": 237.72,
+      "hold_days_target": 20,
+      "size_pct": 1.3,
+      "ml_score": 83.9,
+      "val_auc": 0.561,
+      "strategy": "MA Crossover",
+      "tier": "B",
+      "score": 30,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -288,7 +302,7 @@
     "run": 27,
     "label": "All-In Premium: Proven Trio + Fund Gate + Vol\u22651.0\u00d7 + ML\u226580 (Run 27)",
     "created": "2026-07-16",
-    "total_logged": 12,
+    "total_logged": 13,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
