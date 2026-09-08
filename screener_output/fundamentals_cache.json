@@ -7886,7 +7886,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-07T15:18:11.696663"
+    "fetched_at": "2026-09-08T13:54:02.764641"
   },
   "QQQ": {
     "ticker": "QQQ",
@@ -7895,7 +7895,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-07T15:18:11.696693"
+    "fetched_at": "2026-09-08T13:54:02.764651"
   },
   "GLD": {
     "ticker": "GLD",
@@ -7904,7 +7904,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-07T15:18:11.696698"
+    "fetched_at": "2026-09-08T13:54:02.764654"
   },
   "TLT": {
     "ticker": "TLT",
@@ -7913,7 +7913,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-07T15:18:11.696703"
+    "fetched_at": "2026-09-08T13:54:02.764656"
   },
   "IWM": {
     "ticker": "IWM",
@@ -7922,7 +7922,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-07T15:18:11.696707"
+    "fetched_at": "2026-09-08T13:54:02.764659"
   },
   "VTI": {
     "ticker": "VTI",
@@ -11891,7 +11891,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-07T15:18:51.728556"
+    "fetched_at": "2026-09-08T13:54:02.765082"
   },
   "STW.AX": {
     "ticker": "STW.AX",
@@ -11900,7 +11900,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-07T15:18:51.728588"
+    "fetched_at": "2026-09-08T13:54:02.765086"
   },
   "VAS.AX": {
     "ticker": "VAS.AX",
@@ -11909,7 +11909,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-07T15:18:51.728593"
+    "fetched_at": "2026-09-08T13:54:02.765089"
   },
   "VGS.AX": {
     "ticker": "VGS.AX",
@@ -17758,7 +17758,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-07T15:19:51.002496"
+    "fetched_at": "2026-09-08T13:54:02.765700"
   },
   "1306.T": {
     "ticker": "1306.T",
@@ -17767,6 +17767,6 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-07T15:19:51.002523"
+    "fetched_at": "2026-09-08T13:54:02.765704"
   }
 }

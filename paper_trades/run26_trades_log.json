@@ -34,11 +34,13 @@
       "tier": "A",
       "score": 64,
       "p7_verdict": "TRADE",
-      "current_price": 73.39,
-      "unrealised_pnl_pct": 0.027,
-      "days_held": 3,
+      "current_price": 72.18,
+      "unrealised_pnl_pct": -1.622,
+      "days_held": 4,
       "peak_pnl_pct": 0.42,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": -1.622
+      }
     }
   ],
   "closed": [
