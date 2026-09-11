@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 354.71,
-      "unrealised_pnl_pct": -0.714,
-      "days_held": 14,
+      "current_price": 353.56,
+      "unrealised_pnl_pct": -1.036,
+      "days_held": 15,
       "peak_pnl_pct": 1.344,
       "checkpoints": {
         "4": -0.213,
@@ -35,9 +35,9 @@
       "tier": "A",
       "score": 49,
       "p7_verdict": "TRADE",
-      "current_price": 403.35,
-      "unrealised_pnl_pct": 1.664,
-      "days_held": 5,
+      "current_price": 396.36,
+      "unrealised_pnl_pct": -0.098,
+      "days_held": 6,
       "peak_pnl_pct": 3.395,
       "checkpoints": {
         "4": 0.749
@@ -56,11 +56,25 @@
       "tier": "B",
       "score": 58,
       "p7_verdict": "TRADE",
-      "current_price": 2994.0,
-      "unrealised_pnl_pct": 0.774,
-      "days_held": 1,
-      "peak_pnl_pct": 0.774,
+      "current_price": 3031.0,
+      "unrealised_pnl_pct": 2.02,
+      "days_held": 2,
+      "peak_pnl_pct": 2.02,
       "checkpoints": {}
+    },
+    {
+      "asset": "7733.T",
+      "market": "JPX",
+      "entry_date": "2026-09-11",
+      "entry_price": 1970.0,
+      "hold_days_target": 20,
+      "size_pct": 16.5,
+      "ml_score": 86.9,
+      "val_auc": 0.601,
+      "strategy": "RSI",
+      "tier": "B",
+      "score": 62,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -218,7 +232,7 @@
     "run": 31,
     "label": "Phase 10D: Premium + Phase 10 \u2014 R27 + Strict Entry Quality (Run 31)",
     "created": "2026-07-18",
-    "total_logged": 9,
+    "total_logged": 10,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
