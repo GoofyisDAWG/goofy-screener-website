@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 353.56,
-      "unrealised_pnl_pct": -1.036,
-      "days_held": 15,
+      "current_price": 351.4325,
+      "unrealised_pnl_pct": -1.631,
+      "days_held": 17,
       "peak_pnl_pct": 1.344,
       "checkpoints": {
         "4": -0.213,
@@ -56,32 +56,13 @@
       "tier": "A",
       "score": 49,
       "p7_verdict": "TRADE",
-      "current_price": 396.36,
-      "unrealised_pnl_pct": -0.098,
-      "days_held": 6,
+      "current_price": 393.215,
+      "unrealised_pnl_pct": -0.891,
+      "days_held": 8,
       "peak_pnl_pct": 3.395,
       "checkpoints": {
         "4": 0.749
       }
-    },
-    {
-      "asset": "AME",
-      "market": "US",
-      "entry_date": "2026-09-07",
-      "entry_price": 237.72,
-      "hold_days_target": 20,
-      "size_pct": 1.3,
-      "ml_score": 83.9,
-      "val_auc": 0.561,
-      "strategy": "MA Crossover",
-      "tier": "B",
-      "score": 30,
-      "p7_verdict": "TRADE",
-      "current_price": 234.24,
-      "unrealised_pnl_pct": -1.464,
-      "days_held": 3,
-      "peak_pnl_pct": 0.017,
-      "checkpoints": {}
     },
     {
       "asset": "7203.T",
@@ -114,7 +95,12 @@
       "strategy": "RSI",
       "tier": "B",
       "score": 62,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "5713.T",
@@ -128,7 +114,12 @@
       "strategy": "MA Crossover",
       "tier": "B",
       "score": 50,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     }
   ],
   "closed": [
@@ -356,6 +347,31 @@
       "win": false,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "STAND DOWN"
+    },
+    {
+      "asset": "AME",
+      "market": "US",
+      "entry_date": "2026-09-07",
+      "entry_price": 237.72,
+      "hold_days_target": 20,
+      "size_pct": 1.3,
+      "ml_score": 83.9,
+      "val_auc": 0.561,
+      "strategy": "MA Crossover",
+      "tier": "B",
+      "score": 30,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 1.746
+      },
+      "exit_date": "2026-09-14",
+      "exit_price": 234.045,
+      "days_held": 5,
+      "pnl_pct": -1.546,
+      "peak_pnl_pct": 1.746,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     }
   ],
   "metadata": {
