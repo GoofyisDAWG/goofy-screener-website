@@ -7846,7 +7846,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-14T16:38:40.152951"
+    "fetched_at": "2026-09-15T14:37:39.713972"
   },
   "QQQ": {
     "ticker": "QQQ",
@@ -7855,7 +7855,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-14T16:38:40.152984"
+    "fetched_at": "2026-09-15T14:37:39.713979"
   },
   "GLD": {
     "ticker": "GLD",
@@ -7864,7 +7864,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-14T16:38:40.152994"
+    "fetched_at": "2026-09-15T14:37:39.713982"
   },
   "TLT": {
     "ticker": "TLT",
@@ -7873,7 +7873,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-14T16:38:40.153002"
+    "fetched_at": "2026-09-15T14:37:39.713984"
   },
   "IWM": {
     "ticker": "IWM",
@@ -7882,7 +7882,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-14T16:38:40.153010"
+    "fetched_at": "2026-09-15T14:37:39.713986"
   },
   "VTI": {
     "ticker": "VTI",
@@ -11851,7 +11851,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-14T16:39:19.997596"
+    "fetched_at": "2026-09-15T14:37:39.714236"
   },
   "STW.AX": {
     "ticker": "STW.AX",
@@ -11860,7 +11860,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-14T16:39:19.997627"
+    "fetched_at": "2026-09-15T14:37:39.714238"
   },
   "VAS.AX": {
     "ticker": "VAS.AX",
@@ -11869,7 +11869,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-14T16:39:19.997636"
+    "fetched_at": "2026-09-15T14:37:39.714239"
   },
   "VGS.AX": {
     "ticker": "VGS.AX",
@@ -17718,7 +17718,7 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-14T16:40:18.701626"
+    "fetched_at": "2026-09-15T14:37:39.714627"
   },
   "1306.T": {
     "ticker": "1306.T",
@@ -17727,6 +17727,46 @@
     "max": 6,
     "breakdown": {},
     "is_etf": true,
-    "fetched_at": "2026-09-14T16:40:18.701663"
+    "fetched_at": "2026-09-15T14:37:39.714630"
+  },
+  "DG": {
+    "ticker": "DG",
+    "pass": true,
+    "score": 8,
+    "max": 8,
+    "breakdown": {
+      "pe": 1,
+      "revenue_growth": 1,
+      "debt_equity": 1,
+      "free_cashflow": 1,
+      "profit_margin": 1,
+      "analyst": 1,
+      "roe": 1,
+      "current_ratio": 1
+    },
+    "is_etf": false,
+    "fetched_at": "2026-09-15T14:37:39.413775",
+    "pe": 16.383118,
+    "forward_pe": 15.251717,
+    "revenue_growth": 0.052,
+    "debt_equity": 169.811,
+    "free_cashflow": 1738019712,
+    "profit_margin": 0.03903,
+    "analyst_rating": 2.5,
+    "analyst_label": "buy",
+    "return_on_equity": 0.19692,
+    "current_ratio": 1.209,
+    "dividend_yield": 1.83,
+    "beta": 0.235,
+    "price_to_book": 2.9962234,
+    "earnings_growth": 0.333,
+    "trailing_eps": 7.7,
+    "gross_margins": 0.31160998,
+    "operating_margins": 0.06813,
+    "company_name": "Dollar General Corporation",
+    "sector": "Consumer Defensive",
+    "industry": "Discount Stores",
+    "market_cap": 27830808576,
+    "currency": "USD"
   }
 }

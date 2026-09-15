@@ -1,5 +1,20 @@
 {
-  "open": [],
+  "open": [
+    {
+      "asset": "9984.T",
+      "market": "JPX",
+      "entry_date": "2026-09-15",
+      "entry_price": 6279.0,
+      "hold_days_target": 20,
+      "size_pct": 1.6,
+      "ml_score": 77.2,
+      "val_auc": 0.447,
+      "strategy": "Bollinger Bands",
+      "tier": "A",
+      "score": 71,
+      "p7_verdict": "TRADE"
+    }
+  ],
   "closed": [
     {
       "asset": "1928.T",
@@ -129,7 +144,7 @@
     "run": 49,
     "label": "BB Rehab: Bollinger Bands ONLY + MA200 Trend Filter \u2014 can BB work in uptrends? (Run 49)",
     "created": "2026-07-29",
-    "total_logged": 5,
+    "total_logged": 6,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
