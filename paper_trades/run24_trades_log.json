@@ -13,9 +13,9 @@
       "tier": "B",
       "score": 39,
       "p7_verdict": "TRADE",
-      "current_price": 2996.0,
-      "unrealised_pnl_pct": 0.621,
-      "days_held": 12,
+      "current_price": 2949.0,
+      "unrealised_pnl_pct": -0.957,
+      "days_held": 13,
       "peak_pnl_pct": 1.696,
       "checkpoints": {
         "4": 0.672,
@@ -35,9 +35,9 @@
       "tier": "A",
       "score": 50,
       "p7_verdict": "TRADE",
-      "current_price": 104.565,
-      "unrealised_pnl_pct": -1.558,
-      "days_held": 12,
+      "current_price": 103.75,
+      "unrealised_pnl_pct": -2.325,
+      "days_held": 13,
       "peak_pnl_pct": 0.791,
       "checkpoints": {
         "4": 0.452,
@@ -57,9 +57,9 @@
       "tier": "A",
       "score": 49,
       "p7_verdict": "TRADE",
-      "current_price": 393.48,
-      "unrealised_pnl_pct": -3.769,
-      "days_held": 12,
+      "current_price": 396.63,
+      "unrealised_pnl_pct": -2.998,
+      "days_held": 13,
       "peak_pnl_pct": 0.325,
       "checkpoints": {
         "4": 0.325,
@@ -79,9 +79,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 349.0801,
-      "unrealised_pnl_pct": -1.936,
-      "days_held": 11,
+      "current_price": 351.2,
+      "unrealised_pnl_pct": -1.34,
+      "days_held": 12,
       "peak_pnl_pct": 1.711,
       "checkpoints": {
         "4": 0.75,
@@ -101,9 +101,9 @@
       "tier": "B",
       "score": 52,
       "p7_verdict": "TRADE",
-      "current_price": 22.04,
-      "unrealised_pnl_pct": -5.367,
-      "days_held": 6,
+      "current_price": 22.09,
+      "unrealised_pnl_pct": -5.152,
+      "days_held": 7,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -5.195
@@ -122,9 +122,9 @@
       "tier": "B",
       "score": 58,
       "p7_verdict": "TRADE",
-      "current_price": 3021.0,
-      "unrealised_pnl_pct": 1.769,
-      "days_held": 5,
+      "current_price": 3016.0,
+      "unrealised_pnl_pct": 1.6,
+      "days_held": 6,
       "peak_pnl_pct": 2.105,
       "checkpoints": {
         "4": 1.903
@@ -143,9 +143,9 @@
       "tier": "A",
       "score": 53,
       "p7_verdict": "TRADE",
-      "current_price": 2242.5,
-      "unrealised_pnl_pct": -1.124,
-      "days_held": 4,
+      "current_price": 2244.0,
+      "unrealised_pnl_pct": -1.058,
+      "days_held": 5,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -1.124
@@ -164,11 +164,13 @@
       "tier": "B",
       "score": 62,
       "p7_verdict": "TRADE",
-      "current_price": 1975.0,
-      "unrealised_pnl_pct": 2.677,
-      "days_held": 3,
+      "current_price": 1985.0,
+      "unrealised_pnl_pct": 3.197,
+      "days_held": 4,
       "peak_pnl_pct": 3.249,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": 3.197
+      }
     },
     {
       "asset": "1802.T",
@@ -183,11 +185,25 @@
       "tier": "A",
       "score": 47,
       "p7_verdict": "TRADE",
-      "current_price": 3020.0,
-      "unrealised_pnl_pct": 0.266,
-      "days_held": 2,
-      "peak_pnl_pct": 1.959,
+      "current_price": 3072.0,
+      "unrealised_pnl_pct": 1.992,
+      "days_held": 3,
+      "peak_pnl_pct": 1.992,
       "checkpoints": {}
+    },
+    {
+      "asset": "5713.T",
+      "market": "JPX",
+      "entry_date": "2026-09-16",
+      "entry_price": 9700.0,
+      "hold_days_target": 20,
+      "size_pct": 4.7,
+      "ml_score": 75.1,
+      "val_auc": 0.483,
+      "strategy": "MA Crossover",
+      "tier": "B",
+      "score": 51,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -694,7 +710,7 @@
     "run": 24,
     "label": "Proven Trio + Fund Gate: 3 Winners + Fundamentals, ML\u226570 (Run 24)",
     "created": "2026-07-16",
-    "total_logged": 29,
+    "total_logged": 30,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
