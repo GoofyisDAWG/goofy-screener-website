@@ -13,10 +13,10 @@
       "tier": "A",
       "score": 64,
       "p7_verdict": "TRADE",
-      "current_price": 333.94,
-      "unrealised_pnl_pct": 6.537,
-      "days_held": 14,
-      "peak_pnl_pct": 6.537,
+      "current_price": 333.16,
+      "unrealised_pnl_pct": 6.288,
+      "days_held": 15,
+      "peak_pnl_pct": 6.288,
       "checkpoints": {
         "4": 3.672,
         "10": 4.186
@@ -35,35 +35,13 @@
       "tier": "B",
       "score": 39,
       "p7_verdict": "TRADE",
-      "current_price": 6.8029,
-      "unrealised_pnl_pct": -0.687,
-      "days_held": 13,
+      "current_price": 6.74,
+      "unrealised_pnl_pct": -1.606,
+      "days_held": 14,
       "peak_pnl_pct": 0.036,
       "checkpoints": {
         "4": -5.168,
         "10": -3.867
-      }
-    },
-    {
-      "asset": "HUB.AX",
-      "market": "ASX",
-      "entry_date": "2026-08-28",
-      "entry_price": 76.05,
-      "hold_days_target": 20,
-      "size_pct": 10.2,
-      "ml_score": 86.1,
-      "val_auc": 0.506,
-      "strategy": "RSI(2)",
-      "tier": "A",
-      "score": 64,
-      "p7_verdict": "TRADE",
-      "current_price": 70.2,
-      "unrealised_pnl_pct": -7.692,
-      "days_held": 13,
-      "peak_pnl_pct": 0.0,
-      "checkpoints": {
-        "4": -3.119,
-        "10": -6.838
       }
     },
     {
@@ -79,9 +57,9 @@
       "tier": "B",
       "score": 39,
       "p7_verdict": "TRADE",
-      "current_price": 2949.0,
-      "unrealised_pnl_pct": -0.957,
-      "days_held": 13,
+      "current_price": 2991.5,
+      "unrealised_pnl_pct": 0.47,
+      "days_held": 14,
       "peak_pnl_pct": 1.696,
       "checkpoints": {
         "4": 0.672,
@@ -101,9 +79,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 4950.0,
-      "unrealised_pnl_pct": 2.569,
-      "days_held": 13,
+      "current_price": 5069.0,
+      "unrealised_pnl_pct": 5.035,
+      "days_held": 14,
       "peak_pnl_pct": 7.48,
       "checkpoints": {
         "4": 1.989,
@@ -123,9 +101,9 @@
       "tier": "B",
       "score": 34,
       "p7_verdict": "TRADE",
-      "current_price": 5703.0,
-      "unrealised_pnl_pct": -1.993,
-      "days_held": 13,
+      "current_price": 5669.0,
+      "unrealised_pnl_pct": -2.578,
+      "days_held": 14,
       "peak_pnl_pct": 3.626,
       "checkpoints": {
         "4": 3.626,
@@ -145,9 +123,9 @@
       "tier": "A",
       "score": 50,
       "p7_verdict": "TRADE",
-      "current_price": 103.75,
-      "unrealised_pnl_pct": -2.325,
-      "days_held": 13,
+      "current_price": 103.5001,
+      "unrealised_pnl_pct": -2.561,
+      "days_held": 14,
       "peak_pnl_pct": 0.791,
       "checkpoints": {
         "4": 0.452,
@@ -167,9 +145,9 @@
       "tier": "A",
       "score": 49,
       "p7_verdict": "TRADE",
-      "current_price": 396.63,
-      "unrealised_pnl_pct": -2.998,
-      "days_held": 13,
+      "current_price": 400.66,
+      "unrealised_pnl_pct": -2.013,
+      "days_held": 14,
       "peak_pnl_pct": 0.325,
       "checkpoints": {
         "4": 0.325,
@@ -189,54 +167,12 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 351.2,
-      "unrealised_pnl_pct": -2.999,
-      "days_held": 8,
+      "current_price": 346.38,
+      "unrealised_pnl_pct": -4.331,
+      "days_held": 9,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -2.348
-      }
-    },
-    {
-      "asset": "NST.AX",
-      "market": "ASX",
-      "entry_date": "2026-09-04",
-      "entry_price": 23.17,
-      "hold_days_target": 20,
-      "size_pct": 3.4,
-      "ml_score": 93.8,
-      "val_auc": 0.527,
-      "strategy": "RSI(2)",
-      "tier": "B",
-      "score": 27,
-      "p7_verdict": "TRADE",
-      "current_price": 22.09,
-      "unrealised_pnl_pct": -4.661,
-      "days_held": 8,
-      "peak_pnl_pct": 0.0,
-      "checkpoints": {
-        "4": -2.719
-      }
-    },
-    {
-      "asset": "CMG",
-      "market": "US",
-      "entry_date": "2026-09-07",
-      "entry_price": 36.96,
-      "hold_days_target": 20,
-      "size_pct": 3.2,
-      "ml_score": 74.7,
-      "val_auc": 0.525,
-      "strategy": "RSI(2)",
-      "tier": "B",
-      "score": 30,
-      "p7_verdict": "TRADE",
-      "current_price": 34.29,
-      "unrealised_pnl_pct": -7.224,
-      "days_held": 7,
-      "peak_pnl_pct": 0.189,
-      "checkpoints": {
-        "4": -2.056
       }
     },
     {
@@ -252,9 +188,9 @@
       "tier": "B",
       "score": 36,
       "p7_verdict": "TRADE",
-      "current_price": 33.035,
-      "unrealised_pnl_pct": -5.587,
-      "days_held": 7,
+      "current_price": 32.885,
+      "unrealised_pnl_pct": -6.016,
+      "days_held": 8,
       "peak_pnl_pct": 0.857,
       "checkpoints": {
         "4": -5.659
@@ -273,10 +209,10 @@
       "tier": "B",
       "score": 58,
       "p7_verdict": "TRADE",
-      "current_price": 3016.0,
-      "unrealised_pnl_pct": 1.6,
-      "days_held": 6,
-      "peak_pnl_pct": 2.105,
+      "current_price": 3034.0,
+      "unrealised_pnl_pct": 2.207,
+      "days_held": 7,
+      "peak_pnl_pct": 2.207,
       "checkpoints": {
         "4": 1.903
       }
@@ -294,10 +230,10 @@
       "tier": "A",
       "score": 53,
       "p7_verdict": "TRADE",
-      "current_price": 2244.0,
-      "unrealised_pnl_pct": -1.058,
-      "days_held": 5,
-      "peak_pnl_pct": 0.0,
+      "current_price": 2291.5,
+      "unrealised_pnl_pct": 1.036,
+      "days_held": 6,
+      "peak_pnl_pct": 1.036,
       "checkpoints": {
         "4": -1.124
       }
@@ -315,10 +251,10 @@
       "tier": "B",
       "score": 62,
       "p7_verdict": "TRADE",
-      "current_price": 1985.0,
-      "unrealised_pnl_pct": 3.197,
-      "days_held": 4,
-      "peak_pnl_pct": 3.249,
+      "current_price": 2024.0,
+      "unrealised_pnl_pct": 5.225,
+      "days_held": 5,
+      "peak_pnl_pct": 5.225,
       "checkpoints": {
         "4": 3.197
       }
@@ -336,11 +272,13 @@
       "tier": "A",
       "score": 47,
       "p7_verdict": "TRADE",
-      "current_price": 3072.0,
-      "unrealised_pnl_pct": 1.992,
-      "days_held": 3,
-      "peak_pnl_pct": 1.992,
-      "checkpoints": {}
+      "current_price": 3129.0,
+      "unrealised_pnl_pct": 3.884,
+      "days_held": 4,
+      "peak_pnl_pct": 3.884,
+      "checkpoints": {
+        "4": 3.884
+      }
     },
     {
       "asset": "9984.T",
@@ -355,9 +293,9 @@
       "tier": "A",
       "score": 71,
       "p7_verdict": "TRADE",
-      "current_price": 6183.0,
-      "unrealised_pnl_pct": -1.529,
-      "days_held": 1,
+      "current_price": 6247.0,
+      "unrealised_pnl_pct": -0.51,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -374,9 +312,9 @@
       "tier": "B",
       "score": 42,
       "p7_verdict": "TRADE",
-      "current_price": 3080.0,
-      "unrealised_pnl_pct": -3.084,
-      "days_held": 1,
+      "current_price": 3118.0,
+      "unrealised_pnl_pct": -1.888,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     }
@@ -2462,6 +2400,80 @@
         "4": -0.033,
         "10": 4.79
       }
+    },
+    {
+      "asset": "HUB.AX",
+      "market": "ASX",
+      "entry_date": "2026-08-28",
+      "entry_price": 76.05,
+      "hold_days_target": 20,
+      "size_pct": 10.2,
+      "ml_score": 86.1,
+      "val_auc": 0.506,
+      "strategy": "RSI(2)",
+      "tier": "A",
+      "score": 64,
+      "p7_verdict": "TRADE",
+      "exit_date": "2026-09-17",
+      "exit_price": 68.95,
+      "days_held": 14,
+      "pnl_pct": -9.336,
+      "peak_pnl_pct": 0.0,
+      "win": false,
+      "exit_reason": "STOP_LOSS",
+      "checkpoints": {
+        "4": -3.119,
+        "10": -6.838
+      }
+    },
+    {
+      "asset": "CMG",
+      "market": "US",
+      "entry_date": "2026-09-07",
+      "entry_price": 36.96,
+      "hold_days_target": 20,
+      "size_pct": 3.2,
+      "ml_score": 74.7,
+      "val_auc": 0.525,
+      "strategy": "RSI(2)",
+      "tier": "B",
+      "score": 30,
+      "p7_verdict": "TRADE",
+      "exit_date": "2026-09-16",
+      "exit_price": 33.68,
+      "days_held": 7,
+      "pnl_pct": -8.874,
+      "peak_pnl_pct": 0.189,
+      "win": false,
+      "exit_reason": "STOP_LOSS",
+      "checkpoints": {
+        "4": -2.056
+      }
+    },
+    {
+      "asset": "NST.AX",
+      "market": "ASX",
+      "entry_date": "2026-09-04",
+      "entry_price": 23.17,
+      "hold_days_target": 20,
+      "size_pct": 3.4,
+      "ml_score": 93.8,
+      "val_auc": 0.527,
+      "strategy": "RSI(2)",
+      "tier": "B",
+      "score": 27,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": -2.719
+      },
+      "exit_date": "2026-09-17",
+      "exit_price": 21.69,
+      "days_held": 9,
+      "pnl_pct": -6.388,
+      "peak_pnl_pct": 0.0,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN"
     }
   ],
   "metadata": {
