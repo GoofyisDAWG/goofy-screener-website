@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 66,
       "p7_verdict": "TRADE",
-      "current_price": 351.48,
-      "unrealised_pnl_pct": -0.611,
-      "days_held": 17,
+      "current_price": 344.24,
+      "unrealised_pnl_pct": -2.658,
+      "days_held": 18,
       "peak_pnl_pct": 2.381,
       "checkpoints": {
         "4": 0.73,
@@ -35,11 +35,13 @@
       "tier": "B",
       "score": 31,
       "p7_verdict": "TRADE",
-      "current_price": 240.805,
-      "unrealised_pnl_pct": 2.939,
-      "days_held": 3,
-      "peak_pnl_pct": 2.939,
-      "checkpoints": {}
+      "current_price": 242.7175,
+      "unrealised_pnl_pct": 3.756,
+      "days_held": 4,
+      "peak_pnl_pct": 3.756,
+      "checkpoints": {
+        "4": 3.756
+      }
     },
     {
       "asset": "5713.T",
