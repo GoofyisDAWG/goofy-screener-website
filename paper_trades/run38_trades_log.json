@@ -1,28 +1,6 @@
 {
   "open": [
     {
-      "asset": "JPM",
-      "market": "US",
-      "entry_date": "2026-08-27",
-      "entry_price": 353.64,
-      "hold_days_target": 20,
-      "size_pct": 4.7,
-      "ml_score": 87.7,
-      "val_auc": 0.513,
-      "strategy": "MA Crossover",
-      "tier": "A",
-      "score": 66,
-      "p7_verdict": "TRADE",
-      "current_price": 344.24,
-      "unrealised_pnl_pct": -2.658,
-      "days_held": 18,
-      "peak_pnl_pct": 2.381,
-      "checkpoints": {
-        "4": 0.73,
-        "10": -0.023
-      }
-    },
-    {
       "asset": "AME",
       "market": "US",
       "entry_date": "2026-09-16",
@@ -35,13 +13,11 @@
       "tier": "B",
       "score": 31,
       "p7_verdict": "TRADE",
-      "current_price": 242.7175,
-      "unrealised_pnl_pct": 3.756,
-      "days_held": 4,
-      "peak_pnl_pct": 3.756,
-      "checkpoints": {
-        "4": 3.756
-      }
+      "current_price": 246.755,
+      "unrealised_pnl_pct": 5.482,
+      "days_held": 5,
+      "peak_pnl_pct": 5.482,
+      "checkpoints": {}
     },
     {
       "asset": "5713.T",
@@ -136,6 +112,32 @@
       "win": false,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "STAND DOWN (VOL SPIKE)"
+    },
+    {
+      "asset": "JPM",
+      "market": "US",
+      "entry_date": "2026-08-27",
+      "entry_price": 353.64,
+      "hold_days_target": 20,
+      "size_pct": 4.7,
+      "ml_score": 87.7,
+      "val_auc": 0.513,
+      "strategy": "MA Crossover",
+      "tier": "A",
+      "score": 66,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": 0.73,
+        "10": -0.023
+      },
+      "exit_date": "2026-09-23",
+      "exit_price": 339.9565,
+      "days_held": 19,
+      "pnl_pct": -3.869,
+      "peak_pnl_pct": 2.381,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
     }
   ],
   "metadata": {

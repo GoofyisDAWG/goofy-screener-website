@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 50,
       "p7_verdict": "TRADE",
-      "current_price": 103.07,
-      "unrealised_pnl_pct": -2.966,
-      "days_held": 17,
+      "current_price": 102.0426,
+      "unrealised_pnl_pct": -3.933,
+      "days_held": 18,
       "peak_pnl_pct": 0.791,
       "checkpoints": {
         "4": 0.452,
@@ -35,35 +35,13 @@
       "tier": "A",
       "score": 49,
       "p7_verdict": "TRADE",
-      "current_price": 397.4,
-      "unrealised_pnl_pct": -2.263,
-      "days_held": 16,
+      "current_price": 393.13,
+      "unrealised_pnl_pct": -3.313,
+      "days_held": 17,
       "peak_pnl_pct": 0.89,
       "checkpoints": {
         "4": 0.042,
         "10": -3.384
-      }
-    },
-    {
-      "asset": "JPM",
-      "market": "US",
-      "entry_date": "2026-09-03",
-      "entry_price": 356.22,
-      "hold_days_target": 20,
-      "size_pct": 4.7,
-      "ml_score": 85.4,
-      "val_auc": 0.481,
-      "strategy": "MA Crossover",
-      "tier": "A",
-      "score": 66,
-      "p7_verdict": "TRADE",
-      "current_price": 344.24,
-      "unrealised_pnl_pct": -3.363,
-      "days_held": 13,
-      "peak_pnl_pct": 0.679,
-      "checkpoints": {
-        "4": -0.424,
-        "10": -1.94
       }
     },
     {
@@ -79,10 +57,10 @@
       "tier": "A",
       "score": 53,
       "p7_verdict": "TRADE",
-      "current_price": 21.93,
-      "unrealised_pnl_pct": -3.093,
-      "days_held": 6,
-      "peak_pnl_pct": 0.0,
+      "current_price": 22.8,
+      "unrealised_pnl_pct": 0.751,
+      "days_held": 7,
+      "peak_pnl_pct": 0.751,
       "checkpoints": {
         "4": -1.856
       }
@@ -309,6 +287,32 @@
         "4": -3.119,
         "10": -6.838
       }
+    },
+    {
+      "asset": "JPM",
+      "market": "US",
+      "entry_date": "2026-09-03",
+      "entry_price": 356.22,
+      "hold_days_target": 20,
+      "size_pct": 4.7,
+      "ml_score": 85.4,
+      "val_auc": 0.481,
+      "strategy": "MA Crossover",
+      "tier": "A",
+      "score": 66,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "4": -0.424,
+        "10": -1.94
+      },
+      "exit_date": "2026-09-23",
+      "exit_price": 339.9565,
+      "days_held": 14,
+      "pnl_pct": -4.566,
+      "peak_pnl_pct": 0.679,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
     }
   ],
   "metadata": {

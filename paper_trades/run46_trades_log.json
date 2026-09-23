@@ -13,10 +13,10 @@
       "tier": "A",
       "score": 64,
       "p7_verdict": "TRADE",
-      "current_price": 340.74,
-      "unrealised_pnl_pct": 8.316,
-      "days_held": 17,
-      "peak_pnl_pct": 8.316,
+      "current_price": 337.86,
+      "unrealised_pnl_pct": 7.4,
+      "days_held": 18,
+      "peak_pnl_pct": 7.756,
       "checkpoints": {
         "4": 4.333,
         "10": 5.623
@@ -57,10 +57,10 @@
       "tier": "A",
       "score": 46,
       "p7_verdict": "TRADE",
-      "current_price": 773.87,
-      "unrealised_pnl_pct": 1.544,
-      "days_held": 15,
-      "peak_pnl_pct": 1.544,
+      "current_price": 769.665,
+      "unrealised_pnl_pct": 0.993,
+      "days_held": 16,
+      "peak_pnl_pct": 1.496,
       "checkpoints": {
         "10": -0.864
       }
@@ -100,11 +100,13 @@
       "tier": "B",
       "score": 36,
       "p7_verdict": "TRADE",
-      "current_price": 32.875,
-      "unrealised_pnl_pct": -0.03,
-      "days_held": 3,
+      "current_price": 32.15,
+      "unrealised_pnl_pct": -2.235,
+      "days_held": 4,
       "peak_pnl_pct": 0.0,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": -2.235
+      }
     },
     {
       "asset": "7733.T",
@@ -121,9 +123,23 @@
       "p7_verdict": "TRADE",
       "current_price": null,
       "unrealised_pnl_pct": null,
-      "days_held": 2,
+      "days_held": 3,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
+    },
+    {
+      "asset": "COL.AX",
+      "market": "ASX",
+      "entry_date": "2026-09-23",
+      "entry_price": 22.89,
+      "hold_days_target": 20,
+      "size_pct": 7.2,
+      "ml_score": 91.2,
+      "val_auc": 0.608,
+      "strategy": "Mean Reversion",
+      "tier": "B",
+      "score": 34,
+      "p7_verdict": "TRADE"
     }
   ],
   "closed": [
@@ -604,7 +620,7 @@
     "run": 46,
     "label": "Extreme Conviction: All Strategies, ML\u226590, Wide Stop (Run 46)",
     "created": "2026-07-20",
-    "total_logged": 25,
+    "total_logged": 26,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
