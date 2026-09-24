@@ -57,9 +57,9 @@
       "tier": "A",
       "score": 50,
       "p7_verdict": "TRADE",
-      "current_price": 102.0426,
-      "unrealised_pnl_pct": -3.933,
-      "days_held": 18,
+      "current_price": 101.85,
+      "unrealised_pnl_pct": -4.114,
+      "days_held": 19,
       "peak_pnl_pct": 0.791,
       "checkpoints": {
         "4": 0.452,
@@ -79,9 +79,9 @@
       "tier": "A",
       "score": 49,
       "p7_verdict": "TRADE",
-      "current_price": 393.13,
-      "unrealised_pnl_pct": -3.854,
-      "days_held": 18,
+      "current_price": 391.52,
+      "unrealised_pnl_pct": -4.248,
+      "days_held": 19,
       "peak_pnl_pct": 0.325,
       "checkpoints": {
         "4": 0.325,
@@ -204,12 +204,12 @@
       "tier": "B",
       "score": 36,
       "p7_verdict": "TRADE",
-      "current_price": 32.15,
-      "unrealised_pnl_pct": -2.235,
-      "days_held": 4,
+      "current_price": 32.16,
+      "unrealised_pnl_pct": -2.205,
+      "days_held": 5,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
-        "4": -2.235
+        "4": -1.809
       }
     },
     {
@@ -225,11 +225,13 @@
       "tier": "B",
       "score": 25,
       "p7_verdict": "TRADE",
-      "current_price": 22.8,
-      "unrealised_pnl_pct": 2.656,
-      "days_held": 3,
+      "current_price": 22.27,
+      "unrealised_pnl_pct": 0.27,
+      "days_held": 4,
       "peak_pnl_pct": 2.656,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": 0.27
+      }
     },
     {
       "asset": "COL.AX",
@@ -244,11 +246,43 @@
       "tier": "B",
       "score": 34,
       "p7_verdict": "TRADE",
-      "current_price": 22.89,
-      "unrealised_pnl_pct": -0.261,
-      "days_held": 2,
+      "current_price": 22.9,
+      "unrealised_pnl_pct": -0.218,
+      "days_held": 3,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
+    },
+    {
+      "asset": "JPM",
+      "market": "US",
+      "entry_date": "2026-09-24",
+      "entry_price": 338.88,
+      "hold_days_target": 20,
+      "size_pct": 3.4,
+      "ml_score": 85.6,
+      "val_auc": 0.479,
+      "strategy": "MA Crossover",
+      "tier": "A",
+      "score": 64,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 11.5
+    },
+    {
+      "asset": "KR",
+      "market": "US",
+      "entry_date": "2026-09-24",
+      "entry_price": 59.225,
+      "hold_days_target": 20,
+      "size_pct": 9.3,
+      "ml_score": 76.6,
+      "val_auc": 0.484,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 54,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 11.5
     }
   ],
   "closed": [
@@ -1103,7 +1137,7 @@
     "run": 20,
     "label": "Winners Only: No MACD/BB/RSI-Div/RS, ML\u226575, Tiered Floor (Run 20)",
     "created": "2026-07-14",
-    "total_logged": 45,
+    "total_logged": 47,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,

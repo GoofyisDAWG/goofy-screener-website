@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 49,
       "p7_verdict": "TRADE",
-      "current_price": 393.13,
-      "unrealised_pnl_pct": -1.555,
-      "days_held": 16,
+      "current_price": 391.52,
+      "unrealised_pnl_pct": -1.958,
+      "days_held": 17,
       "peak_pnl_pct": 2.724,
       "checkpoints": {
         "10": -1.3
@@ -34,13 +34,29 @@
       "tier": "A",
       "score": 53,
       "p7_verdict": "TRADE",
-      "current_price": 22.8,
-      "unrealised_pnl_pct": 0.751,
-      "days_held": 7,
+      "current_price": 22.27,
+      "unrealised_pnl_pct": -1.591,
+      "days_held": 8,
       "peak_pnl_pct": 0.751,
       "checkpoints": {
         "4": -1.856
       }
+    },
+    {
+      "asset": "JPM",
+      "market": "US",
+      "entry_date": "2026-09-24",
+      "entry_price": 338.88,
+      "hold_days_target": 20,
+      "size_pct": 3.4,
+      "ml_score": 85.6,
+      "val_auc": 0.479,
+      "strategy": "MA Crossover",
+      "tier": "A",
+      "score": 64,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 11.5
     }
   ],
   "closed": [
@@ -202,7 +218,7 @@
     "run": 61,
     "label": "Concentrated Champions \u2014 ML\u226585, Proven trio, Fund gate, Tier S+A, max 10 (Run 61)",
     "created": "2026-07-31",
-    "total_logged": 8,
+    "total_logged": 9,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,

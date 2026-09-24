@@ -35,13 +35,13 @@
       "tier": "A",
       "score": 46,
       "p7_verdict": "TRADE",
-      "current_price": 769.665,
-      "unrealised_pnl_pct": 0.749,
-      "days_held": 10,
+      "current_price": 766.35,
+      "unrealised_pnl_pct": 0.315,
+      "days_held": 11,
       "peak_pnl_pct": 1.251,
       "checkpoints": {
         "4": -1.103,
-        "10": 0.749
+        "10": 0.507
       }
     },
     {
@@ -57,13 +57,13 @@
       "tier": "B",
       "score": 36,
       "p7_verdict": "TRADE",
-      "current_price": 517.0801,
-      "unrealised_pnl_pct": -1.435,
-      "days_held": 10,
+      "current_price": 513.4649,
+      "unrealised_pnl_pct": -2.124,
+      "days_held": 11,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -0.873,
-        "10": -1.435
+        "10": -1.965
       }
     },
     {
@@ -98,9 +98,9 @@
       "tier": "A",
       "score": 57,
       "p7_verdict": "TRADE",
-      "current_price": 100.5075,
-      "unrealised_pnl_pct": -5.857,
-      "days_held": 2,
+      "current_price": 98.885,
+      "unrealised_pnl_pct": -7.376,
+      "days_held": 3,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -117,9 +117,9 @@
       "tier": "A",
       "score": 67,
       "p7_verdict": "TRADE",
-      "current_price": 337.86,
-      "unrealised_pnl_pct": -0.845,
-      "days_held": 1,
+      "current_price": 337.355,
+      "unrealised_pnl_pct": -0.993,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -136,10 +136,10 @@
       "tier": "B",
       "score": 39,
       "p7_verdict": "TRADE",
-      "current_price": 155.3275,
-      "unrealised_pnl_pct": 1.25,
-      "days_held": 1,
-      "peak_pnl_pct": 1.25,
+      "current_price": 155.51,
+      "unrealised_pnl_pct": 1.369,
+      "days_held": 2,
+      "peak_pnl_pct": 1.369,
       "checkpoints": {}
     },
     {
@@ -154,7 +154,12 @@
       "strategy": "MACD",
       "tier": "A",
       "score": 61,
-      "p7_verdict": "TRADE"
+      "p7_verdict": "TRADE",
+      "current_price": 164.0599,
+      "unrealised_pnl_pct": 1.762,
+      "days_held": 1,
+      "peak_pnl_pct": 1.762,
+      "checkpoints": {}
     }
   ],
   "closed": [
