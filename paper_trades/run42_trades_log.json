@@ -15,10 +15,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.5,
-      "current_price": 340.1,
-      "unrealised_pnl_pct": 0.36,
-      "days_held": 1,
-      "peak_pnl_pct": 0.36,
+      "current_price": 337.9345,
+      "unrealised_pnl_pct": -0.279,
+      "days_held": 2,
+      "peak_pnl_pct": 1.233,
       "checkpoints": {}
     },
     {
@@ -36,10 +36,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.5,
-      "current_price": 58.32,
-      "unrealised_pnl_pct": -1.528,
-      "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "current_price": 59.995,
+      "unrealised_pnl_pct": 1.3,
+      "days_held": 2,
+      "peak_pnl_pct": 1.3,
       "checkpoints": {}
     },
     {
@@ -56,7 +56,12 @@
       "score": 31,
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
-      "spy_adx_at_entry": 11.1
+      "spy_adx_at_entry": 11.1,
+      "current_price": 251.06,
+      "unrealised_pnl_pct": 0.172,
+      "days_held": 1,
+      "peak_pnl_pct": 0.172,
+      "checkpoints": {}
     },
     {
       "asset": "WEC",
@@ -72,7 +77,12 @@
       "score": 45,
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
-      "spy_adx_at_entry": 11.1
+      "spy_adx_at_entry": 11.1,
+      "current_price": 101.63,
+      "unrealised_pnl_pct": 1.029,
+      "days_held": 1,
+      "peak_pnl_pct": 1.029,
+      "checkpoints": {}
     },
     {
       "asset": "GLD",
@@ -88,7 +98,12 @@
       "score": 49,
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
-      "spy_adx_at_entry": 11.1
+      "spy_adx_at_entry": 11.1,
+      "current_price": 379.46,
+      "unrealised_pnl_pct": -2.929,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     }
   ],
   "closed": [
