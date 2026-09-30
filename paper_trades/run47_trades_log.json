@@ -13,9 +13,9 @@
       "tier": "B",
       "score": 32,
       "p7_verdict": "TRADE",
-      "current_price": 23590.0,
-      "unrealised_pnl_pct": 1.637,
-      "days_held": 13,
+      "current_price": 23225.0,
+      "unrealised_pnl_pct": 0.065,
+      "days_held": 14,
       "peak_pnl_pct": 1.637,
       "checkpoints": {
         "4": -3.791
@@ -34,9 +34,9 @@
       "tier": "B",
       "score": 58,
       "p7_verdict": "TRADE",
-      "current_price": 2936.5,
-      "unrealised_pnl_pct": -2.926,
-      "days_held": 6,
+      "current_price": 2881.5,
+      "unrealised_pnl_pct": -4.744,
+      "days_held": 7,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -3.494
@@ -55,13 +55,45 @@
       "tier": "A",
       "score": 53,
       "p7_verdict": "TRADE",
-      "current_price": 2271.5,
-      "unrealised_pnl_pct": 1.497,
-      "days_held": 6,
+      "current_price": 2277.5,
+      "unrealised_pnl_pct": 1.765,
+      "days_held": 7,
       "peak_pnl_pct": 1.807,
       "checkpoints": {
         "4": 0.832
       }
+    },
+    {
+      "asset": "1802.T",
+      "market": "JPX",
+      "entry_date": "2026-09-30",
+      "entry_price": 2952.5,
+      "hold_days_target": 20,
+      "size_pct": NaN,
+      "ml_score": 83.2,
+      "val_auc": 0.56,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 46,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 9.9
+    },
+    {
+      "asset": "5713.T",
+      "market": "JPX",
+      "entry_date": "2026-09-30",
+      "entry_price": 9489.0,
+      "hold_days_target": 20,
+      "size_pct": 6.0,
+      "ml_score": 86.8,
+      "val_auc": 0.49,
+      "strategy": "MA Crossover",
+      "tier": "B",
+      "score": 50,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 9.9
     }
   ],
   "closed": [
@@ -196,7 +228,7 @@
     "run": 47,
     "label": "Full Stack: Proven Trio + Blackout + Volume 1.5\u00d7, ML\u226570 (Run 47)",
     "created": "2026-07-20",
-    "total_logged": 8,
+    "total_logged": 10,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,

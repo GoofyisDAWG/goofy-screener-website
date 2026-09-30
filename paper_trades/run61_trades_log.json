@@ -15,11 +15,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.5,
-      "current_price": 334.6701,
-      "unrealised_pnl_pct": -1.242,
-      "days_held": 3,
+      "current_price": 332.829,
+      "unrealised_pnl_pct": -1.786,
+      "days_held": 4,
       "peak_pnl_pct": 1.233,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": -1.786
+      }
     },
     {
       "asset": "9531.T",
@@ -36,9 +38,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.1,
-      "current_price": 6086.0,
-      "unrealised_pnl_pct": -2.249,
-      "days_held": 1,
+      "current_price": 6075.0,
+      "unrealised_pnl_pct": -2.425,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -56,7 +58,12 @@
       "score": 49,
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
-      "spy_adx_at_entry": 10.4
+      "spy_adx_at_entry": 10.4,
+      "current_price": 381.31,
+      "unrealised_pnl_pct": 0.034,
+      "days_held": 1,
+      "peak_pnl_pct": 0.034,
+      "checkpoints": {}
     }
   ],
   "closed": [

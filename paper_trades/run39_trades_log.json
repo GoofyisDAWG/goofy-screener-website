@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 46,
       "p7_verdict": "TRADE",
-      "current_price": 763.79,
-      "unrealised_pnl_pct": -0.02,
-      "days_held": 14,
+      "current_price": 768.83,
+      "unrealised_pnl_pct": 0.64,
+      "days_held": 15,
       "peak_pnl_pct": 1.251,
       "checkpoints": {
         "4": -1.103,
@@ -35,9 +35,9 @@
       "tier": "B",
       "score": 36,
       "p7_verdict": "TRADE",
-      "current_price": 511.43,
-      "unrealised_pnl_pct": -2.512,
-      "days_held": 14,
+      "current_price": 512.485,
+      "unrealised_pnl_pct": -2.311,
+      "days_held": 15,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -0.873,
@@ -57,11 +57,13 @@
       "tier": "B",
       "score": 42,
       "p7_verdict": "TRADE",
-      "current_price": 2947.5,
-      "unrealised_pnl_pct": -7.253,
-      "days_held": 9,
+      "current_price": 2929.5,
+      "unrealised_pnl_pct": -7.819,
+      "days_held": 10,
       "peak_pnl_pct": 0.0,
-      "checkpoints": {}
+      "checkpoints": {
+        "10": -7.819
+      }
     },
     {
       "asset": "AAPL",
@@ -76,9 +78,9 @@
       "tier": "A",
       "score": 67,
       "p7_verdict": "TRADE",
-      "current_price": 332.03,
-      "unrealised_pnl_pct": -2.556,
-      "days_held": 5,
+      "current_price": 337.865,
+      "unrealised_pnl_pct": -0.844,
+      "days_held": 6,
       "peak_pnl_pct": 0.097,
       "checkpoints": {
         "4": -0.687
@@ -97,9 +99,9 @@
       "tier": "B",
       "score": 39,
       "p7_verdict": "TRADE",
-      "current_price": 157.07,
-      "unrealised_pnl_pct": 2.386,
-      "days_held": 5,
+      "current_price": 156.77,
+      "unrealised_pnl_pct": 2.19,
+      "days_held": 6,
       "peak_pnl_pct": 3.898,
       "checkpoints": {
         "4": 3.898
@@ -118,13 +120,29 @@
       "tier": "A",
       "score": 61,
       "p7_verdict": "TRADE",
-      "current_price": 161.565,
-      "unrealised_pnl_pct": 0.215,
-      "days_held": 4,
-      "peak_pnl_pct": 0.807,
+      "current_price": 163.51,
+      "unrealised_pnl_pct": 1.421,
+      "days_held": 5,
+      "peak_pnl_pct": 1.421,
       "checkpoints": {
-        "4": 0.215
+        "4": 0.081
       }
+    },
+    {
+      "asset": "6305.T",
+      "market": "JPX",
+      "entry_date": "2026-09-30",
+      "entry_price": 5536.0,
+      "hold_days_target": 20,
+      "size_pct": 0.3,
+      "ml_score": 56.6,
+      "val_auc": 0.538,
+      "strategy": "MACD",
+      "tier": "B",
+      "score": 33,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 9.9
     }
   ],
   "closed": [
@@ -1102,7 +1120,7 @@
     "run": 39,
     "label": "Family B: Momentum/Breakout Only \u2014 MACD, Donchian, Vol Break, BB Squeeze, Gap Mom (Run 39)",
     "created": "2026-07-20",
-    "total_logged": 44,
+    "total_logged": 45,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
