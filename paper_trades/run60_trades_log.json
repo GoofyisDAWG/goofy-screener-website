@@ -13,11 +13,13 @@
       "tier": "A",
       "score": 53,
       "p7_verdict": "TRADE",
-      "current_price": 2277.5,
-      "unrealised_pnl_pct": 1.493,
-      "days_held": 9,
-      "peak_pnl_pct": 1.535,
-      "checkpoints": {}
+      "current_price": 2297.0,
+      "unrealised_pnl_pct": 2.362,
+      "days_held": 10,
+      "peak_pnl_pct": 2.362,
+      "checkpoints": {
+        "10": 2.362
+      }
     },
     {
       "asset": "JPM",
@@ -34,12 +36,12 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.5,
-      "current_price": 332.829,
-      "unrealised_pnl_pct": -1.786,
-      "days_held": 4,
+      "current_price": 329.485,
+      "unrealised_pnl_pct": -2.772,
+      "days_held": 5,
       "peak_pnl_pct": 1.233,
       "checkpoints": {
-        "4": -1.786
+        "4": -2.375
       }
     },
     {
@@ -57,9 +59,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.1,
-      "current_price": 6075.0,
-      "unrealised_pnl_pct": -2.425,
-      "days_held": 2,
+      "current_price": 6190.0,
+      "unrealised_pnl_pct": -0.578,
+      "days_held": 3,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -78,9 +80,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.5,
-      "current_price": 381.31,
-      "unrealised_pnl_pct": 0.488,
-      "days_held": 2,
+      "current_price": 382.42,
+      "unrealised_pnl_pct": 0.78,
+      "days_held": 3,
       "peak_pnl_pct": 0.904,
       "checkpoints": {}
     },
@@ -98,7 +100,28 @@
       "score": 46,
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
-      "spy_adx_at_entry": 9.9
+      "spy_adx_at_entry": 9.9,
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
+    },
+    {
+      "asset": "WEC",
+      "market": "US",
+      "entry_date": "2026-10-01",
+      "entry_price": 101.07,
+      "hold_days_target": 20,
+      "size_pct": 15.1,
+      "ml_score": 83.7,
+      "val_auc": 0.525,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 46,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 10.0
     }
   ],
   "closed": [
@@ -410,7 +433,7 @@
     "run": 60,
     "label": "Concentrated Regime-Smart \u2014 Regime gate + R18 base, Tier S+A, max 10 (Run 60)",
     "created": "2026-07-31",
-    "total_logged": 17,
+    "total_logged": 18,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
