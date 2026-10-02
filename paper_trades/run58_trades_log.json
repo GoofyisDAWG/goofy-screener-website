@@ -13,34 +13,13 @@
       "tier": "A",
       "score": 48,
       "p7_verdict": "TRADE",
-      "current_price": 101.07,
-      "unrealised_pnl_pct": -3.444,
-      "days_held": 13,
+      "current_price": 102.19,
+      "unrealised_pnl_pct": -2.374,
+      "days_held": 14,
       "peak_pnl_pct": 0.053,
       "checkpoints": {
         "4": -1.438,
         "10": -3.081
-      }
-    },
-    {
-      "asset": "4543.T",
-      "market": "JPX",
-      "entry_date": "2026-09-16",
-      "entry_price": 2244.0,
-      "hold_days_target": 20,
-      "size_pct": 10.7,
-      "ml_score": 83.4,
-      "val_auc": 0.619,
-      "strategy": "Mean Reversion",
-      "tier": "A",
-      "score": 53,
-      "p7_verdict": "TRADE",
-      "current_price": 2297.0,
-      "unrealised_pnl_pct": 2.362,
-      "days_held": 10,
-      "peak_pnl_pct": 2.362,
-      "checkpoints": {
-        "10": 2.362
       }
     },
     {
@@ -58,9 +37,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.5,
-      "current_price": 329.485,
-      "unrealised_pnl_pct": -2.772,
-      "days_held": 5,
+      "current_price": 331.24,
+      "unrealised_pnl_pct": -2.254,
+      "days_held": 6,
       "peak_pnl_pct": 1.233,
       "checkpoints": {
         "4": -2.375
@@ -81,11 +60,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.1,
-      "current_price": 6190.0,
-      "unrealised_pnl_pct": -0.578,
-      "days_held": 3,
+      "current_price": 6110.0,
+      "unrealised_pnl_pct": -1.863,
+      "days_held": 4,
       "peak_pnl_pct": 0.0,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": -1.863
+      }
     },
     {
       "asset": "GLD",
@@ -102,11 +83,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.5,
-      "current_price": 382.42,
-      "unrealised_pnl_pct": 0.78,
-      "days_held": 3,
+      "current_price": 380.145,
+      "unrealised_pnl_pct": 0.181,
+      "days_held": 4,
       "peak_pnl_pct": 0.904,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": 0.181
+      }
     },
     {
       "asset": "1802.T",
@@ -123,10 +106,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 9.9,
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 2982.0,
+      "unrealised_pnl_pct": 0.999,
       "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "peak_pnl_pct": 0.999,
       "checkpoints": {}
     }
   ],
@@ -434,6 +417,31 @@
         "4": 0.042,
         "10": -3.384
       }
+    },
+    {
+      "asset": "4543.T",
+      "market": "JPX",
+      "entry_date": "2026-09-16",
+      "entry_price": 2244.0,
+      "hold_days_target": 20,
+      "size_pct": 10.7,
+      "ml_score": 83.4,
+      "val_auc": 0.619,
+      "strategy": "Mean Reversion",
+      "tier": "A",
+      "score": 53,
+      "p7_verdict": "TRADE",
+      "checkpoints": {
+        "10": 2.362
+      },
+      "exit_date": "2026-10-02",
+      "exit_price": 2351.5,
+      "days_held": 12,
+      "pnl_pct": 4.791,
+      "peak_pnl_pct": 4.791,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
     }
   ],
   "metadata": {
