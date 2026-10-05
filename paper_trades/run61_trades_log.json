@@ -15,9 +15,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.5,
-      "current_price": 331.24,
-      "unrealised_pnl_pct": -2.254,
-      "days_held": 6,
+      "current_price": 332.74,
+      "unrealised_pnl_pct": -1.812,
+      "days_held": 7,
       "peak_pnl_pct": 1.233,
       "checkpoints": {
         "4": -2.375
@@ -38,9 +38,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.1,
-      "current_price": 6110.0,
-      "unrealised_pnl_pct": -1.863,
-      "days_held": 4,
+      "current_price": 6173.0,
+      "unrealised_pnl_pct": -0.851,
+      "days_held": 5,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -1.863
@@ -61,11 +61,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.4,
-      "current_price": 380.145,
-      "unrealised_pnl_pct": -0.272,
-      "days_held": 3,
+      "current_price": 379.19,
+      "unrealised_pnl_pct": -0.522,
+      "days_held": 4,
       "peak_pnl_pct": 0.415,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": -0.522
+      }
     },
     {
       "asset": "1802.T",
@@ -81,7 +83,12 @@
       "score": 47,
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
-      "spy_adx_at_entry": 9.6
+      "spy_adx_at_entry": 9.6,
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "WEC",
@@ -97,7 +104,28 @@
       "score": 46,
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
-      "spy_adx_at_entry": 9.6
+      "spy_adx_at_entry": 9.6,
+      "current_price": 101.66,
+      "unrealised_pnl_pct": -0.519,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
+    },
+    {
+      "asset": "4543.T",
+      "market": "JPX",
+      "entry_date": "2026-10-05",
+      "entry_price": 2243.5,
+      "hold_days_target": 20,
+      "size_pct": 10.2,
+      "ml_score": 86.3,
+      "val_auc": 0.613,
+      "strategy": "Mean Reversion",
+      "tier": "A",
+      "score": 54,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 9.5
     }
   ],
   "closed": [
@@ -308,7 +336,7 @@
     "run": 61,
     "label": "Concentrated Champions \u2014 ML\u226585, Proven trio, Fund gate, Tier S+A, max 10 (Run 61)",
     "created": "2026-07-31",
-    "total_logged": 13,
+    "total_logged": 14,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,

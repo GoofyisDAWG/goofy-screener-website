@@ -15,9 +15,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.5,
-      "current_price": 331.24,
-      "unrealised_pnl_pct": -2.254,
-      "days_held": 6,
+      "current_price": 332.74,
+      "unrealised_pnl_pct": -1.812,
+      "days_held": 7,
       "peak_pnl_pct": 1.233,
       "checkpoints": {
         "4": -2.375
@@ -38,9 +38,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.1,
-      "current_price": 6110.0,
-      "unrealised_pnl_pct": -1.863,
-      "days_held": 4,
+      "current_price": 6173.0,
+      "unrealised_pnl_pct": -0.851,
+      "days_held": 5,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -1.863
@@ -61,12 +61,12 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.5,
-      "current_price": 380.145,
-      "unrealised_pnl_pct": 0.181,
-      "days_held": 4,
+      "current_price": 379.19,
+      "unrealised_pnl_pct": -0.071,
+      "days_held": 5,
       "peak_pnl_pct": 0.904,
       "checkpoints": {
-        "4": 0.181
+        "4": 0.179
       }
     },
     {
@@ -84,9 +84,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 9.9,
-      "current_price": 2982.0,
-      "unrealised_pnl_pct": 0.999,
-      "days_held": 1,
+      "current_price": 2965.0,
+      "unrealised_pnl_pct": 0.423,
+      "days_held": 2,
       "peak_pnl_pct": 0.999,
       "checkpoints": {}
     },
@@ -105,11 +105,43 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.0,
-      "current_price": 102.19,
-      "unrealised_pnl_pct": 1.108,
-      "days_held": 1,
-      "peak_pnl_pct": 1.108,
+      "current_price": 101.66,
+      "unrealised_pnl_pct": 0.584,
+      "days_held": 2,
+      "peak_pnl_pct": 0.584,
       "checkpoints": {}
+    },
+    {
+      "asset": "KR",
+      "market": "US",
+      "entry_date": "2026-10-05",
+      "entry_price": 58.665,
+      "hold_days_target": 20,
+      "size_pct": 9.1,
+      "ml_score": 80.1,
+      "val_auc": 0.485,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 54,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 9.5
+    },
+    {
+      "asset": "4543.T",
+      "market": "JPX",
+      "entry_date": "2026-10-05",
+      "entry_price": 2243.5,
+      "hold_days_target": 20,
+      "size_pct": 10.2,
+      "ml_score": 86.3,
+      "val_auc": 0.613,
+      "strategy": "Mean Reversion",
+      "tier": "A",
+      "score": 54,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 9.5
     }
   ],
   "closed": [
@@ -446,7 +478,7 @@
     "run": 60,
     "label": "Concentrated Regime-Smart \u2014 Regime gate + R18 base, Tier S+A, max 10 (Run 60)",
     "created": "2026-07-31",
-    "total_logged": 18,
+    "total_logged": 20,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,

@@ -13,9 +13,9 @@
       "tier": "B",
       "score": 39,
       "p7_verdict": "TRADE",
-      "current_price": 2833.5,
-      "unrealised_pnl_pct": -3.327,
-      "days_held": 18,
+      "current_price": 2806.5,
+      "unrealised_pnl_pct": -4.248,
+      "days_held": 19,
       "peak_pnl_pct": 1.333,
       "checkpoints": {
         "4": -0.976
@@ -34,9 +34,9 @@
       "tier": "B",
       "score": 58,
       "p7_verdict": "TRADE",
-      "current_price": 2925.0,
-      "unrealised_pnl_pct": -1.465,
-      "days_held": 17,
+      "current_price": 2856.5,
+      "unrealised_pnl_pct": -3.773,
+      "days_held": 18,
       "peak_pnl_pct": 0.495,
       "checkpoints": {
         "4": 0.197
@@ -55,9 +55,9 @@
       "tier": "B",
       "score": 62,
       "p7_verdict": "TRADE",
-      "current_price": 2008.5,
-      "unrealised_pnl_pct": 4.419,
-      "days_held": 15,
+      "current_price": 1958.0,
+      "unrealised_pnl_pct": 1.794,
+      "days_held": 16,
       "peak_pnl_pct": 5.355,
       "checkpoints": {
         "4": 3.197,
@@ -77,9 +77,9 @@
       "tier": "A",
       "score": 49,
       "p7_verdict": "TRADE",
-      "current_price": 102.19,
-      "unrealised_pnl_pct": -3.0,
-      "days_held": 15,
+      "current_price": 101.66,
+      "unrealised_pnl_pct": -3.503,
+      "days_held": 16,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -0.589,
@@ -99,9 +99,9 @@
       "tier": "B",
       "score": 50,
       "p7_verdict": "TRADE",
-      "current_price": 9770.0,
-      "unrealised_pnl_pct": 1.665,
-      "days_held": 6,
+      "current_price": 9724.0,
+      "unrealised_pnl_pct": 1.186,
+      "days_held": 7,
       "peak_pnl_pct": 3.132,
       "checkpoints": {
         "4": -1.259
@@ -122,9 +122,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.5,
-      "current_price": 331.24,
-      "unrealised_pnl_pct": -2.254,
-      "days_held": 6,
+      "current_price": 332.74,
+      "unrealised_pnl_pct": -1.812,
+      "days_held": 7,
       "peak_pnl_pct": 1.233,
       "checkpoints": {
         "4": -2.375
@@ -145,10 +145,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.1,
-      "current_price": 253.15,
-      "unrealised_pnl_pct": 1.005,
-      "days_held": 5,
-      "peak_pnl_pct": 1.005,
+      "current_price": 254.38,
+      "unrealised_pnl_pct": 1.496,
+      "days_held": 6,
+      "peak_pnl_pct": 1.496,
       "checkpoints": {
         "4": -0.614
       }
@@ -168,9 +168,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.1,
-      "current_price": 59.38,
-      "unrealised_pnl_pct": 1.818,
-      "days_held": 5,
+      "current_price": 58.665,
+      "unrealised_pnl_pct": 0.592,
+      "days_held": 6,
       "peak_pnl_pct": 4.235,
       "checkpoints": {
         "4": 1.989
@@ -191,13 +191,29 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.5,
-      "current_price": 380.145,
-      "unrealised_pnl_pct": 0.181,
-      "days_held": 4,
+      "current_price": 379.19,
+      "unrealised_pnl_pct": -0.071,
+      "days_held": 5,
       "peak_pnl_pct": 0.904,
       "checkpoints": {
-        "4": 0.181
+        "4": 0.179
       }
+    },
+    {
+      "asset": "4543.T",
+      "market": "JPX",
+      "entry_date": "2026-10-05",
+      "entry_price": 2243.5,
+      "hold_days_target": 20,
+      "size_pct": 10.2,
+      "ml_score": 86.3,
+      "val_auc": 0.613,
+      "strategy": "Mean Reversion",
+      "tier": "A",
+      "score": 54,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 9.5
     }
   ],
   "closed": [
@@ -706,7 +722,7 @@
     "run": 28,
     "label": "Phase 10A: Proven Trio + Tight Pullback 5% + RSI-65 Gate + 15d Cooldown (Run 28)",
     "created": "2026-07-18",
-    "total_logged": 28,
+    "total_logged": 29,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
