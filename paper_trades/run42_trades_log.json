@@ -15,9 +15,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.5,
-      "current_price": 332.74,
-      "unrealised_pnl_pct": -1.812,
-      "days_held": 7,
+      "current_price": 332.05,
+      "unrealised_pnl_pct": -2.015,
+      "days_held": 8,
       "peak_pnl_pct": 1.233,
       "checkpoints": {
         "4": -2.375
@@ -38,9 +38,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.5,
-      "current_price": 58.665,
-      "unrealised_pnl_pct": -0.946,
-      "days_held": 7,
+      "current_price": 57.81,
+      "unrealised_pnl_pct": -2.389,
+      "days_held": 8,
       "peak_pnl_pct": 2.642,
       "checkpoints": {
         "4": -1.022
@@ -61,10 +61,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.1,
-      "current_price": 254.38,
-      "unrealised_pnl_pct": 1.496,
-      "days_held": 6,
-      "peak_pnl_pct": 1.496,
+      "current_price": 254.905,
+      "unrealised_pnl_pct": 1.706,
+      "days_held": 7,
+      "peak_pnl_pct": 1.706,
       "checkpoints": {
         "4": -0.614
       }
@@ -84,9 +84,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.1,
-      "current_price": 101.66,
-      "unrealised_pnl_pct": 1.059,
-      "days_held": 6,
+      "current_price": 102.29,
+      "unrealised_pnl_pct": 1.685,
+      "days_held": 7,
       "peak_pnl_pct": 1.973,
       "checkpoints": {
         "4": 1.128
@@ -107,9 +107,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.1,
-      "current_price": 379.19,
-      "unrealised_pnl_pct": -2.998,
-      "days_held": 6,
+      "current_price": 382.1991,
+      "unrealised_pnl_pct": -2.228,
+      "days_held": 7,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -2.085
@@ -130,10 +130,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 9.6,
-      "current_price": 346.885,
-      "unrealised_pnl_pct": 1.373,
-      "days_held": 1,
-      "peak_pnl_pct": 1.373,
+      "current_price": 348.24,
+      "unrealised_pnl_pct": 1.769,
+      "days_held": 2,
+      "peak_pnl_pct": 1.769,
       "checkpoints": {}
     }
   ],

@@ -13,9 +13,9 @@
       "tier": "B",
       "score": 58,
       "p7_verdict": "TRADE",
-      "current_price": 2856.5,
-      "unrealised_pnl_pct": -3.854,
-      "days_held": 17,
+      "current_price": 2893.5,
+      "unrealised_pnl_pct": -2.609,
+      "days_held": 18,
       "peak_pnl_pct": 0.411,
       "checkpoints": {
         "4": -0.019
@@ -34,9 +34,9 @@
       "tier": "B",
       "score": 62,
       "p7_verdict": "TRADE",
-      "current_price": 1958.0,
-      "unrealised_pnl_pct": -0.609,
-      "days_held": 15,
+      "current_price": 1955.0,
+      "unrealised_pnl_pct": -0.761,
+      "days_held": 16,
       "peak_pnl_pct": 2.868,
       "checkpoints": {
         "4": 2.741,
@@ -56,9 +56,9 @@
       "tier": "B",
       "score": 50,
       "p7_verdict": "TRADE",
-      "current_price": 9724.0,
-      "unrealised_pnl_pct": 2.531,
-      "days_held": 15,
+      "current_price": 9672.0,
+      "unrealised_pnl_pct": 1.982,
+      "days_held": 16,
       "peak_pnl_pct": 4.502,
       "checkpoints": {
         "4": -2.713,
@@ -80,9 +80,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.5,
-      "current_price": 6173.0,
-      "unrealised_pnl_pct": -0.851,
-      "days_held": 4,
+      "current_price": 6075.0,
+      "unrealised_pnl_pct": -2.425,
+      "days_held": 5,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -0.851
@@ -103,9 +103,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 9.9,
-      "current_price": 2965.0,
-      "unrealised_pnl_pct": 0.423,
-      "days_held": 2,
+      "current_price": 2948.5,
+      "unrealised_pnl_pct": -0.135,
+      "days_held": 3,
       "peak_pnl_pct": 0.999,
       "checkpoints": {}
     },
@@ -123,7 +123,12 @@
       "score": 54,
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
-      "spy_adx_at_entry": 9.5
+      "spy_adx_at_entry": 9.5,
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     }
   ],
   "closed": [

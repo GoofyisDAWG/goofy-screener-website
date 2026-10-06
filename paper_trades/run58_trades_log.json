@@ -13,9 +13,9 @@
       "tier": "A",
       "score": 48,
       "p7_verdict": "TRADE",
-      "current_price": 101.66,
-      "unrealised_pnl_pct": -2.88,
-      "days_held": 15,
+      "current_price": 102.29,
+      "unrealised_pnl_pct": -2.278,
+      "days_held": 16,
       "peak_pnl_pct": 0.053,
       "checkpoints": {
         "4": -1.438,
@@ -37,9 +37,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.5,
-      "current_price": 332.74,
-      "unrealised_pnl_pct": -1.812,
-      "days_held": 7,
+      "current_price": 332.05,
+      "unrealised_pnl_pct": -2.015,
+      "days_held": 8,
       "peak_pnl_pct": 1.233,
       "checkpoints": {
         "4": -2.375
@@ -60,9 +60,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.1,
-      "current_price": 6173.0,
-      "unrealised_pnl_pct": -0.851,
-      "days_held": 5,
+      "current_price": 6075.0,
+      "unrealised_pnl_pct": -2.425,
+      "days_held": 6,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -1.863
@@ -83,9 +83,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.5,
-      "current_price": 379.19,
-      "unrealised_pnl_pct": -0.071,
-      "days_held": 5,
+      "current_price": 382.1991,
+      "unrealised_pnl_pct": 0.722,
+      "days_held": 6,
       "peak_pnl_pct": 0.904,
       "checkpoints": {
         "4": 0.179
@@ -106,9 +106,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 9.9,
-      "current_price": 2965.0,
-      "unrealised_pnl_pct": 0.423,
-      "days_held": 2,
+      "current_price": 2948.5,
+      "unrealised_pnl_pct": -0.135,
+      "days_held": 3,
       "peak_pnl_pct": 0.999,
       "checkpoints": {}
     },
@@ -126,7 +126,12 @@
       "score": 54,
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
-      "spy_adx_at_entry": 9.5
+      "spy_adx_at_entry": 9.5,
+      "current_price": 57.81,
+      "unrealised_pnl_pct": -1.457,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     },
     {
       "asset": "4543.T",
@@ -142,7 +147,12 @@
       "score": 54,
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
-      "spy_adx_at_entry": 9.5
+      "spy_adx_at_entry": 9.5,
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     }
   ],
   "closed": [
