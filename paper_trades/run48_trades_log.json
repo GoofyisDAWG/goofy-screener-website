@@ -13,9 +13,9 @@
       "tier": "B",
       "score": 51,
       "p7_verdict": "TRADE",
-      "current_price": 9263.0,
-      "unrealised_pnl_pct": -4.505,
-      "days_held": 16,
+      "current_price": 9406.0,
+      "unrealised_pnl_pct": -3.031,
+      "days_held": 17,
       "peak_pnl_pct": 2.175,
       "checkpoints": {
         "10": 2.175
@@ -34,9 +34,9 @@
       "tier": "B",
       "score": 34,
       "p7_verdict": "TRADE",
-      "current_price": 23.31,
-      "unrealised_pnl_pct": 1.569,
-      "days_held": 14,
+      "current_price": 23.37,
+      "unrealised_pnl_pct": 1.83,
+      "days_held": 15,
       "peak_pnl_pct": 1.874,
       "checkpoints": {
         "4": 1.046,
@@ -56,9 +56,9 @@
       "tier": "B",
       "score": 31,
       "p7_verdict": "TRADE",
-      "current_price": 25025.0,
-      "unrealised_pnl_pct": 10.706,
-      "days_held": 12,
+      "current_price": 25055.0,
+      "unrealised_pnl_pct": 10.838,
+      "days_held": 13,
       "peak_pnl_pct": 11.922,
       "checkpoints": {
         "4": 4.357,
@@ -80,13 +80,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.1,
-      "current_price": 248.255,
-      "unrealised_pnl_pct": -0.948,
-      "days_held": 10,
+      "current_price": 250.465,
+      "unrealised_pnl_pct": -0.066,
+      "days_held": 11,
       "peak_pnl_pct": 1.233,
       "checkpoints": {
         "4": -0.614,
-        "10": -0.948
+        "10": -0.818
       }
     },
     {
@@ -104,36 +104,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.1,
-      "current_price": 383.94,
-      "unrealised_pnl_pct": -1.783,
-      "days_held": 10,
+      "current_price": 382.06,
+      "unrealised_pnl_pct": -2.264,
+      "days_held": 11,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -2.085,
-        "10": -1.783
-      }
-    },
-    {
-      "asset": "4151.T",
-      "market": "JPX",
-      "entry_date": "2026-09-25",
-      "entry_price": 2267.0,
-      "hold_days_target": 20,
-      "size_pct": 6.7,
-      "ml_score": 70.3,
-      "val_auc": 0.488,
-      "strategy": "Bollinger Bands",
-      "tier": "B",
-      "score": 42,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 11.1,
-      "current_price": 2209.0,
-      "unrealised_pnl_pct": -2.558,
-      "days_held": 9,
-      "peak_pnl_pct": 0.816,
-      "checkpoints": {
-        "4": 0.816
+        "10": -1.619
       }
     },
     {
@@ -151,10 +128,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.0,
-      "current_price": 150.8175,
-      "unrealised_pnl_pct": 5.026,
-      "days_held": 6,
-      "peak_pnl_pct": 5.026,
+      "current_price": 152.845,
+      "unrealised_pnl_pct": 6.438,
+      "days_held": 7,
+      "peak_pnl_pct": 6.438,
       "checkpoints": {
         "4": 2.939
       }
@@ -174,10 +151,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.0,
-      "current_price": 2871.5,
-      "unrealised_pnl_pct": 0.192,
-      "days_held": 5,
-      "peak_pnl_pct": 0.192,
+      "current_price": 2939.0,
+      "unrealised_pnl_pct": 2.547,
+      "days_held": 6,
+      "peak_pnl_pct": 2.547,
       "checkpoints": {
         "4": -0.384
       }
@@ -197,10 +174,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 9.6,
-      "current_price": 353.5862,
-      "unrealised_pnl_pct": 3.332,
-      "days_held": 5,
-      "peak_pnl_pct": 3.332,
+      "current_price": 352.39,
+      "unrealised_pnl_pct": 2.982,
+      "days_held": 6,
+      "peak_pnl_pct": 2.982,
       "checkpoints": {
         "4": 1.784
       }
@@ -220,11 +197,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 9.5,
-      "current_price": 2308.5,
-      "unrealised_pnl_pct": 2.897,
-      "days_held": 3,
+      "current_price": 2284.0,
+      "unrealised_pnl_pct": 1.805,
+      "days_held": 4,
       "peak_pnl_pct": 4.012,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": 1.805
+      }
     },
     {
       "asset": "ROK",
@@ -241,10 +220,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.3,
-      "current_price": 431.985,
-      "unrealised_pnl_pct": -0.097,
-      "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "current_price": 431.99,
+      "unrealised_pnl_pct": -0.096,
+      "days_held": 2,
+      "peak_pnl_pct": 0.043,
       "checkpoints": {}
     },
     {
@@ -262,10 +241,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.3,
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 2910.5,
+      "unrealised_pnl_pct": 0.345,
       "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "peak_pnl_pct": 0.345,
       "checkpoints": {}
     },
     {
@@ -282,7 +261,12 @@
       "score": 30,
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
-      "spy_adx_at_entry": 9.5
+      "spy_adx_at_entry": 9.5,
+      "current_price": 54.625,
+      "unrealised_pnl_pct": 1.008,
+      "days_held": 1,
+      "peak_pnl_pct": 1.008,
+      "checkpoints": {}
     }
   ],
   "closed": [
@@ -1277,6 +1261,34 @@
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "4151.T",
+      "market": "JPX",
+      "entry_date": "2026-09-25",
+      "entry_price": 2267.0,
+      "hold_days_target": 20,
+      "size_pct": 6.7,
+      "ml_score": 70.3,
+      "val_auc": 0.488,
+      "strategy": "Bollinger Bands",
+      "tier": "B",
+      "score": 42,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 11.1,
+      "checkpoints": {
+        "4": 0.816,
+        "10": -1.963
+      },
+      "exit_date": "2026-10-12",
+      "exit_price": 2222.5,
+      "days_held": 11,
+      "pnl_pct": -1.963,
+      "peak_pnl_pct": 0.816,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN"
     }
   ],
   "metadata": {
