@@ -15,9 +15,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.1,
-      "current_price": 6054.0,
-      "unrealised_pnl_pct": -2.763,
-      "days_held": 13,
+      "current_price": 6030.0,
+      "unrealised_pnl_pct": -3.148,
+      "days_held": 14,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -1.863,
@@ -39,9 +39,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.5,
-      "current_price": 375.47,
-      "unrealised_pnl_pct": -1.051,
-      "days_held": 12,
+      "current_price": 380.405,
+      "unrealised_pnl_pct": 0.249,
+      "days_held": 13,
       "peak_pnl_pct": 1.349,
       "checkpoints": {
         "4": 0.179,
@@ -63,36 +63,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 9.9,
-      "current_price": 2863.5,
-      "unrealised_pnl_pct": -3.014,
-      "days_held": 10,
+      "current_price": 2793.0,
+      "unrealised_pnl_pct": -5.402,
+      "days_held": 11,
       "peak_pnl_pct": 0.999,
       "checkpoints": {
         "4": -0.593,
         "10": -3.014
-      }
-    },
-    {
-      "asset": "KR",
-      "market": "US",
-      "entry_date": "2026-10-05",
-      "entry_price": 58.665,
-      "hold_days_target": 20,
-      "size_pct": 9.1,
-      "ml_score": 80.1,
-      "val_auc": 0.485,
-      "strategy": "RSI",
-      "tier": "A",
-      "score": 54,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 9.5,
-      "current_price": 61.12,
-      "unrealised_pnl_pct": 4.185,
-      "days_held": 7,
-      "peak_pnl_pct": 6.639,
-      "checkpoints": {
-        "4": 5.071
       }
     },
     {
@@ -110,9 +87,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 9.5,
-      "current_price": 2254.5,
-      "unrealised_pnl_pct": 0.49,
-      "days_held": 7,
+      "current_price": 2302.5,
+      "unrealised_pnl_pct": 2.63,
+      "days_held": 8,
       "peak_pnl_pct": 4.012,
       "checkpoints": {
         "4": 1.805
@@ -501,6 +478,33 @@
         "4": -1.438,
         "10": -3.081
       }
+    },
+    {
+      "asset": "KR",
+      "market": "US",
+      "entry_date": "2026-10-05",
+      "entry_price": 58.665,
+      "hold_days_target": 20,
+      "size_pct": 9.1,
+      "ml_score": 80.1,
+      "val_auc": 0.485,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 54,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 9.5,
+      "checkpoints": {
+        "4": 5.071
+      },
+      "exit_date": "2026-10-15",
+      "exit_price": 64.335,
+      "days_held": 8,
+      "pnl_pct": 9.665,
+      "peak_pnl_pct": 9.665,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     }
   ],
   "metadata": {
