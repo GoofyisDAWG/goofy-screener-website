@@ -15,9 +15,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.1,
-      "current_price": 243.875,
-      "unrealised_pnl_pct": -2.695,
-      "days_held": 14,
+      "current_price": 251.47,
+      "unrealised_pnl_pct": 0.335,
+      "days_held": 15,
       "peak_pnl_pct": 1.233,
       "checkpoints": {
         "4": -0.614,
@@ -39,9 +39,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.5,
-      "current_price": 380.405,
-      "unrealised_pnl_pct": 0.249,
-      "days_held": 13,
+      "current_price": 383.83,
+      "unrealised_pnl_pct": 1.152,
+      "days_held": 14,
       "peak_pnl_pct": 1.349,
       "checkpoints": {
         "4": 0.179,
@@ -63,10 +63,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 9.5,
-      "current_price": 2302.5,
-      "unrealised_pnl_pct": 2.63,
-      "days_held": 8,
-      "peak_pnl_pct": 4.012,
+      "current_price": 2337.0,
+      "unrealised_pnl_pct": 4.168,
+      "days_held": 9,
+      "peak_pnl_pct": 4.168,
       "checkpoints": {
         "4": 1.805
       }
@@ -86,9 +86,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.3,
-      "current_price": 415.14,
-      "unrealised_pnl_pct": -3.993,
-      "days_held": 5,
+      "current_price": 428.54,
+      "unrealised_pnl_pct": -0.894,
+      "days_held": 6,
       "peak_pnl_pct": 0.362,
       "checkpoints": {
         "4": -2.078
@@ -109,9 +109,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.3,
-      "current_price": 6030.0,
-      "unrealised_pnl_pct": -0.166,
-      "days_held": 5,
+      "current_price": 6004.0,
+      "unrealised_pnl_pct": -0.596,
+      "days_held": 6,
       "peak_pnl_pct": 0.232,
       "checkpoints": {
         "4": 0.232
@@ -132,12 +132,12 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 9.5,
-      "current_price": 56.35,
-      "unrealised_pnl_pct": 4.197,
-      "days_held": 4,
-      "peak_pnl_pct": 4.197,
+      "current_price": 56.16,
+      "unrealised_pnl_pct": 3.846,
+      "days_held": 5,
+      "peak_pnl_pct": 3.846,
       "checkpoints": {
-        "4": 4.197
+        "4": 2.718
       }
     },
     {
@@ -155,9 +155,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 9.5,
-      "current_price": 2793.0,
-      "unrealised_pnl_pct": -1.931,
-      "days_held": 4,
+      "current_price": 2864.0,
+      "unrealised_pnl_pct": 0.562,
+      "days_held": 5,
       "peak_pnl_pct": 1.036,
       "checkpoints": {
         "4": -1.931
