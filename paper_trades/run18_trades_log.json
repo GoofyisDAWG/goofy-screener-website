@@ -15,10 +15,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 11.1,
-      "current_price": 6161.0,
-      "unrealised_pnl_pct": -1.044,
-      "days_held": 18,
-      "peak_pnl_pct": 0.0,
+      "current_price": 6236.0,
+      "unrealised_pnl_pct": 0.161,
+      "days_held": 19,
+      "peak_pnl_pct": 0.161,
       "checkpoints": {
         "4": -1.863,
         "10": -4.369
@@ -39,9 +39,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.5,
-      "current_price": 378.4,
-      "unrealised_pnl_pct": -0.279,
-      "days_held": 17,
+      "current_price": 371.13,
+      "unrealised_pnl_pct": -2.195,
+      "days_held": 18,
       "peak_pnl_pct": 1.349,
       "checkpoints": {
         "4": 0.179,
@@ -63,61 +63,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 9.9,
-      "current_price": 2902.5,
-      "unrealised_pnl_pct": -1.693,
-      "days_held": 15,
+      "current_price": 2907.0,
+      "unrealised_pnl_pct": -1.541,
+      "days_held": 16,
       "peak_pnl_pct": 0.999,
       "checkpoints": {
         "4": -0.593,
         "10": -3.014
-      }
-    },
-    {
-      "asset": "AME",
-      "market": "US",
-      "entry_date": "2026-10-01",
-      "entry_price": 248.76,
-      "hold_days_target": 20,
-      "size_pct": 1.0,
-      "ml_score": 87.9,
-      "val_auc": 0.605,
-      "strategy": "MA Crossover",
-      "tier": "B",
-      "score": 31,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 10.0,
-      "current_price": 248.41,
-      "unrealised_pnl_pct": -0.141,
-      "days_held": 14,
-      "peak_pnl_pct": 1.994,
-      "checkpoints": {
-        "4": -0.056,
-        "10": -0.096
-      }
-    },
-    {
-      "asset": "WEC",
-      "market": "US",
-      "entry_date": "2026-10-01",
-      "entry_price": 101.07,
-      "hold_days_target": 20,
-      "size_pct": 15.1,
-      "ml_score": 83.7,
-      "val_auc": 0.525,
-      "strategy": "RSI",
-      "tier": "A",
-      "score": 46,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 10.0,
-      "current_price": 108.78,
-      "unrealised_pnl_pct": 7.628,
-      "days_held": 14,
-      "peak_pnl_pct": 7.628,
-      "checkpoints": {
-        "4": 2.088,
-        "10": 4.917
       }
     },
     {
@@ -135,12 +87,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.3,
-      "current_price": 431.58,
-      "unrealised_pnl_pct": -0.191,
-      "days_held": 9,
-      "peak_pnl_pct": 0.362,
+      "current_price": 421.55,
+      "unrealised_pnl_pct": -2.51,
+      "days_held": 10,
+      "peak_pnl_pct": 1.412,
       "checkpoints": {
-        "4": -2.078
+        "4": -2.078,
+        "10": -2.51
       }
     },
     {
@@ -158,12 +111,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.3,
-      "current_price": 3094.0,
-      "unrealised_pnl_pct": 6.671,
-      "days_held": 9,
+      "current_price": 3084.0,
+      "unrealised_pnl_pct": 6.326,
+      "days_held": 10,
       "peak_pnl_pct": 6.947,
       "checkpoints": {
-        "4": 3.81
+        "4": 3.81,
+        "10": 6.326
       }
     }
   ],
@@ -1350,6 +1304,62 @@
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "AME",
+      "market": "US",
+      "entry_date": "2026-10-01",
+      "entry_price": 248.76,
+      "hold_days_target": 20,
+      "size_pct": 1.0,
+      "ml_score": 87.9,
+      "val_auc": 0.605,
+      "strategy": "MA Crossover",
+      "tier": "B",
+      "score": 31,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 10.0,
+      "checkpoints": {
+        "4": -0.056,
+        "10": -0.096
+      },
+      "exit_date": "2026-10-22",
+      "exit_price": 236.75,
+      "days_held": 15,
+      "pnl_pct": -4.828,
+      "peak_pnl_pct": 1.994,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
+    },
+    {
+      "asset": "WEC",
+      "market": "US",
+      "entry_date": "2026-10-01",
+      "entry_price": 101.07,
+      "hold_days_target": 20,
+      "size_pct": 15.1,
+      "ml_score": 83.7,
+      "val_auc": 0.525,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 46,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 10.0,
+      "checkpoints": {
+        "4": 2.088,
+        "10": 4.917
+      },
+      "exit_date": "2026-10-22",
+      "exit_price": 110.51,
+      "days_held": 15,
+      "pnl_pct": 9.34,
+      "peak_pnl_pct": 9.34,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     }
   ],
   "metadata": {

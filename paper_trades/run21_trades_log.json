@@ -1,75 +1,6 @@
 {
   "open": [
     {
-      "asset": "AAPL",
-      "market": "US",
-      "entry_date": "2026-10-08",
-      "entry_price": 338.666,
-      "hold_days_target": 20,
-      "size_pct": 1.7,
-      "ml_score": 91.4,
-      "val_auc": 0.596,
-      "strategy": "MACD",
-      "tier": "A",
-      "score": 66,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 10.3,
-      "current_price": 340.01,
-      "unrealised_pnl_pct": 0.397,
-      "days_held": 9,
-      "peak_pnl_pct": 1.416,
-      "checkpoints": {
-        "4": 1.268
-      }
-    },
-    {
-      "asset": "ROK",
-      "market": "US",
-      "entry_date": "2026-10-08",
-      "entry_price": 432.405,
-      "hold_days_target": 20,
-      "size_pct": 2.0,
-      "ml_score": 89.9,
-      "val_auc": 0.515,
-      "strategy": "RSI",
-      "tier": "B",
-      "score": 33,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 10.3,
-      "current_price": 431.58,
-      "unrealised_pnl_pct": -0.191,
-      "days_held": 9,
-      "peak_pnl_pct": 0.362,
-      "checkpoints": {
-        "4": -2.078
-      }
-    },
-    {
-      "asset": "SPY",
-      "market": "US",
-      "entry_date": "2026-10-08",
-      "entry_price": 774.7999,
-      "hold_days_target": 20,
-      "size_pct": 3.2,
-      "ml_score": 80.4,
-      "val_auc": 0.49,
-      "strategy": "MACD",
-      "tier": "A",
-      "score": 44,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 10.3,
-      "current_price": 769.07,
-      "unrealised_pnl_pct": -0.74,
-      "days_held": 9,
-      "peak_pnl_pct": 0.487,
-      "checkpoints": {
-        "4": -0.671
-      }
-    },
-    {
       "asset": "GLD",
       "market": "US",
       "entry_date": "2026-10-12",
@@ -84,35 +15,12 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 9.6,
-      "current_price": 378.4,
-      "unrealised_pnl_pct": -0.958,
-      "days_held": 7,
+      "current_price": 371.13,
+      "unrealised_pnl_pct": -2.861,
+      "days_held": 8,
       "peak_pnl_pct": 0.17,
       "checkpoints": {
         "4": -0.013
-      }
-    },
-    {
-      "asset": "AME",
-      "market": "US",
-      "entry_date": "2026-10-14",
-      "entry_price": 248.485,
-      "hold_days_target": 20,
-      "size_pct": 1.5,
-      "ml_score": 63.5,
-      "val_auc": 0.593,
-      "strategy": "MA Crossover",
-      "tier": "B",
-      "score": 31,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 8.8,
-      "current_price": 248.41,
-      "unrealised_pnl_pct": -0.03,
-      "days_held": 5,
-      "peak_pnl_pct": 0.014,
-      "checkpoints": {
-        "4": -0.453
       }
     },
     {
@@ -130,9 +38,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 8.8,
-      "current_price": 1698.5,
-      "unrealised_pnl_pct": -3.439,
-      "days_held": 5,
+      "current_price": 1683.0,
+      "unrealised_pnl_pct": -4.321,
+      "days_held": 6,
       "peak_pnl_pct": 0.0,
       "checkpoints": {
         "4": -1.649
@@ -153,10 +61,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 8.8,
-      "current_price": 2902.5,
-      "unrealised_pnl_pct": 1.362,
-      "days_held": 5,
-      "peak_pnl_pct": 1.362,
+      "current_price": 2907.0,
+      "unrealised_pnl_pct": 1.519,
+      "days_held": 6,
+      "peak_pnl_pct": 1.519,
       "checkpoints": {
         "4": 0.803
       }
@@ -176,9 +84,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.1,
-      "current_price": 4529.0,
-      "unrealised_pnl_pct": 3.307,
-      "days_held": 4,
+      "current_price": 4543.0,
+      "unrealised_pnl_pct": 3.627,
+      "days_held": 5,
       "peak_pnl_pct": 4.266,
       "checkpoints": {
         "4": 3.307
@@ -199,9 +107,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.1,
-      "current_price": 5410.0,
-      "unrealised_pnl_pct": 2.793,
-      "days_held": 4,
+      "current_price": 5314.0,
+      "unrealised_pnl_pct": 0.969,
+      "days_held": 5,
       "peak_pnl_pct": 3.933,
       "checkpoints": {
         "4": 2.793
@@ -222,11 +130,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.6,
-      "current_price": 3289.0,
-      "unrealised_pnl_pct": -0.303,
-      "days_held": 3,
+      "current_price": 3319.0,
+      "unrealised_pnl_pct": 0.606,
+      "days_held": 4,
       "peak_pnl_pct": 1.485,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": 0.606
+      }
     },
     {
       "asset": "8015.T",
@@ -243,9 +153,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 12.9,
-      "current_price": 7522.0,
-      "unrealised_pnl_pct": 0.588,
-      "days_held": 1,
+      "current_price": 7330.0,
+      "unrealised_pnl_pct": -1.979,
+      "days_held": 2,
       "peak_pnl_pct": 0.588,
       "checkpoints": {}
     },
@@ -263,7 +173,76 @@
       "score": 42,
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
-      "spy_adx_at_entry": 12.8
+      "spy_adx_at_entry": 12.8,
+      "current_price": 155.41,
+      "unrealised_pnl_pct": -4.448,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
+    },
+    {
+      "asset": "AAPL",
+      "market": "US",
+      "entry_date": "2026-10-22",
+      "entry_price": 343.79,
+      "hold_days_target": 20,
+      "size_pct": 2.5,
+      "ml_score": 90.9,
+      "val_auc": 0.596,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 65,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 13.1
+    },
+    {
+      "asset": "TSCO",
+      "market": "US",
+      "entry_date": "2026-10-22",
+      "entry_price": 31.855,
+      "hold_days_target": 20,
+      "size_pct": 7.2,
+      "ml_score": 62.0,
+      "val_auc": 0.522,
+      "strategy": "RSI(2)",
+      "tier": "B",
+      "score": 36,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 13.1
+    },
+    {
+      "asset": "ROK",
+      "market": "US",
+      "entry_date": "2026-10-22",
+      "entry_price": 421.55,
+      "hold_days_target": 20,
+      "size_pct": 2.2,
+      "ml_score": 75.4,
+      "val_auc": 0.518,
+      "strategy": "RSI",
+      "tier": "B",
+      "score": 33,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 13.1
+    },
+    {
+      "asset": "SPY",
+      "market": "US",
+      "entry_date": "2026-10-22",
+      "entry_price": 764.16,
+      "hold_days_target": 20,
+      "size_pct": 3.8,
+      "ml_score": 77.5,
+      "val_auc": 0.494,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 44,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 13.1
     }
   ],
   "closed": [
@@ -5642,13 +5621,121 @@
       "win": false,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "AAPL",
+      "market": "US",
+      "entry_date": "2026-10-08",
+      "entry_price": 338.666,
+      "hold_days_target": 20,
+      "size_pct": 1.7,
+      "ml_score": 91.4,
+      "val_auc": 0.596,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 66,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 10.3,
+      "exit_date": "2026-10-22",
+      "exit_price": 343.79,
+      "days_held": 10,
+      "pnl_pct": 1.513,
+      "peak_pnl_pct": 1.572,
+      "win": true,
+      "exit_reason": "HOLD_COMPLETE",
+      "checkpoints": {
+        "4": 1.268,
+        "10": 1.513
+      }
+    },
+    {
+      "asset": "ROK",
+      "market": "US",
+      "entry_date": "2026-10-08",
+      "entry_price": 432.405,
+      "hold_days_target": 20,
+      "size_pct": 2.0,
+      "ml_score": 89.9,
+      "val_auc": 0.515,
+      "strategy": "RSI",
+      "tier": "B",
+      "score": 33,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 10.3,
+      "exit_date": "2026-10-22",
+      "exit_price": 421.55,
+      "days_held": 10,
+      "pnl_pct": -2.51,
+      "peak_pnl_pct": 1.412,
+      "win": false,
+      "exit_reason": "HOLD_COMPLETE",
+      "checkpoints": {
+        "4": -2.078,
+        "10": -2.51
+      }
+    },
+    {
+      "asset": "SPY",
+      "market": "US",
+      "entry_date": "2026-10-08",
+      "entry_price": 774.7999,
+      "hold_days_target": 20,
+      "size_pct": 3.2,
+      "ml_score": 80.4,
+      "val_auc": 0.49,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 44,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 10.3,
+      "exit_date": "2026-10-22",
+      "exit_price": 764.16,
+      "days_held": 10,
+      "pnl_pct": -1.373,
+      "peak_pnl_pct": 0.487,
+      "win": false,
+      "exit_reason": "HOLD_COMPLETE",
+      "checkpoints": {
+        "4": -0.671,
+        "10": -1.373
+      }
+    },
+    {
+      "asset": "AME",
+      "market": "US",
+      "entry_date": "2026-10-14",
+      "entry_price": 248.485,
+      "hold_days_target": 20,
+      "size_pct": 1.5,
+      "ml_score": 63.5,
+      "val_auc": 0.593,
+      "strategy": "MA Crossover",
+      "tier": "B",
+      "score": 31,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 8.8,
+      "checkpoints": {
+        "4": -0.453
+      },
+      "exit_date": "2026-10-22",
+      "exit_price": 236.75,
+      "days_held": 6,
+      "pnl_pct": -4.723,
+      "peak_pnl_pct": 0.722,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     }
   ],
   "metadata": {
     "run": 21,
     "label": "Hold Test: Baseline R1 Config with 10-Day Max Hold (Run 21)",
     "created": "2026-07-14",
-    "total_logged": 226,
+    "total_logged": 230,
     "config": {
       "stop_loss_pct": 5.0,
       "take_profit_pct": 15.0,

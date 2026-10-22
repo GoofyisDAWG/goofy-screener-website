@@ -1,29 +1,5 @@
 {
-  "open": [
-    {
-      "asset": "AME",
-      "market": "US",
-      "entry_date": "2026-10-14",
-      "entry_price": 248.485,
-      "hold_days_target": 20,
-      "size_pct": 1.5,
-      "ml_score": 63.5,
-      "val_auc": 0.593,
-      "strategy": "MA Crossover",
-      "tier": "B",
-      "score": 31,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 8.8,
-      "current_price": 248.41,
-      "unrealised_pnl_pct": -0.03,
-      "days_held": 5,
-      "peak_pnl_pct": 0.014,
-      "checkpoints": {
-        "4": -0.453
-      }
-    }
-  ],
+  "open": [],
   "closed": [
     {
       "asset": "JPM",
@@ -224,6 +200,33 @@
       "win": false,
       "exit_reason": "STOP_LOSS",
       "checkpoints": {}
+    },
+    {
+      "asset": "AME",
+      "market": "US",
+      "entry_date": "2026-10-14",
+      "entry_price": 248.485,
+      "hold_days_target": 20,
+      "size_pct": 1.5,
+      "ml_score": 63.5,
+      "val_auc": 0.593,
+      "strategy": "MA Crossover",
+      "tier": "B",
+      "score": 31,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 8.8,
+      "checkpoints": {
+        "4": -0.453
+      },
+      "exit_date": "2026-10-22",
+      "exit_price": 236.75,
+      "days_held": 6,
+      "pnl_pct": -4.723,
+      "peak_pnl_pct": 0.722,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     }
   ],
   "metadata": {
