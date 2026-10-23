@@ -1,30 +1,6 @@
 {
   "open": [
     {
-      "asset": "GLD",
-      "market": "US",
-      "entry_date": "2026-09-25",
-      "entry_price": 390.91,
-      "hold_days_target": 20,
-      "size_pct": 16.9,
-      "ml_score": 86.9,
-      "val_auc": 0.47,
-      "strategy": "Mean Reversion",
-      "tier": "A",
-      "score": 49,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 11.1,
-      "current_price": 371.13,
-      "unrealised_pnl_pct": -5.06,
-      "days_held": 19,
-      "peak_pnl_pct": 0.0,
-      "checkpoints": {
-        "4": -2.085,
-        "10": -1.619
-      }
-    },
-    {
       "asset": "ROK",
       "market": "US",
       "entry_date": "2026-10-08",
@@ -39,14 +15,30 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.3,
-      "current_price": 421.55,
-      "unrealised_pnl_pct": -2.51,
-      "days_held": 10,
+      "current_price": 421.07,
+      "unrealised_pnl_pct": -2.621,
+      "days_held": 11,
       "peak_pnl_pct": 1.412,
       "checkpoints": {
         "4": -2.078,
-        "10": -2.51
+        "10": -1.974
       }
+    },
+    {
+      "asset": "GLD",
+      "market": "US",
+      "entry_date": "2026-10-23",
+      "entry_price": 367.55,
+      "hold_days_target": 20,
+      "size_pct": 17.7,
+      "ml_score": 84.2,
+      "val_auc": 0.458,
+      "strategy": "Mean Reversion",
+      "tier": "A",
+      "score": 46,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 14.5
     }
   ],
   "closed": [
@@ -392,13 +384,40 @@
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "STAND DOWN (VOL SPIKE)"
+    },
+    {
+      "asset": "GLD",
+      "market": "US",
+      "entry_date": "2026-09-25",
+      "entry_price": 390.91,
+      "hold_days_target": 20,
+      "size_pct": 16.9,
+      "ml_score": 86.9,
+      "val_auc": 0.47,
+      "strategy": "Mean Reversion",
+      "tier": "A",
+      "score": 49,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 11.1,
+      "exit_date": "2026-10-23",
+      "exit_price": 367.55,
+      "days_held": 20,
+      "pnl_pct": -5.976,
+      "peak_pnl_pct": 0.0,
+      "win": false,
+      "exit_reason": "HOLD_COMPLETE",
+      "checkpoints": {
+        "4": -2.085,
+        "10": -1.619
+      }
     }
   ],
   "metadata": {
     "run": 42,
     "label": "US Only: Proven Trio, US Market Filter, ML\u226570 (Run 42)",
     "created": "2026-07-20",
-    "total_logged": 15,
+    "total_logged": 16,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
