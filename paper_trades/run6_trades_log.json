@@ -87,9 +87,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.3,
-      "current_price": 421.07,
-      "unrealised_pnl_pct": -2.621,
-      "days_held": 11,
+      "current_price": 431.6,
+      "unrealised_pnl_pct": -0.186,
+      "days_held": 12,
       "peak_pnl_pct": 1.412,
       "checkpoints": {
         "4": -2.078,
@@ -111,9 +111,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.3,
-      "current_price": 760.33,
-      "unrealised_pnl_pct": -1.868,
-      "days_held": 11,
+      "current_price": 765.17,
+      "unrealised_pnl_pct": -1.243,
+      "days_held": 12,
       "peak_pnl_pct": 0.487,
       "checkpoints": {
         "4": -0.671,
@@ -204,11 +204,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 12.9,
-      "current_price": 348.425,
-      "unrealised_pnl_pct": 1.617,
-      "days_held": 3,
-      "peak_pnl_pct": 1.617,
-      "checkpoints": {}
+      "current_price": 344.57,
+      "unrealised_pnl_pct": 0.493,
+      "days_held": 4,
+      "peak_pnl_pct": 1.557,
+      "checkpoints": {
+        "4": 0.493
+      }
     },
     {
       "asset": "8015.T",
@@ -246,9 +248,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 12.8,
-      "current_price": 158.57,
-      "unrealised_pnl_pct": -2.505,
-      "days_held": 2,
+      "current_price": 162.12,
+      "unrealised_pnl_pct": -0.323,
+      "days_held": 3,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -267,10 +269,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 13.1,
-      "current_price": 33.945,
-      "unrealised_pnl_pct": 6.561,
-      "days_held": 1,
-      "peak_pnl_pct": 6.561,
+      "current_price": 33.055,
+      "unrealised_pnl_pct": 3.767,
+      "days_held": 2,
+      "peak_pnl_pct": 4.913,
       "checkpoints": {}
     },
     {
@@ -287,7 +289,12 @@
       "score": 61,
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
-      "spy_adx_at_entry": 14.5
+      "spy_adx_at_entry": 14.5,
+      "current_price": 52.035,
+      "unrealised_pnl_pct": 1.979,
+      "days_held": 1,
+      "peak_pnl_pct": 1.979,
+      "checkpoints": {}
     },
     {
       "asset": "CTAS",
@@ -303,7 +310,12 @@
       "score": 57,
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
-      "spy_adx_at_entry": 14.5
+      "spy_adx_at_entry": 14.5,
+      "current_price": 225.1525,
+      "unrealised_pnl_pct": 0.686,
+      "days_held": 1,
+      "peak_pnl_pct": 0.686,
+      "checkpoints": {}
     },
     {
       "asset": "NST.AX",
@@ -319,7 +331,12 @@
       "score": 25,
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
-      "spy_adx_at_entry": 14.5
+      "spy_adx_at_entry": 14.5,
+      "current_price": 24.83,
+      "unrealised_pnl_pct": 2.773,
+      "days_held": 1,
+      "peak_pnl_pct": 2.773,
+      "checkpoints": {}
     }
   ],
   "closed": [
