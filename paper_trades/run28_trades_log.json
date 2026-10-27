@@ -15,37 +15,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.3,
-      "current_price": 431.6,
-      "unrealised_pnl_pct": -0.186,
-      "days_held": 12,
+      "current_price": 437.01,
+      "unrealised_pnl_pct": 1.065,
+      "days_held": 13,
       "peak_pnl_pct": 1.412,
       "checkpoints": {
         "4": -2.078,
         "10": -1.974
-      }
-    },
-    {
-      "asset": "9531.T",
-      "market": "JPX",
-      "entry_date": "2026-10-08",
-      "entry_price": 6040.0,
-      "hold_days_target": 20,
-      "size_pct": 12.1,
-      "ml_score": 86.3,
-      "val_auc": 0.489,
-      "strategy": "Mean Reversion",
-      "tier": "S",
-      "score": 69,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 10.3,
-      "current_price": 6235.0,
-      "unrealised_pnl_pct": 3.228,
-      "days_held": 11,
-      "peak_pnl_pct": 3.245,
-      "checkpoints": {
-        "4": 0.232,
-        "10": 3.245
       }
     },
     {
@@ -63,14 +39,30 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 9.5,
-      "current_price": 2917.5,
-      "unrealised_pnl_pct": 2.44,
-      "days_held": 10,
-      "peak_pnl_pct": 2.44,
+      "current_price": 3030.0,
+      "unrealised_pnl_pct": 6.39,
+      "days_held": 11,
+      "peak_pnl_pct": 6.39,
       "checkpoints": {
         "4": -1.931,
         "10": 2.44
       }
+    },
+    {
+      "asset": "AKAM",
+      "market": "US",
+      "entry_date": "2026-10-27",
+      "entry_price": 99.525,
+      "hold_days_target": 20,
+      "size_pct": 7.8,
+      "ml_score": 85.0,
+      "val_auc": 0.533,
+      "strategy": "Mean Reversion",
+      "tier": "A",
+      "score": 53,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 14.7
     }
   ],
   "closed": [
@@ -862,13 +854,41 @@
         "4": 0.179,
         "10": 0.709
       }
+    },
+    {
+      "asset": "9531.T",
+      "market": "JPX",
+      "entry_date": "2026-10-08",
+      "entry_price": 6040.0,
+      "hold_days_target": 20,
+      "size_pct": 12.1,
+      "ml_score": 86.3,
+      "val_auc": 0.489,
+      "strategy": "Mean Reversion",
+      "tier": "S",
+      "score": 69,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 10.3,
+      "checkpoints": {
+        "4": 0.232,
+        "10": 3.245
+      },
+      "exit_date": "2026-10-27",
+      "exit_price": 6413.0,
+      "days_held": 13,
+      "pnl_pct": 6.175,
+      "peak_pnl_pct": 6.175,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
     }
   ],
   "metadata": {
     "run": 28,
     "label": "Phase 10A: Proven Trio + Tight Pullback 5% + RSI-65 Gate + 15d Cooldown (Run 28)",
     "created": "2026-07-18",
-    "total_logged": 33,
+    "total_logged": 34,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,

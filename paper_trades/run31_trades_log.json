@@ -1,30 +1,6 @@
 {
   "open": [
     {
-      "asset": "9531.T",
-      "market": "JPX",
-      "entry_date": "2026-10-08",
-      "entry_price": 6040.0,
-      "hold_days_target": 20,
-      "size_pct": 12.1,
-      "ml_score": 86.3,
-      "val_auc": 0.489,
-      "strategy": "Mean Reversion",
-      "tier": "S",
-      "score": 69,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 10.3,
-      "current_price": 6235.0,
-      "unrealised_pnl_pct": 3.228,
-      "days_held": 11,
-      "peak_pnl_pct": 3.245,
-      "checkpoints": {
-        "4": 0.232,
-        "10": 3.245
-      }
-    },
-    {
       "asset": "1802.T",
       "market": "JPX",
       "entry_date": "2026-10-09",
@@ -39,10 +15,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 9.5,
-      "current_price": 2917.5,
-      "unrealised_pnl_pct": 2.44,
-      "days_held": 10,
-      "peak_pnl_pct": 2.44,
+      "current_price": 3030.0,
+      "unrealised_pnl_pct": 6.39,
+      "days_held": 11,
+      "peak_pnl_pct": 6.39,
       "checkpoints": {
         "4": -1.931,
         "10": 2.44
@@ -373,6 +349,34 @@
       "days_held": 11,
       "pnl_pct": 7.265,
       "peak_pnl_pct": 7.265,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "9531.T",
+      "market": "JPX",
+      "entry_date": "2026-10-08",
+      "entry_price": 6040.0,
+      "hold_days_target": 20,
+      "size_pct": 12.1,
+      "ml_score": 86.3,
+      "val_auc": 0.489,
+      "strategy": "Mean Reversion",
+      "tier": "S",
+      "score": 69,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 10.3,
+      "checkpoints": {
+        "4": 0.232,
+        "10": 3.245
+      },
+      "exit_date": "2026-10-27",
+      "exit_price": 6413.0,
+      "days_held": 13,
+      "pnl_pct": 6.175,
+      "peak_pnl_pct": 6.175,
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
