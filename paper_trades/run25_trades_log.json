@@ -15,9 +15,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 10.3,
-      "current_price": 450.445,
-      "unrealised_pnl_pct": 4.172,
-      "days_held": 18,
+      "current_price": 442.805,
+      "unrealised_pnl_pct": 2.405,
+      "days_held": 19,
       "peak_pnl_pct": 4.393,
       "checkpoints": {
         "4": -2.078,
@@ -73,30 +73,6 @@
       }
     },
     {
-      "asset": "AAPL",
-      "market": "US",
-      "entry_date": "2026-10-20",
-      "entry_price": 342.88,
-      "hold_days_target": 20,
-      "size_pct": 2.3,
-      "ml_score": 90.9,
-      "val_auc": 0.603,
-      "strategy": "MACD",
-      "tier": "A",
-      "score": 66,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 12.9,
-      "current_price": 331.4,
-      "unrealised_pnl_pct": -3.348,
-      "days_held": 10,
-      "peak_pnl_pct": 1.759,
-      "checkpoints": {
-        "4": 0.3,
-        "10": -3.348
-      }
-    },
-    {
       "asset": "GLD",
       "market": "US",
       "entry_date": "2026-10-27",
@@ -111,9 +87,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 14.7,
-      "current_price": 359.89,
-      "unrealised_pnl_pct": -3.247,
-      "days_held": 5,
+      "current_price": 372.57,
+      "unrealised_pnl_pct": 0.161,
+      "days_held": 6,
       "peak_pnl_pct": 0.414,
       "checkpoints": {
         "4": -2.774
@@ -176,9 +152,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 16.0,
-      "current_price": 24.07,
-      "unrealised_pnl_pct": -0.0,
-      "days_held": 1,
+      "current_price": 23.6,
+      "unrealised_pnl_pct": -1.953,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -196,7 +172,12 @@
       "score": 32,
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
-      "spy_adx_at_entry": 16.9
+      "spy_adx_at_entry": 16.9,
+      "current_price": null,
+      "unrealised_pnl_pct": null,
+      "days_held": 1,
+      "peak_pnl_pct": 0.0,
+      "checkpoints": {}
     }
   ],
   "closed": [
@@ -2018,6 +1999,34 @@
       "checkpoints": {
         "4": -12.133
       }
+    },
+    {
+      "asset": "AAPL",
+      "market": "US",
+      "entry_date": "2026-10-20",
+      "entry_price": 342.88,
+      "hold_days_target": 20,
+      "size_pct": 2.3,
+      "ml_score": 90.9,
+      "val_auc": 0.603,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 66,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 12.9,
+      "checkpoints": {
+        "4": 0.3,
+        "10": -3.202
+      },
+      "exit_date": "2026-11-04",
+      "exit_price": 353.6699,
+      "days_held": 11,
+      "pnl_pct": 3.147,
+      "peak_pnl_pct": 3.147,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     }
   ],
   "metadata": {
