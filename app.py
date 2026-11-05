@@ -4055,14 +4055,15 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                              if lang == "en" else f"📂 保有中 ({len(_run_open)}件)")
                 st.markdown(f"**{_open_hdr}**")
                 _od = _run_open[["asset","market","strategy","entry_date","days_held","pnl_pct","tier","ml_score"]].copy()
-                _od.columns = (
+                _od["pnl_pct"] = _od["pnl_pct"].round(2)
+                _od_cols = (
                     ["Stock","Market","Strategy","Entry Date","Days Held","P&L %","Tier","ML"]
                     if lang == "en" else
                     ["銘柄","市場","戦略","エントリー日","保有日数","損益%","ティア","ML"]
                 )
-                _od["P&L %"] = _od["P&L %"].round(2)
+                _od.columns = _od_cols
                 st.dataframe(
-                    _od.style.map(_pnl_color, subset=["P&L %"]),
+                    _od.style.map(_pnl_color, subset=[_od_cols[5]]),
                     use_container_width=True, hide_index=True,
                 )
 
@@ -4073,14 +4074,15 @@ The leaderboard above updates automatically — the top 3 are the runs producing
                 with st.expander(_closed_hdr, expanded=False):
                     _cd = dc[["asset","market","strategy","entry_date","exit_date","days_held","pnl_pct","exit_reason","tier","ml_score"]].copy()
                     _cd = _cd.sort_values("exit_date", ascending=False)
-                    _cd.columns = (
+                    _cd["pnl_pct"] = _cd["pnl_pct"].round(2)
+                    _cd_cols = (
                         ["Stock","Market","Strategy","Entry","Exit","Days","P&L %","Exit Reason","Tier","ML"]
                         if lang == "en" else
                         ["銘柄","市場","戦略","エントリー","決済日","日数","損益%","決済理由","ティア","ML"]
                     )
-                    _cd["P&L %"] = _cd["P&L %"].round(2)
+                    _cd.columns = _cd_cols
                     st.dataframe(
-                        _cd.style.map(_pnl_color, subset=["P&L %"]),
+                        _cd.style.map(_pnl_color, subset=[_cd_cols[6]]),
                         use_container_width=True, hide_index=True, height=400,
                     )
 
