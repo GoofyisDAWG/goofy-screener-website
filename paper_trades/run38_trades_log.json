@@ -1,5 +1,22 @@
 {
-  "open": [],
+  "open": [
+    {
+      "asset": "4004.T",
+      "market": "JPX",
+      "entry_date": "2026-11-06",
+      "entry_price": 11335.0,
+      "hold_days_target": 20,
+      "size_pct": 3.2,
+      "ml_score": 64.5,
+      "val_auc": 0.525,
+      "strategy": "MA Crossover",
+      "tier": "B",
+      "score": 49,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 17.8
+    }
+  ],
   "closed": [
     {
       "asset": "JPM",
@@ -233,7 +250,7 @@
     "run": 38,
     "label": "Family A: Trend Following Only \u2014 MA Crossover, ADX, Supertrend, Ichimoku (Run 38)",
     "created": "2026-07-20",
-    "total_logged": 9,
+    "total_logged": 10,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
