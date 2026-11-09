@@ -1,5 +1,22 @@
 {
-  "open": [],
+  "open": [
+    {
+      "asset": "9531.T",
+      "market": "JPX",
+      "entry_date": "2026-11-09",
+      "entry_price": 6214.0,
+      "hold_days_target": 20,
+      "size_pct": 8.6,
+      "ml_score": 91.4,
+      "val_auc": 0.487,
+      "strategy": "Mean Reversion",
+      "tier": "S",
+      "score": 69,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 17.2
+    }
+  ],
   "closed": [
     {
       "asset": "AMC.AX",
@@ -426,7 +443,7 @@
     "run": 61,
     "label": "Concentrated Champions \u2014 ML\u226585, Proven trio, Fund gate, Tier S+A, max 10 (Run 61)",
     "created": "2026-07-31",
-    "total_logged": 16,
+    "total_logged": 17,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,

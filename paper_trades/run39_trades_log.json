@@ -15,37 +15,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 8.8,
-      "current_price": 3503.0,
-      "unrealised_pnl_pct": 9.881,
-      "days_held": 16,
+      "current_price": 3260.0,
+      "unrealised_pnl_pct": 2.258,
+      "days_held": 17,
       "peak_pnl_pct": 9.881,
       "checkpoints": {
         "4": 5.019,
         "10": 3.607
-      }
-    },
-    {
-      "asset": "6305.T",
-      "market": "JPX",
-      "entry_date": "2026-10-15",
-      "entry_price": 5263.0,
-      "hold_days_target": 20,
-      "size_pct": 0.1,
-      "ml_score": 61.2,
-      "val_auc": 0.527,
-      "strategy": "MACD",
-      "tier": "B",
-      "score": 31,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 10.1,
-      "current_price": 5250.0,
-      "unrealised_pnl_pct": -0.247,
-      "days_held": 15,
-      "peak_pnl_pct": 3.933,
-      "checkpoints": {
-        "4": 2.793,
-        "10": -3.002
       }
     },
     {
@@ -63,11 +39,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 16.0,
-      "current_price": 28985.0,
-      "unrealised_pnl_pct": 11.032,
-      "days_held": 3,
+      "current_price": 27350.0,
+      "unrealised_pnl_pct": 4.769,
+      "days_held": 4,
       "peak_pnl_pct": 11.032,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": 4.769
+      }
     },
     {
       "asset": "XOM",
@@ -84,11 +62,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 16.9,
-      "current_price": 166.675,
-      "unrealised_pnl_pct": -6.077,
-      "days_held": 3,
+      "current_price": 163.8,
+      "unrealised_pnl_pct": -7.698,
+      "days_held": 4,
       "peak_pnl_pct": 0.0,
-      "checkpoints": {}
+      "checkpoints": {
+        "4": -7.698
+      }
     },
     {
       "asset": "SLB",
@@ -105,9 +85,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 16.0,
-      "current_price": 51.25,
-      "unrealised_pnl_pct": -0.601,
-      "days_held": 2,
+      "current_price": 50.57,
+      "unrealised_pnl_pct": -1.92,
+      "days_held": 3,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -126,9 +106,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 16.0,
-      "current_price": 40.34,
-      "unrealised_pnl_pct": -0.05,
-      "days_held": 2,
+      "current_price": 39.05,
+      "unrealised_pnl_pct": -3.246,
+      "days_held": 3,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -147,11 +127,43 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 16.7,
-      "current_price": 344.68,
-      "unrealised_pnl_pct": 0.148,
-      "days_held": 1,
-      "peak_pnl_pct": 0.148,
+      "current_price": 351.7001,
+      "unrealised_pnl_pct": 2.188,
+      "days_held": 2,
+      "peak_pnl_pct": 2.188,
       "checkpoints": {}
+    },
+    {
+      "asset": "EMR",
+      "market": "US",
+      "entry_date": "2026-11-09",
+      "entry_price": 171.34,
+      "hold_days_target": 20,
+      "size_pct": 4.7,
+      "ml_score": 56.8,
+      "val_auc": 0.493,
+      "strategy": "MACD",
+      "tier": "B",
+      "score": 40,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 17.2
+    },
+    {
+      "asset": "8411.T",
+      "market": "JPX",
+      "entry_date": "2026-11-09",
+      "entry_price": 7199.0,
+      "hold_days_target": 20,
+      "size_pct": 1.3,
+      "ml_score": 63.4,
+      "val_auc": 0.566,
+      "strategy": "MACD",
+      "tier": "B",
+      "score": 42,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 17.2
     }
   ],
   "closed": [
@@ -1566,13 +1578,40 @@
       "win": false,
       "exit_reason": "STOP_LOSS",
       "checkpoints": {}
+    },
+    {
+      "asset": "6305.T",
+      "market": "JPX",
+      "entry_date": "2026-10-15",
+      "entry_price": 5263.0,
+      "hold_days_target": 20,
+      "size_pct": 0.1,
+      "ml_score": 61.2,
+      "val_auc": 0.527,
+      "strategy": "MACD",
+      "tier": "B",
+      "score": 31,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 10.1,
+      "exit_date": "2026-11-06",
+      "exit_price": 4827.0,
+      "days_held": 16,
+      "pnl_pct": -8.284,
+      "peak_pnl_pct": 3.933,
+      "win": false,
+      "exit_reason": "STOP_LOSS",
+      "checkpoints": {
+        "4": 2.793,
+        "10": -3.002
+      }
     }
   ],
   "metadata": {
     "run": 39,
     "label": "Family B: Momentum/Breakout Only \u2014 MACD, Donchian, Vol Break, BB Squeeze, Gap Mom (Run 39)",
     "created": "2026-07-20",
-    "total_logged": 62,
+    "total_logged": 64,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
