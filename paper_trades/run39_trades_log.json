@@ -15,9 +15,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 8.8,
-      "current_price": 3427.0,
-      "unrealised_pnl_pct": 7.497,
-      "days_held": 18,
+      "current_price": 3405.0,
+      "unrealised_pnl_pct": 6.807,
+      "days_held": 19,
       "peak_pnl_pct": 9.881,
       "checkpoints": {
         "4": 5.019,
@@ -39,58 +39,12 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 16.0,
-      "current_price": 28555.0,
-      "unrealised_pnl_pct": 9.385,
-      "days_held": 5,
+      "current_price": 28975.0,
+      "unrealised_pnl_pct": 10.994,
+      "days_held": 6,
       "peak_pnl_pct": 11.032,
       "checkpoints": {
         "4": 4.769
-      }
-    },
-    {
-      "asset": "SLB",
-      "market": "US",
-      "entry_date": "2026-11-04",
-      "entry_price": 51.56,
-      "hold_days_target": 20,
-      "size_pct": 2.4,
-      "ml_score": 57.9,
-      "val_auc": 0.432,
-      "strategy": "MACD",
-      "tier": "A",
-      "score": 60,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 16.0,
-      "current_price": 49.95,
-      "unrealised_pnl_pct": -3.123,
-      "days_held": 4,
-      "peak_pnl_pct": 0.0,
-      "checkpoints": {
-        "4": -3.123
-      }
-    },
-    {
-      "asset": "ANZ.AX",
-      "market": "ASX",
-      "entry_date": "2026-11-04",
-      "entry_price": 40.36,
-      "hold_days_target": 20,
-      "size_pct": 2.0,
-      "ml_score": 74.4,
-      "val_auc": 0.491,
-      "strategy": "MACD",
-      "tier": "A",
-      "score": 45,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 16.0,
-      "current_price": 39.44,
-      "unrealised_pnl_pct": -2.279,
-      "days_held": 4,
-      "peak_pnl_pct": 0.0,
-      "checkpoints": {
-        "4": -2.279
       }
     },
     {
@@ -108,11 +62,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 16.7,
-      "current_price": 348.05,
-      "unrealised_pnl_pct": 1.127,
-      "days_held": 3,
-      "peak_pnl_pct": 1.894,
-      "checkpoints": {}
+      "current_price": 354.33,
+      "unrealised_pnl_pct": 2.952,
+      "days_held": 4,
+      "peak_pnl_pct": 2.952,
+      "checkpoints": {
+        "4": 2.952
+      }
     },
     {
       "asset": "EMR",
@@ -129,9 +85,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 17.2,
-      "current_price": 167.015,
-      "unrealised_pnl_pct": -1.478,
-      "days_held": 1,
+      "current_price": 168.67,
+      "unrealised_pnl_pct": -0.501,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -150,10 +106,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 17.2,
-      "current_price": null,
-      "unrealised_pnl_pct": null,
+      "current_price": 7907.0,
+      "unrealised_pnl_pct": 4.466,
       "days_held": 1,
-      "peak_pnl_pct": 0.0,
+      "peak_pnl_pct": 4.466,
       "checkpoints": {}
     }
   ],
@@ -1623,6 +1579,60 @@
       "win": false,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "STAND DOWN (VOL SPIKE)"
+    },
+    {
+      "asset": "SLB",
+      "market": "US",
+      "entry_date": "2026-11-04",
+      "entry_price": 51.56,
+      "hold_days_target": 20,
+      "size_pct": 2.4,
+      "ml_score": 57.9,
+      "val_auc": 0.432,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 60,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 16.0,
+      "checkpoints": {
+        "4": -3.22
+      },
+      "exit_date": "2026-11-11",
+      "exit_price": 51.085,
+      "days_held": 5,
+      "pnl_pct": -0.921,
+      "peak_pnl_pct": 0.0,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "ANZ.AX",
+      "market": "ASX",
+      "entry_date": "2026-11-04",
+      "entry_price": 40.36,
+      "hold_days_target": 20,
+      "size_pct": 2.0,
+      "ml_score": 74.4,
+      "val_auc": 0.491,
+      "strategy": "MACD",
+      "tier": "A",
+      "score": 45,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 16.0,
+      "checkpoints": {
+        "4": -2.279
+      },
+      "exit_date": "2026-11-11",
+      "exit_price": 39.98,
+      "days_held": 5,
+      "pnl_pct": -0.942,
+      "peak_pnl_pct": 0.0,
+      "win": false,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "ML HOLD"
     }
   ],
   "metadata": {
