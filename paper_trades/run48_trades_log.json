@@ -15,9 +15,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 13.4,
-      "current_price": 4237.0,
-      "unrealised_pnl_pct": 7.647,
-      "days_held": 8,
+      "current_price": 4200.0,
+      "unrealised_pnl_pct": 6.707,
+      "days_held": 9,
       "peak_pnl_pct": 9.172,
       "checkpoints": {
         "4": -0.076
@@ -38,35 +38,12 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 13.4,
-      "current_price": 4740.0,
-      "unrealised_pnl_pct": 5.333,
-      "days_held": 8,
+      "current_price": 4729.0,
+      "unrealised_pnl_pct": 5.089,
+      "days_held": 9,
       "peak_pnl_pct": 6.867,
       "checkpoints": {
         "4": 1.933
-      }
-    },
-    {
-      "asset": "2897.T",
-      "market": "JPX",
-      "entry_date": "2026-10-30",
-      "entry_price": 3040.0,
-      "hold_days_target": 20,
-      "size_pct": 10.1,
-      "ml_score": 73.6,
-      "val_auc": 0.494,
-      "strategy": "RSI",
-      "tier": "B",
-      "score": 41,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 14.4,
-      "current_price": 3132.0,
-      "unrealised_pnl_pct": 3.026,
-      "days_held": 7,
-      "peak_pnl_pct": 5.724,
-      "checkpoints": {
-        "4": 5.724
       }
     },
     {
@@ -84,9 +61,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 16.7,
-      "current_price": 153.87,
-      "unrealised_pnl_pct": 0.542,
-      "days_held": 4,
+      "current_price": 150.57,
+      "unrealised_pnl_pct": -1.614,
+      "days_held": 5,
       "peak_pnl_pct": 0.542,
       "checkpoints": {
         "4": 0.542
@@ -107,9 +84,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 17.8,
-      "current_price": 3872.0,
-      "unrealised_pnl_pct": 9.101,
-      "days_held": 2,
+      "current_price": 3855.0,
+      "unrealised_pnl_pct": 8.622,
+      "days_held": 3,
       "peak_pnl_pct": 9.101,
       "checkpoints": {}
     },
@@ -128,9 +105,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 17.2,
-      "current_price": 1320.0,
-      "unrealised_pnl_pct": -0.377,
-      "days_held": 1,
+      "current_price": 1294.0,
+      "unrealised_pnl_pct": -2.34,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -149,9 +126,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 17.2,
-      "current_price": 2511.0,
-      "unrealised_pnl_pct": -0.869,
-      "days_held": 1,
+      "current_price": 2501.0,
+      "unrealised_pnl_pct": -1.263,
+      "days_held": 2,
       "peak_pnl_pct": 0.0,
       "checkpoints": {}
     },
@@ -170,10 +147,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 17.2,
-      "current_price": 3112.0,
-      "unrealised_pnl_pct": 2.402,
-      "days_held": 1,
-      "peak_pnl_pct": 2.402,
+      "current_price": 3136.0,
+      "unrealised_pnl_pct": 3.192,
+      "days_held": 2,
+      "peak_pnl_pct": 3.192,
       "checkpoints": {}
     },
     {
@@ -191,10 +168,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 17.2,
-      "current_price": 6440.0,
-      "unrealised_pnl_pct": 1.449,
-      "days_held": 1,
-      "peak_pnl_pct": 1.449,
+      "current_price": 6471.0,
+      "unrealised_pnl_pct": 1.938,
+      "days_held": 2,
+      "peak_pnl_pct": 1.938,
       "checkpoints": {}
     }
   ],
@@ -1714,6 +1691,32 @@
       "win": false,
       "exit_reason": "STOP_LOSS",
       "checkpoints": {}
+    },
+    {
+      "asset": "2897.T",
+      "market": "JPX",
+      "entry_date": "2026-10-30",
+      "entry_price": 3040.0,
+      "hold_days_target": 20,
+      "size_pct": 10.1,
+      "ml_score": 73.6,
+      "val_auc": 0.494,
+      "strategy": "RSI",
+      "tier": "B",
+      "score": 41,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 14.4,
+      "exit_date": "2026-11-11",
+      "exit_price": 2900.0,
+      "days_held": 8,
+      "pnl_pct": -4.605,
+      "peak_pnl_pct": 5.724,
+      "win": false,
+      "exit_reason": "TRAILING_STOP",
+      "checkpoints": {
+        "4": 5.724
+      }
     }
   ],
   "metadata": {
