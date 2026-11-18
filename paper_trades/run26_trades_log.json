@@ -1,29 +1,6 @@
 {
   "open": [
     {
-      "asset": "RIO.AX",
-      "market": "ASX",
-      "entry_date": "2026-11-05",
-      "entry_price": 153.04,
-      "hold_days_target": 20,
-      "size_pct": 9.6,
-      "ml_score": 80.1,
-      "val_auc": 0.536,
-      "strategy": "RSI",
-      "tier": "A",
-      "score": 68,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 16.7,
-      "current_price": 143.21,
-      "unrealised_pnl_pct": -6.423,
-      "days_held": 8,
-      "peak_pnl_pct": 0.542,
-      "checkpoints": {
-        "4": 0.542
-      }
-    },
-    {
       "asset": "7741.T",
       "market": "JPX",
       "entry_date": "2026-11-06",
@@ -38,35 +15,12 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 17.8,
-      "current_price": 23385.0,
-      "unrealised_pnl_pct": 4.421,
-      "days_held": 6,
+      "current_price": 23280.0,
+      "unrealised_pnl_pct": 3.952,
+      "days_held": 7,
       "peak_pnl_pct": 7.569,
       "checkpoints": {
         "4": 7.569
-      }
-    },
-    {
-      "asset": "AKAM",
-      "market": "US",
-      "entry_date": "2026-11-10",
-      "entry_price": 83.71,
-      "hold_days_target": 20,
-      "size_pct": 6.2,
-      "ml_score": 94.3,
-      "val_auc": 0.524,
-      "strategy": "Mean Reversion",
-      "tier": "B",
-      "score": 42,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 16.7,
-      "current_price": 83.835,
-      "unrealised_pnl_pct": 0.149,
-      "days_held": 5,
-      "peak_pnl_pct": 3.548,
-      "checkpoints": {
-        "4": 0.526
       }
     },
     {
@@ -84,9 +38,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 14.6,
-      "current_price": 1387.0,
-      "unrealised_pnl_pct": 5.116,
-      "days_held": 2,
+      "current_price": 1359.0,
+      "unrealised_pnl_pct": 2.994,
+      "days_held": 3,
       "peak_pnl_pct": 5.116,
       "checkpoints": {}
     }
@@ -398,6 +352,59 @@
       "checkpoints": {
         "4": 10.474
       }
+    },
+    {
+      "asset": "RIO.AX",
+      "market": "ASX",
+      "entry_date": "2026-11-05",
+      "entry_price": 153.04,
+      "hold_days_target": 20,
+      "size_pct": 9.6,
+      "ml_score": 80.1,
+      "val_auc": 0.536,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 68,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 16.7,
+      "exit_date": "2026-11-18",
+      "exit_price": 140.72,
+      "days_held": 9,
+      "pnl_pct": -8.05,
+      "peak_pnl_pct": 0.542,
+      "win": false,
+      "exit_reason": "STOP_LOSS",
+      "checkpoints": {
+        "4": 0.542
+      }
+    },
+    {
+      "asset": "AKAM",
+      "market": "US",
+      "entry_date": "2026-11-10",
+      "entry_price": 83.71,
+      "hold_days_target": 20,
+      "size_pct": 6.2,
+      "ml_score": 94.3,
+      "val_auc": 0.524,
+      "strategy": "Mean Reversion",
+      "tier": "B",
+      "score": 42,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 16.7,
+      "checkpoints": {
+        "4": 0.526
+      },
+      "exit_date": "2026-11-18",
+      "exit_price": 92.75,
+      "days_held": 6,
+      "pnl_pct": 10.799,
+      "peak_pnl_pct": 10.799,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     }
   ],
   "metadata": {

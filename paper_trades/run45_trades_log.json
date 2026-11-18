@@ -1,50 +1,20 @@
 {
   "open": [
     {
-      "asset": "RIO.AX",
-      "market": "ASX",
-      "entry_date": "2026-11-05",
-      "entry_price": 153.04,
+      "asset": "6273.T",
+      "market": "JPX",
+      "entry_date": "2026-11-18",
+      "entry_price": 58840.0,
       "hold_days_target": 20,
-      "size_pct": 9.6,
-      "ml_score": 80.1,
-      "val_auc": 0.536,
-      "strategy": "RSI",
-      "tier": "A",
-      "score": 68,
-      "p7_verdict": "TRADE",
-      "adaptive_throttled": false,
-      "spy_adx_at_entry": 16.7,
-      "current_price": 143.21,
-      "unrealised_pnl_pct": -6.423,
-      "days_held": 8,
-      "peak_pnl_pct": 0.542,
-      "checkpoints": {
-        "4": 0.542
-      }
-    },
-    {
-      "asset": "AKAM",
-      "market": "US",
-      "entry_date": "2026-11-10",
-      "entry_price": 83.71,
-      "hold_days_target": 20,
-      "size_pct": 6.2,
-      "ml_score": 94.3,
-      "val_auc": 0.524,
+      "size_pct": 6.4,
+      "ml_score": 80.3,
+      "val_auc": 0.574,
       "strategy": "Mean Reversion",
       "tier": "B",
       "score": 42,
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
-      "spy_adx_at_entry": 16.7,
-      "current_price": 83.835,
-      "unrealised_pnl_pct": 0.149,
-      "days_held": 5,
-      "peak_pnl_pct": 3.548,
-      "checkpoints": {
-        "4": 0.526
-      }
+      "spy_adx_at_entry": 15.8
     }
   ],
   "closed": [
@@ -630,13 +600,66 @@
       "win": true,
       "exit_reason": "SIGNAL_REVERSAL",
       "reversal_verdict": "ML HOLD"
+    },
+    {
+      "asset": "RIO.AX",
+      "market": "ASX",
+      "entry_date": "2026-11-05",
+      "entry_price": 153.04,
+      "hold_days_target": 20,
+      "size_pct": 9.6,
+      "ml_score": 80.1,
+      "val_auc": 0.536,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 68,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 16.7,
+      "exit_date": "2026-11-18",
+      "exit_price": 140.72,
+      "days_held": 9,
+      "pnl_pct": -8.05,
+      "peak_pnl_pct": 0.542,
+      "win": false,
+      "exit_reason": "STOP_LOSS",
+      "checkpoints": {
+        "4": 0.542
+      }
+    },
+    {
+      "asset": "AKAM",
+      "market": "US",
+      "entry_date": "2026-11-10",
+      "entry_price": 83.71,
+      "hold_days_target": 20,
+      "size_pct": 6.2,
+      "ml_score": 94.3,
+      "val_auc": 0.524,
+      "strategy": "Mean Reversion",
+      "tier": "B",
+      "score": 42,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 16.7,
+      "checkpoints": {
+        "4": 0.526
+      },
+      "exit_date": "2026-11-18",
+      "exit_price": 92.75,
+      "days_held": 6,
+      "pnl_pct": 10.799,
+      "peak_pnl_pct": 10.799,
+      "win": true,
+      "exit_reason": "SIGNAL_REVERSAL",
+      "reversal_verdict": "STAND DOWN (VOL SPIKE)"
     }
   ],
   "metadata": {
     "run": 45,
     "label": "Earnings Blackout: All-In Premium R27 + Blackout (Run 45)",
     "created": "2026-07-20",
-    "total_logged": 25,
+    "total_logged": 26,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
