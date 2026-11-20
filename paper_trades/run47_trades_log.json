@@ -15,9 +15,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 16.0,
-      "current_price": 4580.0,
-      "unrealised_pnl_pct": -4.801,
-      "days_held": 10,
+      "current_price": 4600.0,
+      "unrealised_pnl_pct": -4.386,
+      "days_held": 11,
       "peak_pnl_pct": 3.263,
       "checkpoints": {
         "4": 2.016,
@@ -39,9 +39,9 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 17.8,
-      "current_price": 23480.0,
-      "unrealised_pnl_pct": 4.845,
-      "days_held": 8,
+      "current_price": 23570.0,
+      "unrealised_pnl_pct": 5.247,
+      "days_held": 9,
       "peak_pnl_pct": 7.569,
       "checkpoints": {
         "4": 7.569
@@ -62,13 +62,29 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 14.6,
-      "current_price": 1354.0,
-      "unrealised_pnl_pct": 2.615,
-      "days_held": 4,
+      "current_price": 1374.5,
+      "unrealised_pnl_pct": 4.168,
+      "days_held": 5,
       "peak_pnl_pct": 5.116,
       "checkpoints": {
         "4": 2.615
       }
+    },
+    {
+      "asset": "6326.T",
+      "market": "JPX",
+      "entry_date": "2026-11-20",
+      "entry_price": 2400.5,
+      "hold_days_target": 20,
+      "size_pct": 12.5,
+      "ml_score": 70.2,
+      "val_auc": 0.549,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 56,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 19.2
     }
   ],
   "closed": [
@@ -384,7 +400,7 @@
     "run": 47,
     "label": "Full Stack: Proven Trio + Blackout + Volume 1.5\u00d7, ML\u226570 (Run 47)",
     "created": "2026-07-20",
-    "total_logged": 15,
+    "total_logged": 16,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
