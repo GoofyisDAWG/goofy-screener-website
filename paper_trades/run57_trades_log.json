@@ -15,11 +15,27 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 15.0,
-      "current_price": 4600.0,
-      "unrealised_pnl_pct": 0.305,
-      "days_held": 2,
+      "current_price": 4364.0,
+      "unrealised_pnl_pct": -4.841,
+      "days_held": 3,
       "peak_pnl_pct": 0.305,
       "checkpoints": {}
+    },
+    {
+      "asset": "KR",
+      "market": "US",
+      "entry_date": "2026-11-23",
+      "entry_price": 67.17,
+      "hold_days_target": 20,
+      "size_pct": 10.9,
+      "ml_score": 79.3,
+      "val_auc": 0.475,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 54,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 21.0
     }
   ],
   "closed": [
@@ -680,7 +696,7 @@
     "run": 57,
     "label": "Concentrated Mean Reversion \u2014 RSI + Mean Rev + RSI(2), Tier S+A, max 10 (Run 57)",
     "created": "2026-07-31",
-    "total_logged": 26,
+    "total_logged": 27,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
