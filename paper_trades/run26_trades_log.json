@@ -23,6 +23,22 @@
         "4": 7.569,
         "10": 2.188
       }
+    },
+    {
+      "asset": "6273.T",
+      "market": "JPX",
+      "entry_date": "2026-11-24",
+      "entry_price": 55300.0,
+      "hold_days_target": 20,
+      "size_pct": 6.0,
+      "ml_score": 85.2,
+      "val_auc": 0.575,
+      "strategy": "Mean Reversion",
+      "tier": "B",
+      "score": 39,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 22.3
     }
   ],
   "closed": [
@@ -417,7 +433,7 @@
     "run": 26,
     "label": "Volume Surge + Proven Winners: Block 4 Losers + Vol\u22651.5\u00d7, ML\u226575 (Run 26)",
     "created": "2026-07-16",
-    "total_logged": 16,
+    "total_logged": 17,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
