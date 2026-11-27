@@ -15,10 +15,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 16.7,
-      "current_price": 355.58,
-      "unrealised_pnl_pct": 3.394,
-      "days_held": 14,
-      "peak_pnl_pct": 3.594,
+      "current_price": 358.54,
+      "unrealised_pnl_pct": 4.254,
+      "days_held": 16,
+      "peak_pnl_pct": 4.254,
       "checkpoints": {
         "4": 3.33,
         "10": 1.541
@@ -39,12 +39,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 14.6,
-      "current_price": 3735.0,
-      "unrealised_pnl_pct": 9.019,
-      "days_held": 9,
-      "peak_pnl_pct": 9.019,
+      "current_price": 3753.0,
+      "unrealised_pnl_pct": 9.545,
+      "days_held": 10,
+      "peak_pnl_pct": 9.545,
       "checkpoints": {
-        "4": 6.013
+        "4": 6.013,
+        "10": 9.545
       }
     },
     {
@@ -62,10 +63,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 17.1,
-      "current_price": 227.65,
-      "unrealised_pnl_pct": 3.988,
-      "days_held": 4,
-      "peak_pnl_pct": 3.988,
+      "current_price": 228.58,
+      "unrealised_pnl_pct": 4.413,
+      "days_held": 6,
+      "peak_pnl_pct": 4.413,
       "checkpoints": {
         "4": 3.988
       }
@@ -85,10 +86,10 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 19.2,
-      "current_price": 34.07,
-      "unrealised_pnl_pct": -2.934,
-      "days_held": 4,
-      "peak_pnl_pct": 0.0,
+      "current_price": 35.17,
+      "unrealised_pnl_pct": 0.199,
+      "days_held": 5,
+      "peak_pnl_pct": 0.199,
       "checkpoints": {
         "4": -2.934
       }
@@ -108,11 +109,13 @@
       "p7_verdict": "TRADE",
       "adaptive_throttled": false,
       "spy_adx_at_entry": 19.2,
-      "current_price": 31080.0,
-      "unrealised_pnl_pct": 4.523,
-      "days_held": 3,
-      "peak_pnl_pct": 4.523,
-      "checkpoints": {}
+      "current_price": 31190.0,
+      "unrealised_pnl_pct": 4.893,
+      "days_held": 4,
+      "peak_pnl_pct": 4.893,
+      "checkpoints": {
+        "4": 4.893
+      }
     }
   ],
   "closed": [

@@ -1,5 +1,22 @@
 {
-  "open": [],
+  "open": [
+    {
+      "asset": "6503.T",
+      "market": "JPX",
+      "entry_date": "2026-11-27",
+      "entry_price": 4457.0,
+      "hold_days_target": 20,
+      "size_pct": 10.6,
+      "ml_score": 87.3,
+      "val_auc": 0.465,
+      "strategy": "RSI",
+      "tier": "A",
+      "score": 55,
+      "p7_verdict": "TRADE",
+      "adaptive_throttled": false,
+      "spy_adx_at_entry": 24.9
+    }
+  ],
   "closed": [
     {
       "asset": "ORI.AX",
@@ -654,7 +671,7 @@
     "run": 58,
     "label": "Concentrated Quality \u2014 Fund gate \u22655/8, ML\u226580, Tier S+A, max 10 (Run 58)",
     "created": "2026-07-31",
-    "total_logged": 25,
+    "total_logged": 26,
     "config": {
       "stop_loss_pct": 8.0,
       "take_profit_pct": 15.0,
